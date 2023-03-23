@@ -1,109 +1,56 @@
-import csstype.AlignItems
-import csstype.Padding
-import csstype.px
+import kotlinx.browser.window
 import mui.icons.material.*
 import mui.material.*
-import mui.material.styles.TypographyVariant
-import mui.system.responsive
-import mui.system.sx
+import npm.FileSaverJs
+import npm.JSZip
+import org.w3c.files.Blob
 import react.*
 import react.dom.client.createRoot
-import react.dom.html.ReactHTML.img
-import react.dom.onChange
+import ui.App
 import web.dom.document
 import web.html.HTML
-import web.html.HTMLInputElement
+import wizard.ProjectInfo
+import wizard.buildFiles
+import wizard.files.GradleWrapperJar
+import wizard.files.Gradlew
+import wizard.safeName
 
 fun main() {
-    val root = document.createElement(HTML.div)
-        .also { document.body.appendChild(it) }
-    createRoot(root).render(App.create())
+    val root = document.createElement(HTML.div).also { document.body.appendChild(it) }
+    createRoot(root).render(
+        App.create {
+            generate = { generateProject(it) }
+        }
+    )
 }
 
-val App = FC<Props> {
-    ThemeModule {
-        Container {
-            sx {
-                padding = Padding(24.px, 24.px)
-                minWidth = 650.px
+private fun generateProject(project: ProjectInfo) {
+    window.fetch("./binaries/gradle-wrapper")
+        .then { response -> response.arrayBuffer() }
+        .then { gradleWrapperBlob ->
+            val zip = JSZip()
+            project.buildFiles().forEach { file ->
+                when (file) {
+                    is GradleWrapperJar -> zip.file(
+                        file.path,
+                        gradleWrapperBlob
+                    )
+
+                    is Gradlew -> zip.file(
+                        file.path,
+                        file.content,
+                        js("""{unixPermissions:"774"}""") //execution rights
+                    )
+
+                    else -> zip.file(
+                        file.path,
+                        file.content
+                    )
+                }
             }
-            Paper {
-                var projectName by useState("ComposeApp")
-                val withAndroid = useState(true)
-                val withIPhone = useState(true)
-                val withDesktop = useState(true)
-
-                sx {
-                    padding = Padding(24.px, 24.px)
-                }
-
-                Stack {
-                    direction = responsive(StackDirection.column)
-                    spacing = responsive(2)
-                    sx {
-                        alignItems = AlignItems.center
-                    }
-
-                    Stack {
-                        direction = responsive(StackDirection.row)
-                        spacing = responsive(2)
-                        sx {
-                            alignItems = AlignItems.center
-                        }
-                        img {
-                            src = "compose-logo.svg"
-                            width = 150.0
-                            height = 150.0
-                        }
-                        Typography {
-                            variant = TypographyVariant.h3
-                            +"Compose Multiplatform Wizard"
-                        }
-                    }
-
-                    TextField {
-                        label = ReactNode("Project name")
-                        sx {
-                            width = 424.px
-                        }
-                        value = projectName
-                        onChange = { event ->
-                            projectName = (event.target as HTMLInputElement).value
-                        }
-                    }
-
-                    ButtonGroup {
-                        disableElevation = true
-                        TargetButton {
-                            selection = withAndroid
-                            icon = Android
-                            title = "Android"
-                        }
-                        TargetButton {
-                            selection = withIPhone
-                            icon = Apple
-                            title = "iPhone"
-                        }
-                        TargetButton {
-                            selection = withDesktop
-                            icon = Laptop
-                            title = "Desktop"
-                        }
-                    }
-
-                    Button {
-                        variant = ButtonVariant.contained
-                        size = Size.large
-                        startIcon = ArrowCircleDown.create()
-                        +"Download"
-
-                        val b1 by withAndroid
-                        val b2 by withIPhone
-                        val b3 by withDesktop
-                        disabled = projectName.isBlank() || (!b1 && !b2 && !b3)
-                    }
-                }
+            //execution rights require UNIX mode
+            zip.generateAsync<Blob>(js("""{type:"blob",platform:"UNIX"}""")).then { blob ->
+                FileSaverJs.saveAs(blob, "${project.safeName}.zip")
             }
         }
-    }
 }

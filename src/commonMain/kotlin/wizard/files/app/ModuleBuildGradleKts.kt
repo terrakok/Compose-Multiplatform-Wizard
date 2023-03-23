@@ -1,0 +1,148 @@
+package wizard.files.app
+
+import wizard.*
+
+class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
+    override val path = "composeApp/build.gradle.kts"
+    override val content = buildString {
+        if (info.hasDesktop) {
+            appendLine("import org.jetbrains.compose.desktop.application.dsl.TargetFormat")
+            appendLine("")
+        }
+        appendLine("plugins {")
+        appendLine("    kotlin(\"multiplatform\")")
+        appendLine("    id(\"org.jetbrains.compose\")")
+        if (info.hasIos) {
+            appendLine("    kotlin(\"native.cocoapods\")")
+        }
+        if (info.hasAndroid) {
+            appendLine("    id(\"com.android.application\")")
+        }
+        appendLine("}")
+        appendLine("")
+        appendLine("kotlin {")
+        if (info.hasAndroid) {
+            appendLine("    android()")
+            appendLine("")
+        }
+        if (info.hasDesktop) {
+            appendLine("    jvm(\"desktop\")")
+            appendLine("")
+        }
+        if (info.hasIos) {
+            appendLine("    iosX64()")
+            appendLine("    iosArm64()")
+            appendLine("    iosSimulatorArm64()")
+            appendLine("")
+            appendLine("    cocoapods {")
+            appendLine("        version = \"1.0.0\"")
+            appendLine("        summary = \"Compose application framework\"")
+            appendLine("        homepage = \"empty\"")
+            appendLine("        podfile = project.file(\"../iosApp/Podfile\")")
+            appendLine("        framework {")
+            appendLine("            baseName = \"ComposeApp\"")
+            appendLine("            isStatic = true")
+            appendLine("        }")
+            appendLine("    }")
+            appendLine("")
+        }
+        appendLine("    sourceSets {")
+        appendLine("        val commonMain by getting {")
+        appendLine("            dependencies {")
+        appendLine("                implementation(compose.runtime)")
+        appendLine("                implementation(compose.foundation)")
+        appendLine("                implementation(compose.material)")
+        appendLine("            }")
+        appendLine("        }")
+        appendLine("")
+        appendLine("        val commonTest by getting {")
+        appendLine("            dependencies {")
+        appendLine("                implementation(kotlin(\"test\"))")
+        appendLine("            }")
+        appendLine("        }")
+        appendLine("")
+        if (info.hasAndroid) {
+            appendLine("        val androidMain by getting {")
+            appendLine("            dependencies {")
+            appendLine("                implementation(\"androidx.appcompat:appcompat:1.6.1\")")
+            appendLine("                implementation(\"androidx.activity:activity-compose:1.6.1\")")
+            appendLine("                implementation(\"androidx.compose.ui:ui-tooling:1.3.3\")")
+            appendLine("            }")
+            appendLine("        }")
+            appendLine("")
+        }
+        if (info.hasDesktop) {
+            appendLine("        val desktopMain by getting {")
+            appendLine("            dependencies {")
+            appendLine("                implementation(compose.desktop.common)")
+            appendLine("                implementation(compose.desktop.currentOs)")
+            appendLine("            }")
+            appendLine("        }")
+            appendLine("")
+        }
+        if (info.hasIos) {
+            appendLine("        val iosX64Main by getting")
+            appendLine("        val iosArm64Main by getting")
+            appendLine("        val iosSimulatorArm64Main by getting")
+            appendLine("        val iosMain by creating {")
+            appendLine("            dependsOn(commonMain)")
+            appendLine("            iosX64Main.dependsOn(this)")
+            appendLine("            iosArm64Main.dependsOn(this)")
+            appendLine("            iosSimulatorArm64Main.dependsOn(this)")
+            appendLine("        }")
+            appendLine("")
+            appendLine("        val iosX64Test by getting")
+            appendLine("        val iosArm64Test by getting")
+            appendLine("        val iosSimulatorArm64Test by getting")
+            appendLine("        val iosTest by creating {")
+            appendLine("            dependsOn(commonTest)")
+            appendLine("            iosX64Test.dependsOn(this)")
+            appendLine("            iosArm64Test.dependsOn(this)")
+            appendLine("            iosSimulatorArm64Test.dependsOn(this)")
+            appendLine("        }")
+        }
+        appendLine("    }")
+        appendLine("}")
+        appendLine("")
+        if (info.hasAndroid) {
+            appendLine("android {")
+            appendLine("    namespace = \"${info.packageId}\"")
+            appendLine("    compileSdk = ${info.androidTargetSdk}")
+            appendLine("")
+            appendLine("    defaultConfig {")
+            appendLine("        minSdk = ${info.androidMinSdk}")
+            appendLine("        targetSdk = ${info.androidTargetSdk}")
+            appendLine("")
+            appendLine("        applicationId = \"${info.packageId}.androidApp\"")
+            appendLine("        versionCode = 1")
+            appendLine("        versionName = \"1.0.0\"")
+            appendLine("    }")
+            appendLine("    sourceSets[\"main\"].apply {")
+            appendLine("        manifest.srcFile(\"src/androidMain/AndroidManifest.xml\")")
+            appendLine("        res.srcDirs(\"src/androidMain/resources\")")
+            appendLine("    }")
+            appendLine("    kotlin {")
+            appendLine("        jvmToolchain(8)")
+            appendLine("    }")
+            appendLine("    compileOptions {")
+            appendLine("        sourceCompatibility = JavaVersion.VERSION_1_8")
+            appendLine("        targetCompatibility = JavaVersion.VERSION_1_8")
+            appendLine("    }")
+            appendLine("}")
+            appendLine("")
+        }
+        if (info.hasDesktop) {
+            appendLine("compose.desktop {")
+            appendLine("    application {")
+            appendLine("        mainClass = \"MainKt\"")
+            appendLine("")
+            appendLine("        nativeDistributions {")
+            appendLine("            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)")
+            appendLine("            packageName = \"${info.packageId}.desktopApp\"")
+            appendLine("            packageVersion = \"1.0.0\"")
+            appendLine("        }")
+            appendLine("    }")
+            appendLine("}")
+        }
+    }
+}
