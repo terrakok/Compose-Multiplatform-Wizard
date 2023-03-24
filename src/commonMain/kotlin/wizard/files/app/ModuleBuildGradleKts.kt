@@ -5,6 +5,18 @@ import wizard.*
 class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
     override val path = "composeApp/build.gradle.kts"
     override val content = buildString {
+        val plugins = mutableSetOf<Dependency>()
+        val commonDeps = mutableSetOf<Dependency>()
+        val otherDeps = mutableSetOf<Dependency>()
+        info.dependencies.forEach { dep ->
+            when  {
+                dep.isPlugin() -> plugins.add(dep)
+                dep.isCommon() -> commonDeps.add(dep)
+                else -> otherDeps.add(dep)
+            }
+        }
+
+
         if (info.hasDesktop) {
             appendLine("import org.jetbrains.compose.desktop.application.dsl.TargetFormat")
             appendLine("")
@@ -17,6 +29,9 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
         if (info.hasAndroid) {
             appendLine("    id(\"com.android.application\")")
+        }
+        plugins.forEach { dep ->
+            appendLine("    ${dep.pluginNotation()}")
         }
         appendLine("}")
         appendLine("")
@@ -52,6 +67,11 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("                implementation(compose.runtime)")
         appendLine("                implementation(compose.foundation)")
         appendLine("                implementation(compose.material)")
+
+        commonDeps.forEach { dep ->
+            appendLine("                ${dep.libraryNotation()}")
+        }
+
         appendLine("            }")
         appendLine("        }")
         appendLine("")
@@ -64,9 +84,13 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         if (info.hasAndroid) {
             appendLine("        val androidMain by getting {")
             appendLine("            dependencies {")
-            appendLine("                implementation(\"androidx.appcompat:appcompat:1.6.1\")")
-            appendLine("                implementation(\"androidx.activity:activity-compose:1.6.1\")")
-            appendLine("                implementation(\"androidx.compose.ui:ui-tooling:1.3.3\")")
+
+            otherDeps.forEach { dep ->
+                if (dep.platforms.contains(ComposePlatform.Android)) {
+                    appendLine("                ${dep.libraryNotation()}")
+                }
+            }
+
             appendLine("            }")
             appendLine("        }")
             appendLine("")
@@ -76,6 +100,13 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("            dependencies {")
             appendLine("                implementation(compose.desktop.common)")
             appendLine("                implementation(compose.desktop.currentOs)")
+
+            otherDeps.forEach { dep ->
+                if (dep.platforms.contains(ComposePlatform.Desktop)) {
+                    appendLine("                ${dep.libraryNotation()}")
+                }
+            }
+
             appendLine("            }")
             appendLine("        }")
             appendLine("")
@@ -89,6 +120,15 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("            iosX64Main.dependsOn(this)")
             appendLine("            iosArm64Main.dependsOn(this)")
             appendLine("            iosSimulatorArm64Main.dependsOn(this)")
+            appendLine("            dependencies {")
+
+            otherDeps.forEach { dep ->
+                if (dep.platforms.contains(ComposePlatform.Ios)) {
+                    appendLine("                ${dep.libraryNotation()}")
+                }
+            }
+
+            appendLine("            }")
             appendLine("        }")
             appendLine("")
             appendLine("        val iosX64Test by getting")
@@ -128,6 +168,9 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        sourceCompatibility = JavaVersion.VERSION_1_8")
             appendLine("        targetCompatibility = JavaVersion.VERSION_1_8")
             appendLine("    }")
+            appendLine("    packagingOptions {")
+            appendLine("        resources.excludes.add(\"META-INF/**\")")
+            appendLine("    }")
             appendLine("}")
             appendLine("")
         }
@@ -142,6 +185,25 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("            packageVersion = \"1.0.0\"")
             appendLine("        }")
             appendLine("    }")
+            appendLine("}")
+        }
+
+        if (plugins.contains(LibresPlugin)) {
+            appendLine("")
+            appendLine("libres {")
+            appendLine("    // https://github.com/Skeptick/libres#setup")
+            appendLine("}")
+        }
+
+        if (plugins.contains(SQLDelightPlugin)) {
+            appendLine("")
+            appendLine("sqldelight {")
+            appendLine("  databases {")
+            appendLine("    create(\"MyDatabase\") {")
+            appendLine("      // Database configuration here.")
+            appendLine("      // https://cashapp.github.io/sqldelight")
+            appendLine("    }")
+            appendLine("  }")
             appendLine("}")
         }
     }

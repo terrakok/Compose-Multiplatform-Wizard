@@ -1,40 +1,47 @@
 package wizard.files
 
-import wizard.ProjectFile
-import wizard.ProjectInfo
+import wizard.*
 
 class SettingsGradleKts(info: ProjectInfo) : ProjectFile {
     override val path = "settings.gradle.kts"
-    override val content = """
-rootProject.name = "${info.name}"
-include(":composeApp")
+    override val content = buildString {
+        appendLine("rootProject.name = \"${info.name}\"")
+        appendLine("include(\":composeApp\")")
+        appendLine("")
+        appendLine("pluginManagement {")
+        appendLine("    repositories {")
+        appendLine("        google()")
+        appendLine("        gradlePluginPortal()")
+        appendLine("        mavenCentral()")
+        appendLine("        maven(\"https://maven.pkg.jetbrains.space/public/p/compose/dev\")")
+        appendLine("    }")
+        appendLine("    plugins {")
+        appendLine("        val kotlin = \"${info.kotlinVersion}\"")
+        appendLine("        kotlin(\"android\").version(kotlin)")
+        appendLine("        kotlin(\"multiplatform\").version(kotlin)")
+        appendLine("        kotlin(\"native.cocoapods\").version(kotlin)")
+        appendLine("")
+        appendLine("        id(\"com.android.application\").version(\"${info.agpVersion}\")")
+        appendLine("        id(\"org.jetbrains.compose\").version(\"${info.composeVersion}\")")
 
-pluginManagement {
-    repositories {
-        google()
-        gradlePluginPortal()
-        mavenCentral()
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        info.dependencies.filter { it.isPlugin() }.forEach { dep ->
+            if (dep == KotlinxSerializationPlugin) {
+                appendLine("        ${dep.pluginNotation()}.version(kotlin)")
+            } else {
+                appendLine("        ${dep.pluginNotation()}.version(\"${dep.version}\")")
+            }
+        }
+
+        appendLine("")
+        appendLine("    }")
+        appendLine("}")
+        appendLine("")
+        appendLine("dependencyResolutionManagement {")
+        appendLine("    repositories {")
+        appendLine("        google()")
+        appendLine("        mavenCentral()")
+        appendLine("        maven(\"https://maven.pkg.jetbrains.space/public/p/compose/dev\")")
+        appendLine("    }")
+        appendLine("}")
     }
-    plugins {
-        val kotlin = "${info.kotlinVersion}"
-        kotlin("android").version(kotlin)
-        kotlin("multiplatform").version(kotlin)
-        kotlin("native.cocoapods").version(kotlin)
-
-        val agp = "${info.agpVersion}"
-        id("com.android.application").version(agp)
-
-        id("org.jetbrains.compose").version("${info.composeVersion}")
-    }
-}
-
-dependencyResolutionManagement {
-    repositories {
-        google()
-        mavenCentral()
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    }
-}
-"""
 }

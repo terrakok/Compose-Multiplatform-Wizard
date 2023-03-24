@@ -1,9 +1,6 @@
 package wizard.files
 
-import wizard.ComposePlatform
-import wizard.ProjectFile
-import wizard.ProjectInfo
-import wizard.hasAndroid
+import wizard.*
 
 class RootBuildGradleKts(info: ProjectInfo) : ProjectFile {
     override val path = "build.gradle.kts"
@@ -13,6 +10,11 @@ class RootBuildGradleKts(info: ProjectInfo) : ProjectFile {
         if (info.hasAndroid) {
             appendLine("    id(\"com.android.application\").apply(false)")
         }
+
+        info.dependencies.filter { it.isPlugin() }.forEach { dep ->
+            appendLine("    ${dep.pluginNotation()}.apply(false)")
+        }
+
         appendLine("}")
     }
 }
