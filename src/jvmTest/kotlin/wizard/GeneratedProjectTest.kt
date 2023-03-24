@@ -33,15 +33,32 @@ class GeneratedProjectTest {
     fun testGeneratedProject() {
         checkProject(
             ProjectInfo(
-                packageId = "org.company.app",
-                name = "Test Compose App",
                 platforms = setOf(ComposePlatform.Desktop),
-                gradleVersion = "8.0.2",
-                kotlinVersion = "1.8.10",
-                agpVersion = "7.4.2",
-                androidMinSdk = 21,
-                androidTargetSdk = 33,
-                composeVersion = "1.4.0-alpha01-dev980"
+                dependencies = setOf(
+                    AndroidxAppcompat,
+                    AndroidxActivityCompose,
+                    ComposeUiTooling,
+                    LibresPlugin,
+                    LibresCompose,
+                    Voyager,
+                    ImageLoader,
+                    Napier,
+                    KotlinxDateTime,
+                    MultiplatformSettings,
+                    Koin,
+                    KStore,
+                    KtorCore,
+                    KtorClientDarwin,
+                    KtorClientOkhttp,
+                    KotlinxCoroutinesCore,
+                    KotlinxCoroutinesAndroid,
+                    KotlinxSerializationPlugin,
+                    KotlinxSerializationJson,
+                    SQLDelightPlugin,
+                    SQLDelightDriverJvm,
+                    SQLDelightDriverAndroid,
+                    SQLDelightDriverNative
+                )
             )
         )
     }
@@ -51,7 +68,7 @@ class GeneratedProjectTest {
 
         println("Project dir: ${dir.absolutePath}")
         println("============start of the build============")
-        val proc = ProcessBuilder("${dir.path}/gradlew", "tasks", "--info").apply {
+        val proc = ProcessBuilder("${dir.path}/gradlew", "check", "--info").apply {
             directory(dir)
             redirectOutput(Redirect.INHERIT)
             redirectError(Redirect.INHERIT)
@@ -59,7 +76,7 @@ class GeneratedProjectTest {
 
         proc.waitFor()
         println("============end of the build============")
-        assertEquals(0, proc.exitValue(), "'./gradlew tasks --info' exit code")
+        assertEquals(0, proc.exitValue(), "'./gradlew check --info' exit code")
 
     }
 
