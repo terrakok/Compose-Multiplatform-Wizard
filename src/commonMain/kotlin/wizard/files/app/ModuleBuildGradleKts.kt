@@ -189,6 +189,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
 
             if (plugins.contains(LibresPlugin)) {
                 appendLine("tasks.getByPath(\"desktopProcessResources\").dependsOn(\"libresGenerateResources\")")
+                appendLine("tasks.getByPath(\"desktopSourcesJar\").dependsOn(\"libresGenerateResources\")")
             }
         }
 

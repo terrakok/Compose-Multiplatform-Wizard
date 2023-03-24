@@ -68,7 +68,7 @@ class GeneratedProjectTest {
 
         println("Project dir: ${dir.absolutePath}")
         println("============start of the build============")
-        val proc = ProcessBuilder("${dir.path}/gradlew", "check", "--info").apply {
+        val proc = ProcessBuilder("${dir.path}/gradlew", "build", "--info").apply {
             directory(dir)
             redirectOutput(Redirect.INHERIT)
             redirectError(Redirect.INHERIT)
@@ -76,7 +76,7 @@ class GeneratedProjectTest {
 
         proc.waitFor()
         println("============end of the build============")
-        assertEquals(0, proc.exitValue(), "'./gradlew check --info' exit code")
+        assertEquals(0, proc.exitValue(), "'./gradlew build --info' exit code")
 
     }
 
