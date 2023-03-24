@@ -19,7 +19,7 @@ data class ProjectInfo(
     val androidMinSdk: Int = 21,
     val androidTargetSdk: Int = 33,
     val composeVersion: String = "1.4.0-alpha01-dev980",
-    val dependencies: Set<Dependency> = emptySet()
+    val dependencies: Set<Dependency> = requiredAndroidDependencies
 )
 
 val ProjectInfo.hasAndroid get() = platforms.any { it == ComposePlatform.Android }

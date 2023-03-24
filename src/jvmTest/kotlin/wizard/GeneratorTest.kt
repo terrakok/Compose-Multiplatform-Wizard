@@ -85,7 +85,7 @@ class GeneratorTest {
                                 implementation(compose.material)
                             }
                         }
-                
+
                         val commonTest by getting {
                             dependencies {
                                 implementation(kotlin("test"))
@@ -95,8 +95,8 @@ class GeneratorTest {
                         val androidMain by getting {
                             dependencies {
                                 implementation("androidx.appcompat:appcompat:1.6.1")
-                                implementation("androidx.activity:activity-compose:1.6.1")
-                                implementation("androidx.compose.ui:ui-tooling:1.3.3")
+                                implementation("androidx.activity:activity-compose:1.7.0")
+                                implementation("androidx.compose.ui:ui-tooling:1.4.0")
                             }
                         }
 
@@ -115,6 +115,8 @@ class GeneratorTest {
                             iosX64Main.dependsOn(this)
                             iosArm64Main.dependsOn(this)
                             iosSimulatorArm64Main.dependsOn(this)
+                            dependencies {
+                            }
                         }
 
                         val iosX64Test by getting
@@ -151,6 +153,9 @@ class GeneratorTest {
                     compileOptions {
                         sourceCompatibility = JavaVersion.VERSION_1_8
                         targetCompatibility = JavaVersion.VERSION_1_8
+                    }
+                    packagingOptions {
+                        resources.excludes.add("META-INF/**")
                     }
                 }
 
@@ -220,7 +225,7 @@ class GeneratorTest {
                                 implementation(compose.material)
                             }
                         }
-                
+
                         val commonTest by getting {
                             dependencies {
                                 implementation(kotlin("test"))
@@ -230,8 +235,8 @@ class GeneratorTest {
                         val androidMain by getting {
                             dependencies {
                                 implementation("androidx.appcompat:appcompat:1.6.1")
-                                implementation("androidx.activity:activity-compose:1.6.1")
-                                implementation("androidx.compose.ui:ui-tooling:1.3.3")
+                                implementation("androidx.activity:activity-compose:1.7.0")
+                                implementation("androidx.compose.ui:ui-tooling:1.4.0")
                             }
                         }
 
@@ -260,6 +265,9 @@ class GeneratorTest {
                     compileOptions {
                         sourceCompatibility = JavaVersion.VERSION_1_8
                         targetCompatibility = JavaVersion.VERSION_1_8
+                    }
+                    packagingOptions {
+                        resources.excludes.add("META-INF/**")
                     }
                 }
 
@@ -338,7 +346,7 @@ class GeneratorTest {
                                 implementation(compose.material)
                             }
                         }
-                
+
                         val commonTest by getting {
                             dependencies {
                                 implementation(kotlin("test"))
@@ -353,6 +361,8 @@ class GeneratorTest {
                             iosX64Main.dependsOn(this)
                             iosArm64Main.dependsOn(this)
                             iosSimulatorArm64Main.dependsOn(this)
+                            dependencies {
+                            }
                         }
 
                         val iosX64Test by getting
