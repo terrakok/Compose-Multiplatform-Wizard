@@ -1,17 +1,15 @@
 package ui
 
 import csstype.*
-import mui.icons.material.Android
-import mui.icons.material.Apple
-import mui.icons.material.ArrowCircleDown
-import mui.icons.material.Laptop
+import mui.icons.material.*
 import mui.material.*
 import mui.material.Size
+import mui.material.styles.ThemeProvider
 import mui.material.styles.TypographyVariant
-import mui.system.Breakpoint
 import mui.system.responsive
 import mui.system.sx
 import react.*
+import react.dom.aria.ariaLabel
 import react.dom.html.ReactHTML
 import react.dom.onChange
 import web.html.HTMLInputElement
@@ -22,7 +20,13 @@ external interface AppProps : Props {
 }
 
 val App = FC<AppProps> { props ->
-    ThemeModule {
+    val state = useState(Themes.Light)
+    var theme by state
+
+    ThemeProvider {
+        this.theme = theme
+        CssBaseline()
+
         Container {
             sx {
                 padding = Padding(24.px, 24.px)
@@ -39,6 +43,27 @@ val App = FC<AppProps> { props ->
 
                 sx {
                     padding = Padding(24.px, 24.px)
+                }
+
+                Box {
+                    sx {
+                        position = Position.relative
+                    }
+                    Checkbox {
+                        sx {
+                            position = Position.absolute
+                            right = 0.px
+                            top = 0.px
+                        }
+                        icon = Brightness7.create()
+                        checkedIcon = Brightness4.create()
+                        checked = theme == Themes.Dark
+                        ariaLabel = "theme"
+
+                        onChange = { _, checked ->
+                            theme = if (checked) Themes.Dark else Themes.Light
+                        }
+                    }
                 }
 
                 Stack {

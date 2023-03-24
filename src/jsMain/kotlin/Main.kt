@@ -1,14 +1,12 @@
 import kotlinx.browser.window
-import mui.icons.material.*
-import mui.material.*
 import npm.FileSaverJs
 import npm.JSZip
 import org.w3c.files.Blob
-import react.*
+import react.create
 import react.dom.client.createRoot
 import ui.App
 import web.dom.document
-import web.html.HTML
+import web.html.HTML.div
 import wizard.ProjectInfo
 import wizard.buildFiles
 import wizard.files.GradleWrapperJar
@@ -16,12 +14,8 @@ import wizard.files.Gradlew
 import wizard.safeName
 
 fun main() {
-    val root = document.createElement(HTML.div).also { document.body.appendChild(it) }
-    createRoot(root).render(
-        App.create {
-            generate = { generateProject(it) }
-        }
-    )
+    val root = document.createElement(div).also { document.body.appendChild(it) }
+    createRoot(root).render(App.create())
 }
 
 private fun generateProject(project: ProjectInfo) {
