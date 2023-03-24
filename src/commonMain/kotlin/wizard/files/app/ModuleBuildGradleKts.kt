@@ -206,6 +206,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    create(\"MyDatabase\") {")
             appendLine("      // Database configuration here.")
             appendLine("      // https://cashapp.github.io/sqldelight")
+            appendLine("      packageName.set(\"${info.packageId}.db\")")
             appendLine("    }")
             appendLine("  }")
             appendLine("}")
