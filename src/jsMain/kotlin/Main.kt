@@ -15,7 +15,9 @@ import wizard.safeName
 
 fun main() {
     val root = document.createElement(div).also { document.body.appendChild(it) }
-    createRoot(root).render(App.create())
+    createRoot(root).render(App.create {
+        generate = ::generateProject
+    })
 }
 
 private fun generateProject(project: ProjectInfo) {
