@@ -5,7 +5,7 @@ import wizard.*
 class SettingsGradleKts(info: ProjectInfo) : ProjectFile {
     override val path = "settings.gradle.kts"
     override val content = buildString {
-        appendLine("rootProject.name = \"${info.name}\"")
+        appendLine("rootProject.name = \"${info.safeName}\"")
         appendLine("include(\":composeApp\")")
         appendLine("")
         appendLine("pluginManagement {")

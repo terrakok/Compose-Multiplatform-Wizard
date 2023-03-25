@@ -42,6 +42,9 @@ class GeneratorTest {
             iosApp/iosApp/iosApp.swift
             iosApp/iosApp.xcodeproj/project.xcworkspace/contents.xcworkspacedata
             iosApp/iosApp.xcodeproj/project.pbxproj
+            composeApp/src/jsMain/kotlin/org/company/app/App.js.kt
+            composeApp/src/jsMain/resources/index.html
+            composeApp/src/jsMain/kotlin/main.kt
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -61,6 +64,11 @@ class GeneratorTest {
                     android()
 
                     jvm("desktop")
+
+                    js(IR) {
+                        browser()
+                        binaries.executable()
+                    }
 
                     iosX64()
                     iosArm64()
@@ -104,6 +112,12 @@ class GeneratorTest {
                             dependencies {
                                 implementation(compose.desktop.common)
                                 implementation(compose.desktop.currentOs)
+                            }
+                        }
+
+                        val jsMain by getting {
+                            dependencies {
+                                implementation(compose.web.core)
                             }
                         }
 
@@ -169,6 +183,10 @@ class GeneratorTest {
                             packageVersion = "1.0.0"
                         }
                     }
+                }
+
+                compose.experimental {
+                    web.application {}
                 }
 
             """.trimIndent(),
@@ -458,6 +476,82 @@ class GeneratorTest {
                             packageVersion = "1.0.0"
                         }
                     }
+                }
+
+            """.trimIndent(),
+            files.first { it is ModuleBuildGradleKts }.content
+        )
+    }
+
+    @Test
+    fun buildBrowserFiles() {
+        val info = ProjectInfo(
+            packageId = "org.js.app",
+            platforms = setOf(ComposePlatform.Browser)
+        )
+        val files = info.buildFiles()
+
+        assertEquals(
+            """
+            .gitignore
+            README.MD
+            gradle.bat
+            gradlew
+            gradle/wrapper/gradle-wrapper.properties
+            gradle/wrapper/gradle-wrapper.jar
+            gradle.properties
+            build.gradle.kts
+            settings.gradle.kts
+            composeApp/build.gradle.kts
+            composeApp/src/commonMain/kotlin/org/js/app/AppTheme.kt
+            composeApp/src/commonMain/kotlin/org/js/app/App.kt
+            composeApp/src/jsMain/kotlin/org/js/app/App.js.kt
+            composeApp/src/jsMain/resources/index.html
+            composeApp/src/jsMain/kotlin/main.kt
+        """.trimIndent(),
+            files.joinToString("\n") { it.path }
+        )
+
+        assertEquals(
+            """
+                plugins {
+                    kotlin("multiplatform")
+                    id("org.jetbrains.compose")
+                }
+
+                kotlin {
+                    js(IR) {
+                        browser()
+                        binaries.executable()
+                    }
+
+                    sourceSets {
+                        val commonMain by getting {
+                            dependencies {
+                                implementation(compose.runtime)
+                                implementation(compose.foundation)
+                                implementation(compose.material)
+                            }
+                        }
+
+                        val commonTest by getting {
+                            dependencies {
+                                implementation(kotlin("test"))
+                            }
+                        }
+
+                        val jsMain by getting {
+                            dependencies {
+                                implementation(compose.web.core)
+                            }
+                        }
+
+                    }
+                }
+
+
+                compose.experimental {
+                    web.application {}
                 }
 
             """.trimIndent(),

@@ -17,6 +17,7 @@ kotlin.mpp.androidSourceSetLayoutVersion=2
 
 #Compose
 org.jetbrains.compose.experimental.uikit.enabled=true
+org.jetbrains.compose.experimental.jscanvas.enabled=true
 kotlin.native.cacheKind=none
 
 #Android

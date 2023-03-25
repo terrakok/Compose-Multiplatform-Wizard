@@ -135,13 +135,18 @@ val KtorClientOkhttp = KtorCore.copy(
     platforms = setOf(ComposePlatform.Android, ComposePlatform.Desktop)
 )
 
+val KtorClientJs = KtorCore.copy(
+    id = "ktor-client-js",
+    platforms = setOf(ComposePlatform.Browser)
+)
+
 val KotlinxCoroutinesCore = Dependency(
     title = "Kotlinx Coroutines",
     description = "Library support for Kotlin coroutines with multiplatform support.",
     url = "https://github.com/Kotlin/kotlinx.coroutines",
     group = "org.jetbrains.kotlinx",
     id = "kotlinx-coroutines-core",
-    version = "1.7.0-Beta",
+    version = "1.6.4",
     platforms = AllPlatforms
 )
 

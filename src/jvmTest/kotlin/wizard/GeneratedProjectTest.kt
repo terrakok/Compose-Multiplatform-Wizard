@@ -50,6 +50,7 @@ class GeneratedProjectTest {
                     KtorCore,
                     KtorClientDarwin,
                     KtorClientOkhttp,
+                    KtorClientJs,
                     KotlinxCoroutinesCore,
                     KotlinxCoroutinesAndroid,
                     KotlinxSerializationPlugin,

@@ -40,6 +40,7 @@ val App = FC<AppProps> { props ->
                 val withAndroidState = useState(default.platforms.contains(ComposePlatform.Android))
                 val withIosState = useState(default.platforms.contains(ComposePlatform.Ios))
                 val withDesktopState = useState(default.platforms.contains(ComposePlatform.Desktop))
+                val withBrowserState = useState(default.platforms.contains(ComposePlatform.Browser))
 
                 sx {
                     padding = Padding(24.px, 24.px)
@@ -129,6 +130,11 @@ val App = FC<AppProps> { props ->
                             icon = Laptop
                             title = "Desktop"
                         }
+                        TargetButton {
+                            selection = withBrowserState
+                            icon = Language
+                            title = "Browser"
+                        }
                     }
 
                     val deps = mapOf(
@@ -171,6 +177,7 @@ val App = FC<AppProps> { props ->
                         val withAndroid by withAndroidState
                         val withIos by withIosState
                         val withDesktop by withDesktopState
+                        val withBrowser by withDesktopState
                         disabled = projectName.isBlank()
                                 || projectId.isBlank()
                                 || (!withAndroid && !withIos && !withDesktop)
@@ -183,6 +190,7 @@ val App = FC<AppProps> { props ->
                                     if (withAndroid) add(ComposePlatform.Android)
                                     if (withIos) add(ComposePlatform.Ios)
                                     if (withDesktop) add(ComposePlatform.Desktop)
+                                    if (withBrowser) add(ComposePlatform.Browser)
                                 },
                                 dependencies = requiredAndroidDependencies + getSelectedDependencies(deps)
                             )

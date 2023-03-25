@@ -4,9 +4,10 @@ enum class ComposePlatform(val title: String) {
     Android("Android"),
     Ios("iOS"),
     Desktop("Desktop"),
+    Browser("Browser"),
 }
 
-val AllPlatforms = setOf(ComposePlatform.Android, ComposePlatform.Ios, ComposePlatform.Desktop)
+val AllPlatforms = setOf(ComposePlatform.Android, ComposePlatform.Ios, ComposePlatform.Desktop, ComposePlatform.Browser)
 val requiredAndroidDependencies = setOf(AndroidxAppcompat, AndroidxActivityCompose, ComposeUiTooling)
 
 data class ProjectInfo(
@@ -25,6 +26,7 @@ data class ProjectInfo(
 val ProjectInfo.hasAndroid get() = platforms.any { it == ComposePlatform.Android }
 val ProjectInfo.hasIos get() = platforms.any { it == ComposePlatform.Ios }
 val ProjectInfo.hasDesktop get() = platforms.any { it == ComposePlatform.Desktop }
+val ProjectInfo.hasBrowser get() = platforms.any { it == ComposePlatform.Browser }
 val ProjectInfo.packagePath get() = packageId.replace(".", "/")
 val ProjectInfo.safeName get() = name.replace(" ", "-")
 

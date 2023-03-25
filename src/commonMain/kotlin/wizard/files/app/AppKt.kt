@@ -106,3 +106,16 @@ class IosAppKt(info: ProjectInfo) : ProjectFile {
         }
     """.trimIndent()
 }
+
+class BrowserAppKt(info: ProjectInfo) : ProjectFile {
+    override val path = "composeApp/src/jsMain/kotlin/${info.packagePath}/App.js.kt"
+    override val content = """
+        package ${info.packageId}
+
+        import kotlinx.browser.window
+
+        internal actual fun openUrl(url: String?) {
+            url?.let { window.open(it) }
+        }
+    """.trimIndent()
+}

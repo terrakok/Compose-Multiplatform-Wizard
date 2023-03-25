@@ -46,4 +46,10 @@ fun ProjectInfo.buildFiles() = buildList {
         add(IosXcworkspace())
         add(IosPbxproj(this@buildFiles))
     }
+
+    if (this@buildFiles.hasBrowser) {
+        add(BrowserAppKt(this@buildFiles))
+        add(IndexHtml(this@buildFiles))
+        add(BrowserMainKt(this@buildFiles))
+    }
 }

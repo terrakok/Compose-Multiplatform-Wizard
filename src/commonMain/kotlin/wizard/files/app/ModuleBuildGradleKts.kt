@@ -44,6 +44,13 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    jvm(\"desktop\")")
             appendLine("")
         }
+        if (info.hasBrowser) {
+            appendLine("    js(IR) {")
+            appendLine("        browser()")
+            appendLine("        binaries.executable()")
+            appendLine("    }")
+            appendLine("")
+        }
         if (info.hasIos) {
             appendLine("    iosX64()")
             appendLine("    iosArm64()")
@@ -103,6 +110,21 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
 
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ComposePlatform.Desktop)) {
+                    appendLine("                ${dep.libraryNotation()}")
+                }
+            }
+
+            appendLine("            }")
+            appendLine("        }")
+            appendLine("")
+        }
+        if (info.hasBrowser) {
+            appendLine("        val jsMain by getting {")
+            appendLine("            dependencies {")
+            appendLine("                implementation(compose.web.core)")
+
+            otherDeps.forEach { dep ->
+                if (dep.platforms.contains(ComposePlatform.Browser)) {
                     appendLine("                ${dep.libraryNotation()}")
                 }
             }
@@ -190,6 +212,17 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             if (plugins.contains(LibresPlugin)) {
                 appendLine("tasks.getByPath(\"desktopProcessResources\").dependsOn(\"libresGenerateResources\")")
                 appendLine("tasks.getByPath(\"desktopSourcesJar\").dependsOn(\"libresGenerateResources\")")
+            }
+        }
+
+        if (info.hasBrowser) {
+            appendLine("")
+            appendLine("compose.experimental {")
+            appendLine("    web.application {}")
+            appendLine("}")
+
+            if (plugins.contains(LibresPlugin)) {
+                appendLine("tasks.getByPath(\"jsProcessResources\").dependsOn(\"libresGenerateResources\")")
             }
         }
 
