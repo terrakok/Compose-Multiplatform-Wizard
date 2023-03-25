@@ -1,6 +1,6 @@
 package wizard.files.app
 
-import wizard.*
+import wizard.ProjectFile
 
 class Podspec : ProjectFile {
     override val path = "composeApp/composeApp.podspec"

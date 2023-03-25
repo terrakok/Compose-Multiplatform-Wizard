@@ -1,6 +1,7 @@
 package wizard.files.app
 
-import wizard.*
+import wizard.ProjectFile
+import wizard.ProjectInfo
 
 class Podfile : ProjectFile {
     override val path = "iosApp/Podfile"

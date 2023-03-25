@@ -1,15 +1,17 @@
 package ui
 
-import csstype.*
+import csstype.Position
+import csstype.px
+import csstype.unaryMinus
 import mui.icons.material.CheckCircleRounded
 import mui.icons.material.RadioButtonUncheckedRounded
-import mui.icons.material.WidthFull
 import mui.material.*
 import mui.material.styles.TypographyVariant
-import mui.system.responsive
 import mui.system.sx
-import react.*
-import react.dom.html.ReactHTML.div
+import react.FC
+import react.Props
+import react.StateInstance
+import react.create
 import web.window.window
 import wizard.Dependency
 

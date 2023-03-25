@@ -94,7 +94,7 @@ val App = FC<AppProps> { props ->
                     TextField {
                         label = ReactNode("Project name")
                         sx {
-                            width = 424.px
+                            width = 565.px
                         }
                         value = projectName
                         onChange = { event ->
@@ -105,7 +105,7 @@ val App = FC<AppProps> { props ->
                     TextField {
                         label = ReactNode("Project ID")
                         sx {
-                            width = 424.px
+                            width = 565.px
                         }
                         value = projectId
                         onChange = { event ->

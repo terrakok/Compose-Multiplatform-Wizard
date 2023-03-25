@@ -93,7 +93,7 @@ class GeneratedProjectTest {
 
             if (projectFile is GradleWrapperJar) {
                 f.outputStream().use { out ->
-                    javaClass.getResourceAsStream("/binaries/gradle-wrapper").use { it.copyTo(out) }
+                    javaClass.getResourceAsStream("/binaries/gradle-wrapper").use { it!!.copyTo(out) }
                 }
             } else {
                 if (projectFile is Gradlew) f.setExecutable(true)

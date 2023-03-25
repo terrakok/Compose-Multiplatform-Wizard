@@ -2,7 +2,6 @@ package wizard.files.app
 
 import wizard.ProjectFile
 import wizard.ProjectInfo
-import wizard.packagePath
 
 class DesktopMainKt(info: ProjectInfo) : ProjectFile {
     override val path = "composeApp/src/desktopMain/kotlin/main.kt"
