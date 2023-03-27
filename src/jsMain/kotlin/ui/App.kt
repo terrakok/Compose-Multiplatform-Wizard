@@ -230,7 +230,7 @@ private fun getSelectedDependencies(deps: Map<Dependency, StateInstance<Boolean>
                     SQLDelightDriverNative,
                     SQLDelightDriverJs
                 )
-                d.group == "com.apollographql.apollo3" -> listOf(ApolloRuntime)
+                d.group == "com.apollographql.apollo3" -> listOf(ApolloPlugin, ApolloRuntime)
 
                 d.id.contains("coroutines") -> listOf(KotlinxCoroutinesCore, KotlinxCoroutinesAndroid)
                 d.id.contains("serialization") -> listOf(KotlinxSerializationPlugin, KotlinxSerializationJson)
