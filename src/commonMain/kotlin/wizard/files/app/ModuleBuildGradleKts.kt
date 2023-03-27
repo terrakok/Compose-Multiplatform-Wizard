@@ -184,7 +184,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        res.srcDirs(\"src/androidMain/resources\")")
             appendLine("    }")
             appendLine("    kotlin {")
-            appendLine("        jvmTarget = \"1.8\"")
+            appendLine("        jvmToolchain(8)")
             appendLine("    }")
             appendLine("    compileOptions {")
             appendLine("        sourceCompatibility = JavaVersion.VERSION_1_8")
