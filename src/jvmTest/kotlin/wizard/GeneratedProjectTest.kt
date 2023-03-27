@@ -58,7 +58,8 @@ class GeneratedProjectTest {
                     SQLDelightPlugin,
                     SQLDelightDriverJvm,
                     SQLDelightDriverAndroid,
-                    SQLDelightDriverNative
+                    SQLDelightDriverNative,
+                    SQLDelightDriverJs
                 )
             )
         )

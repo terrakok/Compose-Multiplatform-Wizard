@@ -162,7 +162,7 @@ class GeneratorTest {
                         res.srcDirs("src/androidMain/resources")
                     }
                     kotlin {
-                        jvmToolchain(8)
+                        jvmTarget = "1.8"
                     }
                     compileOptions {
                         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -278,7 +278,7 @@ class GeneratorTest {
                         res.srcDirs("src/androidMain/resources")
                     }
                     kotlin {
-                        jvmToolchain(8)
+                        jvmTarget = "1.8"
                     }
                     compileOptions {
                         sourceCompatibility = JavaVersion.VERSION_1_8

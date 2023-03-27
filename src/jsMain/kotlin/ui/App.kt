@@ -13,6 +13,7 @@ import react.dom.aria.ariaLabel
 import react.dom.html.ReactHTML
 import react.dom.onChange
 import web.html.HTMLInputElement
+import web.window.window
 import wizard.*
 
 external interface AppProps : Props {
@@ -50,19 +51,30 @@ val App = FC<AppProps> { props ->
                     sx {
                         position = Position.relative
                     }
-                    Checkbox {
+                    Stack {
+                        direction = responsive(StackDirection.row)
                         sx {
                             position = Position.absolute
                             right = 0.px
                             top = 0.px
                         }
-                        icon = Brightness7.create()
-                        checkedIcon = Brightness4.create()
-                        checked = theme == Themes.Dark
-                        ariaLabel = "theme"
 
-                        onChange = { _, checked ->
-                            theme = if (checked) Themes.Dark else Themes.Light
+                        IconButton {
+                            onClick = {
+                                window.open("https://github.com/terrakok/Compose-Multiplatform-Wizard")
+                            }
+                            +GitHub.create()
+                        }
+
+                        IconButton {
+                            onClick = {
+                                theme = if (theme == Themes.Light) Themes.Dark else Themes.Light
+                            }
+                            if (theme == Themes.Light) {
+                                +Brightness7.create()
+                            } else {
+                                +Brightness4.create()
+                            }
                         }
                     }
                 }
@@ -177,10 +189,10 @@ val App = FC<AppProps> { props ->
                         val withAndroid by withAndroidState
                         val withIos by withIosState
                         val withDesktop by withDesktopState
-                        val withBrowser by withDesktopState
+                        val withBrowser by withBrowserState
                         disabled = projectName.isBlank()
                                 || projectId.isBlank()
-                                || (!withAndroid && !withIos && !withDesktop)
+                                || (!withAndroid && !withIos && !withDesktop && !withBrowser)
 
                         onClick = {
                             val info = ProjectInfo(
@@ -214,7 +226,8 @@ private fun getSelectedDependencies(deps: Map<Dependency, StateInstance<Boolean>
                     SQLDelightPlugin,
                     SQLDelightDriverJvm,
                     SQLDelightDriverAndroid,
-                    SQLDelightDriverNative
+                    SQLDelightDriverNative,
+                    SQLDelightDriverJs
                 )
 
                 d.id.contains("coroutines") -> listOf(KotlinxCoroutinesCore, KotlinxCoroutinesAndroid)

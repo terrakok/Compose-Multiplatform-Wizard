@@ -197,3 +197,8 @@ val SQLDelightDriverNative = SQLDelightPlugin.copy(
     id = "native-driver",
     platforms = setOf(ComposePlatform.Ios)
 )
+
+val SQLDelightDriverJs = SQLDelightPlugin.copy(
+    id = "sqljs-driver",
+    platforms = setOf(ComposePlatform.Browser)
+)
