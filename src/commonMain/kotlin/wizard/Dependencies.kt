@@ -202,3 +202,18 @@ val SQLDelightDriverJs = SQLDelightPlugin.copy(
     id = "sqljs-driver",
     platforms = setOf(ComposePlatform.Browser)
 )
+
+val ApolloPlugin = Dependency(
+    title = "ApolloGraph",
+    description = "Generates typesafe Kotlin APIs from your GraphQL queries.",
+    url = "https://github.com/apollographql/apollo/",
+    group = "com.apollographql.apollo3",
+    id = "apollo-gradle-plugin",
+    version = "3.7.5",
+    platforms = emptySet()
+)
+
+val ApolloRuntime = ApolloPlugin.copy(
+    id = "apollo-runtime",
+    platforms = AllPlatforms
+)

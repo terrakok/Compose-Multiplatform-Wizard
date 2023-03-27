@@ -161,7 +161,8 @@ val App = FC<AppProps> { props ->
                         MultiplatformSettings to useState(false),
                         Koin to useState(false),
                         KStore to useState(false),
-                        SQLDelightPlugin to useState(false)
+                        SQLDelightPlugin to useState(false),
+                        ApolloPlugin to useState(false),
                     )
                     Grid {
                         sx {
@@ -229,6 +230,7 @@ private fun getSelectedDependencies(deps: Map<Dependency, StateInstance<Boolean>
                     SQLDelightDriverNative,
                     SQLDelightDriverJs
                 )
+                d.group == "com.apollographql.apollo3" -> listOf(ApolloRuntime)
 
                 d.id.contains("coroutines") -> listOf(KotlinxCoroutinesCore, KotlinxCoroutinesAndroid)
                 d.id.contains("serialization") -> listOf(KotlinxSerializationPlugin, KotlinxSerializationJson)

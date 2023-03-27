@@ -245,5 +245,16 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("  }")
             appendLine("}")
         }
+
+        if (plugins.contains(ApolloPlugin)) {
+            appendLine("")
+            appendLine("apollo {")
+            appendLine("  service(\"api\") {")
+            appendLine("    // GraphQL configuration here.")
+            appendLine("    // https://www.apollographql.com/docs/kotlin/advanced/plugin-configuration/")
+            appendLine("    packageName.set(\"${info.packageId}.db\")")
+            appendLine("  }")
+            appendLine("}")
+        }
     }
 }
