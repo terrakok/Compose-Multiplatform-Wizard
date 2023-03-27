@@ -30,10 +30,10 @@ class GeneratedProjectTest {
     }
 
     @Test
-    fun testGeneratedProject() {
+    fun testDesktopAndBrowserProject() {
         checkProject(
             ProjectInfo(
-                platforms = setOf(ComposePlatform.Desktop),
+                platforms = setOf(ComposePlatform.Desktop, ComposePlatform.Browser),
                 dependencies = setOf(
                     AndroidxAppcompat,
                     AndroidxActivityCompose,
@@ -60,6 +60,52 @@ class GeneratedProjectTest {
                     SQLDelightDriverAndroid,
                     SQLDelightDriverNative,
                     SQLDelightDriverJs
+                )
+            )
+        )
+    }
+
+    @Test
+    fun testDesktopProject() {
+        checkProject(
+            ProjectInfo(
+                packageId = "com.test.unit.app",
+                name = "DesktopApp",
+                platforms = setOf(ComposePlatform.Desktop),
+                dependencies = setOf(
+                    LibresPlugin,
+                    LibresCompose,
+                    Voyager,
+                    ImageLoader,
+                    Napier,
+                    KotlinxDateTime,
+                    MultiplatformSettings,
+                    Koin,
+                    KStore,
+                    KtorCore,
+                    KtorClientOkhttp,
+                    KotlinxCoroutinesCore,
+                    KotlinxSerializationPlugin,
+                    KotlinxSerializationJson,
+                    SQLDelightPlugin,
+                    SQLDelightDriverJvm,
+                )
+            )
+        )
+    }
+
+    @Test
+    fun testBrowserProject() {
+        checkProject(
+            ProjectInfo(
+                packageId = "io.js.app.test",
+                name = "test js compose app",
+                platforms = setOf(ComposePlatform.Browser),
+                dependencies = setOf(
+                    Napier,
+                    KotlinxDateTime,
+                    MultiplatformSettings,
+                    KotlinxCoroutinesCore,
                 )
             )
         )
