@@ -204,7 +204,7 @@ val SQLDelightDriverJs = SQLDelightPlugin.copy(
 )
 
 val ApolloPlugin = Dependency(
-    title = "ApolloGraph",
+    title = "Apollo Kotlin",
     description = "Generates typesafe Kotlin APIs from your GraphQL queries.",
     url = "https://github.com/apollographql/apollo/",
     group = "com.apollographql.apollo3",

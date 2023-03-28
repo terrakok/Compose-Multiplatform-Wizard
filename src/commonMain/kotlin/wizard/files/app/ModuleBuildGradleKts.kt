@@ -252,7 +252,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("  service(\"api\") {")
             appendLine("    // GraphQL configuration here.")
             appendLine("    // https://www.apollographql.com/docs/kotlin/advanced/plugin-configuration/")
-            appendLine("    packageName.set(\"${info.packageId}.db\")")
+            appendLine("    packageName.set(\"${info.packageId}.graphql\")")
             appendLine("  }")
             appendLine("}")
         }

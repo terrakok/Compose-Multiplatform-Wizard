@@ -1,4 +1,4 @@
-package wizard.files
+package wizard.files.app
 
 import wizard.ProjectFile
 
