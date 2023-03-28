@@ -37,6 +37,8 @@ class GeneratedProjectTest {
                 dependencies = setOf(
                     AndroidxAppcompat,
                     AndroidxActivityCompose,
+                    ApolloPlugin,
+                    ApolloRuntime,
                     ComposeUiTooling,
                     LibresPlugin,
                     LibresCompose,

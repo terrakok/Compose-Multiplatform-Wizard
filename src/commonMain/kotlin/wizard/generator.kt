@@ -20,6 +20,11 @@ fun ProjectInfo.buildFiles() = buildList {
     add(AppThemeKt(this@buildFiles))
     add(AppKt(this@buildFiles))
 
+    if (this@buildFiles.dependencies.contains(ApolloPlugin)) {
+        add(GraphQLSchema())
+        add(GraphQLQuery())
+    }
+
     if (this@buildFiles.hasAndroid) {
         add(AndroidManifest())
         add(AndroidThemesXml())

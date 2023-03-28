@@ -3,3 +3,4 @@
 build
 .idea
 kotlin-js-store
+local.properties
