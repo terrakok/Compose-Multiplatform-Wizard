@@ -37,7 +37,13 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("kotlin {")
         if (info.hasAndroid) {
-            appendLine("    android()")
+            appendLine("    android {")
+            appendLine("        compilations.all {")
+            appendLine("            kotlinOptions {")
+            appendLine("                jvmTarget = \"1.8\"")
+            appendLine("            }")
+            appendLine("        }")
+            appendLine("    }")
             appendLine("")
         }
         if (info.hasDesktop) {
@@ -45,7 +51,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         if (info.hasBrowser) {
-            appendLine("    js(IR) {")
+            appendLine("    js {")
             appendLine("        browser()")
             appendLine("        binaries.executable()")
             appendLine("    }")
@@ -183,9 +189,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        manifest.srcFile(\"src/androidMain/AndroidManifest.xml\")")
             appendLine("        res.srcDirs(\"src/androidMain/resources\")")
             appendLine("    }")
-            appendLine("    kotlin {")
-            appendLine("        jvmToolchain(8)")
-            appendLine("    }")
             appendLine("    compileOptions {")
             appendLine("        sourceCompatibility = JavaVersion.VERSION_1_8")
             appendLine("        targetCompatibility = JavaVersion.VERSION_1_8")
@@ -208,11 +211,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        }")
             appendLine("    }")
             appendLine("}")
-
-            if (plugins.contains(LibresPlugin)) {
-                appendLine("tasks.getByPath(\"desktopProcessResources\").dependsOn(\"libresGenerateResources\")")
-                appendLine("tasks.getByPath(\"desktopSourcesJar\").dependsOn(\"libresGenerateResources\")")
-            }
         }
 
         if (info.hasBrowser) {
@@ -220,10 +218,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("compose.experimental {")
             appendLine("    web.application {}")
             appendLine("}")
-
-            if (plugins.contains(LibresPlugin)) {
-                appendLine("tasks.getByPath(\"jsProcessResources\").dependsOn(\"libresGenerateResources\")")
-            }
         }
 
         if (plugins.contains(LibresPlugin)) {
@@ -231,6 +225,14 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("libres {")
             appendLine("    // https://github.com/Skeptick/libres#setup")
             appendLine("}")
+
+            if (info.hasDesktop) {
+                appendLine("tasks.getByPath(\"desktopProcessResources\").dependsOn(\"libresGenerateResources\")")
+                appendLine("tasks.getByPath(\"desktopSourcesJar\").dependsOn(\"libresGenerateResources\")")
+            }
+            if (info.hasBrowser) {
+                appendLine("tasks.getByPath(\"jsProcessResources\").dependsOn(\"libresGenerateResources\")")
+            }
         }
 
         if (plugins.contains(SQLDelightPlugin)) {

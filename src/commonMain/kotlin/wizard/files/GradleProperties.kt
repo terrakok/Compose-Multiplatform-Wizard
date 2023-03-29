@@ -6,10 +6,11 @@ class GradleProperties : ProjectFile {
     override val path = "gradle.properties"
     override val content = """
 #Gradle
-org.gradle.jvmargs=-Xmx2048M -Dkotlin.daemon.jvm.options\="-Xmx2048M"
+org.gradle.jvmargs=-Xmx2048M -Dfile.encoding=UTF-8 -Dkotlin.daemon.jvm.options\="-Xmx2048M"
 
 #Kotlin
 kotlin.code.style=official
+kotlin.js.compiler=ir
 
 #MPP
 kotlin.mpp.enableCInteropCommonization=true
@@ -22,5 +23,6 @@ kotlin.native.cacheKind=none
 
 #Android
 android.useAndroidX=true
+android.nonTransitiveRClass=true
 """
 }

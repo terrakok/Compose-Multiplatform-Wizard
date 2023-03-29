@@ -61,11 +61,17 @@ class GeneratorTest {
                 }
 
                 kotlin {
-                    android()
+                    android {
+                        compilations.all {
+                            kotlinOptions {
+                                jvmTarget = "1.8"
+                            }
+                        }
+                    }
 
                     jvm("desktop")
 
-                    js(IR) {
+                    js {
                         browser()
                         binaries.executable()
                     }
@@ -161,9 +167,6 @@ class GeneratorTest {
                         manifest.srcFile("src/androidMain/AndroidManifest.xml")
                         res.srcDirs("src/androidMain/resources")
                     }
-                    kotlin {
-                        jvmToolchain(8)
-                    }
                     compileOptions {
                         sourceCompatibility = JavaVersion.VERSION_1_8
                         targetCompatibility = JavaVersion.VERSION_1_8
@@ -233,7 +236,13 @@ class GeneratorTest {
                 }
 
                 kotlin {
-                    android()
+                    android {
+                        compilations.all {
+                            kotlinOptions {
+                                jvmTarget = "1.8"
+                            }
+                        }
+                    }
 
                     sourceSets {
                         val commonMain by getting {
@@ -276,9 +285,6 @@ class GeneratorTest {
                     sourceSets["main"].apply {
                         manifest.srcFile("src/androidMain/AndroidManifest.xml")
                         res.srcDirs("src/androidMain/resources")
-                    }
-                    kotlin {
-                        jvmToolchain(8)
                     }
                     compileOptions {
                         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -520,7 +526,7 @@ class GeneratorTest {
                 }
 
                 kotlin {
-                    js(IR) {
+                    js {
                         browser()
                         binaries.executable()
                     }
