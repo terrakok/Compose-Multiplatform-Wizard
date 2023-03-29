@@ -91,6 +91,8 @@ val App = FC<AppProps> { props ->
                         spacing = responsive(2)
                         sx {
                             alignItems = AlignItems.center
+                            paddingTop = 24.px
+                            paddingBottom = 24.px
                         }
                         ReactHTML.img {
                             src = "compose-logo.svg"
