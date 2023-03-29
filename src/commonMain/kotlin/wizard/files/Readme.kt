@@ -14,6 +14,7 @@ class Readme(info: ProjectInfo) : ProjectFile {
                 appendLine(" - check your system with (KDoctor)[https://github.com/Kotlin/kdoctor]")
             }
             if (info.hasAndroid) {
+                appendLine(" - install JDK 8 on your machine")
                 appendLine(" - add `local.properties` file to the project root and set a path to Android SDK there")
             }
             if (info.hasIos) {

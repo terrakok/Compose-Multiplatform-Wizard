@@ -134,7 +134,7 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             	archiveVersion = 1;
             	classes = {
             	};
-            	objectVersion = 56;
+            	objectVersion = 50;
             	objects = {
             
             /* Begin PBXBuildFile section */
