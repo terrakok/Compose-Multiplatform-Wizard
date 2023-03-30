@@ -21,7 +21,10 @@ external interface AppProps : Props {
 }
 
 val App = FC<AppProps> { props ->
-    val state = useState(Themes.Light)
+    val currentThemeIsDark = kotlinx.browser.window.matchMedia("(prefers-color-scheme: dark)").matches
+    val state = useState(
+        if (currentThemeIsDark) Themes.Dark else Themes.Light
+    )
     var theme by state
 
     ThemeProvider {
@@ -135,19 +138,21 @@ val App = FC<AppProps> { props ->
                             title = "Android"
                         }
                         TargetButton {
-                            selection = withIosState
-                            icon = Apple
-                            title = "iOS"
-                        }
-                        TargetButton {
                             selection = withDesktopState
                             icon = Laptop
                             title = "Desktop"
                         }
                         TargetButton {
+                            selection = withIosState
+                            icon = Apple
+                            title = "iOS"
+                            status = "Experimental"
+                        }
+                        TargetButton {
                             selection = withBrowserState
                             icon = Language
                             title = "Browser"
+                            status = "Experimental"
                         }
                     }
 
