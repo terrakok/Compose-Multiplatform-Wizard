@@ -20,6 +20,8 @@ external interface AppProps : Props {
     var generate: (ProjectInfo) -> Unit
 }
 
+val ShowVersionContext = createContext<Boolean>()
+
 val App = FC<AppProps> { props ->
     val currentThemeIsDark = kotlinx.browser.window.matchMedia("(prefers-color-scheme: dark)").matches
     val state = useState(
@@ -39,6 +41,7 @@ val App = FC<AppProps> { props ->
             Paper {
                 val default = ProjectInfo()
 
+                var showVersions by useState(false)
                 var projectName by useState(default.name)
                 var projectId by useState(default.packageId)
                 val withAndroidState = useState(default.platforms.contains(ComposePlatform.Android))
@@ -60,6 +63,17 @@ val App = FC<AppProps> { props ->
                             position = Position.absolute
                             right = 0.px
                             top = 0.px
+                        }
+
+                        IconButton {
+                            onClick = {
+                                showVersions = !showVersions
+                            }
+                            if (showVersions) {
+                                +Code.create()
+                            } else {
+                                +CodeOff.create()
+                            }
                         }
 
                         IconButton {
@@ -108,10 +122,11 @@ val App = FC<AppProps> { props ->
                         }
                     }
 
+                    val textFieldWidth = 565.px
                     TextField {
                         label = ReactNode("Project name")
                         sx {
-                            width = 565.px
+                            width = textFieldWidth
                         }
                         value = projectName
                         onChange = { event ->
@@ -122,7 +137,7 @@ val App = FC<AppProps> { props ->
                     TextField {
                         label = ReactNode("Project ID")
                         sx {
-                            width = 565.px
+                            width = textFieldWidth
                         }
                         value = projectId
                         onChange = { event ->
@@ -156,6 +171,35 @@ val App = FC<AppProps> { props ->
                         }
                     }
 
+                    if (showVersions) {
+                        TableContainer {
+                            sx {
+                                width = textFieldWidth
+                            }
+                            component = Paper
+                            Table {
+                                TableBody {
+                                    TableRow {
+                                        TableCell { +"Kotlin" }
+                                        TableCell { +default.kotlinVersion }
+                                    }
+                                    TableRow {
+                                        TableCell { +"Compose" }
+                                        TableCell { +default.composeVersion }
+                                    }
+                                    TableRow {
+                                        TableCell { +"Gradle" }
+                                        TableCell { +default.gradleVersion }
+                                    }
+                                    TableRow {
+                                        TableCell { +"Android Gradle Plugin" }
+                                        TableCell { +default.agpVersion }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     val deps = mapOf(
                         Napier to useState(true),
                         LibresCompose to useState(true),
@@ -171,18 +215,21 @@ val App = FC<AppProps> { props ->
                         SQLDelightPlugin to useState(false),
                         ApolloPlugin to useState(false),
                     )
-                    Grid {
-                        sx {
-                            justifyContent = JustifyContent.spaceAround
-                        }
-                        spacing = responsive(2)
-                        container = true
-                        deps.forEach { (dep, state) ->
-                            Grid {
-                                item = true
-                                DependencyCard {
-                                    dependency = dep
-                                    selection = state
+                    ShowVersionContext.Provider {
+                        value = showVersions
+                        Grid {
+                            sx {
+                                justifyContent = JustifyContent.spaceAround
+                            }
+                            spacing = responsive(2)
+                            container = true
+                            deps.forEach { (dep, state) ->
+                                Grid {
+                                    item = true
+                                    DependencyCard {
+                                        dependency = dep
+                                        selection = state
+                                    }
                                 }
                             }
                         }
