@@ -29,40 +29,42 @@ class GeneratedProjectTest {
         }
     }
 
+    private val allDependencies = setOf(
+            AndroidxAppcompat,
+            AndroidxActivityCompose,
+            ApolloPlugin,
+            ApolloRuntime,
+            ComposeUiTooling,
+            LibresPlugin,
+            LibresCompose,
+            Voyager,
+            ImageLoader,
+            Napier,
+            KotlinxDateTime,
+            MultiplatformSettings,
+            Koin,
+            KStore,
+            KtorCore,
+            KtorClientDarwin,
+            KtorClientOkhttp,
+            KtorClientJs,
+            KotlinxCoroutinesCore,
+            KotlinxCoroutinesAndroid,
+            KotlinxSerializationPlugin,
+            KotlinxSerializationJson,
+            SQLDelightPlugin,
+            SQLDelightDriverJvm,
+            SQLDelightDriverAndroid,
+            SQLDelightDriverNative,
+            SQLDelightDriverJs
+        )
+
     @Test
     fun testDesktopAndBrowserProject() {
         checkProject(
             ProjectInfo(
                 platforms = setOf(ComposePlatform.Desktop, ComposePlatform.Browser),
-                dependencies = setOf(
-                    AndroidxAppcompat,
-                    AndroidxActivityCompose,
-                    ApolloPlugin,
-                    ApolloRuntime,
-                    ComposeUiTooling,
-                    LibresPlugin,
-                    LibresCompose,
-                    Voyager,
-                    ImageLoader,
-                    Napier,
-                    KotlinxDateTime,
-                    MultiplatformSettings,
-                    Koin,
-                    KStore,
-                    KtorCore,
-                    KtorClientDarwin,
-                    KtorClientOkhttp,
-                    KtorClientJs,
-                    KotlinxCoroutinesCore,
-                    KotlinxCoroutinesAndroid,
-                    KotlinxSerializationPlugin,
-                    KotlinxSerializationJson,
-                    SQLDelightPlugin,
-                    SQLDelightDriverJvm,
-                    SQLDelightDriverAndroid,
-                    SQLDelightDriverNative,
-                    SQLDelightDriverJs
-                )
+                dependencies = allDependencies
             )
         )
     }
@@ -111,6 +113,38 @@ class GeneratedProjectTest {
                 )
             )
         )
+    }
+
+    @Test
+    fun checkDependencyUpdates() {
+        val projectInfo = ProjectInfo(
+            platforms = setOf(ComposePlatform.Desktop),
+            dependencies = allDependencies
+        )
+        val dir = projectInfo.writeToDir(workingDir)
+        dir.resolve("composeApp/build.gradle.kts").apply {
+            writeText(
+                readText().replace(
+                    "plugins {",
+                    """
+                        plugins {
+                            id("com.github.ben-manes.versions").version("0.46.0")
+                    """.trimIndent()
+                )
+            )
+        }
+
+        println("Project dir: ${dir.absolutePath}")
+        println("============start of the build============")
+        val proc = ProcessBuilder("${dir.path}/gradlew", "dependencyUpdates").apply {
+            directory(dir)
+            redirectOutput(Redirect.INHERIT)
+            redirectError(Redirect.INHERIT)
+        }.start()
+
+        proc.waitFor()
+        println("============end of the build============")
+        assertEquals(0, proc.exitValue(), "'./gradlew dependencyUpdates' exit code")
     }
 
     private fun checkProject(projectInfo: ProjectInfo) {

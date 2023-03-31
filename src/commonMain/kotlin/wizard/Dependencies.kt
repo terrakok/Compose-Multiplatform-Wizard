@@ -36,7 +36,7 @@ val LibresPlugin = Dependency(
     url = "https://github.com/Skeptick/libres",
     group = "io.github.skeptick.libres",
     id = "gradle-plugin",
-    version = "1.1.6",
+    version = "1.1.7",
     platforms = emptySet()
 )
 
@@ -101,7 +101,7 @@ val Koin = Dependency(
     url = "https://github.com/InsertKoinIO/koin",
     group = "io.insert-koin",
     id = "koin-core",
-    version = "3.3.3",
+    version = "3.4.0",
     platforms = AllPlatforms
 )
 
@@ -111,7 +111,7 @@ val KStore = Dependency(
     url = "https://github.com/xxfast/KStore",
     group = "io.github.xxfast",
     id = "kstore",
-    version = "0.4.0",
+    version = "0.5.0",
     platforms = AllPlatforms
 )
 

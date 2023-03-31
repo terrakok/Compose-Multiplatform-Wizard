@@ -19,7 +19,7 @@ data class ProjectInfo(
     val agpVersion: String = "7.4.2",
     val androidMinSdk: Int = 21,
     val androidTargetSdk: Int = 33,
-    val composeVersion: String = "1.4.0-alpha01-dev980",
+    val composeVersion: String = "1.4.0-alpha01-dev999",
     val dependencies: Set<Dependency> = requiredAndroidDependencies
 )
 
