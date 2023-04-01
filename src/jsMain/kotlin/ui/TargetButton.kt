@@ -7,7 +7,10 @@ import mui.material.*
 import mui.material.styles.TypographyVariant
 import mui.system.responsive
 import mui.system.sx
-import react.*
+import react.FC
+import react.Props
+import react.ReactNode
+import react.StateInstance
 
 external interface TargetButtonProps : Props {
     var icon: SvgIconComponent

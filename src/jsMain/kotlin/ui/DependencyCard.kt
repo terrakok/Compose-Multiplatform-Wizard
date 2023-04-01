@@ -19,7 +19,7 @@ external interface DependencyCardProps : Props {
 val DependencyCard = FC<DependencyCardProps> { props ->
     val dep = props.dependency
     var isSelected by props.selection
-    val showVersion = useContext(ShowVersionContext) ?: false
+    val showVersion by useRequiredContext(ShowVersionContext)
     Card {
         sx {
             width = 320.px
