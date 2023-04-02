@@ -235,6 +235,14 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             }
         }
 
+        if (plugins.contains(BuildConfigPlugin)) {
+            appendLine("")
+            appendLine("buildConfig {")
+            appendLine("  // BuildConfig configuration here.")
+            appendLine("  // https://github.com/gmazzo/gradle-buildconfig-plugin#usage-in-kts")
+            appendLine("}")
+        }
+
         if (plugins.contains(SQLDelightPlugin)) {
             appendLine("")
             appendLine("sqldelight {")

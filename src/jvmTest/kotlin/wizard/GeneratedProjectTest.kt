@@ -56,7 +56,8 @@ class GeneratedProjectTest {
             SQLDelightDriverJvm,
             SQLDelightDriverAndroid,
             SQLDelightDriverNative,
-            SQLDelightDriverJs
+            SQLDelightDriverJs,
+            BuildConfigPlugin,
         )
 
     @Test
@@ -93,6 +94,7 @@ class GeneratedProjectTest {
                     KotlinxSerializationJson,
                     SQLDelightPlugin,
                     SQLDelightDriverJvm,
+                    BuildConfigPlugin,
                 )
             )
         )
@@ -110,6 +112,7 @@ class GeneratedProjectTest {
                     KotlinxDateTime,
                     MultiplatformSettings,
                     KotlinxCoroutinesCore,
+                    BuildConfigPlugin,
                 )
             )
         )

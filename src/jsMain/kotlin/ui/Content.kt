@@ -109,6 +109,7 @@ val Content = FC<AppProps> { props ->
                         Voyager to useState(true),
                         ImageLoader to useState(true),
                         KotlinxCoroutinesCore to useState(true),
+                        BuildConfigPlugin to useState(true),
                         KtorCore to useState(false),
                         KotlinxSerializationJson to useState(false),
                         KotlinxDateTime to useState(false),

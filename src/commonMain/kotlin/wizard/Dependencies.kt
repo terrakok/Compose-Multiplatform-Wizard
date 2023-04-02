@@ -217,3 +217,13 @@ val ApolloRuntime = ApolloPlugin.copy(
     id = "apollo-runtime",
     platforms = AllPlatforms
 )
+
+val BuildConfigPlugin = Dependency(
+    title = "Build Config",
+    description = "A plugin for generating BuildConstants.",
+    url = "https://github.com/gmazzo/gradle-buildconfig-plugin",
+    group = "com.github.gmazzo.buildconfig",
+    id = "gradle-plugin",
+    version = "3.1.0",
+    platforms = emptySet()
+)
