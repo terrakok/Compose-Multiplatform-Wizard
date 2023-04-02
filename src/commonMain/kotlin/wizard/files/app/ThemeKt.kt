@@ -11,6 +11,7 @@ class ThemeKt(info: ProjectInfo) : ProjectFile {
 
         import androidx.compose.foundation.isSystemInDarkTheme
         import androidx.compose.material.MaterialTheme
+        import androidx.compose.material.Surface
         import androidx.compose.material.darkColors
         import androidx.compose.material.lightColors
         import androidx.compose.runtime.Composable
@@ -54,7 +55,9 @@ class ThemeKt(info: ProjectInfo) : ProjectFile {
 
             MaterialTheme(
                 colors = colors,
-                content = content
+                content = {
+                    Surface(content = content)
+                }
             )
         }
 
