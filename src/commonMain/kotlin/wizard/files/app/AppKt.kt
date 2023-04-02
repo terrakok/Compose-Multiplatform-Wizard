@@ -9,22 +9,60 @@ class AppKt(info: ProjectInfo) : ProjectFile {
     override val content = """
         package ${info.packageId}
         
-        import androidx.compose.foundation.layout.Box
+        import androidx.compose.foundation.layout.Column
         import androidx.compose.foundation.layout.fillMaxSize
+        import androidx.compose.foundation.layout.fillMaxWidth
+        import androidx.compose.foundation.layout.padding
         import androidx.compose.material.Button
+        import androidx.compose.material.MaterialTheme
+        import androidx.compose.material.OutlinedTextField
         import androidx.compose.material.Text
+        import androidx.compose.material.TextButton
         import androidx.compose.runtime.Composable
-        import androidx.compose.ui.Alignment
+        import androidx.compose.runtime.getValue
+        import androidx.compose.runtime.mutableStateOf
+        import androidx.compose.runtime.remember
+        import androidx.compose.runtime.setValue
         import androidx.compose.ui.Modifier
-        
+        import androidx.compose.ui.unit.dp
+
         @Composable
         internal fun App() = AppTheme {
-            Box(
-                modifier = Modifier.fillMaxSize()
-            ) {
+            var email by remember { mutableStateOf("") }
+            var password by remember { mutableStateOf("") }
+
+            Column(modifier = Modifier.fillMaxSize()) {
+
+                Text(
+                    text = "Login",
+                    style = MaterialTheme.typography.h4,
+                    modifier = Modifier.padding(16.dp)
+                )
+
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text("Email") },
+                    modifier = Modifier.fillMaxWidth().padding(16.dp)
+                )
+
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = { Text("Password") },
+                    modifier = Modifier.fillMaxWidth().padding(16.dp)
+                )
+
                 Button(
-                    modifier = Modifier.align(Alignment.Center),
-                    onClick = { openUrl("https://github.com/terrakok") }
+                    onClick = { /* Handle login logic here */ },
+                    modifier = Modifier.fillMaxWidth().padding(16.dp)
+                ) {
+                    Text("Login")
+                }
+
+                TextButton(
+                    onClick = { openUrl("https://github.com/terrakok") },
+                    modifier = Modifier.fillMaxWidth().padding(16.dp)
                 ) {
                     Text("Open github")
                 }

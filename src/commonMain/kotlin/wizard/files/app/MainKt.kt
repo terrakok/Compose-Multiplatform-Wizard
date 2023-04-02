@@ -15,7 +15,7 @@ class DesktopMainKt(info: ProjectInfo) : ProjectFile {
         fun main() = application {
             Window(
                 title = "${info.name}",
-                state = rememberWindowState(width = 600.dp, height = 400.dp),
+                state = rememberWindowState(width = 800.dp, height = 600.dp),
                 onCloseRequest = ::exitApplication,
             ) { App() }
         }
