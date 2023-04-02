@@ -18,7 +18,6 @@ class Podspec : ProjectFile {
             spec.ios.deployment_target = '11.0'
                         
                         
-                        
             spec.pod_target_xcconfig = {
                 'KOTLIN_PROJECT_PATH' => ':composeApp',
                 'PRODUCT_MODULE_NAME' => 'ComposeApp',
