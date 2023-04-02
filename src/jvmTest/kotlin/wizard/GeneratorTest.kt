@@ -27,8 +27,6 @@ class GeneratorTest {
             composeApp/src/commonMain/kotlin/org/company/app/Theme.kt
             composeApp/src/commonMain/kotlin/org/company/app/App.kt
             composeApp/src/androidMain/AndroidManifest.xml
-            composeApp/src/androidMain/resources/values/themes.xml
-            composeApp/src/androidMain/resources/values/strings.xml
             composeApp/src/androidMain/kotlin/org/company/app/App.android.kt
             composeApp/src/desktopMain/kotlin/org/company/app/App.jvm.kt
             composeApp/src/desktopMain/kotlin/main.kt
@@ -85,6 +83,7 @@ class GeneratorTest {
                         version = "1.0.0"
                         summary = "Compose application framework"
                         homepage = "empty"
+                        ios.deploymentTarget = "11.0"
                         podfile = project.file("../iosApp/Podfile")
                         framework {
                             baseName = "ComposeApp"
@@ -222,8 +221,6 @@ class GeneratorTest {
             composeApp/src/commonMain/kotlin/org/android/app/Theme.kt
             composeApp/src/commonMain/kotlin/org/android/app/App.kt
             composeApp/src/androidMain/AndroidManifest.xml
-            composeApp/src/androidMain/resources/values/themes.xml
-            composeApp/src/androidMain/resources/values/strings.xml
             composeApp/src/androidMain/kotlin/org/android/app/App.android.kt
         """.trimIndent(),
             files.joinToString("\n") { it.path }
@@ -358,6 +355,7 @@ class GeneratorTest {
                         version = "1.0.0"
                         summary = "Compose application framework"
                         homepage = "empty"
+                        ios.deploymentTarget = "11.0"
                         podfile = project.file("../iosApp/Podfile")
                         framework {
                             baseName = "ComposeApp"

@@ -3,7 +3,7 @@ package wizard.files.app
 import wizard.ProjectFile
 import wizard.ProjectInfo
 
-class AndroidManifest : ProjectFile {
+class AndroidManifest(info: ProjectInfo) : ProjectFile {
     override val path = "composeApp/src/androidMain/AndroidManifest.xml"
     override val content = """
         <?xml version="1.0" encoding="utf-8"?>
@@ -12,8 +12,8 @@ class AndroidManifest : ProjectFile {
             <application
                 android:name=".AndroidApp"
                 android:icon="@android:drawable/ic_menu_compass"
-                android:label="@string/app_name"
-                android:theme="@style/Theme.Splash">
+                android:label="${info.name}"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
                 <activity
                     android:name=".AppActivity"
                     android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
@@ -28,27 +28,5 @@ class AndroidManifest : ProjectFile {
             </application>
         
         </manifest>
-    """.trimIndent()
-}
-
-class AndroidThemesXml : ProjectFile {
-    override val path = "composeApp/src/androidMain/resources/values/themes.xml"
-    override val content = """
-        <resources>
-            <style name="Theme.Splash" parent="Theme.AppCompat.DayNight.NoActionBar">
-                <item name="android:windowTranslucentNavigation">true</item>
-                <item name="android:windowTranslucentStatus">true</item>
-            </style>
-        </resources>
-    """.trimIndent()
-}
-
-class AndroidStringsXml(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/androidMain/resources/values/strings.xml"
-    override val content = """
-        <?xml version="1.0" encoding="utf-8"?>
-        <resources>
-            <string name="app_name">${info.name}</string>
-        </resources>
     """.trimIndent()
 }

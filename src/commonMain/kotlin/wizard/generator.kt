@@ -27,9 +27,7 @@ fun ProjectInfo.buildFiles() = buildList {
     }
 
     if (this@buildFiles.hasAndroid) {
-        add(AndroidManifest())
-        add(AndroidThemesXml())
-        add(AndroidStringsXml(this@buildFiles))
+        add(AndroidManifest(this@buildFiles))
         add(AndroidAppKt(this@buildFiles))
     }
 
