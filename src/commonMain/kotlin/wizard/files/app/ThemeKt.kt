@@ -42,7 +42,7 @@ class ThemeKt(info: ProjectInfo) : ProjectFile {
         )
 
         @Composable
-        fun AppTheme(
+        internal fun AppTheme(
             useDarkTheme: Boolean = isSystemInDarkTheme(),
             content: @Composable() () -> Unit
         ) {

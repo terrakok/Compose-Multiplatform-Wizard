@@ -15,6 +15,7 @@ class Podspec : ProjectFile {
             spec.summary                  = 'Compose application framework'
             spec.vendored_frameworks      = 'build/cocoapods/framework/ComposeApp.framework'
             spec.libraries                = 'c++'
+            spec.ios.deployment_target = '11.0'
                         
                         
                         

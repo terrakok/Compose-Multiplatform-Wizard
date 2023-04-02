@@ -66,6 +66,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        version = \"1.0.0\"")
             appendLine("        summary = \"Compose application framework\"")
             appendLine("        homepage = \"empty\"")
+            appendLine("        ios.deploymentTarget = \"11.0\"")
             appendLine("        podfile = project.file(\"../iosApp/Podfile\")")
             appendLine("        framework {")
             appendLine("            baseName = \"ComposeApp\"")
