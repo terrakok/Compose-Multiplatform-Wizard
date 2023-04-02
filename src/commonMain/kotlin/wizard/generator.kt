@@ -17,7 +17,8 @@ fun ProjectInfo.buildFiles() = buildList {
     add(SettingsGradleKts(this@buildFiles))
 
     add(ModuleBuildGradleKts(this@buildFiles))
-    add(AppThemeKt(this@buildFiles))
+    add(ColorKt(this@buildFiles))
+    add(ThemeKt(this@buildFiles))
     add(AppKt(this@buildFiles))
 
     if (this@buildFiles.dependencies.contains(ApolloPlugin)) {

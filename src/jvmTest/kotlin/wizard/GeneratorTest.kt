@@ -23,7 +23,8 @@ class GeneratorTest {
             build.gradle.kts
             settings.gradle.kts
             composeApp/build.gradle.kts
-            composeApp/src/commonMain/kotlin/org/company/app/AppTheme.kt
+            composeApp/src/commonMain/kotlin/org/company/app/Color.kt
+            composeApp/src/commonMain/kotlin/org/company/app/Theme.kt
             composeApp/src/commonMain/kotlin/org/company/app/App.kt
             composeApp/src/androidMain/AndroidManifest.xml
             composeApp/src/androidMain/resources/values/themes.xml
@@ -217,7 +218,8 @@ class GeneratorTest {
             build.gradle.kts
             settings.gradle.kts
             composeApp/build.gradle.kts
-            composeApp/src/commonMain/kotlin/org/android/app/AppTheme.kt
+            composeApp/src/commonMain/kotlin/org/android/app/Color.kt
+            composeApp/src/commonMain/kotlin/org/android/app/Theme.kt
             composeApp/src/commonMain/kotlin/org/android/app/App.kt
             composeApp/src/androidMain/AndroidManifest.xml
             composeApp/src/androidMain/resources/values/themes.xml
@@ -321,7 +323,8 @@ class GeneratorTest {
             build.gradle.kts
             settings.gradle.kts
             composeApp/build.gradle.kts
-            composeApp/src/commonMain/kotlin/org/ios/app/AppTheme.kt
+            composeApp/src/commonMain/kotlin/org/ios/app/Color.kt
+            composeApp/src/commonMain/kotlin/org/ios/app/Theme.kt
             composeApp/src/commonMain/kotlin/org/ios/app/App.kt
             composeApp/composeApp.podspec
             composeApp/src/iosMain/kotlin/org/ios/app/App.ios.kt
@@ -427,7 +430,8 @@ class GeneratorTest {
             build.gradle.kts
             settings.gradle.kts
             composeApp/build.gradle.kts
-            composeApp/src/commonMain/kotlin/org/desktop/app/AppTheme.kt
+            composeApp/src/commonMain/kotlin/org/desktop/app/Color.kt
+            composeApp/src/commonMain/kotlin/org/desktop/app/Theme.kt
             composeApp/src/commonMain/kotlin/org/desktop/app/App.kt
             composeApp/src/desktopMain/kotlin/org/desktop/app/App.jvm.kt
             composeApp/src/desktopMain/kotlin/main.kt
@@ -509,7 +513,8 @@ class GeneratorTest {
             build.gradle.kts
             settings.gradle.kts
             composeApp/build.gradle.kts
-            composeApp/src/commonMain/kotlin/org/js/app/AppTheme.kt
+            composeApp/src/commonMain/kotlin/org/js/app/Color.kt
+            composeApp/src/commonMain/kotlin/org/js/app/Theme.kt
             composeApp/src/commonMain/kotlin/org/js/app/App.kt
             composeApp/src/jsMain/kotlin/org/js/app/App.js.kt
             composeApp/src/jsMain/resources/index.html
