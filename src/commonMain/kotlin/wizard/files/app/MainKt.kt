@@ -39,13 +39,12 @@ class IosMainKt(info: ProjectInfo) : ProjectFile {
 class BrowserMainKt(info: ProjectInfo) : ProjectFile {
     override val path = "composeApp/src/jsMain/kotlin/main.kt"
     override val content = """
-        import androidx.compose.ui.window.Window
         import ${info.packageId}.App
         import org.jetbrains.skiko.wasm.onWasmReady
 
         fun main() {
             onWasmReady {
-                Window("${info.name}") {
+                BrowserViewportWindow("${info.name}") {
                     App()
                 }
             }

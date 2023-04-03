@@ -44,6 +44,7 @@ class GeneratorTest {
             composeApp/src/jsMain/kotlin/org/company/app/App.js.kt
             composeApp/src/jsMain/resources/index.html
             composeApp/src/jsMain/kotlin/main.kt
+            composeApp/src/jsMain/kotlin/BrowserViewportWindow.kt
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -517,6 +518,7 @@ class GeneratorTest {
             composeApp/src/jsMain/kotlin/org/js/app/App.js.kt
             composeApp/src/jsMain/resources/index.html
             composeApp/src/jsMain/kotlin/main.kt
+            composeApp/src/jsMain/kotlin/BrowserViewportWindow.kt
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )

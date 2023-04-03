@@ -55,5 +55,6 @@ fun ProjectInfo.buildFiles() = buildList {
         add(BrowserAppKt(this@buildFiles))
         add(IndexHtml(this@buildFiles))
         add(BrowserMainKt(this@buildFiles))
+        add(BrowserViewportWindowKt())
     }
 }
