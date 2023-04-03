@@ -37,7 +37,7 @@ fun ProjectInfo.buildFiles() = buildList {
     }
 
     if (this@buildFiles.hasIos) {
-        add(Podspec())
+        add(Podspec(this@buildFiles))
         add(IosAppKt(this@buildFiles))
         add(IosMainKt(this@buildFiles))
 

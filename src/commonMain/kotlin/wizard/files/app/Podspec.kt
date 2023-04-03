@@ -1,11 +1,14 @@
 package wizard.files.app
 
+import wizard.LibresPlugin
 import wizard.ProjectFile
+import wizard.ProjectInfo
 
-class Podspec : ProjectFile {
+class Podspec(info: ProjectInfo) : ProjectFile {
     override val path = "composeApp/composeApp.podspec"
-    override val content = """
-        Pod::Spec.new do |spec|
+    override val content = buildString {
+        appendLine("""
+            Pod::Spec.new do |spec|
             spec.name                     = 'composeApp'
             spec.version                  = '1.0.0'
             spec.homepage                 = 'empty'
@@ -42,7 +45,15 @@ class Podspec : ProjectFile {
                     SCRIPT
                 }
             ]
-                        
-        end
-    """.trimIndent()
+        """.trimIndent())
+        if (info.dependencies.contains(LibresPlugin)) {
+            appendLine("""
+                |    spec.resource_bundles = {
+                |        'LibresComposeApp' => ['build/generated/libres/apple/resources/images/LibresComposeApp.xcassets']
+                |    }
+            """.trimMargin())
+        }
+
+        appendLine("end")
+    }
 }
