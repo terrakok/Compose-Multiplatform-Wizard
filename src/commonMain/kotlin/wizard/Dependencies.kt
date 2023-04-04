@@ -193,7 +193,7 @@ val KotlinxSerializationPlugin = Dependency(
     id = "gradle-plugin",
     version = "[the same as Kotlin version!]",
     catalogVersionName = "kotlin",
-    catalogName = "kotlin-serialization",
+    catalogName = "kotlinx-serialization",
     platforms = emptySet()
 )
 

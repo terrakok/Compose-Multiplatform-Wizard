@@ -66,7 +66,7 @@ class GeneratorTest {
                     alias(libs.plugins.android.application)
                     alias(libs.plugins.apollo)
                     alias(libs.plugins.libres)
-                    alias(libs.plugins.kotlin.serialization)
+                    alias(libs.plugins.kotlinx.serialization)
                     alias(libs.plugins.sqlDelight)
                     alias(libs.plugins.buildConfig)
                 }
@@ -318,7 +318,7 @@ class GeneratorTest {
                 android-application = { id = "com.android.application", version.ref = "agp" }
                 apollo = { id = "com.apollographql.apollo3", version.ref = "apollo" }
                 libres = { id = "io.github.skeptick.libres", version.ref = "libres" }
-                kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+                kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
                 sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
                 buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }
 
