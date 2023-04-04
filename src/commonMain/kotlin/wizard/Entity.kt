@@ -30,6 +30,10 @@ val ProjectInfo.hasBrowser get() = platforms.any { it == ComposePlatform.Browser
 val ProjectInfo.packagePath get() = packageId.replace(".", "/")
 val ProjectInfo.safeName get() = name.replace(" ", "-")
 
+val ProjectInfo.kotlinVersionRef get() = "kotlin"
+val ProjectInfo.agpVersionRef get() = "agp"
+val ProjectInfo.composeVersionRef get() = "compose"
+
 data class Dependency(
     val title: String,
     val description: String,
@@ -37,15 +41,23 @@ data class Dependency(
     val group: String,
     val id: String,
     val version: String,
-    val platforms: Set<ComposePlatform>
+    val versionCatalog: VersionCatalog,
+    val applyToModule: Boolean,
+    val platforms: Set<ComposePlatform>,
+)
+
+data class VersionCatalog(
+    val versionRefName: String,
+    val libraryName: String,
+    val libraryAccessor: String,
 )
 
 fun Dependency.isPlugin() = platforms.isEmpty()
 fun Dependency.isCommon() = platforms == AllPlatforms
-fun Dependency.libraryNotation() = "implementation(\"$group:$id:$version\")"
+fun Dependency.libraryNotation() = "implementation(libs.${versionCatalog.libraryAccessor})"
 fun Dependency.pluginNotation() = when {
     this == KotlinxSerializationPlugin -> "kotlin(\"plugin.serialization\")"
-    else -> "id(\"$group\")"
+    else -> "alias(libs.plugins.${versionCatalog.libraryAccessor})"
 }
 
 interface ProjectFile {

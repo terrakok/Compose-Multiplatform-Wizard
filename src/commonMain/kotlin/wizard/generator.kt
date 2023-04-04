@@ -11,6 +11,7 @@ fun ProjectInfo.buildFiles() = buildList {
     add(Gradlew())
     add(GradleWrapperProperties(this@buildFiles))
     add(GradleWrapperJar())
+    add(GradleLibsVersion(this@buildFiles))
 
     add(GradleProperties())
     add(RootBuildGradleKts(this@buildFiles))

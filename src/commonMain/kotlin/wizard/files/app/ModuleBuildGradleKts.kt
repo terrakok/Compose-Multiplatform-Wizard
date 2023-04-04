@@ -8,13 +8,14 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         val plugins = mutableSetOf<Dependency>()
         val commonDeps = mutableSetOf<Dependency>()
         val otherDeps = mutableSetOf<Dependency>()
-        info.dependencies.forEach { dep ->
-            when  {
-                dep.isPlugin() -> plugins.add(dep)
-                dep.isCommon() -> commonDeps.add(dep)
-                else -> otherDeps.add(dep)
+        info.dependencies.filter { it.applyToModule }
+            .forEach { dep ->
+                when  {
+                    dep.isPlugin() -> plugins.add(dep)
+                    dep.isCommon() -> commonDeps.add(dep)
+                    else -> otherDeps.add(dep)
+                }
             }
-        }
 
 
         if (info.hasDesktop) {
@@ -23,12 +24,12 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
         appendLine("plugins {")
         appendLine("    kotlin(\"multiplatform\")")
-        appendLine("    id(\"org.jetbrains.compose\")")
+        appendLine("    alias(libs.plugins.compose)")
         if (info.hasIos) {
             appendLine("    kotlin(\"native.cocoapods\")")
         }
         if (info.hasAndroid) {
-            appendLine("    id(\"com.android.application\")")
+            appendLine("    alias(libs.plugins.android.application)")
         }
         plugins.forEach { dep ->
             appendLine("    ${dep.pluginNotation()}")

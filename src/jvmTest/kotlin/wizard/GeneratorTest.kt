@@ -1,5 +1,6 @@
 package wizard
 
+import wizard.files.GradleLibsVersion
 import wizard.files.app.ModuleBuildGradleKts
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -19,6 +20,7 @@ class GeneratorTest {
             gradlew
             gradle/wrapper/gradle-wrapper.properties
             gradle/wrapper/gradle-wrapper.jar
+            gradle/libs.versions.toml
             gradle.properties
             build.gradle.kts
             settings.gradle.kts
@@ -55,9 +57,9 @@ class GeneratorTest {
 
                 plugins {
                     kotlin("multiplatform")
-                    id("org.jetbrains.compose")
+                    alias(libs.plugins.compose)
                     kotlin("native.cocoapods")
-                    id("com.android.application")
+                    alias(libs.plugins.android.application)
                 }
 
                 kotlin {
@@ -109,9 +111,9 @@ class GeneratorTest {
 
                         val androidMain by getting {
                             dependencies {
-                                implementation("androidx.appcompat:appcompat:1.6.1")
-                                implementation("androidx.activity:activity-compose:1.7.0")
-                                implementation("androidx.compose.ui:ui-tooling:1.4.0")
+                                implementation(libs.androidx.appcompat)
+                                implementation(libs.androidx.activityCompose)
+                                implementation(libs.compose.uitooling)
                             }
                         }
 
@@ -214,6 +216,7 @@ class GeneratorTest {
             gradlew
             gradle/wrapper/gradle-wrapper.properties
             gradle/wrapper/gradle-wrapper.jar
+            gradle/libs.versions.toml
             gradle.properties
             build.gradle.kts
             settings.gradle.kts
@@ -231,8 +234,8 @@ class GeneratorTest {
             """
                 plugins {
                     kotlin("multiplatform")
-                    id("org.jetbrains.compose")
-                    id("com.android.application")
+                    alias(libs.plugins.compose)
+                    alias(libs.plugins.android.application)
                 }
 
                 kotlin {
@@ -261,9 +264,9 @@ class GeneratorTest {
 
                         val androidMain by getting {
                             dependencies {
-                                implementation("androidx.appcompat:appcompat:1.6.1")
-                                implementation("androidx.activity:activity-compose:1.7.0")
-                                implementation("androidx.compose.ui:ui-tooling:1.4.0")
+                                implementation(libs.androidx.appcompat)
+                                implementation(libs.androidx.activityCompose)
+                                implementation(libs.compose.uitooling)
                             }
                         }
 
@@ -317,6 +320,7 @@ class GeneratorTest {
             gradlew
             gradle/wrapper/gradle-wrapper.properties
             gradle/wrapper/gradle-wrapper.jar
+            gradle/libs.versions.toml
             gradle.properties
             build.gradle.kts
             settings.gradle.kts
@@ -343,7 +347,7 @@ class GeneratorTest {
             """
                 plugins {
                     kotlin("multiplatform")
-                    id("org.jetbrains.compose")
+                    alias(libs.plugins.compose)
                     kotlin("native.cocoapods")
                 }
 
@@ -425,6 +429,7 @@ class GeneratorTest {
             gradlew
             gradle/wrapper/gradle-wrapper.properties
             gradle/wrapper/gradle-wrapper.jar
+            gradle/libs.versions.toml
             gradle.properties
             build.gradle.kts
             settings.gradle.kts
@@ -444,7 +449,7 @@ class GeneratorTest {
 
                 plugins {
                     kotlin("multiplatform")
-                    id("org.jetbrains.compose")
+                    alias(libs.plugins.compose)
                 }
 
                 kotlin {
@@ -508,6 +513,7 @@ class GeneratorTest {
             gradlew
             gradle/wrapper/gradle-wrapper.properties
             gradle/wrapper/gradle-wrapper.jar
+            gradle/libs.versions.toml
             gradle.properties
             build.gradle.kts
             settings.gradle.kts
@@ -527,7 +533,7 @@ class GeneratorTest {
             """
                 plugins {
                     kotlin("multiplatform")
-                    id("org.jetbrains.compose")
+                    alias(libs.plugins.compose)
                 }
 
                 kotlin {
