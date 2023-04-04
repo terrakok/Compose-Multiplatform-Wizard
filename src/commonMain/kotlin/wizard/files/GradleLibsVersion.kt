@@ -3,64 +3,48 @@ package wizard.files
 import wizard.KotlinxSerializationPlugin
 import wizard.ProjectFile
 import wizard.ProjectInfo
-import wizard.agpVersionRef
-import wizard.composeVersionRef
 import wizard.isPlugin
-import wizard.kotlinVersionRef
 
 class GradleLibsVersion(info: ProjectInfo) : ProjectFile {
     override val path = "gradle/libs.versions.toml"
     override val content = buildString {
         // versions
-        fun versionRef(versionRef: String, version: String) = "$versionRef = \"${version}\""
-        val versions = info.dependencies.distinctBy { it.versionCatalog.versionRefName }
-
         appendLine("[versions]")
         appendLine()
 
-        appendLine(versionRef(info.composeVersionRef, info.composeVersion))
-        appendLine(versionRef(info.kotlinVersionRef, info.kotlinVersion))
-        appendLine(versionRef(info.agpVersionRef, info.agpVersion))
+        appendLine("kotlin = \"${info.kotlinVersion}\"")
+        appendLine("agp = \"${info.agpVersion}\"")
+        appendLine("compose = \"${info.composeVersion}\"")
 
-        for (dependency in versions) {
-            val config = dependency.versionCatalog
-            if(config.versionRefName.isNotEmpty()) {
-                appendLine(versionRef(config.versionRefName, dependency.version))
+        info.dependencies
+            .filter { it != KotlinxSerializationPlugin }
+            .distinctBy { it.catalogVersionName }
+            .forEach {
+                appendLine("${it.catalogVersionName} = \"${it.version}\"")
             }
-        }
+        appendLine()
 
         // libraries
         val libraries = info.dependencies.filterNot { it.isPlugin() }
-        appendLine()
         appendLine("[libraries]")
         appendLine()
 
-        for (dependency in libraries) {
-            val config = dependency.versionCatalog
-            appendLine("${config.libraryName} = { module = \"${dependency.group}:${dependency.id}\", version.ref = \"${config.versionRefName}\" }")
+        info.dependencies.filterNot { it.isPlugin() }.forEach {
+            appendLine("${it.catalogName} = { module = \"${it.group}:${it.id}\", version.ref = \"${it.catalogVersionName}\" }")
         }
+        appendLine()
 
         // plugins
-        fun plugin(pluginName: String, id: String, versionRef: String) =
-            "$pluginName = { id = \"${id}\", version.ref = \"${versionRef}\" }"
-        val plugins = info.dependencies
-            .filter { it.isPlugin() }
-            .filterNot { it == KotlinxSerializationPlugin }
-
-        appendLine()
         appendLine("[plugins]")
         appendLine()
 
-        appendLine(plugin("compose", "org.jetbrains.compose", info.composeVersionRef))
-        appendLine(plugin("android-application", "com.android.application", info.agpVersionRef))
-        appendLine(plugin("android-library", "com.android.library", info.agpVersionRef))
+        appendLine("multiplatform = { id = \"org.jetbrains.kotlin.multiplatform\", version.ref = \"kotlin\" }")
+        appendLine("cocoapods = { id = \"org.jetbrains.kotlin.native.cocoapods\", version.ref = \"kotlin\" }")
+        appendLine("compose = { id = \"org.jetbrains.compose\", version.ref = \"compose\" }")
+        appendLine("android-application = { id = \"com.android.application\", version.ref = \"agp\" }")
 
-
-        for (dependency in plugins) {
-            val config = dependency.versionCatalog
-            appendLine(plugin(config.libraryName, dependency.group, config.versionRefName))
+        info.dependencies.filter { it.isPlugin() }.forEach {
+            appendLine("${it.catalogName} = { id = \"${it.group}\", version.ref = \"${it.catalogVersionName}\" }")
         }
-
-
     }
 }

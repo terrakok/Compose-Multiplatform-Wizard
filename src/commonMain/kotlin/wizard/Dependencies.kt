@@ -7,11 +7,8 @@ val AndroidxAppcompat = Dependency(
     group = "androidx.appcompat",
     id = "appcompat",
     version = "1.6.1",
-    versionCatalog = VersionCatalog(
-        versionRefName = "androidx-appcompat",
-        libraryName = "androidx-appcompat",
-    ),
-    applyToModule = true,
+    catalogVersionName = "androidx-appcompat",
+    catalogName = "androidx-appcompat",
     platforms = setOf(ComposePlatform.Android)
 )
 
@@ -22,11 +19,8 @@ val AndroidxActivityCompose = Dependency(
     group = "androidx.activity",
     id = "activity-compose",
     version = "1.7.0",
-    versionCatalog = VersionCatalog(
-        versionRefName = "androidx-activityCompose",
-        libraryName = "androidx-activityCompose",
-    ),
-    applyToModule = true,
+    catalogVersionName = "androidx-activityCompose",
+    catalogName = "androidx-activityCompose",
     platforms = setOf(ComposePlatform.Android)
 )
 
@@ -37,11 +31,8 @@ val ComposeUiTooling = Dependency(
     group = "androidx.compose.ui",
     id = "ui-tooling",
     version = "1.4.0",
-    versionCatalog = VersionCatalog(
-        versionRefName = "compose-uitooling",
-        libraryName = "compose-uitooling",
-    ),
-    applyToModule = true,
+    catalogVersionName = "compose-uitooling",
+    catalogName = "compose-uitooling",
     platforms = setOf(ComposePlatform.Android)
 )
 
@@ -52,11 +43,8 @@ val LibresPlugin = Dependency(
     group = "io.github.skeptick.libres",
     id = "gradle-plugin",
     version = "1.1.7",
-    versionCatalog = VersionCatalog(
-        versionRefName = "libres",
-        libraryName = "libres",
-    ),
-    applyToModule = true,
+    catalogVersionName = "libres",
+    catalogName = "libres",
     platforms = emptySet()
 )
 
@@ -72,11 +60,8 @@ val Voyager = Dependency(
     group = "cafe.adriel.voyager",
     id = "voyager-navigator",
     version = "1.0.0-rc04",
-    versionCatalog = VersionCatalog(
-        versionRefName = "voyager",
-        libraryName = "voyager-navigator",
-    ),
-    applyToModule = true,
+    catalogVersionName = "voyager",
+    catalogName = "voyager-navigator",
     platforms = AllPlatforms
 )
 
@@ -87,11 +72,8 @@ val ImageLoader = Dependency(
     group = "io.github.qdsfdhvh",
     id = "image-loader",
     version = "1.2.10",
-    versionCatalog = VersionCatalog(
-        versionRefName = "composeImageLoader",
-        libraryName = "composeImageLoader",
-    ),
-    applyToModule = true,
+    catalogVersionName = "composeImageLoader",
+    catalogName = "composeImageLoader",
     platforms = AllPlatforms
 )
 
@@ -102,11 +84,8 @@ val Napier = Dependency(
     group = "io.github.aakira",
     id = "napier",
     version = "2.6.1",
-    versionCatalog = VersionCatalog(
-        versionRefName = "napier",
-        libraryName = "napier",
-    ),
-    applyToModule = true,
+    catalogVersionName = "napier",
+    catalogName = "napier",
     platforms = AllPlatforms
 )
 
@@ -117,11 +96,8 @@ val KotlinxDateTime = Dependency(
     group = "org.jetbrains.kotlinx",
     id = "kotlinx-datetime",
     version = "0.4.0",
-    versionCatalog = VersionCatalog(
-        versionRefName = "kotlinx-datetime",
-        libraryName = "kotlinx-datetime",
-    ),
-    applyToModule = true,
+    catalogVersionName = "kotlinx-datetime",
+    catalogName = "kotlinx-datetime",
     platforms = AllPlatforms
 )
 
@@ -132,11 +108,8 @@ val MultiplatformSettings = Dependency(
     group = "com.russhwolf",
     id = "multiplatform-settings",
     version = "1.0.0",
-    versionCatalog = VersionCatalog(
-        versionRefName = "multiplatformSettings",
-        libraryName = "multiplatformSettings",
-    ),
-    applyToModule = true,
+    catalogVersionName = "multiplatformSettings",
+    catalogName = "multiplatformSettings",
     platforms = AllPlatforms
 )
 
@@ -147,11 +120,8 @@ val Koin = Dependency(
     group = "io.insert-koin",
     id = "koin-core",
     version = "3.4.0",
-    versionCatalog = VersionCatalog(
-        versionRefName = "koin",
-        libraryName = "koin-core",
-    ),
-    applyToModule = true,
+    catalogVersionName = "koin",
+    catalogName = "koin-core",
     platforms = AllPlatforms
 )
 
@@ -162,11 +132,8 @@ val KStore = Dependency(
     group = "io.github.xxfast",
     id = "kstore",
     version = "0.5.0",
-    versionCatalog = VersionCatalog(
-        versionRefName = "kstore",
-        libraryName = "kstore",
-    ),
-    applyToModule = true,
+    catalogVersionName = "kstore",
+    catalogName = "kstore",
     platforms = AllPlatforms
 )
 
@@ -177,35 +144,26 @@ val KtorCore = Dependency(
     group = "io.ktor",
     id = "ktor-client-core",
     version = "2.2.4",
-    versionCatalog = VersionCatalog(
-        versionRefName = "ktor",
-        libraryName = "ktor-core",
-    ),
-    applyToModule = true,
+    catalogVersionName = "ktor",
+    catalogName = "ktor-core",
     platforms = AllPlatforms
 )
 
 val KtorClientDarwin = KtorCore.copy(
     id = "ktor-client-darwin",
-    versionCatalog = KtorCore.versionCatalog.copy(
-        libraryName = "ktor-client-darwin",
-    ),
+    catalogName = "ktor-client-darwin",
     platforms = setOf(ComposePlatform.Ios)
 )
 
 val KtorClientOkhttp = KtorCore.copy(
     id = "ktor-client-okhttp",
-    versionCatalog = KtorCore.versionCatalog.copy(
-        libraryName = "ktor-client-okhttp",
-    ),
+    catalogName = "ktor-client-okhttp",
     platforms = setOf(ComposePlatform.Android, ComposePlatform.Desktop)
 )
 
 val KtorClientJs = KtorCore.copy(
     id = "ktor-client-js",
-    versionCatalog = KtorCore.versionCatalog.copy(
-        libraryName = "ktor-client-js",
-    ),
+    catalogName = "ktor-client-js",
     platforms = setOf(ComposePlatform.Browser)
 )
 
@@ -216,19 +174,14 @@ val KotlinxCoroutinesCore = Dependency(
     group = "org.jetbrains.kotlinx",
     id = "kotlinx-coroutines-core",
     version = "1.6.4",
-    versionCatalog = VersionCatalog(
-        versionRefName = "kotlinx-coroutines",
-        libraryName = "kotlinx-coroutines-core",
-    ),
-    applyToModule = true,
+    catalogVersionName = "kotlinx-coroutines",
+    catalogName = "kotlinx-coroutines-core",
     platforms = AllPlatforms
 )
 
 val KotlinxCoroutinesAndroid = KotlinxCoroutinesCore.copy(
     id = "kotlinx-coroutines-android",
-    versionCatalog = KotlinxCoroutinesCore.versionCatalog.copy(
-        libraryName = "kotlinx-coroutines-android",
-    ),
+    catalogName = "kotlinx-coroutines-android",
     platforms = setOf(ComposePlatform.Android)
 )
 
@@ -236,14 +189,11 @@ val KotlinxSerializationPlugin = Dependency(
     title = "Kotlinx Serialization",
     description = "Kotlin serialization consists of a compiler plugin.",
     url = "https://github.com/Kotlin/kotlinx.serialization",
-    group = "org.jetbrains.kotlin",
-    id = "kotlin-serialization",
+    group = "org.jetbrains.kotlin.plugin.serialization",
+    id = "gradle-plugin",
     version = "[the same as Kotlin version!]",
-    versionCatalog = VersionCatalog(
-        versionRefName = "",
-        libraryName = "",
-    ),
-    applyToModule = true,
+    catalogVersionName = "kotlin",
+    catalogName = "kotlin-serialization",
     platforms = emptySet()
 )
 
@@ -252,10 +202,8 @@ val KotlinxSerializationJson = KotlinxSerializationPlugin.copy(
     group = "org.jetbrains.kotlinx",
     id = "kotlinx-serialization-json",
     version = "1.5.0",
-    versionCatalog = VersionCatalog(
-        versionRefName = "kotlinx-serialization",
-        libraryName = "kotlinx-serialization-json",
-    ),
+    catalogVersionName = "kotlinx-serialization",
+    catalogName = "kotlinx-serialization-json",
     platforms = AllPlatforms
 )
 
@@ -266,43 +214,32 @@ val SQLDelightPlugin = Dependency(
     group = "app.cash.sqldelight",
     id = "gradle-plugin",
     version = "2.0.0-alpha05",
-    versionCatalog = VersionCatalog(
-        versionRefName = "sqlDelight",
-        libraryName = "sqlDelight",
-    ),
-    applyToModule = true,
+    catalogVersionName = "sqlDelight",
+    catalogName = "sqlDelight",
     platforms = emptySet()
 )
 
 val SQLDelightDriverJvm = SQLDelightPlugin.copy(
     id = "sqlite-driver",
-    versionCatalog = SQLDelightPlugin.versionCatalog.copy(
-        libraryName = "sqlDelight-driver-sqlite",
-    ),
+    catalogName = "sqlDelight-driver-sqlite",
     platforms = setOf(ComposePlatform.Desktop)
 )
 
 val SQLDelightDriverAndroid = SQLDelightPlugin.copy(
     id = "android-driver",
-    versionCatalog = SQLDelightPlugin.versionCatalog.copy(
-        libraryName = "sqlDelight-driver-android",
-    ),
+    catalogName = "sqlDelight-driver-android",
     platforms = setOf(ComposePlatform.Android)
 )
 
 val SQLDelightDriverNative = SQLDelightPlugin.copy(
     id = "native-driver",
-    versionCatalog = SQLDelightPlugin.versionCatalog.copy(
-        libraryName = "sqlDelight-driver-native",
-    ),
+    catalogName = "sqlDelight-driver-native",
     platforms = setOf(ComposePlatform.Ios)
 )
 
 val SQLDelightDriverJs = SQLDelightPlugin.copy(
     id = "sqljs-driver",
-    versionCatalog = SQLDelightPlugin.versionCatalog.copy(
-        libraryName = "sqlDelight-driver-sqljs",
-    ),
+    catalogName = "sqlDelight-driver-sqljs",
     platforms = setOf(ComposePlatform.Browser)
 )
 
@@ -313,19 +250,14 @@ val ApolloPlugin = Dependency(
     group = "com.apollographql.apollo3",
     id = "apollo-gradle-plugin",
     version = "3.7.5",
-    versionCatalog = VersionCatalog(
-        versionRefName = "apollo",
-        libraryName = "apollo",
-    ),
-    applyToModule = true,
+    catalogVersionName = "apollo",
+    catalogName = "apollo",
     platforms = emptySet()
 )
 
 val ApolloRuntime = ApolloPlugin.copy(
     id = "apollo-runtime",
-    versionCatalog = ApolloPlugin.versionCatalog.copy(
-        libraryName = "apollo-runtime",
-    ),
+    catalogName = "apollo-runtime",
     platforms = AllPlatforms
 )
 
@@ -336,10 +268,7 @@ val BuildConfigPlugin = Dependency(
     group = "com.github.gmazzo.buildconfig",
     id = "gradle-plugin",
     version = "3.1.0",
-    versionCatalog = VersionCatalog(
-        versionRefName = "buildConfig",
-        libraryName = "buildConfig",
-    ),
-    applyToModule = true,
+    catalogVersionName = "buildConfig",
+    catalogName = "buildConfig",
     platforms = emptySet()
 )

@@ -11,6 +11,37 @@ import java.lang.ProcessBuilder.Redirect
 import kotlin.io.path.createTempDirectory
 import kotlin.test.assertEquals
 
+internal val allDependencies = setOf(
+    AndroidxAppcompat,
+    AndroidxActivityCompose,
+    ApolloPlugin,
+    ApolloRuntime,
+    ComposeUiTooling,
+    LibresPlugin,
+    LibresCompose,
+    Voyager,
+    ImageLoader,
+    Napier,
+    KotlinxDateTime,
+    MultiplatformSettings,
+    Koin,
+    KStore,
+    KtorCore,
+    KtorClientDarwin,
+    KtorClientOkhttp,
+    KtorClientJs,
+    KotlinxCoroutinesCore,
+    KotlinxCoroutinesAndroid,
+    KotlinxSerializationPlugin,
+    KotlinxSerializationJson,
+    SQLDelightPlugin,
+    SQLDelightDriverJvm,
+    SQLDelightDriverAndroid,
+    SQLDelightDriverNative,
+    SQLDelightDriverJs,
+    BuildConfigPlugin,
+)
+
 class GeneratedProjectTest {
 
     companion object {
@@ -28,37 +59,6 @@ class GeneratedProjectTest {
             workingDir.deleteRecursively()
         }
     }
-
-    private val allDependencies = setOf(
-            AndroidxAppcompat,
-            AndroidxActivityCompose,
-            ApolloPlugin,
-            ApolloRuntime,
-            ComposeUiTooling,
-            LibresPlugin,
-            LibresCompose,
-            Voyager,
-            ImageLoader,
-            Napier,
-            KotlinxDateTime,
-            MultiplatformSettings,
-            Koin,
-            KStore,
-            KtorCore,
-            KtorClientDarwin,
-            KtorClientOkhttp,
-            KtorClientJs,
-            KotlinxCoroutinesCore,
-            KotlinxCoroutinesAndroid,
-            KotlinxSerializationPlugin,
-            KotlinxSerializationJson,
-            SQLDelightPlugin,
-            SQLDelightDriverJvm,
-            SQLDelightDriverAndroid,
-            SQLDelightDriverNative,
-            SQLDelightDriverJs,
-            BuildConfigPlugin,
-        )
 
     @Test
     fun testDesktopAndBrowserProject() {

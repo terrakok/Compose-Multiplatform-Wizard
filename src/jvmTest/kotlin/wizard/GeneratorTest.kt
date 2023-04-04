@@ -9,7 +9,9 @@ class GeneratorTest {
 
     @Test
     fun buildAllFiles() {
-        val info = ProjectInfo()
+        val info = ProjectInfo(
+            dependencies = allDependencies
+        )
         val files = info.buildFiles()
 
         assertEquals(
@@ -28,6 +30,8 @@ class GeneratorTest {
             composeApp/src/commonMain/kotlin/org/company/app/Color.kt
             composeApp/src/commonMain/kotlin/org/company/app/Theme.kt
             composeApp/src/commonMain/kotlin/org/company/app/App.kt
+            composeApp/src/commonMain/graphql/schema.graphqls
+            composeApp/src/commonMain/graphql/HelloQuery.graphql
             composeApp/src/androidMain/AndroidManifest.xml
             composeApp/src/androidMain/kotlin/org/company/app/App.android.kt
             composeApp/src/desktopMain/kotlin/org/company/app/App.jvm.kt
@@ -56,10 +60,15 @@ class GeneratorTest {
                 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
                 plugins {
-                    kotlin("multiplatform")
+                    alias(libs.plugins.multiplatform)
                     alias(libs.plugins.compose)
-                    kotlin("native.cocoapods")
+                    alias(libs.plugins.cocoapods)
                     alias(libs.plugins.android.application)
+                    alias(libs.plugins.apollo)
+                    alias(libs.plugins.libres)
+                    alias(libs.plugins.kotlin.serialization)
+                    alias(libs.plugins.sqlDelight)
+                    alias(libs.plugins.buildConfig)
                 }
 
                 kotlin {
@@ -100,6 +109,18 @@ class GeneratorTest {
                                 implementation(compose.runtime)
                                 implementation(compose.foundation)
                                 implementation(compose.material)
+                                implementation(libs.apollo.runtime)
+                                implementation(libs.libres)
+                                implementation(libs.voyager.navigator)
+                                implementation(libs.composeImageLoader)
+                                implementation(libs.napier)
+                                implementation(libs.kotlinx.datetime)
+                                implementation(libs.multiplatformSettings)
+                                implementation(libs.koin.core)
+                                implementation(libs.kstore)
+                                implementation(libs.ktor.core)
+                                implementation(libs.kotlinx.coroutines.core)
+                                implementation(libs.kotlinx.serialization.json)
                             }
                         }
 
@@ -114,6 +135,9 @@ class GeneratorTest {
                                 implementation(libs.androidx.appcompat)
                                 implementation(libs.androidx.activityCompose)
                                 implementation(libs.compose.uitooling)
+                                implementation(libs.ktor.client.okhttp)
+                                implementation(libs.kotlinx.coroutines.android)
+                                implementation(libs.sqlDelight.driver.android)
                             }
                         }
 
@@ -121,12 +145,16 @@ class GeneratorTest {
                             dependencies {
                                 implementation(compose.desktop.common)
                                 implementation(compose.desktop.currentOs)
+                                implementation(libs.ktor.client.okhttp)
+                                implementation(libs.sqlDelight.driver.sqlite)
                             }
                         }
 
                         val jsMain by getting {
                             dependencies {
                                 implementation(compose.web.core)
+                                implementation(libs.ktor.client.js)
+                                implementation(libs.sqlDelight.driver.sqljs)
                             }
                         }
 
@@ -139,6 +167,8 @@ class GeneratorTest {
                             iosArm64Main.dependsOn(this)
                             iosSimulatorArm64Main.dependsOn(this)
                             dependencies {
+                                implementation(libs.ktor.client.darwin)
+                                implementation(libs.sqlDelight.driver.native)
                             }
                         }
 
@@ -195,8 +225,105 @@ class GeneratorTest {
                     web.application {}
                 }
 
+                libres {
+                    // https://github.com/Skeptick/libres#setup
+                }
+                tasks.getByPath("desktopProcessResources").dependsOn("libresGenerateResources")
+                tasks.getByPath("desktopSourcesJar").dependsOn("libresGenerateResources")
+                tasks.getByPath("jsProcessResources").dependsOn("libresGenerateResources")
+
+                buildConfig {
+                  // BuildConfig configuration here.
+                  // https://github.com/gmazzo/gradle-buildconfig-plugin#usage-in-kts
+                }
+
+                sqldelight {
+                  databases {
+                    create("MyDatabase") {
+                      // Database configuration here.
+                      // https://cashapp.github.io/sqldelight
+                      packageName.set("org.company.app.db")
+                    }
+                  }
+                }
+
+                apollo {
+                  service("api") {
+                    // GraphQL configuration here.
+                    // https://www.apollographql.com/docs/kotlin/advanced/plugin-configuration/
+                    packageName.set("org.company.app.graphql")
+                  }
+                }
+
             """.trimIndent(),
             files.first { it is ModuleBuildGradleKts }.content
+        )
+
+        assertEquals(
+            """
+                [versions]
+
+                kotlin = "${info.kotlinVersion}"
+                agp = "${info.agpVersion}"
+                compose = "${info.composeVersion}"
+                androidx-appcompat = "${AndroidxAppcompat.version}"
+                androidx-activityCompose = "${AndroidxActivityCompose.version}"
+                apollo = "${ApolloRuntime.version}"
+                compose-uitooling = "${ComposeUiTooling.version}"
+                libres = "${LibresCompose.version}"
+                voyager = "${Voyager.version}"
+                composeImageLoader = "${ImageLoader.version}"
+                napier = "${Napier.version}"
+                kotlinx-datetime = "${KotlinxDateTime.version}"
+                multiplatformSettings = "${MultiplatformSettings.version}"
+                koin = "${Koin.version}"
+                kstore = "${KStore.version}"
+                ktor = "${KtorCore.version}"
+                kotlinx-coroutines = "${KotlinxCoroutinesCore.version}"
+                kotlinx-serialization = "${KotlinxSerializationJson.version}"
+                sqlDelight = "${SQLDelightPlugin.version}"
+                buildConfig = "${BuildConfigPlugin.version}"
+                
+                [libraries]
+
+                androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+                androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+                apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apollo" }
+                compose-uitooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-uitooling" }
+                libres = { module = "io.github.skeptick.libres:libres-compose", version.ref = "libres" }
+                voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+                composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "composeImageLoader" }
+                napier = { module = "io.github.aakira:napier", version.ref = "napier" }
+                kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+                multiplatformSettings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
+                koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+                kstore = { module = "io.github.xxfast:kstore", version.ref = "kstore" }
+                ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+                ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+                ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+                ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }
+                kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+                kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+                kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+                sqlDelight-driver-sqlite = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqlDelight" }
+                sqlDelight-driver-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
+                sqlDelight-driver-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
+                sqlDelight-driver-sqljs = { module = "app.cash.sqldelight:sqljs-driver", version.ref = "sqlDelight" }
+
+                [plugins]
+
+                multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+                cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+                compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+                android-application = { id = "com.android.application", version.ref = "agp" }
+                apollo = { id = "com.apollographql.apollo3", version.ref = "apollo" }
+                libres = { id = "io.github.skeptick.libres", version.ref = "libres" }
+                kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+                sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
+                buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }
+
+            """.trimIndent(),
+            files.first { it is GradleLibsVersion }.content
         )
     }
 
@@ -233,7 +360,7 @@ class GeneratorTest {
         assertEquals(
             """
                 plugins {
-                    kotlin("multiplatform")
+                    alias(libs.plugins.multiplatform)
                     alias(libs.plugins.compose)
                     alias(libs.plugins.android.application)
                 }
@@ -346,9 +473,9 @@ class GeneratorTest {
         assertEquals(
             """
                 plugins {
-                    kotlin("multiplatform")
+                    alias(libs.plugins.multiplatform)
                     alias(libs.plugins.compose)
-                    kotlin("native.cocoapods")
+                    alias(libs.plugins.cocoapods)
                 }
 
                 kotlin {
@@ -448,7 +575,7 @@ class GeneratorTest {
                 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
                 plugins {
-                    kotlin("multiplatform")
+                    alias(libs.plugins.multiplatform)
                     alias(libs.plugins.compose)
                 }
 
@@ -532,7 +659,7 @@ class GeneratorTest {
         assertEquals(
             """
                 plugins {
-                    kotlin("multiplatform")
+                    alias(libs.plugins.multiplatform)
                     alias(libs.plugins.compose)
                 }
 

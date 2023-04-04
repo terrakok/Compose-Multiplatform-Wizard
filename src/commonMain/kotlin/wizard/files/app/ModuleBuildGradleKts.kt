@@ -8,8 +8,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         val plugins = mutableSetOf<Dependency>()
         val commonDeps = mutableSetOf<Dependency>()
         val otherDeps = mutableSetOf<Dependency>()
-        info.dependencies.filter { it.applyToModule }
-            .forEach { dep ->
+        info.dependencies.forEach { dep ->
                 when  {
                     dep.isPlugin() -> plugins.add(dep)
                     dep.isCommon() -> commonDeps.add(dep)
@@ -23,16 +22,16 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         appendLine("plugins {")
-        appendLine("    kotlin(\"multiplatform\")")
+        appendLine("    alias(libs.plugins.multiplatform)")
         appendLine("    alias(libs.plugins.compose)")
         if (info.hasIos) {
-            appendLine("    kotlin(\"native.cocoapods\")")
+            appendLine("    alias(libs.plugins.cocoapods)")
         }
         if (info.hasAndroid) {
             appendLine("    alias(libs.plugins.android.application)")
         }
         plugins.forEach { dep ->
-            appendLine("    ${dep.pluginNotation()}")
+            appendLine("    ${dep.pluginNotation}")
         }
         appendLine("}")
         appendLine("")
@@ -84,7 +83,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("                implementation(compose.material)")
 
         commonDeps.forEach { dep ->
-            appendLine("                ${dep.libraryNotation()}")
+            appendLine("                ${dep.libraryNotation}")
         }
 
         appendLine("            }")
@@ -102,7 +101,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
 
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ComposePlatform.Android)) {
-                    appendLine("                ${dep.libraryNotation()}")
+                    appendLine("                ${dep.libraryNotation}")
                 }
             }
 
@@ -118,7 +117,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
 
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ComposePlatform.Desktop)) {
-                    appendLine("                ${dep.libraryNotation()}")
+                    appendLine("                ${dep.libraryNotation}")
                 }
             }
 
@@ -133,7 +132,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
 
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ComposePlatform.Browser)) {
-                    appendLine("                ${dep.libraryNotation()}")
+                    appendLine("                ${dep.libraryNotation}")
                 }
             }
 
@@ -154,7 +153,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
 
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ComposePlatform.Ios)) {
-                    appendLine("                ${dep.libraryNotation()}")
+                    appendLine("                ${dep.libraryNotation}")
                 }
             }
 

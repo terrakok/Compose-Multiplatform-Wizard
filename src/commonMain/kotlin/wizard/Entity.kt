@@ -41,25 +41,17 @@ data class Dependency(
     val group: String,
     val id: String,
     val version: String,
-    val versionCatalog: VersionCatalog,
-    val applyToModule: Boolean,
+    val catalogVersionName: String,
+    val catalogName: String,
     val platforms: Set<ComposePlatform>,
-)
-
-data class VersionCatalog(
-    val versionRefName: String,
-    val libraryName: String,
 )
 
 fun Dependency.isPlugin() = platforms.isEmpty()
 fun Dependency.isCommon() = platforms == AllPlatforms
-fun Dependency.libraryNotation() = "implementation(libs.${versionCatalog.libraryAccessor})"
-fun Dependency.pluginNotation() = when {
-    this == KotlinxSerializationPlugin -> "kotlin(\"plugin.serialization\")"
-    else -> "alias(libs.plugins.${versionCatalog.libraryAccessor})"
-}
 
-val VersionCatalog.libraryAccessor: String get() = libraryName.replace("-", ".")
+val Dependency.catalogAccessor get() = catalogName.replace("-", ".")
+val Dependency.libraryNotation get() = "implementation(libs.$catalogAccessor)"
+val Dependency.pluginNotation get() = "alias(libs.plugins.$catalogAccessor)"
 
 interface ProjectFile {
     val path: String
