@@ -138,7 +138,7 @@ val KStore = Dependency(
 )
 
 val ComposeIcons = Dependency(
-    title = "Compose Icons: Font Awesome",
+    title = "Compose Icons",
     description = "Compose Multiplatform icons is a pack of libraries that provide well known Icon Packs.",
     url = "https://github.com/DevSrSouza/compose-icons",
     group = "br.com.devsrsouza.compose.icons",
