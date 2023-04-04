@@ -90,7 +90,7 @@ val Content = FC<AppProps> { props ->
                             selection = withIosState
                             icon = Apple
                             title = "iOS"
-                            status = "Experimental"
+                            status = "Alpha"
                         }
                         TargetButton {
                             selection = withBrowserState
