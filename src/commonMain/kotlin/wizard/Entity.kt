@@ -49,7 +49,6 @@ data class Dependency(
 data class VersionCatalog(
     val versionRefName: String,
     val libraryName: String,
-    val libraryAccessor: String,
 )
 
 fun Dependency.isPlugin() = platforms.isEmpty()
@@ -59,6 +58,8 @@ fun Dependency.pluginNotation() = when {
     this == KotlinxSerializationPlugin -> "kotlin(\"plugin.serialization\")"
     else -> "alias(libs.plugins.${versionCatalog.libraryAccessor})"
 }
+
+val VersionCatalog.libraryAccessor: String get() = libraryName.replace("-", ".")
 
 interface ProjectFile {
     val path: String
