@@ -111,6 +111,7 @@ val Content = FC<AppProps> { props ->
                         KotlinxCoroutinesCore to useState(true),
                         BuildConfigPlugin to useState(true),
                         KtorCore to useState(false),
+                        ComposeIcons to useState(false),
                         KotlinxSerializationJson to useState(false),
                         KotlinxDateTime to useState(false),
                         MultiplatformSettings to useState(false),

@@ -137,6 +137,18 @@ val KStore = Dependency(
     platforms = AllPlatforms
 )
 
+val ComposeIcons = Dependency(
+    title = "Compose Icons: Font Awesome",
+    description = "Compose Multiplatform icons is a pack of libraries that provide well known Icon Packs.",
+    url = "https://github.com/DevSrSouza/compose-icons",
+    group = "br.com.devsrsouza.compose.icons",
+    id = "font-awesome",
+    version = "1.1.0",
+    catalogVersionName = "composeIcons",
+    catalogName = "composeIcons-fontAwesome",
+    platforms = AllPlatforms
+)
+
 val KtorCore = Dependency(
     title = "Ktor client",
     description = "A multiplatform asynchronous HTTP client, which allows you to make requests and handle responses.",

@@ -118,6 +118,7 @@ class GeneratorTest {
                                 implementation(libs.multiplatformSettings)
                                 implementation(libs.koin.core)
                                 implementation(libs.kstore)
+                                implementation(libs.composeIcons.fontAwesome)
                                 implementation(libs.ktor.core)
                                 implementation(libs.kotlinx.coroutines.core)
                                 implementation(libs.kotlinx.serialization.json)
@@ -278,6 +279,7 @@ class GeneratorTest {
                 multiplatformSettings = "${MultiplatformSettings.version}"
                 koin = "${Koin.version}"
                 kstore = "${KStore.version}"
+                composeIcons = "${ComposeIcons.version}"
                 ktor = "${KtorCore.version}"
                 kotlinx-coroutines = "${KotlinxCoroutinesCore.version}"
                 kotlinx-serialization = "${KotlinxSerializationJson.version}"
@@ -298,6 +300,7 @@ class GeneratorTest {
                 multiplatformSettings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
                 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
                 kstore = { module = "io.github.xxfast:kstore", version.ref = "kstore" }
+                composeIcons-fontAwesome = { module = "br.com.devsrsouza.compose.icons:font-awesome", version.ref = "composeIcons" }
                 ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
                 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
                 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
