@@ -104,6 +104,7 @@ val Content = FC<AppProps> { props ->
                     }
 
                     val deps = mapOf(
+                        Kermit to useState(true),
                         Napier to useState(true),
                         LibresCompose to useState(true),
                         Voyager to useState(true),

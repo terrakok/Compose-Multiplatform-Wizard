@@ -77,6 +77,18 @@ val ImageLoader = Dependency(
     platforms = AllPlatforms
 )
 
+val Kermit = Dependency(
+    title = "Kermit",
+    description = "Kermit by Touchlab is a Kotlin Multiplatform centralized logging utility.",
+    url = "https://github.com/touchlab/Kermit",
+    group = "co.touchlab",
+    id = "kermit",
+    version = "2.0.0-RC4",
+    catalogVersionName = "kermit",
+    catalogName = "kermit",
+    platforms = AllPlatforms
+)
+
 val Napier = Dependency(
     title = "Napier",
     description = "Napier is a logger library for Kotlin Multiplatform.",

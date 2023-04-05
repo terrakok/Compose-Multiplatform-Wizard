@@ -21,6 +21,7 @@ internal val allDependencies = setOf(
     LibresCompose,
     Voyager,
     ImageLoader,
+    Kermit,
     Napier,
     KotlinxDateTime,
     MultiplatformSettings,
@@ -83,6 +84,7 @@ class GeneratedProjectTest {
                     LibresCompose,
                     Voyager,
                     ImageLoader,
+                    Kermit,
                     Napier,
                     KotlinxDateTime,
                     MultiplatformSettings,
@@ -109,6 +111,7 @@ class GeneratedProjectTest {
                 name = "test js compose app",
                 platforms = setOf(ComposePlatform.Browser),
                 dependencies = setOf(
+                    Kermit,
                     Napier,
                     KotlinxDateTime,
                     MultiplatformSettings,

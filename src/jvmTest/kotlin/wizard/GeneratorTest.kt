@@ -113,6 +113,7 @@ class GeneratorTest {
                                 implementation(libs.libres)
                                 implementation(libs.voyager.navigator)
                                 implementation(libs.composeImageLoader)
+                                implementation(libs.kermit)
                                 implementation(libs.napier)
                                 implementation(libs.kotlinx.datetime)
                                 implementation(libs.multiplatformSettings)
@@ -274,6 +275,7 @@ class GeneratorTest {
                 libres = "${LibresCompose.version}"
                 voyager = "${Voyager.version}"
                 composeImageLoader = "${ImageLoader.version}"
+                kermit = "${Kermit.version}"
                 napier = "${Napier.version}"
                 kotlinx-datetime = "${KotlinxDateTime.version}"
                 multiplatformSettings = "${MultiplatformSettings.version}"
@@ -295,6 +297,7 @@ class GeneratorTest {
                 libres = { module = "io.github.skeptick.libres:libres-compose", version.ref = "libres" }
                 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
                 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "composeImageLoader" }
+                kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
                 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
                 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
                 multiplatformSettings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
