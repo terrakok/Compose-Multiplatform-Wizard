@@ -132,7 +132,7 @@ val Content = FC<AppProps> { props ->
                         DependencyBox(KotlinxSerializationJson, false),
                         DependencyBox(KotlinxDateTime, false),
                         DependencyBox(MultiplatformSettings, false),
-                        DependencyBox(Koin, false),
+                        DependencyBox(listOf(Koin, Kodein), false),
                         DependencyBox(KStore, false),
                         DependencyBox(SQLDelightPlugin, false),
                         DependencyBox(ApolloPlugin, false),

@@ -137,6 +137,18 @@ val Koin = Dependency(
     platforms = AllPlatforms
 )
 
+val Kodein = Dependency(
+    title = "Kodein",
+    description = "KODEIN is a very simple and yet very useful dependency retrieval container.",
+    url = "https://github.com/kosi-libs/Kodein",
+    group = "org.kodein.di",
+    id = "kodein-di",
+    version = "7.19.0",
+    catalogVersionName = "kodein",
+    catalogName = "kodein",
+    platforms = AllPlatforms
+)
+
 val KStore = Dependency(
     title = "KStore",
     description = "A tiny Kotlin multiplatform library that assists in saving and restoring objects to and from disk.",
