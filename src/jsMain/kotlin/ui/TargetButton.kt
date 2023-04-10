@@ -59,6 +59,14 @@ val TargetButton = FC<TargetButtonProps> { props ->
                     variant = TypographyVariant.body2
                     +props.title
                 }
+                Typography {
+                    variant = TypographyVariant.caption
+                    if (isSelected) {
+                        +"Enabled"
+                    } else {
+                        +"Disabled"
+                    }
+                }
             }
         }
     }
