@@ -118,7 +118,7 @@ val Content = FC<AppProps> { props ->
                     }
 
                     val deps = setOf(
-                        DependencyBox(Napier,true),
+                        DependencyBox(listOf(Napier, Kermit),true),
                         DependencyBox(LibresCompose,true),
                         DependencyBox(Voyager,true),
                         DependencyBox(ImageLoader,true),

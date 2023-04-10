@@ -89,6 +89,18 @@ val Napier = Dependency(
     platforms = AllPlatforms
 )
 
+val Kermit = Dependency(
+    title = "Kermit",
+    description = "Kermit is a logger library for Kotlin Multiplatform.",
+    url = "https://github.com/touchlab/Kermit",
+    group = "co.touchlab",
+    id = "kermit",
+    version = "2.0.0-RC4",
+    catalogVersionName = "kermit",
+    catalogName = "kermit",
+    platforms = AllPlatforms
+)
+
 val KotlinxDateTime = Dependency(
     title = "Kotlinx DateTime",
     description = "A multiplatform Kotlin library for working with date and time.",
