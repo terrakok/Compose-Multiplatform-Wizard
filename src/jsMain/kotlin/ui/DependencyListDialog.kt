@@ -8,6 +8,7 @@ import react.FC
 import react.Props
 import react.StateInstance
 import react.useRequiredContext
+import web.window.window
 import wizard.libraryNotation
 
 external interface DependencyListDialogProps : Props {
@@ -25,6 +26,9 @@ val DependencyListDialog = FC<DependencyListDialogProps> { props ->
         this.open = open
         DialogTitle { +"Select Dependency" }
         List {
+            sx {
+                width = 600.px
+            }
             dependencyBox.dependencies.forEachIndexed { i, dep ->
                 ListItemButton {
                     onClick = {
@@ -44,10 +48,15 @@ val DependencyListDialog = FC<DependencyListDialogProps> { props ->
                             }
                             Typography {
                                 variant = TypographyVariant.body2
-                                sx {
-                                    height = 50.px
-                                }
                                 +dep.description
+                            }
+                            Link {
+                                underline = LinkUnderline.always
+                                onClick = {
+                                    it.stopPropagation()
+                                    window.open(dep.url)
+                                }
+                                +dep.url
                             }
                         }
                     }
