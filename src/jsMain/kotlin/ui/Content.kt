@@ -4,27 +4,17 @@ import csstype.AlignItems
 import csstype.JustifyContent
 import csstype.Padding
 import csstype.px
-import mui.icons.material.Android
-import mui.icons.material.Apple
-import mui.icons.material.Language
-import mui.icons.material.Laptop
-import mui.icons.material.ArrowCircleDown
-import mui.material.Paper
-import mui.material.Stack
-import mui.material.StackDirection
-import mui.material.ButtonGroup
-import mui.material.Button
-import mui.material.Grid
-import mui.material.Size
-import mui.material.TextField
-import mui.material.ButtonVariant
+import mui.icons.material.*
+import mui.material.*
 import mui.system.Container
 import mui.system.responsive
 import mui.system.sx
-import react.*
+import react.FC
+import react.ReactNode
+import react.create
 import react.dom.onChange
+import react.useState
 import web.html.HTMLInputElement
-import wizard.ComposePlatform
 import wizard.*
 
 val Content = FC<AppProps> { props ->
@@ -118,21 +108,34 @@ val Content = FC<AppProps> { props ->
                     }
 
                     val deps = setOf(
-                        DependencyBox(listOf(Napier, Kermit),true),
-                        DependencyBox(LibresCompose,true),
-                        DependencyBox(Voyager,true),
-                        DependencyBox(ImageLoader,true),
-                        DependencyBox(KotlinxCoroutinesCore,true),
-                        DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin),true),
-                        DependencyBox(KtorCore,false),
-                        DependencyBox(ComposeIcons,false),
-                        DependencyBox(KotlinxSerializationJson,false),
-                        DependencyBox(KotlinxDateTime,false),
-                        DependencyBox(MultiplatformSettings,false),
-                        DependencyBox(Koin,false),
-                        DependencyBox(KStore,false),
-                        DependencyBox(SQLDelightPlugin,false),
-                        DependencyBox(ApolloPlugin,false),
+                        DependencyBox(listOf(Napier, Kermit), true),
+                        DependencyBox(LibresCompose, true),
+                        DependencyBox(Voyager, true),
+                        DependencyBox(ImageLoader, true),
+                        DependencyBox(KotlinxCoroutinesCore, true),
+                        DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin), true),
+                        DependencyBox(KtorCore, false),
+                        DependencyBox(
+                            listOf(
+                                ComposeIconsFeather,
+                                ComposeIconsFontAwesome,
+                                ComposeIconsSimple,
+                                ComposeIconsTabler,
+                                ComposeIconsEva,
+                                ComposeIconsOcticons,
+                                ComposeIconsLinea,
+                                ComposeIconsLineAwesome,
+                                ComposeIconsWeather,
+                                ComposeIconsCSSGG
+                            ), false
+                        ),
+                        DependencyBox(KotlinxSerializationJson, false),
+                        DependencyBox(KotlinxDateTime, false),
+                        DependencyBox(MultiplatformSettings, false),
+                        DependencyBox(Koin, false),
+                        DependencyBox(KStore, false),
+                        DependencyBox(SQLDelightPlugin, false),
+                        DependencyBox(ApolloPlugin, false),
                     )
                     Grid {
                         sx {

@@ -26,7 +26,7 @@ internal val allDependencies = setOf(
     MultiplatformSettings,
     Koin,
     KStore,
-    ComposeIcons,
+    ComposeIconsFeather,
     KtorCore,
     KtorClientDarwin,
     KtorClientOkhttp,
