@@ -4,13 +4,27 @@ import csstype.AlignItems
 import csstype.JustifyContent
 import csstype.Padding
 import csstype.px
-import mui.icons.material.*
-import mui.material.*
+import mui.icons.material.Android
+import mui.icons.material.Apple
+import mui.icons.material.Language
+import mui.icons.material.Laptop
+import mui.icons.material.ArrowCircleDown
+import mui.material.Paper
+import mui.material.Stack
+import mui.material.StackDirection
+import mui.material.ButtonGroup
+import mui.material.Button
+import mui.material.Grid
+import mui.material.Size
+import mui.material.TextField
+import mui.material.ButtonVariant
+import mui.system.Container
 import mui.system.responsive
 import mui.system.sx
 import react.*
 import react.dom.onChange
 import web.html.HTMLInputElement
+import wizard.ComposePlatform
 import wizard.*
 
 val Content = FC<AppProps> { props ->
@@ -103,22 +117,22 @@ val Content = FC<AppProps> { props ->
                         info = default
                     }
 
-                    val deps = mapOf(
-                        Napier to useState(true),
-                        LibresCompose to useState(true),
-                        Voyager to useState(true),
-                        ImageLoader to useState(true),
-                        KotlinxCoroutinesCore to useState(true),
-                        BuildConfigPlugin to useState(true),
-                        KtorCore to useState(false),
-                        ComposeIcons to useState(false),
-                        KotlinxSerializationJson to useState(false),
-                        KotlinxDateTime to useState(false),
-                        MultiplatformSettings to useState(false),
-                        Koin to useState(false),
-                        KStore to useState(false),
-                        SQLDelightPlugin to useState(false),
-                        ApolloPlugin to useState(false),
+                    val deps = setOf(
+                        DependencyBox(Napier,true),
+                        DependencyBox(LibresCompose,true),
+                        DependencyBox(Voyager,true),
+                        DependencyBox(ImageLoader,true),
+                        DependencyBox(KotlinxCoroutinesCore,true),
+                        DependencyBox(BuildConfigPlugin,true),
+                        DependencyBox(KtorCore,false),
+                        DependencyBox(ComposeIcons,false),
+                        DependencyBox(KotlinxSerializationJson,false),
+                        DependencyBox(KotlinxDateTime,false),
+                        DependencyBox(MultiplatformSettings,false),
+                        DependencyBox(Koin,false),
+                        DependencyBox(KStore,false),
+                        DependencyBox(SQLDelightPlugin,false),
+                        DependencyBox(ApolloPlugin,false),
                     )
                     Grid {
                         sx {
@@ -126,12 +140,11 @@ val Content = FC<AppProps> { props ->
                         }
                         spacing = responsive(2)
                         container = true
-                        deps.forEach { (dep, state) ->
+                        deps.forEach { dep ->
                             Grid {
                                 item = true
                                 DependencyCard {
                                     dependency = dep
-                                    selection = state
                                 }
                             }
                         }
@@ -161,7 +174,7 @@ val Content = FC<AppProps> { props ->
                                     if (withDesktop) add(ComposePlatform.Desktop)
                                     if (withBrowser) add(ComposePlatform.Browser)
                                 },
-                                dependencies = requiredAndroidDependencies + getSelectedDependencies(deps)
+                                dependencies = requiredAndroidDependencies + deps.getSelectedDependencies()
                             )
                             props.generate(info)
                         }
@@ -172,14 +185,15 @@ val Content = FC<AppProps> { props ->
     }
 }
 
-private fun getSelectedDependencies(deps: Map<Dependency, StateInstance<Boolean>>) =
-    deps
-        .filter { (_, s) -> s.component1() }
-        .flatMap { (d, _) ->
+private fun Set<DependencyBox>.getSelectedDependencies() =
+    this
+        .filter { it.isSelected.component1() }
+        .map { it.selectedDep.component1() }
+        .flatMap {
             when {
-                d.group == "io.github.skeptick.libres" -> listOf(LibresPlugin, LibresCompose)
-                d.group == "io.ktor" -> listOfNotNull(KtorCore, KtorClientDarwin, KtorClientOkhttp)
-                d.group == "app.cash.sqldelight" -> listOf(
+                it.group == "io.github.skeptick.libres" -> listOf(LibresPlugin, LibresCompose)
+                it.group == "io.ktor" -> listOfNotNull(KtorCore, KtorClientDarwin, KtorClientOkhttp)
+                it.group == "app.cash.sqldelight" -> listOf(
                     SQLDelightPlugin,
                     SQLDelightDriverJvm,
                     SQLDelightDriverAndroid,
@@ -187,11 +201,11 @@ private fun getSelectedDependencies(deps: Map<Dependency, StateInstance<Boolean>
                     SQLDelightDriverJs
                 )
 
-                d.group == "com.apollographql.apollo3" -> listOf(ApolloPlugin, ApolloRuntime)
+                it.group == "com.apollographql.apollo3" -> listOf(ApolloPlugin, ApolloRuntime)
 
-                d.id.contains("coroutines") -> listOf(KotlinxCoroutinesCore, KotlinxCoroutinesAndroid)
-                d.id.contains("serialization") -> listOf(KotlinxSerializationPlugin, KotlinxSerializationJson)
-                else -> listOf(d)
+                it.id.contains("coroutines") -> listOf(KotlinxCoroutinesCore, KotlinxCoroutinesAndroid)
+                it.id.contains("serialization") -> listOf(KotlinxSerializationPlugin, KotlinxSerializationJson)
+                else -> listOf(it)
             }
         }
         .toSet()

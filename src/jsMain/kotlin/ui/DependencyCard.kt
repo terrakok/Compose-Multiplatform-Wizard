@@ -2,6 +2,7 @@ package ui
 
 import csstype.*
 import mui.icons.material.CheckCircleRounded
+import mui.icons.material.Edit
 import mui.icons.material.RadioButtonUncheckedRounded
 import mui.material.*
 import mui.material.styles.TypographyVariant
@@ -12,14 +13,15 @@ import web.window.window
 import wizard.Dependency
 
 external interface DependencyCardProps : Props {
-    var dependency: Dependency
-    var selection: StateInstance<Boolean>
+    var dependency: DependencyBox
 }
 
 val DependencyCard = FC<DependencyCardProps> { props ->
-    val dep = props.dependency
-    var isSelected by props.selection
+    val dep by props.dependency.selectedDep
+    var isSelected by props.dependency.isSelected
     val showVersion by useRequiredContext(ShowVersionContext)
+    var isDialogOpen by useState(false)
+
     Card {
         sx {
             width = 320.px
@@ -74,15 +76,43 @@ val DependencyCard = FC<DependencyCardProps> { props ->
                             +dep.version
                         }
                     }
-                    Button {
-                        sx {
-                            right = -5.px
+                    Stack {
+                        direction = responsive(StackDirection.row)
+                        if (props.dependency.isMultiSelect) {
+                            Button {
+                                sx {
+                                    minWidth = 20.px
+                                }
+                                onClick = {
+                                    it.stopPropagation()
+                                    isDialogOpen = !isDialogOpen
+                                }
+                                DependencyListDialog {
+                                    dependencyBox = props.dependency
+                                    open = isDialogOpen
+                                    onClose = { i ->
+                                        props.dependency.selectIndex(i)
+                                        isDialogOpen = !isDialogOpen
+                                    }
+                                }
+                                Edit {
+                                    sx {
+                                        width = 18.px
+                                        height = 18.px
+                                    }
+                                }
+                            }
                         }
-                        onClick = {
-                            it.stopPropagation()
-                            window.open(dep.url)
+                        Button {
+                            sx {
+                                right = -5.px
+                            }
+                            onClick = {
+                                it.stopPropagation()
+                                window.open(dep.url)
+                            }
+                            +"More info"
                         }
-                        +"More info"
                     }
                 }
             }
