@@ -296,3 +296,15 @@ val BuildConfigPlugin = Dependency(
     catalogName = "buildConfig",
     platforms = emptySet()
 )
+
+val BuildKonfigPlugin = Dependency(
+    title = "BuildKonfig",
+    description = "BuildConfig for Kotlin Multiplatform Project.",
+    url = "https://github.com/yshrsmz/BuildKonfig",
+    group = "com.codingfeline.buildkonfig",
+    id = "buildkonfig-gradle-plugin",
+    version = "0.13.3",
+    catalogVersionName = "buildKonfig",
+    catalogName = "buildKonfig",
+    platforms = emptySet()
+)

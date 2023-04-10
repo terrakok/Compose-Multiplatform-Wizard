@@ -123,7 +123,7 @@ val Content = FC<AppProps> { props ->
                         DependencyBox(Voyager,true),
                         DependencyBox(ImageLoader,true),
                         DependencyBox(KotlinxCoroutinesCore,true),
-                        DependencyBox(BuildConfigPlugin,true),
+                        DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin),true),
                         DependencyBox(KtorCore,false),
                         DependencyBox(ComposeIcons,false),
                         DependencyBox(KotlinxSerializationJson,false),
