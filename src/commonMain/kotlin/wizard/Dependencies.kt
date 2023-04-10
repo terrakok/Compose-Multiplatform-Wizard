@@ -45,7 +45,7 @@ val LibresPlugin = Dependency(
     version = "1.1.7",
     catalogVersionName = "libres",
     catalogName = "libres",
-    platforms = emptySet()
+    platforms = emptySet(),
 )
 
 val LibresCompose = LibresPlugin.copy(
@@ -308,3 +308,24 @@ val BuildKonfigPlugin = Dependency(
     catalogName = "buildKonfig",
     platforms = emptySet()
 )
+
+
+fun Dependency.getWithRelatedDependencies(): List<Dependency> {
+    return when {
+        group == "io.github.skeptick.libres" -> listOf(LibresPlugin, LibresCompose)
+        group == "io.ktor" -> listOfNotNull(KtorCore, KtorClientDarwin, KtorClientOkhttp)
+        group == "app.cash.sqldelight" -> listOf(
+            SQLDelightPlugin,
+            SQLDelightDriverJvm,
+            SQLDelightDriverAndroid,
+            SQLDelightDriverNative,
+            SQLDelightDriverJs
+        )
+
+        group == "com.apollographql.apollo3" -> listOf(ApolloPlugin, ApolloRuntime)
+
+        id.contains("coroutines") -> listOf(KotlinxCoroutinesCore, KotlinxCoroutinesAndroid)
+        id.contains("serialization") -> listOf(KotlinxSerializationPlugin, KotlinxSerializationJson)
+        else -> listOf(this)
+    }
+}

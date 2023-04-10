@@ -16,6 +16,7 @@ import react.dom.onChange
 import react.useState
 import web.html.HTMLInputElement
 import wizard.*
+import wizard.files.DependencyType
 
 val Content = FC<AppProps> { props ->
     Container {
@@ -107,36 +108,9 @@ val Content = FC<AppProps> { props ->
                         info = default
                     }
 
-                    val deps = setOf(
-                        DependencyBox(listOf(Napier, Kermit), true),
-                        DependencyBox(LibresCompose, true),
-                        DependencyBox(Voyager, true),
-                        DependencyBox(ImageLoader, true),
-                        DependencyBox(KotlinxCoroutinesCore, true),
-                        DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin), true),
-                        DependencyBox(KtorCore, false),
-                        DependencyBox(
-                            listOf(
-                                ComposeIconsFeather,
-                                ComposeIconsFontAwesome,
-                                ComposeIconsSimple,
-                                ComposeIconsTabler,
-                                ComposeIconsEva,
-                                ComposeIconsOcticons,
-                                ComposeIconsLinea,
-                                ComposeIconsLineAwesome,
-                                ComposeIconsWeather,
-                                ComposeIconsCSSGG
-                            ), false
-                        ),
-                        DependencyBox(KotlinxSerializationJson, false),
-                        DependencyBox(KotlinxDateTime, false),
-                        DependencyBox(MultiplatformSettings, false),
-                        DependencyBox(listOf(Koin, Kodein), false),
-                        DependencyBox(KStore, false),
-                        DependencyBox(SQLDelightPlugin, false),
-                        DependencyBox(ApolloPlugin, false),
-                    )
+                    val deps = DependencyType
+                        .values()
+                        .map { DependencyBox(it) }
                     Grid {
                         sx {
                             justifyContent = JustifyContent.spaceAround
@@ -146,9 +120,7 @@ val Content = FC<AppProps> { props ->
                         deps.forEach { dep ->
                             Grid {
                                 item = true
-                                DependencyCard {
-                                    dependency = dep
-                                }
+                                dep.renderInGrid()
                             }
                         }
                     }
@@ -188,27 +160,8 @@ val Content = FC<AppProps> { props ->
     }
 }
 
-private fun Set<DependencyBox>.getSelectedDependencies() =
+private fun List<DependencyBox<*>>.getSelectedDependencies() =
     this
-        .filter { it.isSelected.component1() }
-        .map { it.selectedDep.component1() }
-        .flatMap {
-            when {
-                it.group == "io.github.skeptick.libres" -> listOf(LibresPlugin, LibresCompose)
-                it.group == "io.ktor" -> listOfNotNull(KtorCore, KtorClientDarwin, KtorClientOkhttp)
-                it.group == "app.cash.sqldelight" -> listOf(
-                    SQLDelightPlugin,
-                    SQLDelightDriverJvm,
-                    SQLDelightDriverAndroid,
-                    SQLDelightDriverNative,
-                    SQLDelightDriverJs
-                )
-
-                it.group == "com.apollographql.apollo3" -> listOf(ApolloPlugin, ApolloRuntime)
-
-                it.id.contains("coroutines") -> listOf(KotlinxCoroutinesCore, KotlinxCoroutinesAndroid)
-                it.id.contains("serialization") -> listOf(KotlinxSerializationPlugin, KotlinxSerializationJson)
-                else -> listOf(it)
-            }
-        }
+        .flatMap { it.getSelectedDependencies() } // for each dependency box, get a list of selected dependencies
+        .flatMap { it.getWithRelatedDependencies() } // for each selected dependency, get a list of additional dependencies needed to fully configure a project that uses it
         .toSet()
