@@ -279,7 +279,7 @@ class GeneratorTest {
                 multiplatformSettings = "${MultiplatformSettings.version}"
                 koin = "${Koin.version}"
                 kstore = "${KStore.version}"
-                composeIcons = "${ComposeIcons.version}"
+                composeIcons = "${ComposeIconsFontAwesome.version}"
                 ktor = "${KtorCore.version}"
                 kotlinx-coroutines = "${KotlinxCoroutinesCore.version}"
                 kotlinx-serialization = "${KotlinxSerializationJson.version}"
