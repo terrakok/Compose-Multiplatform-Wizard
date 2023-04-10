@@ -30,10 +30,6 @@ val ProjectInfo.hasBrowser get() = platforms.any { it == ComposePlatform.Browser
 val ProjectInfo.packagePath get() = packageId.replace(".", "/")
 val ProjectInfo.safeName get() = name.replace(" ", "-")
 
-val ProjectInfo.kotlinVersionRef get() = "kotlin"
-val ProjectInfo.agpVersionRef get() = "agp"
-val ProjectInfo.composeVersionRef get() = "compose"
-
 data class Dependency(
     val title: String,
     val description: String,

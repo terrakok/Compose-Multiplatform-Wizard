@@ -25,7 +25,6 @@ class GradleLibsVersion(info: ProjectInfo) : ProjectFile {
         appendLine()
 
         // libraries
-        val libraries = info.dependencies.filterNot { it.isPlugin() }
         appendLine("[libraries]")
         appendLine()
 
