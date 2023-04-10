@@ -34,8 +34,10 @@ val TopMenu = FC<Props> {
                     showVersions = !showVersions
                 }
                 if (showVersions) {
+                    title = "Hide versions"
                     Code()
                 } else {
+                    title = "Show versions"
                     CodeOff()
                 }
             }
@@ -44,6 +46,7 @@ val TopMenu = FC<Props> {
                 onClick = {
                     window.open("https://developer.android.com/jetpack/compose/documentation")
                 }
+                title = "View compose documentation"
                 MenuBook()
             }
 
@@ -51,6 +54,7 @@ val TopMenu = FC<Props> {
                 onClick = {
                     window.open("https://github.com/terrakok/Compose-Multiplatform-Wizard")
                 }
+                title = "Fork me on GitHub"
                 GitHub()
             }
 
@@ -59,8 +63,10 @@ val TopMenu = FC<Props> {
                     theme = if (theme == Themes.Light) Themes.Dark else Themes.Light
                 }
                 if (theme == Themes.Light) {
+                    title = "Use dark theme"
                     Brightness7()
                 } else {
+                    title = "Use light theme"
                     Brightness4()
                 }
             }
