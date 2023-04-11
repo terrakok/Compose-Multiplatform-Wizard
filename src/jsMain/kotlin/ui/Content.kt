@@ -70,10 +70,10 @@ val Content = FC<AppProps> { props ->
                         }
                     }
 
-                    val withAndroidState = useState(default.platforms.contains(ComposePlatform.Android))
-                    val withIosState = useState(default.platforms.contains(ComposePlatform.Ios))
-                    val withDesktopState = useState(default.platforms.contains(ComposePlatform.Desktop))
-                    val withBrowserState = useState(default.platforms.contains(ComposePlatform.Browser))
+                    val withAndroidState = useState(true)
+                    val withIosState = useState(true)
+                    val withDesktopState = useState(true)
+                    val withBrowserState = useState(false)
                     ButtonGroup {
                         disableElevation = true
                         TargetButton {
