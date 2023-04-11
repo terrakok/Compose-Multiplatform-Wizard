@@ -3,6 +3,7 @@ package wizard.files.app
 import wizard.LibresPlugin
 import wizard.ProjectFile
 import wizard.ProjectInfo
+import wizard.hasCustomResources
 
 class Podspec(info: ProjectInfo) : ProjectFile {
     override val path = "composeApp/composeApp.podspec"
@@ -46,6 +47,9 @@ class Podspec(info: ProjectInfo) : ProjectFile {
                     }
                 ]
         """.trimIndent())
+        if (!info.hasCustomResources) {
+            appendLine("    spec.resources = ['src/commonMain/resources/**']")
+        }
         if (info.dependencies.contains(LibresPlugin)) {
             appendLine("""
                 |    spec.resource_bundles = {

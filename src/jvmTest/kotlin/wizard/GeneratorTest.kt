@@ -334,7 +334,8 @@ class GeneratorTest {
     fun buildAndroidFiles() {
         val info = ProjectInfo(
             packageId = "org.android.app",
-            platforms = setOf(ComposePlatform.Android)
+            platforms = setOf(ComposePlatform.Android),
+            dependencies = requiredAndroidDependencies + setOf(LibresPlugin, LibresCompose)
         )
         val files = info.buildFiles()
 
@@ -366,6 +367,7 @@ class GeneratorTest {
                     alias(libs.plugins.multiplatform)
                     alias(libs.plugins.compose)
                     alias(libs.plugins.android.application)
+                    alias(libs.plugins.libres)
                 }
 
                 kotlin {
@@ -383,6 +385,7 @@ class GeneratorTest {
                                 implementation(compose.runtime)
                                 implementation(compose.foundation)
                                 implementation(compose.material)
+                                implementation(libs.libres)
                             }
                         }
 
@@ -428,6 +431,10 @@ class GeneratorTest {
                     }
                 }
 
+
+                libres {
+                    // https://github.com/Skeptick/libres#setup
+                }
 
             """.trimIndent(),
             files.first { it is ModuleBuildGradleKts }.content
@@ -496,14 +503,22 @@ class GeneratorTest {
                             baseName = "ComposeApp"
                             isStatic = true
                         }
+                        extraSpecAttributes["resources"] = "['src/commonMain/resources/**']"
                     }
 
                     sourceSets {
+                        all {
+                            languageSettings {
+                                optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
+                            }
+                        }
                         val commonMain by getting {
                             dependencies {
                                 implementation(compose.runtime)
                                 implementation(compose.foundation)
                                 implementation(compose.material)
+                                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                                implementation(compose.components.resources)
                             }
                         }
 
@@ -586,14 +601,21 @@ class GeneratorTest {
                     jvm("desktop")
 
                     sourceSets {
+                        all {
+                            languageSettings {
+                                optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
+                            }
+                        }
                         val commonMain by getting {
                             dependencies {
                                 implementation(compose.runtime)
                                 implementation(compose.foundation)
                                 implementation(compose.material)
+                                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                                implementation(compose.components.resources)
                             }
                         }
-                
+
                         val commonTest by getting {
                             dependencies {
                                 implementation(kotlin("test"))
@@ -673,11 +695,18 @@ class GeneratorTest {
                     }
 
                     sourceSets {
+                        all {
+                            languageSettings {
+                                optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
+                            }
+                        }
                         val commonMain by getting {
                             dependencies {
                                 implementation(compose.runtime)
                                 implementation(compose.foundation)
                                 implementation(compose.material)
+                                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                                implementation(compose.components.resources)
                             }
                         }
 

@@ -5,16 +5,18 @@ import wizard.*
 class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
     override val path = "composeApp/build.gradle.kts"
     override val content = buildString {
+        val withComposeResources = !info.hasCustomResources
+
         val plugins = mutableSetOf<Dependency>()
         val commonDeps = mutableSetOf<Dependency>()
         val otherDeps = mutableSetOf<Dependency>()
         info.dependencies.forEach { dep ->
-                when  {
-                    dep.isPlugin() -> plugins.add(dep)
-                    dep.isCommon() -> commonDeps.add(dep)
-                    else -> otherDeps.add(dep)
-                }
+            when {
+                dep.isPlugin() -> plugins.add(dep)
+                dep.isCommon() -> commonDeps.add(dep)
+                else -> otherDeps.add(dep)
             }
+        }
 
 
         if (info.hasDesktop) {
@@ -72,15 +74,34 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("            baseName = \"ComposeApp\"")
             appendLine("            isStatic = true")
             appendLine("        }")
+
+            if (withComposeResources) {
+                appendLine("        extraSpecAttributes[\"resources\"] = \"['src/commonMain/resources/**']\"")
+            }
+
             appendLine("    }")
             appendLine("")
         }
         appendLine("    sourceSets {")
+
+        if (withComposeResources) {
+            appendLine("        all {")
+            appendLine("            languageSettings {")
+            appendLine("                optIn(\"org.jetbrains.compose.resources.ExperimentalResourceApi\")")
+            appendLine("            }")
+            appendLine("        }")
+        }
+
         appendLine("        val commonMain by getting {")
         appendLine("            dependencies {")
         appendLine("                implementation(compose.runtime)")
         appendLine("                implementation(compose.foundation)")
         appendLine("                implementation(compose.material)")
+
+        if (withComposeResources) {
+            appendLine("                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)")
+            appendLine("                implementation(compose.components.resources)")
+        }
 
         commonDeps.forEach { dep ->
             appendLine("                ${dep.libraryNotation}")
@@ -189,6 +210,11 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    sourceSets[\"main\"].apply {")
             appendLine("        manifest.srcFile(\"src/androidMain/AndroidManifest.xml\")")
             appendLine("        res.srcDirs(\"src/androidMain/resources\")")
+
+            if (withComposeResources) {
+                appendLine("        resources.srcDirs(\"src/commonMain/resources\")")
+            }
+
             appendLine("    }")
             appendLine("    compileOptions {")
             appendLine("        sourceCompatibility = JavaVersion.VERSION_1_8")

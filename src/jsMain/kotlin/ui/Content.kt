@@ -73,7 +73,7 @@ val Content = FC<AppProps> { props ->
                     val withAndroidState = useState(true)
                     val withIosState = useState(true)
                     val withDesktopState = useState(true)
-                    val withBrowserState = useState(false)
+                    val withBrowserState = useState(true)
                     ButtonGroup {
                         disableElevation = true
                         TargetButton {
@@ -108,12 +108,12 @@ val Content = FC<AppProps> { props ->
                     }
 
                     val deps = setOf(
-                        DependencyBox(listOf(Napier, Kermit), true),
                         DependencyBox(LibresCompose, true),
                         DependencyBox(Voyager, true),
                         DependencyBox(ImageLoader, true),
-                        DependencyBox(KotlinxCoroutinesCore, true),
+                        DependencyBox(listOf(Napier, Kermit), true),
                         DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin), true),
+                        DependencyBox(KotlinxCoroutinesCore, true),
                         DependencyBox(KtorCore, false),
                         DependencyBox(
                             listOf(
