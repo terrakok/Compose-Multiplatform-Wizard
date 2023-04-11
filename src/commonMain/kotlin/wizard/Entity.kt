@@ -13,7 +13,7 @@ val requiredAndroidDependencies = setOf(AndroidxAppcompat, AndroidxActivityCompo
 data class ProjectInfo(
     val packageId: String = "org.company.app",
     val name: String = "Compose App",
-    val platforms: Set<ComposePlatform> = AllPlatforms,
+    val platforms: Set<ComposePlatform> = setOf(ComposePlatform.Android, ComposePlatform.Desktop, ComposePlatform.Ios),
     val gradleVersion: String = "8.0.2",
     val kotlinVersion: String = "1.8.20",
     val agpVersion: String = "7.4.2",
