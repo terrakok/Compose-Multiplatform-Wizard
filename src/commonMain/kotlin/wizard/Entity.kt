@@ -14,7 +14,7 @@ data class ProjectInfo(
     val packageId: String = "org.company.app",
     val name: String = "Compose App",
     val platforms: Set<ComposePlatform> = AllPlatforms,
-    val gradleVersion: String = "8.0.2",
+    val gradleVersion: String = "8.1",
     val kotlinVersion: String = "1.8.20",
     val agpVersion: String = "7.4.2",
     val androidMinSdk: Int = 21,
