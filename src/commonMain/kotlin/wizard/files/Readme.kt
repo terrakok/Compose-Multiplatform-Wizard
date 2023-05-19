@@ -11,7 +11,7 @@ class Readme(info: ProjectInfo) : ProjectFile {
         if (info.hasAndroid || info.hasIos) {
             appendLine("## Before running!")
             if (info.hasIos) {
-                appendLine(" - check your system with (KDoctor)[https://github.com/Kotlin/kdoctor]")
+                appendLine(" - check your system with [KDoctor](https://github.com/Kotlin/kdoctor)")
             }
             if (info.hasAndroid) {
                 appendLine(" - install JDK 8 on your machine")
@@ -44,7 +44,7 @@ class Readme(info: ProjectInfo) : ProjectFile {
             appendLine("### iOS")
             appendLine("To run the application on iPhone device/simulator:")
             appendLine(" - Open `iosApp/iosApp.xcworkspace` in Xcode and run standard configuration")
-            appendLine(" - Or use (Kotlin Multiplatform Mobile plugin)[https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile] for Android Studio")
+            appendLine(" - Or use [Kotlin Multiplatform Mobile plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile) for Android Studio")
             appendLine("")
         }
 
