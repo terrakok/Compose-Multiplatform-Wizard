@@ -97,6 +97,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("                implementation(compose.runtime)")
         appendLine("                implementation(compose.foundation)")
         appendLine("                implementation(compose.material)")
+        appendLine("                implementation(compose.material3)")
 
         if (withComposeResources) {
             appendLine("                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)")

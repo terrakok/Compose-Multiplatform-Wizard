@@ -10,13 +10,13 @@ class ThemeKt(info: ProjectInfo) : ProjectFile {
         package ${info.packageId}
 
         import androidx.compose.foundation.isSystemInDarkTheme
-        import androidx.compose.material.MaterialTheme
-        import androidx.compose.material.Surface
-        import androidx.compose.material.darkColors
-        import androidx.compose.material.lightColors
+        import androidx.compose.material3.lightColorScheme
+        import androidx.compose.material3.darkColorScheme
+        import androidx.compose.material3.MaterialTheme
+        import androidx.compose.material3.Surface
         import androidx.compose.runtime.Composable
 
-        private val LightColors = lightColors(
+        private val LightColorScheme = lightColorScheme(
             primary = md_theme_light_primary,
             onPrimary = md_theme_light_onPrimary,
             secondary = md_theme_light_secondary,
@@ -29,7 +29,7 @@ class ThemeKt(info: ProjectInfo) : ProjectFile {
             onSurface = md_theme_light_onSurface,
         )
 
-        private val DarkColors = darkColors(
+        private val DarkColorScheme = darkColorScheme(
             primary = md_theme_dark_primary,
             onPrimary = md_theme_dark_onPrimary,
             secondary = md_theme_dark_secondary,
@@ -48,13 +48,15 @@ class ThemeKt(info: ProjectInfo) : ProjectFile {
             content: @Composable() () -> Unit
         ) {
             val colors = if (!useDarkTheme) {
-                LightColors
+                LightColorScheme
             } else {
-                DarkColors
+                DarkColorScheme
             }
 
             MaterialTheme(
-                colors = colors,
+                colorScheme = colors,
+                typography = Typography,
+                shapes = Shapes,
                 content = {
                     Surface(content = content)
                 }
