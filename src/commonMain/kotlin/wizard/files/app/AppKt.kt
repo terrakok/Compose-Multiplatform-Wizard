@@ -13,11 +13,7 @@ class AppKt(info: ProjectInfo) : ProjectFile {
         import androidx.compose.foundation.layout.fillMaxSize
         import androidx.compose.foundation.layout.fillMaxWidth
         import androidx.compose.foundation.layout.padding
-        import androidx.compose.material.Button
-        import androidx.compose.material.MaterialTheme
-        import androidx.compose.material.OutlinedTextField
-        import androidx.compose.material.Text
-        import androidx.compose.material.TextButton
+        import androidx.compose.material3.*
         import androidx.compose.runtime.Composable
         import androidx.compose.runtime.getValue
         import androidx.compose.runtime.mutableStateOf
@@ -26,6 +22,7 @@ class AppKt(info: ProjectInfo) : ProjectFile {
         import androidx.compose.ui.Modifier
         import androidx.compose.ui.unit.dp
 
+        @OptIn(ExperimentalMaterial3Api::class)
         @Composable
         internal fun App() = AppTheme {
             var email by remember { mutableStateOf("") }
@@ -35,7 +32,7 @@ class AppKt(info: ProjectInfo) : ProjectFile {
 
                 Text(
                     text = "Login",
-                    style = MaterialTheme.typography.h4,
+                    style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(16.dp)
                 )
 
