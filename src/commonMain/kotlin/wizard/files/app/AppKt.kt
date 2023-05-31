@@ -56,6 +56,7 @@ class AppKt(info: ProjectInfo) : ProjectFile {
                     value = email,
                     onValueChange = { email = it },
                     label = { Text("Email") },
+                    singleLine = true,
                     modifier = Modifier.fillMaxWidth().padding(16.dp)
                 )
 
@@ -63,6 +64,7 @@ class AppKt(info: ProjectInfo) : ProjectFile {
                     value = password,
                     onValueChange = { password = it },
                     label = { Text("Password") },
+                    singleLine = true,
                     visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
                     modifier = Modifier.fillMaxWidth().padding(16.dp),
                     keyboardOptions = KeyboardOptions(
