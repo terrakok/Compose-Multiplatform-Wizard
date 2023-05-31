@@ -61,7 +61,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
  */
 
 /**
- * @mui/styled-engine v5.12.3
+ * @mui/styled-engine v5.13.2
  *
  * @license MIT
  * This source code is licensed under the MIT license found in the
