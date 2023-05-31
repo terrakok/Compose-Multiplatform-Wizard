@@ -5,9 +5,9 @@ import wizard.ProjectInfo
 import wizard.packagePath
 
 class ColorKt(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/commonMain/kotlin/${info.packagePath}/Color.kt"
+    override val path = "composeApp/src/commonMain/kotlin/${info.packagePath}/theme/Color.kt"
     override val content = """
-        package ${info.packageId}
+        package ${info.packageId}.theme
         
         import androidx.compose.ui.graphics.Color
 
