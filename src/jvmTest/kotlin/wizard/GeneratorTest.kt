@@ -112,6 +112,7 @@ class GeneratorTest {
                                 implementation(libs.apollo.runtime)
                                 implementation(libs.libres)
                                 implementation(libs.voyager.navigator)
+                                implementation(libs.insetsx)
                                 implementation(libs.composeImageLoader)
                                 implementation(libs.napier)
                                 implementation(libs.kotlinx.datetime)
@@ -273,6 +274,7 @@ class GeneratorTest {
                 compose-uitooling = "${ComposeUiTooling.version}"
                 libres = "${LibresCompose.version}"
                 voyager = "${Voyager.version}"
+                insetsx = "${InsetsX.version}"
                 composeImageLoader = "${ImageLoader.version}"
                 napier = "${Napier.version}"
                 kotlinx-datetime = "${KotlinxDateTime.version}"
@@ -294,6 +296,7 @@ class GeneratorTest {
                 compose-uitooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-uitooling" }
                 libres = { module = "io.github.skeptick.libres:libres-compose", version.ref = "libres" }
                 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+                insetsx = { module = "com.moriatsushi.insetsx:insetsx", version.ref = "insetsx" }
                 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "composeImageLoader" }
                 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
                 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }

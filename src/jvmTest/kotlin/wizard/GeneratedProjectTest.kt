@@ -20,6 +20,7 @@ internal val allDependencies = setOf(
     LibresPlugin,
     LibresCompose,
     Voyager,
+    InsetsX,
     ImageLoader,
     Napier,
     KotlinxDateTime,
@@ -111,6 +112,7 @@ class GeneratedProjectTest {
                 platforms = setOf(ComposePlatform.Browser),
                 dependencies = setOf(
                     Napier,
+                    InsetsX,
                     KotlinxDateTime,
                     MultiplatformSettings,
                     KotlinxCoroutinesCore,
