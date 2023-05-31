@@ -27,8 +27,8 @@ class GeneratorTest {
             build.gradle.kts
             settings.gradle.kts
             composeApp/build.gradle.kts
-            composeApp/src/commonMain/kotlin/org/company/app/Color.kt
-            composeApp/src/commonMain/kotlin/org/company/app/Theme.kt
+            composeApp/src/commonMain/kotlin/org/company/app/theme/Color.kt
+            composeApp/src/commonMain/kotlin/org/company/app/theme/Theme.kt
             composeApp/src/commonMain/kotlin/org/company/app/App.kt
             composeApp/src/commonMain/graphql/schema.graphqls
             composeApp/src/commonMain/graphql/HelloQuery.graphql
@@ -71,7 +71,9 @@ class GeneratorTest {
                     alias(libs.plugins.buildConfig)
                 }
 
+                @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
                 kotlin {
+                    targetHierarchy.default()
                     android {
                         compilations.all {
                             kotlinOptions {
@@ -109,6 +111,7 @@ class GeneratorTest {
                                 implementation(compose.runtime)
                                 implementation(compose.foundation)
                                 implementation(compose.material)
+                                implementation(compose.material3)
                                 implementation(libs.apollo.runtime)
                                 implementation(libs.libres)
                                 implementation(libs.voyager.navigator)
@@ -160,29 +163,13 @@ class GeneratorTest {
                             }
                         }
 
-                        val iosX64Main by getting
-                        val iosArm64Main by getting
-                        val iosSimulatorArm64Main by getting
-                        val iosMain by creating {
-                            dependsOn(commonMain)
-                            iosX64Main.dependsOn(this)
-                            iosArm64Main.dependsOn(this)
-                            iosSimulatorArm64Main.dependsOn(this)
+                        val iosMain by getting {
                             dependencies {
                                 implementation(libs.ktor.client.darwin)
                                 implementation(libs.sqlDelight.driver.native)
                             }
                         }
 
-                        val iosX64Test by getting
-                        val iosArm64Test by getting
-                        val iosSimulatorArm64Test by getting
-                        val iosTest by creating {
-                            dependsOn(commonTest)
-                            iosX64Test.dependsOn(this)
-                            iosArm64Test.dependsOn(this)
-                            iosSimulatorArm64Test.dependsOn(this)
-                        }
                     }
                 }
 
@@ -355,8 +342,8 @@ class GeneratorTest {
             build.gradle.kts
             settings.gradle.kts
             composeApp/build.gradle.kts
-            composeApp/src/commonMain/kotlin/org/android/app/Color.kt
-            composeApp/src/commonMain/kotlin/org/android/app/Theme.kt
+            composeApp/src/commonMain/kotlin/org/android/app/theme/Color.kt
+            composeApp/src/commonMain/kotlin/org/android/app/theme/Theme.kt
             composeApp/src/commonMain/kotlin/org/android/app/App.kt
             composeApp/src/androidMain/AndroidManifest.xml
             composeApp/src/androidMain/kotlin/org/android/app/App.android.kt
@@ -373,7 +360,9 @@ class GeneratorTest {
                     alias(libs.plugins.libres)
                 }
 
+                @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
                 kotlin {
+                    targetHierarchy.default()
                     android {
                         compilations.all {
                             kotlinOptions {
@@ -388,6 +377,7 @@ class GeneratorTest {
                                 implementation(compose.runtime)
                                 implementation(compose.foundation)
                                 implementation(compose.material)
+                                implementation(compose.material3)
                                 implementation(libs.libres)
                             }
                         }
@@ -465,8 +455,8 @@ class GeneratorTest {
             build.gradle.kts
             settings.gradle.kts
             composeApp/build.gradle.kts
-            composeApp/src/commonMain/kotlin/org/ios/app/Color.kt
-            composeApp/src/commonMain/kotlin/org/ios/app/Theme.kt
+            composeApp/src/commonMain/kotlin/org/ios/app/theme/Color.kt
+            composeApp/src/commonMain/kotlin/org/ios/app/theme/Theme.kt
             composeApp/src/commonMain/kotlin/org/ios/app/App.kt
             composeApp/composeApp.podspec
             composeApp/src/iosMain/kotlin/org/ios/app/App.ios.kt
@@ -491,7 +481,9 @@ class GeneratorTest {
                     alias(libs.plugins.cocoapods)
                 }
 
+                @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
                 kotlin {
+                    targetHierarchy.default()
                     iosX64()
                     iosArm64()
                     iosSimulatorArm64()
@@ -520,6 +512,7 @@ class GeneratorTest {
                                 implementation(compose.runtime)
                                 implementation(compose.foundation)
                                 implementation(compose.material)
+                                implementation(compose.material3)
                                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                                 implementation(compose.components.resources)
                             }
@@ -531,27 +524,11 @@ class GeneratorTest {
                             }
                         }
 
-                        val iosX64Main by getting
-                        val iosArm64Main by getting
-                        val iosSimulatorArm64Main by getting
-                        val iosMain by creating {
-                            dependsOn(commonMain)
-                            iosX64Main.dependsOn(this)
-                            iosArm64Main.dependsOn(this)
-                            iosSimulatorArm64Main.dependsOn(this)
+                        val iosMain by getting {
                             dependencies {
                             }
                         }
 
-                        val iosX64Test by getting
-                        val iosArm64Test by getting
-                        val iosSimulatorArm64Test by getting
-                        val iosTest by creating {
-                            dependsOn(commonTest)
-                            iosX64Test.dependsOn(this)
-                            iosArm64Test.dependsOn(this)
-                            iosSimulatorArm64Test.dependsOn(this)
-                        }
                     }
                 }
 
@@ -582,8 +559,8 @@ class GeneratorTest {
             build.gradle.kts
             settings.gradle.kts
             composeApp/build.gradle.kts
-            composeApp/src/commonMain/kotlin/org/desktop/app/Color.kt
-            composeApp/src/commonMain/kotlin/org/desktop/app/Theme.kt
+            composeApp/src/commonMain/kotlin/org/desktop/app/theme/Color.kt
+            composeApp/src/commonMain/kotlin/org/desktop/app/theme/Theme.kt
             composeApp/src/commonMain/kotlin/org/desktop/app/App.kt
             composeApp/src/desktopMain/kotlin/org/desktop/app/App.jvm.kt
             composeApp/src/desktopMain/kotlin/main.kt
@@ -600,7 +577,9 @@ class GeneratorTest {
                     alias(libs.plugins.compose)
                 }
 
+                @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
                 kotlin {
+                    targetHierarchy.default()
                     jvm("desktop")
 
                     sourceSets {
@@ -614,6 +593,7 @@ class GeneratorTest {
                                 implementation(compose.runtime)
                                 implementation(compose.foundation)
                                 implementation(compose.material)
+                                implementation(compose.material3)
                                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                                 implementation(compose.components.resources)
                             }
@@ -673,8 +653,8 @@ class GeneratorTest {
             build.gradle.kts
             settings.gradle.kts
             composeApp/build.gradle.kts
-            composeApp/src/commonMain/kotlin/org/js/app/Color.kt
-            composeApp/src/commonMain/kotlin/org/js/app/Theme.kt
+            composeApp/src/commonMain/kotlin/org/js/app/theme/Color.kt
+            composeApp/src/commonMain/kotlin/org/js/app/theme/Theme.kt
             composeApp/src/commonMain/kotlin/org/js/app/App.kt
             composeApp/src/jsMain/kotlin/org/js/app/App.js.kt
             composeApp/src/jsMain/resources/index.html
@@ -691,7 +671,9 @@ class GeneratorTest {
                     alias(libs.plugins.compose)
                 }
 
+                @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
                 kotlin {
+                    targetHierarchy.default()
                     js {
                         browser()
                         binaries.executable()
@@ -708,6 +690,7 @@ class GeneratorTest {
                                 implementation(compose.runtime)
                                 implementation(compose.foundation)
                                 implementation(compose.material)
+                                implementation(compose.material3)
                                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                                 implementation(compose.components.resources)
                             }
