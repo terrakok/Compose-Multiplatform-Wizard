@@ -37,7 +37,9 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
         appendLine("}")
         appendLine("")
+        appendLine("@OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)")
         appendLine("kotlin {")
+        appendLine("    targetHierarchy.default()")
         if (info.hasAndroid) {
             appendLine("    android {")
             appendLine("        compilations.all {")
@@ -163,14 +165,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         if (info.hasIos) {
-            appendLine("        val iosX64Main by getting")
-            appendLine("        val iosArm64Main by getting")
-            appendLine("        val iosSimulatorArm64Main by getting")
-            appendLine("        val iosMain by creating {")
-            appendLine("            dependsOn(commonMain)")
-            appendLine("            iosX64Main.dependsOn(this)")
-            appendLine("            iosArm64Main.dependsOn(this)")
-            appendLine("            iosSimulatorArm64Main.dependsOn(this)")
+            appendLine("        val iosMain by getting {")
             appendLine("            dependencies {")
 
             otherDeps.forEach { dep ->
@@ -182,15 +177,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("            }")
             appendLine("        }")
             appendLine("")
-            appendLine("        val iosX64Test by getting")
-            appendLine("        val iosArm64Test by getting")
-            appendLine("        val iosSimulatorArm64Test by getting")
-            appendLine("        val iosTest by creating {")
-            appendLine("            dependsOn(commonTest)")
-            appendLine("            iosX64Test.dependsOn(this)")
-            appendLine("            iosArm64Test.dependsOn(this)")
-            appendLine("            iosSimulatorArm64Test.dependsOn(this)")
-            appendLine("        }")
         }
         appendLine("    }")
         appendLine("}")
