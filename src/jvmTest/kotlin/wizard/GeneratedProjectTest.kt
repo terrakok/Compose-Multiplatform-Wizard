@@ -140,35 +140,82 @@ class GeneratedProjectTest {
                 )
             )
         }
+        checkCommand(
+            dir = dir,
+            command = listOf("${dir.path}/gradlew", "dependencyUpdates")
+        )
+    }
 
+    @Test
+    fun testAndroidProject() {
+        val projectInfo = ProjectInfo()
+        val dir = projectInfo.writeToDir(workingDir)
+        checkCommand(
+            dir = dir,
+            command = listOf("${dir.path}/gradlew", ":composeApp:assembleDebug", "--stacktrace")
+        )
+    }
+
+    @Test
+    fun testIosProject() {
+        if ("mac" != System.getProperty("os.name", "generic").lowercase()) {
+            return
+        }
+        listOf(
+            ProjectInfo(
+                platforms = setOf(ComposePlatform.Ios),
+                dependencies = allDependencies
+            ),
+            ProjectInfo(
+                platforms = setOf(ComposePlatform.Ios),
+                dependencies = emptySet()
+            )
+        ).forEach { projectInfo->
+            val dir = projectInfo.writeToDir(workingDir)
+            checkCommand(
+                dir = dir,
+                command = listOf("${dir.path}/gradlew", "podInstall", "--stacktrace")
+            )
+            checkCommand(
+                dir = dir,
+                command = listOf(
+                    "xcodebuild",
+                    "-workspace",
+                    "${dir.path}/iosApp/iosApp.xcworkspace",
+                    "-scheme",
+                    "iosApp",
+                    "-configuration",
+                    "Debug",
+                    "OBJROOT=${dir.path}/build/ios",
+                    "SYMROOT=${dir.path}/build/ios",
+                    "-sdk",
+                    "iphonesimulator",
+                    "-allowProvisioningDeviceRegistration",
+                    "-allowProvisioningUpdates"
+                )
+            )
+        }
+    }
+
+    private fun checkCommand(dir: File, command: List<String>) {
         println("Project dir: ${dir.absolutePath}")
-        println("============start of the build============")
-        val proc = ProcessBuilder("${dir.path}/gradlew", "dependencyUpdates").apply {
+        println("============start of the $command============")
+        val proc = ProcessBuilder(command).apply {
             directory(dir)
             redirectOutput(Redirect.INHERIT)
             redirectError(Redirect.INHERIT)
         }.start()
-
         proc.waitFor()
-        println("============end of the build============")
-        assertEquals(0, proc.exitValue(), "'./gradlew dependencyUpdates' exit code")
+        println("============end of the $command============")
+        assertEquals(0, proc.exitValue(), "'$command' exit code")
     }
 
     private fun checkProject(projectInfo: ProjectInfo) {
         val dir = projectInfo.writeToDir(workingDir)
-
-        println("Project dir: ${dir.absolutePath}")
-        println("============start of the build============")
-        val proc = ProcessBuilder("${dir.path}/gradlew", "build", "--info").apply {
-            directory(dir)
-            redirectOutput(Redirect.INHERIT)
-            redirectError(Redirect.INHERIT)
-        }.start()
-
-        proc.waitFor()
-        println("============end of the build============")
-        assertEquals(0, proc.exitValue(), "'./gradlew build --info' exit code")
-
+        checkCommand(
+            dir = dir,
+            command = listOf("${dir.path}/gradlew", "build", "--info")
+        )
     }
 
     private fun ProjectInfo.writeToDir(workingDir: File): File {
