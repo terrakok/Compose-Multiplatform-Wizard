@@ -152,7 +152,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         if (info.hasBrowser) {
             appendLine("        val jsMain by getting {")
             appendLine("            dependencies {")
-            appendLine("                implementation(compose.web.core)")
+            appendLine("                implementation(compose.html.core)")
 
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ComposePlatform.Browser)) {
