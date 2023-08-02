@@ -159,7 +159,7 @@ class GeneratorTest {
                             dependencies {
                                 implementation(compose.web.core)
                                 implementation(libs.ktor.client.js)
-                                implementation(libs.sqlDelight.driver.sqljs)
+                                implementation(libs.sqlDelight.driver.js)
                             }
                         }
 
@@ -301,7 +301,7 @@ class GeneratorTest {
                 sqlDelight-driver-sqlite = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqlDelight" }
                 sqlDelight-driver-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
                 sqlDelight-driver-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
-                sqlDelight-driver-sqljs = { module = "app.cash.sqldelight:sqljs-driver", version.ref = "sqlDelight" }
+                sqlDelight-driver-js = { module = "app.cash.sqldelight:web-worker-driver", version.ref = "sqlDelight" }
 
                 [plugins]
 

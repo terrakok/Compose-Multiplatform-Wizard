@@ -14,12 +14,12 @@ data class ProjectInfo(
     val packageId: String = "org.company.app",
     val name: String = "Compose App",
     val platforms: Set<ComposePlatform> = AllPlatforms,
-    val gradleVersion: String = "8.1.1",
-    val kotlinVersion: String = "1.8.20",
-    val agpVersion: String = "8.0.1",
+    val gradleVersion: String = "8.2.1",
+    val kotlinVersion: String = "1.9.0",
+    val agpVersion: String = "8.1.0",
     val androidMinSdk: Int = 21,
     val androidTargetSdk: Int = 33,
-    val composeVersion: String = "1.4.0",
+    val composeVersion: String = "1.4.3",
     val dependencies: Set<Dependency> = requiredAndroidDependencies
 )
 
