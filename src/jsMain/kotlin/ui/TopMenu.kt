@@ -1,7 +1,5 @@
 package ui
 
-import csstype.Position
-import csstype.px
 import mui.icons.material.*
 import mui.material.Box
 import mui.material.IconButton
@@ -12,6 +10,8 @@ import mui.system.sx
 import react.FC
 import react.Props
 import react.useRequiredContext
+import web.cssom.Position
+import web.cssom.px
 import web.window.window
 
 val TopMenu = FC<Props> {

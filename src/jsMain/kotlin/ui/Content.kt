@@ -1,9 +1,5 @@
 package ui
 
-import csstype.AlignItems
-import csstype.JustifyContent
-import csstype.Padding
-import csstype.px
 import mui.icons.material.*
 import mui.material.*
 import mui.system.Container
@@ -14,6 +10,10 @@ import react.ReactNode
 import react.create
 import react.dom.onChange
 import react.useState
+import web.cssom.AlignItems
+import web.cssom.JustifyContent
+import web.cssom.Padding
+import web.cssom.px
 import web.html.HTMLInputElement
 import wizard.*
 

@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform").version("1.8.21")
+    kotlin("multiplatform").version("1.9.0")
 }
 
 repositories {
@@ -19,11 +19,12 @@ kotlin {
     sourceSets {
         val jsMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-react:18.2.0-pre.518")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:18.2.0-pre.518")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion:11.10.6-pre.518")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-mui:5.9.1-pre.518")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-mui-icons:5.10.9-pre.518")
+                implementation(enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.605"))
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-react")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-mui")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-mui-icons")
 
                 implementation(npm("file-saver", "2.0.5"))
                 implementation(npm("jszip", "3.10.1"))

@@ -1,7 +1,5 @@
 package ui
 
-import csstype.AlignItems
-import csstype.px
 import mui.material.Stack
 import mui.material.StackDirection
 import mui.material.Typography
@@ -11,6 +9,8 @@ import mui.system.sx
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML
+import web.cssom.AlignItems
+import web.cssom.px
 
 val Header = FC<Props> {
     Stack {

@@ -1,6 +1,5 @@
 package ui
 
-import csstype.*
 import mui.icons.material.CheckCircleRounded
 import mui.icons.material.Edit
 import mui.icons.material.RadioButtonUncheckedRounded
@@ -9,8 +8,8 @@ import mui.material.styles.TypographyVariant
 import mui.system.responsive
 import mui.system.sx
 import react.*
+import web.cssom.*
 import web.window.window
-import wizard.Dependency
 
 external interface DependencyCardProps : Props {
     var dependency: DependencyBox

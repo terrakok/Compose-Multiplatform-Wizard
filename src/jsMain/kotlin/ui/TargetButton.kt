@@ -1,9 +1,5 @@
 package ui
 
-import csstype.AlignItems
-import csstype.Position
-import csstype.px
-import csstype.unaryMinus
 import mui.icons.material.CheckCircleRounded
 import mui.icons.material.RadioButtonUncheckedRounded
 import mui.icons.material.SvgIconComponent
@@ -11,7 +7,14 @@ import mui.material.*
 import mui.material.styles.TypographyVariant
 import mui.system.responsive
 import mui.system.sx
-import react.*
+import react.FC
+import react.Props
+import react.ReactNode
+import react.StateInstance
+import web.cssom.AlignItems
+import web.cssom.Position
+import web.cssom.px
+import web.cssom.unaryMinus
 
 external interface TargetButtonProps : Props {
     var icon: SvgIconComponent
