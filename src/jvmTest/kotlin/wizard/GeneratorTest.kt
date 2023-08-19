@@ -74,7 +74,7 @@ class GeneratorTest {
                 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
                 kotlin {
                     targetHierarchy.default()
-                    android {
+                    androidTarget {
                         compilations.all {
                             kotlinOptions {
                                 jvmTarget = "1.8"
@@ -109,8 +109,6 @@ class GeneratorTest {
                         val commonMain by getting {
                             dependencies {
                                 implementation(compose.runtime)
-                                implementation(compose.foundation)
-                                implementation(compose.material)
                                 implementation(compose.material3)
                                 implementation(libs.apollo.runtime)
                                 implementation(libs.libres)
@@ -192,9 +190,6 @@ class GeneratorTest {
                     compileOptions {
                         sourceCompatibility = JavaVersion.VERSION_1_8
                         targetCompatibility = JavaVersion.VERSION_1_8
-                    }
-                    packagingOptions {
-                        resources.excludes.add("META-INF/**")
                     }
                 }
 
@@ -363,7 +358,7 @@ class GeneratorTest {
                 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
                 kotlin {
                     targetHierarchy.default()
-                    android {
+                    androidTarget {
                         compilations.all {
                             kotlinOptions {
                                 jvmTarget = "1.8"
@@ -375,8 +370,6 @@ class GeneratorTest {
                         val commonMain by getting {
                             dependencies {
                                 implementation(compose.runtime)
-                                implementation(compose.foundation)
-                                implementation(compose.material)
                                 implementation(compose.material3)
                                 implementation(libs.libres)
                             }
@@ -418,9 +411,6 @@ class GeneratorTest {
                     compileOptions {
                         sourceCompatibility = JavaVersion.VERSION_1_8
                         targetCompatibility = JavaVersion.VERSION_1_8
-                    }
-                    packagingOptions {
-                        resources.excludes.add("META-INF/**")
                     }
                 }
 
@@ -510,8 +500,6 @@ class GeneratorTest {
                         val commonMain by getting {
                             dependencies {
                                 implementation(compose.runtime)
-                                implementation(compose.foundation)
-                                implementation(compose.material)
                                 implementation(compose.material3)
                                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                                 implementation(compose.components.resources)
@@ -591,8 +579,6 @@ class GeneratorTest {
                         val commonMain by getting {
                             dependencies {
                                 implementation(compose.runtime)
-                                implementation(compose.foundation)
-                                implementation(compose.material)
                                 implementation(compose.material3)
                                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                                 implementation(compose.components.resources)
@@ -688,8 +674,6 @@ class GeneratorTest {
                         val commonMain by getting {
                             dependencies {
                                 implementation(compose.runtime)
-                                implementation(compose.foundation)
-                                implementation(compose.material)
                                 implementation(compose.material3)
                                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                                 implementation(compose.components.resources)

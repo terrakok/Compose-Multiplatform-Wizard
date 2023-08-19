@@ -166,6 +166,7 @@ class GeneratedProjectTest {
         }.start()
 
         proc.waitFor()
+        println(proc.outputStream.toString())
         println("============end of the build============")
         assertEquals(0, proc.exitValue(), "'./gradlew build --info' exit code")
 

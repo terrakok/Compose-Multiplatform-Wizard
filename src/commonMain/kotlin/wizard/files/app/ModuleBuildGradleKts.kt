@@ -41,7 +41,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("kotlin {")
         appendLine("    targetHierarchy.default()")
         if (info.hasAndroid) {
-            appendLine("    android {")
+            appendLine("    androidTarget {")
             appendLine("        compilations.all {")
             appendLine("            kotlinOptions {")
             appendLine("                jvmTarget = \"1.8\"")
@@ -97,8 +97,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("        val commonMain by getting {")
         appendLine("            dependencies {")
         appendLine("                implementation(compose.runtime)")
-        appendLine("                implementation(compose.foundation)")
-        appendLine("                implementation(compose.material)")
         appendLine("                implementation(compose.material3)")
 
         if (withComposeResources) {
@@ -206,9 +204,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    compileOptions {")
             appendLine("        sourceCompatibility = JavaVersion.VERSION_1_8")
             appendLine("        targetCompatibility = JavaVersion.VERSION_1_8")
-            appendLine("    }")
-            appendLine("    packagingOptions {")
-            appendLine("        resources.excludes.add(\"META-INF/**\")")
             appendLine("    }")
             appendLine("}")
             appendLine("")
