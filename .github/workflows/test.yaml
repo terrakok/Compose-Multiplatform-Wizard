@@ -1,8 +1,11 @@
 name: Test
 
 on:
-  pull_request_review:
-    types: [submitted]
+  pull_request:
+    branches:
+      - master
+
+  workflow_dispatch:
 
 jobs:
   test:
@@ -15,6 +18,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.3.1
 
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
+
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
@@ -23,3 +33,10 @@ jobs:
       - name: Test
         run: |
           ./gradlew check
+
+      - name: Upload Reports
+        uses: actions/upload-artifact@v2
+        with:
+          name: Test-Reports
+          path: app/build/reports
+        if: always()
