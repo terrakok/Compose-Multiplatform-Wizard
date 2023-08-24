@@ -134,7 +134,9 @@ class GeneratedProjectTest {
 
     @Test
     fun testIosProject() {
-        if ("mac" != System.getProperty("os.name", "generic").lowercase()) {
+        val osName = System.getProperty("os.name")
+        if (!osName.contains(other = "mac", ignoreCase = true)) {
+            println("iOS testing is skipped because this machine ($osName) isn't Mac")
             return
         }
         listOf(
