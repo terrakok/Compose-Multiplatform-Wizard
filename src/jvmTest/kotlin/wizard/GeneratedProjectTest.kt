@@ -24,7 +24,6 @@ internal val allDependencies = setOf(
     LibresPlugin,
     LibresCompose,
     Voyager,
-    InsetsX,
     ImageLoader,
     Napier,
     KotlinxDateTime,
@@ -116,7 +115,6 @@ class GeneratedProjectTest {
                 platforms = setOf(ComposePlatform.Browser),
                 dependencies = setOf(
                     Napier,
-                    InsetsX,
                     KotlinxDateTime,
                     MultiplatformSettings,
                     KotlinxCoroutinesCore,
@@ -143,40 +141,29 @@ class GeneratedProjectTest {
             println("iOS testing is skipped because this machine ($osName) isn't Mac")
             return
         }
-        listOf(
-            ProjectInfo(
-                platforms = setOf(ComposePlatform.Ios),
-                dependencies = allDependencies
-            ),
-            ProjectInfo(
-                platforms = setOf(ComposePlatform.Ios),
-                dependencies = emptySet()
+        val projectInfo = ProjectInfo(
+            platforms = setOf(ComposePlatform.Ios),
+            dependencies = allDependencies
+        )
+        val dir = projectInfo.writeToDir(workingDir)
+        checkCommand(
+            dir = dir,
+            command = listOf(
+                "xcodebuild",
+                "-project",
+                "${dir.path}/iosApp/iosApp.xcodeproj",
+                "-scheme",
+                "iosApp",
+                "-configuration",
+                "Debug",
+                "OBJROOT=${dir.path}/build/ios",
+                "SYMROOT=${dir.path}/build/ios",
+                "-sdk",
+                "iphonesimulator",
+                "-allowProvisioningDeviceRegistration",
+                "-allowProvisioningUpdates"
             )
-        ).forEach { projectInfo ->
-            val dir = projectInfo.writeToDir(workingDir)
-            checkCommand(
-                dir = dir,
-                command = listOf("${dir.path}/gradlew", "podInstall", "--stacktrace")
-            )
-            checkCommand(
-                dir = dir,
-                command = listOf(
-                    "xcodebuild",
-                    "-workspace",
-                    "${dir.path}/iosApp/iosApp.xcworkspace",
-                    "-scheme",
-                    "iosApp",
-                    "-configuration",
-                    "Debug",
-                    "OBJROOT=${dir.path}/build/ios",
-                    "SYMROOT=${dir.path}/build/ios",
-                    "-sdk",
-                    "iphonesimulator",
-                    "-allowProvisioningDeviceRegistration",
-                    "-allowProvisioningUpdates"
-                )
-            )
-        }
+        )
     }
 
     @Test

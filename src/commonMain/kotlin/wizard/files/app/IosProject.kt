@@ -3,18 +3,6 @@ package wizard.files.app
 import wizard.ProjectFile
 import wizard.ProjectInfo
 
-class Podfile : ProjectFile {
-    override val path = "iosApp/Podfile"
-    override val content = """
-        target 'iosApp' do
-          use_frameworks!
-          platform :ios, '16.2'
-          pod 'composeApp', :path => '../composeApp'
-        end
-        
-    """.trimIndent()
-}
-
 class IosAppIcon : ProjectFile {
     override val path = "iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/Contents.json"
     override val content = """
@@ -97,7 +85,7 @@ class IosAppSwift : ProjectFile {
 
         struct ContentView: View {
             var body: some View {
-                ComposeView().ignoresSafeArea(.keyboard)
+                ComposeView().ignoresSafeArea(.all)
             }
         }
 
@@ -141,17 +129,13 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             		A93A953B29CC810C00F8E227 /* iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93A953A29CC810C00F8E227 /* iosApp.swift */; };
             		A93A953F29CC810D00F8E227 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A93A953E29CC810D00F8E227 /* Assets.xcassets */; };
             		A93A954229CC810D00F8E227 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A93A954129CC810D00F8E227 /* Preview Assets.xcassets */; };
-            		D51586C6B134BDB93BE1DFFB /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE080622DF072CBDC3D9C873 /* Pods_iosApp.framework */; };
             /* End PBXBuildFile section */
             
             /* Begin PBXFileReference section */
-            		05E67C72B2BDBC81379103CB /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
-            		73FFDDCA9C728FEE3DFEF2F4 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
                     A93A953729CC810C00F8E227 /* ${info.name}.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "${info.name}.app"; sourceTree = BUILT_PRODUCTS_DIR; };
             		A93A953A29CC810C00F8E227 /* iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosApp.swift; sourceTree = "<group>"; };
             		A93A953E29CC810D00F8E227 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
             		A93A954129CC810D00F8E227 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-            		EE080622DF072CBDC3D9C873 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
             /* End PBXFileReference section */
             
             /* Begin PBXFrameworksBuildPhase section */
@@ -159,28 +143,17 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             			isa = PBXFrameworksBuildPhase;
             			buildActionMask = 2147483647;
             			files = (
-            				D51586C6B134BDB93BE1DFFB /* Pods_iosApp.framework in Frameworks */,
             			);
             			runOnlyForDeploymentPostprocessing = 0;
             		};
             /* End PBXFrameworksBuildPhase section */
             
             /* Begin PBXGroup section */
-            		979913F6AE5D271756D4649D /* Pods */ = {
-            			isa = PBXGroup;
-            			children = (
-            				73FFDDCA9C728FEE3DFEF2F4 /* Pods-iosApp.debug.xcconfig */,
-            				05E67C72B2BDBC81379103CB /* Pods-iosApp.release.xcconfig */,
-            			);
-            			path = Pods;
-            			sourceTree = "<group>";
-            		};
             		A93A952E29CC810C00F8E227 = {
             			isa = PBXGroup;
             			children = (
             				A93A953929CC810C00F8E227 /* iosApp */,
             				A93A953829CC810C00F8E227 /* Products */,
-            				979913F6AE5D271756D4649D /* Pods */,
             				C4127409AE3703430489E7BC /* Frameworks */,
             			);
             			sourceTree = "<group>";
@@ -214,7 +187,6 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             		C4127409AE3703430489E7BC /* Frameworks */ = {
             			isa = PBXGroup;
             			children = (
-            				EE080622DF072CBDC3D9C873 /* Pods_iosApp.framework */,
             			);
             			name = Frameworks;
             			sourceTree = "<group>";
@@ -226,7 +198,7 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             			isa = PBXNativeTarget;
             			buildConfigurationList = A93A954529CC810D00F8E227 /* Build configuration list for PBXNativeTarget "iosApp" */;
             			buildPhases = (
-            				D3665D361753A60B1A6EEEB7 /* [CP] Check Pods Manifest.lock */,
+            				A9D80A052AAB5CDE006C8738 /* ShellScript */,
             				A93A953329CC810C00F8E227 /* Sources */,
             				A93A953429CC810C00F8E227 /* Frameworks */,
             				A93A953529CC810C00F8E227 /* Resources */,
@@ -246,7 +218,6 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             		A93A952F29CC810C00F8E227 /* Project object */ = {
             			isa = PBXProject;
             			attributes = {
-            				BuildIndependentTargetsInParallel = 1;
             				LastSwiftUpdateCheck = 1420;
             				LastUpgradeCheck = 1420;
             				TargetAttributes = {
@@ -286,7 +257,7 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             /* End PBXResourcesBuildPhase section */
             
             /* Begin PBXShellScriptBuildPhase section */
-            		D3665D361753A60B1A6EEEB7 /* [CP] Check Pods Manifest.lock */ = {
+            		A9D80A052AAB5CDE006C8738 /* ShellScript */ = {
             			isa = PBXShellScriptBuildPhase;
             			buildActionMask = 2147483647;
             			files = (
@@ -294,19 +265,14 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             			inputFileListPaths = (
             			);
             			inputPaths = (
-            				"${'$'}{PODS_PODFILE_DIR_PATH}/Podfile.lock",
-            				"${'$'}{PODS_ROOT}/Manifest.lock",
             			);
-            			name = "[CP] Check Pods Manifest.lock";
             			outputFileListPaths = (
             			);
             			outputPaths = (
-            				"${'$'}(DERIVED_FILE_DIR)/Pods-iosApp-checkManifestLockResult.txt",
             			);
             			runOnlyForDeploymentPostprocessing = 0;
             			shellPath = /bin/sh;
-            			shellScript = "diff \"${'$'}{PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${'$'}{PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ ${'$'}? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${'$'}{SCRIPT_OUTPUT_FILE_0}\"\n";
-            			showEnvVarsInLog = 0;
+            			shellScript = "cd \"${'$'}SRCROOT/..\"\n./gradlew :composeApp:embedAndSignAppleFrameworkForXcode\n";
             		};
             /* End PBXShellScriptBuildPhase section */
             
@@ -438,7 +404,6 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             		};
             		A93A954629CC810D00F8E227 /* Debug */ = {
             			isa = XCBuildConfiguration;
-            			baseConfigurationReference = 73FFDDCA9C728FEE3DFEF2F4 /* Pods-iosApp.debug.xcconfig */;
             			buildSettings = {
             				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
             				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -446,6 +411,10 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             				CURRENT_PROJECT_VERSION = 1;
             				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
             				ENABLE_PREVIEWS = YES;
+                            FRAMEWORK_SEARCH_PATHS = (
+				            	"${'$'}{inherited}",
+				            	"${'$'}(SRCROOT)/../composeApp/build/xcode-frameworks/${'$'}(CONFIGURATION)/${'$'}(SDK_NAME)",
+				            );
             				GENERATE_INFOPLIST_FILE = YES;
             				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
             				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -457,6 +426,11 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             					"@executable_path/Frameworks",
             				);
             				MARKETING_VERSION = 1.0;
+                            OTHER_LDFLAGS = (
+			                	"${'$'}{inherited}",
+			                	"-framework",
+			                	ComposeApp,
+			                );
             				PRODUCT_BUNDLE_IDENTIFIER = ${info.packageId}.iosApp;
             				PRODUCT_NAME = "${info.name}";
             				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -467,7 +441,6 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             		};
             		A93A954729CC810D00F8E227 /* Release */ = {
             			isa = XCBuildConfiguration;
-            			baseConfigurationReference = 05E67C72B2BDBC81379103CB /* Pods-iosApp.release.xcconfig */;
             			buildSettings = {
             				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
             				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -475,6 +448,10 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             				CURRENT_PROJECT_VERSION = 1;
             				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
             				ENABLE_PREVIEWS = YES;
+                            FRAMEWORK_SEARCH_PATHS = (
+				            	"${'$'}{inherited}",
+				            	"${'$'}(SRCROOT)/../composeApp/build/xcode-frameworks/${'$'}(CONFIGURATION)/${'$'}(SDK_NAME)",
+				            );
             				GENERATE_INFOPLIST_FILE = YES;
             				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
             				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -486,6 +463,11 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             					"@executable_path/Frameworks",
             				);
             				MARKETING_VERSION = 1.0;
+                            OTHER_LDFLAGS = (
+			                	"${'$'}{inherited}",
+			                	"-framework",
+			                	ComposeApp,
+			                );
             				PRODUCT_BUNDLE_IDENTIFIER = ${info.packageId}.iosApp;
             				PRODUCT_NAME = "${info.name}";
             				SWIFT_EMIT_LOC_STRINGS = YES;

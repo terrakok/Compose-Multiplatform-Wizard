@@ -12,14 +12,9 @@ org.gradle.jvmargs=-Xmx2048M -Dfile.encoding=UTF-8 -Dkotlin.daemon.jvm.options\=
 kotlin.code.style=official
 kotlin.js.compiler=ir
 
-#MPP
-kotlin.mpp.enableCInteropCommonization=true
-kotlin.mpp.androidSourceSetLayoutVersion=2
-
 #Compose
 org.jetbrains.compose.experimental.uikit.enabled=true
 org.jetbrains.compose.experimental.jscanvas.enabled=true
-kotlin.native.cacheKind=none
 
 #Android
 android.useAndroidX=true

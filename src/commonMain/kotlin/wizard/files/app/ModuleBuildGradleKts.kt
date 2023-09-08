@@ -26,9 +26,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("plugins {")
         appendLine("    alias(libs.plugins.multiplatform)")
         appendLine("    alias(libs.plugins.compose)")
-        if (info.hasIos) {
-            appendLine("    alias(libs.plugins.cocoapods)")
-        }
         if (info.hasAndroid) {
             appendLine("    alias(libs.plugins.android.application)")
         }
@@ -62,25 +59,15 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         if (info.hasIos) {
-            appendLine("    iosX64()")
-            appendLine("    iosArm64()")
-            appendLine("    iosSimulatorArm64()")
-            appendLine("")
-            appendLine("    cocoapods {")
-            appendLine("        version = \"1.0.0\"")
-            appendLine("        summary = \"Compose application framework\"")
-            appendLine("        homepage = \"empty\"")
-            appendLine("        ios.deploymentTarget = \"11.0\"")
-            appendLine("        podfile = project.file(\"../iosApp/Podfile\")")
-            appendLine("        framework {")
+            appendLine("    listOf(")
+            appendLine("        iosX64(),")
+            appendLine("        iosArm64(),")
+            appendLine("        iosSimulatorArm64()")
+            appendLine("    ).forEach {")
+            appendLine("        it.binaries.framework {")
             appendLine("            baseName = \"ComposeApp\"")
             appendLine("            isStatic = true")
             appendLine("        }")
-
-            if (withComposeResources) {
-                appendLine("        extraSpecAttributes[\"resources\"] = \"['src/commonMain/resources/**']\"")
-            }
-
             appendLine("    }")
             appendLine("")
         }
@@ -247,43 +234,43 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         if (plugins.contains(BuildConfigPlugin)) {
             appendLine("")
             appendLine("buildConfig {")
-            appendLine("  // BuildConfig configuration here.")
-            appendLine("  // https://github.com/gmazzo/gradle-buildconfig-plugin#usage-in-kts")
+            appendLine("    // BuildConfig configuration here.")
+            appendLine("    // https://github.com/gmazzo/gradle-buildconfig-plugin#usage-in-kts")
             appendLine("}")
         }
 
         if (plugins.contains(BuildKonfigPlugin)) {
             appendLine("")
             appendLine("buildkonfig {")
-            appendLine("  // BuildKonfig configuration here.")
-            appendLine("  // https://github.com/yshrsmz/BuildKonfig#gradle-configuration")
-            appendLine("  packageName = \"${info.packageId}\"")
-            appendLine("  defaultConfigs {")
-            appendLine("  }")
+            appendLine("    // BuildKonfig configuration here.")
+            appendLine("    // https://github.com/yshrsmz/BuildKonfig#gradle-configuration")
+            appendLine("    packageName = \"${info.packageId}\"")
+            appendLine("    defaultConfigs {")
+            appendLine("    }")
             appendLine("}")
         }
 
         if (plugins.contains(SQLDelightPlugin)) {
             appendLine("")
             appendLine("sqldelight {")
-            appendLine("  databases {")
-            appendLine("    create(\"MyDatabase\") {")
-            appendLine("      // Database configuration here.")
-            appendLine("      // https://cashapp.github.io/sqldelight")
-            appendLine("      packageName.set(\"${info.packageId}.db\")")
+            appendLine("    databases {")
+            appendLine("        create(\"MyDatabase\") {")
+            appendLine("            // Database configuration here.")
+            appendLine("            // https://cashapp.github.io/sqldelight")
+            appendLine("            packageName.set(\"${info.packageId}.db\")")
+            appendLine("        }")
             appendLine("    }")
-            appendLine("  }")
             appendLine("}")
         }
 
         if (plugins.contains(ApolloPlugin)) {
             appendLine("")
             appendLine("apollo {")
-            appendLine("  service(\"api\") {")
-            appendLine("    // GraphQL configuration here.")
-            appendLine("    // https://www.apollographql.com/docs/kotlin/advanced/plugin-configuration/")
-            appendLine("    packageName.set(\"${info.packageId}.graphql\")")
-            appendLine("  }")
+            appendLine("    service(\"api\") {")
+            appendLine("        // GraphQL configuration here.")
+            appendLine("        // https://www.apollographql.com/docs/kotlin/advanced/plugin-configuration/")
+            appendLine("        packageName.set(\"${info.packageId}.graphql\")")
+            appendLine("    }")
             appendLine("}")
         }
     }

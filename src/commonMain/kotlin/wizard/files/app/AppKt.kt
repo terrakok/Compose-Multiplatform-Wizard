@@ -10,9 +10,13 @@ class AppKt(info: ProjectInfo) : ProjectFile {
         package ${info.packageId}
         
         import androidx.compose.foundation.layout.Column
+        import androidx.compose.foundation.layout.WindowInsets
         import androidx.compose.foundation.layout.fillMaxSize
         import androidx.compose.foundation.layout.fillMaxWidth
         import androidx.compose.foundation.layout.padding
+        import androidx.compose.foundation.layout.safeContent
+        import androidx.compose.foundation.layout.safeDrawing
+        import androidx.compose.foundation.layout.windowInsetsPadding
         import androidx.compose.foundation.text.KeyboardOptions
         import androidx.compose.material.icons.Icons
         import androidx.compose.material.icons.filled.Close
@@ -37,14 +41,13 @@ class AppKt(info: ProjectInfo) : ProjectFile {
         import androidx.compose.ui.unit.dp
         import ${info.packageId}.theme.AppTheme
 
-        @OptIn(ExperimentalMaterial3Api::class)
         @Composable
         internal fun App() = AppTheme {
             var email by remember { mutableStateOf("") }
             var password by remember { mutableStateOf("") }
             var passwordVisibility by remember { mutableStateOf(false) }
 
-            Column(modifier = Modifier.fillMaxSize()) {
+            Column(modifier = Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)) {
 
                 Text(
                     text = "Login",
@@ -103,12 +106,17 @@ class AndroidAppKt(info: ProjectInfo) : ProjectFile {
     override val content = """
         package ${info.packageId}
 
+        import android.app.Activity
         import android.app.Application
         import android.content.Intent
+        import android.graphics.Color
         import android.net.Uri
         import android.os.Bundle
         import androidx.activity.ComponentActivity
         import androidx.activity.compose.setContent
+        import androidx.compose.runtime.SideEffect
+        import androidx.compose.ui.platform.LocalView
+        import androidx.core.view.WindowCompat
         
         class AndroidApp : Application() {
             companion object {
@@ -124,7 +132,19 @@ class AndroidAppKt(info: ProjectInfo) : ProjectFile {
         class AppActivity : ComponentActivity() {
             override fun onCreate(savedInstanceState: Bundle?) {
                 super.onCreate(savedInstanceState)
-                setContent { App() }
+                val systemBarColor = Color.parseColor("#80000000")
+                setContent {
+                    val view = LocalView.current
+                    if (!view.isInEditMode) {
+                        SideEffect {
+                            val window = (view.context as Activity).window
+                            WindowCompat.setDecorFitsSystemWindows(window, false)
+                            window.statusBarColor = systemBarColor
+                            window.navigationBarColor = systemBarColor
+                        }
+                    }
+                    App()
+                }
             }
         }
         

@@ -38,7 +38,6 @@ class GradleLibsVersion(info: ProjectInfo) : ProjectFile {
         appendLine()
 
         appendLine("multiplatform = { id = \"org.jetbrains.kotlin.multiplatform\", version.ref = \"kotlin\" }")
-        appendLine("cocoapods = { id = \"org.jetbrains.kotlin.native.cocoapods\", version.ref = \"kotlin\" }")
         appendLine("compose = { id = \"org.jetbrains.compose\", version.ref = \"compose\" }")
         appendLine("android-application = { id = \"com.android.application\", version.ref = \"agp\" }")
 

@@ -65,18 +65,6 @@ val Voyager = Dependency(
     platforms = AllPlatforms
 )
 
-val InsetsX = Dependency(
-    title = "InsetsX",
-    description = "WindowInsets utility for compose multiplatform.",
-    url = "https://github.com/mori-atsushi/insetsx",
-    group = "com.moriatsushi.insetsx",
-    id = "insetsx",
-    version = "0.1.0-alpha10",
-    catalogVersionName = "insetsx",
-    catalogName = "insetsx",
-    platforms = AllPlatforms
-)
-
 val ImageLoader = Dependency(
     title = "Compose ImageLoader",
     description = "Compose Image library for Kotlin Multiplatform.",

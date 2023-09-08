@@ -17,8 +17,8 @@ data class ProjectInfo(
     val gradleVersion: String = "8.3",
     val kotlinVersion: String = "1.9.10",
     val agpVersion: String = "8.1.0",
-    val androidMinSdk: Int = 21,
-    val androidTargetSdk: Int = 33,
+    val androidMinSdk: Int = 24,
+    val androidTargetSdk: Int = 34,
     val composeVersion: String = "1.5.1",
     val dependencies: Set<Dependency> = requiredAndroidDependencies
 )

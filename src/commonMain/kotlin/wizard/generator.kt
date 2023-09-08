@@ -38,11 +38,9 @@ fun ProjectInfo.buildFiles() = buildList {
     }
 
     if (this@buildFiles.hasIos) {
-        add(Podspec(this@buildFiles))
         add(IosAppKt(this@buildFiles))
         add(IosMainKt(this@buildFiles))
 
-        add(Podfile())
         add(IosAppIcon())
         add(IosAccentColor())
         add(IosAssets())
@@ -56,6 +54,5 @@ fun ProjectInfo.buildFiles() = buildList {
         add(BrowserAppKt(this@buildFiles))
         add(IndexHtml(this@buildFiles))
         add(BrowserMainKt(this@buildFiles))
-        add(BrowserViewportWindowKt())
     }
 }

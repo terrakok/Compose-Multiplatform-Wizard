@@ -17,9 +17,6 @@ class Readme(info: ProjectInfo) : ProjectFile {
                 appendLine(" - install JDK 8 on your machine")
                 appendLine(" - add `local.properties` file to the project root and set a path to Android SDK there")
             }
-            if (info.hasIos) {
-                appendLine(" - run `./gradlew podInstall` in the project root")
-            }
             appendLine("")
         }
 
@@ -43,7 +40,7 @@ class Readme(info: ProjectInfo) : ProjectFile {
         if (info.hasIos) {
             appendLine("### iOS")
             appendLine("To run the application on iPhone device/simulator:")
-            appendLine(" - Open `iosApp/iosApp.xcworkspace` in Xcode and run standard configuration")
+            appendLine(" - Open `iosApp/iosApp.xcproject` in Xcode and run standard configuration")
             appendLine(" - Or use [Kotlin Multiplatform Mobile plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile) for Android Studio")
             appendLine("")
         }

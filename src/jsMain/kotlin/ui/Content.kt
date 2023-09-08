@@ -114,7 +114,6 @@ val Content = FC<AppProps> { props ->
                         DependencyBox(listOf(Napier, Kermit), true),
                         DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin), true),
                         DependencyBox(KotlinxCoroutinesCore, true),
-                        DependencyBox(InsetsX, true),
                         DependencyBox(KtorCore, false),
                         DependencyBox(
                             listOf(

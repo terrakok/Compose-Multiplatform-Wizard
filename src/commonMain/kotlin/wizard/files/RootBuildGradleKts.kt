@@ -8,9 +8,6 @@ class RootBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("plugins {")
         appendLine("    alias(libs.plugins.multiplatform).apply(false)")
         appendLine("    alias(libs.plugins.compose).apply(false)")
-        if (info.hasIos) {
-            appendLine("    alias(libs.plugins.cocoapods).apply(false)")
-        }
         if (info.hasAndroid) {
             appendLine("    alias(libs.plugins.android.application).apply(false)")
         }

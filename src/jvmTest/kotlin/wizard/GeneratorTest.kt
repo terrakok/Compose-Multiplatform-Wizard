@@ -36,10 +36,8 @@ class GeneratorTest {
             composeApp/src/androidMain/kotlin/org/company/app/App.android.kt
             composeApp/src/desktopMain/kotlin/org/company/app/App.jvm.kt
             composeApp/src/desktopMain/kotlin/main.kt
-            composeApp/composeApp.podspec
             composeApp/src/iosMain/kotlin/org/company/app/App.ios.kt
             composeApp/src/iosMain/kotlin/main.kt
-            iosApp/Podfile
             iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/Contents.json
             iosApp/iosApp/Assets.xcassets/AccentColor.colorset/Contents.json
             iosApp/iosApp/Assets.xcassets/Contents.json
@@ -50,7 +48,6 @@ class GeneratorTest {
             composeApp/src/jsMain/kotlin/org/company/app/App.js.kt
             composeApp/src/jsMain/resources/index.html
             composeApp/src/jsMain/kotlin/main.kt
-            composeApp/src/jsMain/kotlin/BrowserViewportWindow.kt
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -62,7 +59,6 @@ class GeneratorTest {
                 plugins {
                     alias(libs.plugins.multiplatform)
                     alias(libs.plugins.compose)
-                    alias(libs.plugins.cocoapods)
                     alias(libs.plugins.android.application)
                     alias(libs.plugins.apollo)
                     alias(libs.plugins.libres)
@@ -89,17 +85,12 @@ class GeneratorTest {
                         binaries.executable()
                     }
 
-                    iosX64()
-                    iosArm64()
-                    iosSimulatorArm64()
-
-                    cocoapods {
-                        version = "1.0.0"
-                        summary = "Compose application framework"
-                        homepage = "empty"
-                        ios.deploymentTarget = "11.0"
-                        podfile = project.file("../iosApp/Podfile")
-                        framework {
+                    listOf(
+                        iosX64(),
+                        iosArm64(),
+                        iosSimulatorArm64()
+                    ).forEach {
+                        it.binaries.framework {
                             baseName = "ComposeApp"
                             isStatic = true
                         }
@@ -113,7 +104,6 @@ class GeneratorTest {
                                 implementation(libs.apollo.runtime)
                                 implementation(libs.libres)
                                 implementation(libs.voyager.navigator)
-                                implementation(libs.insetsx)
                                 implementation(libs.composeImageLoader)
                                 implementation(libs.napier)
                                 implementation(libs.kotlinx.datetime)
@@ -173,11 +163,11 @@ class GeneratorTest {
 
                 android {
                     namespace = "org.company.app"
-                    compileSdk = 33
+                    compileSdk = ${info.androidTargetSdk}
 
                     defaultConfig {
-                        minSdk = 21
-                        targetSdk = 33
+                        minSdk = ${info.androidMinSdk}
+                        targetSdk = ${info.androidTargetSdk}
 
                         applicationId = "org.company.app.androidApp"
                         versionCode = 1
@@ -217,26 +207,26 @@ class GeneratorTest {
                 tasks.getByPath("jsProcessResources").dependsOn("libresGenerateResources")
 
                 buildConfig {
-                  // BuildConfig configuration here.
-                  // https://github.com/gmazzo/gradle-buildconfig-plugin#usage-in-kts
+                    // BuildConfig configuration here.
+                    // https://github.com/gmazzo/gradle-buildconfig-plugin#usage-in-kts
                 }
 
                 sqldelight {
-                  databases {
-                    create("MyDatabase") {
-                      // Database configuration here.
-                      // https://cashapp.github.io/sqldelight
-                      packageName.set("org.company.app.db")
+                    databases {
+                        create("MyDatabase") {
+                            // Database configuration here.
+                            // https://cashapp.github.io/sqldelight
+                            packageName.set("org.company.app.db")
+                        }
                     }
-                  }
                 }
 
                 apollo {
-                  service("api") {
-                    // GraphQL configuration here.
-                    // https://www.apollographql.com/docs/kotlin/advanced/plugin-configuration/
-                    packageName.set("org.company.app.graphql")
-                  }
+                    service("api") {
+                        // GraphQL configuration here.
+                        // https://www.apollographql.com/docs/kotlin/advanced/plugin-configuration/
+                        packageName.set("org.company.app.graphql")
+                    }
                 }
 
             """.trimIndent(),
@@ -256,7 +246,6 @@ class GeneratorTest {
                 compose-uitooling = "${ComposeUiTooling.version}"
                 libres = "${LibresCompose.version}"
                 voyager = "${Voyager.version}"
-                insetsx = "${InsetsX.version}"
                 composeImageLoader = "${ImageLoader.version}"
                 napier = "${Napier.version}"
                 kotlinx-datetime = "${KotlinxDateTime.version}"
@@ -278,7 +267,6 @@ class GeneratorTest {
                 compose-uitooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-uitooling" }
                 libres = { module = "io.github.skeptick.libres:libres-compose", version.ref = "libres" }
                 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
-                insetsx = { module = "com.moriatsushi.insetsx:insetsx", version.ref = "insetsx" }
                 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "composeImageLoader" }
                 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
                 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
@@ -301,7 +289,6 @@ class GeneratorTest {
                 [plugins]
 
                 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-                cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
                 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
                 android-application = { id = "com.android.application", version.ref = "agp" }
                 apollo = { id = "com.apollographql.apollo3", version.ref = "apollo" }
@@ -394,11 +381,11 @@ class GeneratorTest {
 
                 android {
                     namespace = "org.android.app"
-                    compileSdk = 33
+                    compileSdk = ${info.androidTargetSdk}
 
                     defaultConfig {
-                        minSdk = 21
-                        targetSdk = 33
+                        minSdk = ${info.androidMinSdk}
+                        targetSdk = ${info.androidTargetSdk}
 
                         applicationId = "org.android.app.androidApp"
                         versionCode = 1
@@ -448,10 +435,8 @@ class GeneratorTest {
             composeApp/src/commonMain/kotlin/org/ios/app/theme/Color.kt
             composeApp/src/commonMain/kotlin/org/ios/app/theme/Theme.kt
             composeApp/src/commonMain/kotlin/org/ios/app/App.kt
-            composeApp/composeApp.podspec
             composeApp/src/iosMain/kotlin/org/ios/app/App.ios.kt
             composeApp/src/iosMain/kotlin/main.kt
-            iosApp/Podfile
             iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/Contents.json
             iosApp/iosApp/Assets.xcassets/AccentColor.colorset/Contents.json
             iosApp/iosApp/Assets.xcassets/Contents.json
@@ -468,27 +453,20 @@ class GeneratorTest {
                 plugins {
                     alias(libs.plugins.multiplatform)
                     alias(libs.plugins.compose)
-                    alias(libs.plugins.cocoapods)
                 }
 
                 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
                 kotlin {
                     targetHierarchy.default()
-                    iosX64()
-                    iosArm64()
-                    iosSimulatorArm64()
-
-                    cocoapods {
-                        version = "1.0.0"
-                        summary = "Compose application framework"
-                        homepage = "empty"
-                        ios.deploymentTarget = "11.0"
-                        podfile = project.file("../iosApp/Podfile")
-                        framework {
+                    listOf(
+                        iosX64(),
+                        iosArm64(),
+                        iosSimulatorArm64()
+                    ).forEach {
+                        it.binaries.framework {
                             baseName = "ComposeApp"
                             isStatic = true
                         }
-                        extraSpecAttributes["resources"] = "['src/commonMain/resources/**']"
                     }
 
                     sourceSets {
@@ -645,7 +623,6 @@ class GeneratorTest {
             composeApp/src/jsMain/kotlin/org/js/app/App.js.kt
             composeApp/src/jsMain/resources/index.html
             composeApp/src/jsMain/kotlin/main.kt
-            composeApp/src/jsMain/kotlin/BrowserViewportWindow.kt
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )

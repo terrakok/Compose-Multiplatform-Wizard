@@ -10,6 +10,7 @@ class DesktopMainKt(info: ProjectInfo) : ProjectFile {
         import androidx.compose.ui.window.Window
         import androidx.compose.ui.window.application
         import androidx.compose.ui.window.rememberWindowState
+        import java.awt.Dimension
         import ${info.packageId}.App
 
         fun main() = application {
@@ -17,7 +18,10 @@ class DesktopMainKt(info: ProjectInfo) : ProjectFile {
                 title = "${info.name}",
                 state = rememberWindowState(width = 800.dp, height = 600.dp),
                 onCloseRequest = ::exitApplication,
-            ) { App() }
+            ) {
+                window.minimumSize = Dimension(350, 600)
+                App()
+            }
         }
     """.trimIndent()
 }
@@ -39,12 +43,15 @@ class IosMainKt(info: ProjectInfo) : ProjectFile {
 class BrowserMainKt(info: ProjectInfo) : ProjectFile {
     override val path = "composeApp/src/jsMain/kotlin/main.kt"
     override val content = """
+        import androidx.compose.ui.ExperimentalComposeUiApi
+        import androidx.compose.ui.window.CanvasBasedWindow
         import ${info.packageId}.App
         import org.jetbrains.skiko.wasm.onWasmReady
 
+        @OptIn(ExperimentalComposeUiApi::class)
         fun main() {
             onWasmReady {
-                BrowserViewportWindow("${info.name}") {
+                CanvasBasedWindow("${info.name}") {
                     App()
                 }
             }
