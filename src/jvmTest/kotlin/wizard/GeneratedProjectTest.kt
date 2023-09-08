@@ -6,7 +6,11 @@ import org.junit.Test
 import wizard.files.GradleBat
 import wizard.files.GradleWrapperJar
 import wizard.files.Gradlew
+import java.io.BufferedReader
 import java.io.File
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.io.StringReader
 import java.lang.ProcessBuilder.Redirect
 import kotlin.io.path.createTempDirectory
 import kotlin.test.assertEquals
@@ -62,16 +66,16 @@ class GeneratedProjectTest {
         }
     }
 
-// TODO: https://youtrack.jetbrains.com/issue/KT-58568
-//    @Test
-//    fun testDesktopAndBrowserProject() {
-//        checkProject(
-//            ProjectInfo(
-//                platforms = setOf(ComposePlatform.Desktop, ComposePlatform.Browser),
-//                dependencies = allDependencies
-//            )
-//        )
-//    }
+    // TODO: https://youtrack.jetbrains.com/issue/KT-58568
+    @Test
+    fun testDesktopAndBrowserProject() {
+        checkProject(
+            ProjectInfo(
+                platforms = setOf(ComposePlatform.Desktop, ComposePlatform.Browser),
+                dependencies = allDependencies.minus(ApolloPlugin).minus(ApolloRuntime)
+            )
+        )
+    }
 
     @Test
     fun testDesktopProject() {
@@ -148,7 +152,7 @@ class GeneratedProjectTest {
                 platforms = setOf(ComposePlatform.Ios),
                 dependencies = emptySet()
             )
-        ).forEach { projectInfo->
+        ).forEach { projectInfo ->
             val dir = projectInfo.writeToDir(workingDir)
             checkCommand(
                 dir = dir,
@@ -188,7 +192,7 @@ class GeneratedProjectTest {
                     "plugins {",
                     """
                         plugins {
-                            id("com.github.ben-manes.versions").version("0.47.0")
+                            id("com.github.ben-manes.versions").version("0.48.0")
                     """.trimIndent()
                 )
             )
@@ -209,15 +213,18 @@ class GeneratedProjectTest {
 
     private fun checkCommand(dir: File, command: List<String>) {
         println("Project dir: ${dir.absolutePath}")
-        println("============start of the $command============")
-        val proc = ProcessBuilder(command).apply {
-            directory(dir)
-            redirectOutput(Redirect.INHERIT)
-            redirectError(Redirect.INHERIT)
-        }.start()
+        println("command: ${command.joinToString(" ")}")
+        println("============start of the command============")
+        val proc = ProcessBuilder(command).apply { directory(dir) }.start()
+        proc.inputStream.printStream()
+        proc.errorStream.printStream()
         proc.waitFor()
-        println("============end of the $command============")
-        assertEquals(0, proc.exitValue(), "'$command' exit code")
+        println("============end of the command============")
+        assertEquals(0, proc.exitValue(), "command exit code")
+    }
+
+    private fun InputStream.printStream() {
+        BufferedReader(InputStreamReader(this)).forEachLine { println(it) }
     }
 
     private fun ProjectInfo.writeToDir(workingDir: File): File {
