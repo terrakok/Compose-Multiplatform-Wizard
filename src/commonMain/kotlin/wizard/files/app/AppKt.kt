@@ -9,13 +9,17 @@ class AppKt(info: ProjectInfo) : ProjectFile {
     override val content = """
         package ${info.packageId}
         
+        import androidx.compose.foundation.layout.Arrangement
         import androidx.compose.foundation.layout.Column
+        import androidx.compose.foundation.layout.Row
+        import androidx.compose.foundation.layout.Spacer
         import androidx.compose.foundation.layout.WindowInsets
         import androidx.compose.foundation.layout.fillMaxSize
         import androidx.compose.foundation.layout.fillMaxWidth
         import androidx.compose.foundation.layout.padding
         import androidx.compose.foundation.layout.safeContent
         import androidx.compose.foundation.layout.safeDrawing
+        import androidx.compose.foundation.layout.size
         import androidx.compose.foundation.layout.windowInsetsPadding
         import androidx.compose.foundation.text.KeyboardOptions
         import androidx.compose.material.icons.Icons
@@ -40,20 +44,40 @@ class AppKt(info: ProjectInfo) : ProjectFile {
         import androidx.compose.ui.text.input.VisualTransformation
         import androidx.compose.ui.unit.dp
         import ${info.packageId}.theme.AppTheme
+        import ${info.packageId}.theme.LocalThemeIsDark
 
         @Composable
-        internal fun App() = AppTheme {
+        internal fun App(
+            systemAppearance: (isLight: Boolean) -> Unit = {}
+        ) = AppTheme(systemAppearance) {
             var email by remember { mutableStateOf("") }
             var password by remember { mutableStateOf("") }
             var passwordVisibility by remember { mutableStateOf(false) }
 
             Column(modifier = Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)) {
 
-                Text(
-                    text = "Login",
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(16.dp)
-                )
+                Row(
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "Login",
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.padding(16.dp)
+                    )
+
+                    Spacer(modifier = Modifier.weight(1.0f))
+
+                    var isDark by LocalThemeIsDark.current
+                    IconButton(
+                        onClick = { isDark = !isDark }
+                    ) {
+                        Icon(
+                            modifier = Modifier.padding(8.dp).size(20.dp),
+                            imageVector = if (isDark) rememberLightMode() else rememberDarkMode(),
+                            contentDescription = null
+                        )
+                    }
+                }
 
                 OutlinedTextField(
                     value = email,
@@ -114,7 +138,12 @@ class AndroidAppKt(info: ProjectInfo) : ProjectFile {
         import android.os.Bundle
         import androidx.activity.ComponentActivity
         import androidx.activity.compose.setContent
+        import androidx.compose.runtime.LaunchedEffect
         import androidx.compose.runtime.SideEffect
+        import androidx.compose.runtime.getValue
+        import androidx.compose.runtime.mutableStateOf
+        import androidx.compose.runtime.remember
+        import androidx.compose.runtime.setValue
         import androidx.compose.ui.platform.LocalView
         import androidx.core.view.WindowCompat
         
@@ -132,18 +161,22 @@ class AndroidAppKt(info: ProjectInfo) : ProjectFile {
         class AppActivity : ComponentActivity() {
             override fun onCreate(savedInstanceState: Bundle?) {
                 super.onCreate(savedInstanceState)
-                val systemBarColor = Color.parseColor("#80000000")
+                val systemBarColor = Color.TRANSPARENT
                 setContent {
                     val view = LocalView.current
+                    var isLightStatusBars by remember { mutableStateOf(false) }
                     if (!view.isInEditMode) {
-                        SideEffect {
+                        LaunchedEffect(isLightStatusBars) {
                             val window = (view.context as Activity).window
                             WindowCompat.setDecorFitsSystemWindows(window, false)
                             window.statusBarColor = systemBarColor
                             window.navigationBarColor = systemBarColor
+                            WindowCompat.getInsetsController(window, window.decorView).apply {
+                                isAppearanceLightStatusBars = isLightStatusBars
+                            }
                         }
                     }
-                    App()
+                    App(systemAppearance = { isLight -> isLightStatusBars = isLight })
                 }
             }
         }

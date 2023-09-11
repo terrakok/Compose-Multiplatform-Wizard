@@ -1,6 +1,11 @@
 package ui
 
-import mui.material.*
+import mui.material.Paper
+import mui.material.Table
+import mui.material.TableBody
+import mui.material.TableCell
+import mui.material.TableContainer
+import mui.material.TableRow
 import mui.system.PropsWithSx
 import react.FC
 import react.useRequiredContext

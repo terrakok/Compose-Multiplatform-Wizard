@@ -1,6 +1,23 @@
 package wizard.files.app
 
-import wizard.*
+import wizard.ApolloPlugin
+import wizard.BuildConfigPlugin
+import wizard.BuildKonfigPlugin
+import wizard.ComposePlatform
+import wizard.Dependency
+import wizard.LibresPlugin
+import wizard.ProjectFile
+import wizard.ProjectInfo
+import wizard.SQLDelightPlugin
+import wizard.hasAndroid
+import wizard.hasBrowser
+import wizard.hasCustomResources
+import wizard.hasDesktop
+import wizard.hasIos
+import wizard.isCommon
+import wizard.isPlugin
+import wizard.libraryNotation
+import wizard.pluginNotation
 
 class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
     override val path = "composeApp/build.gradle.kts"

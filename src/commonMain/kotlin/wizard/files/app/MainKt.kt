@@ -33,8 +33,8 @@ class IosMainKt(info: ProjectInfo) : ProjectFile {
         import ${info.packageId}.App
         import platform.UIKit.UIViewController
 
-        fun MainViewController(): UIViewController {
-            return ComposeUIViewController { App() }
+        fun MainViewController(systemAppearance: (isLight: Boolean) -> Unit): UIViewController {
+            return ComposeUIViewController { App(systemAppearance) }
         }
         
     """.trimIndent()

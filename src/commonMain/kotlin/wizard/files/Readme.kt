@@ -1,6 +1,11 @@
 package wizard.files
 
-import wizard.*
+import wizard.ProjectFile
+import wizard.ProjectInfo
+import wizard.hasAndroid
+import wizard.hasBrowser
+import wizard.hasDesktop
+import wizard.hasIos
 
 class Readme(info: ProjectInfo) : ProjectFile {
     override val path = "README.MD"

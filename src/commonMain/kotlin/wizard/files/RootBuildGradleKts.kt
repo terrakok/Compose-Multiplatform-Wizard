@@ -1,6 +1,10 @@
 package wizard.files
 
-import wizard.*
+import wizard.ProjectFile
+import wizard.ProjectInfo
+import wizard.catalogAccessor
+import wizard.hasAndroid
+import wizard.isPlugin
 
 class RootBuildGradleKts(info: ProjectInfo) : ProjectFile {
     override val path = "build.gradle.kts"

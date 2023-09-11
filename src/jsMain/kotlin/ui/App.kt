@@ -3,7 +3,11 @@ package ui
 import mui.material.CssBaseline
 import mui.material.styles.Theme
 import mui.material.styles.ThemeProvider
-import react.*
+import react.FC
+import react.Props
+import react.StateInstance
+import react.createContext
+import react.useState
 import wizard.ProjectInfo
 
 external interface AppProps : Props {

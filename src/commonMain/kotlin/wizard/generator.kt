@@ -1,7 +1,38 @@
 package wizard
 
-import wizard.files.*
-import wizard.files.app.*
+import wizard.files.Gitignore
+import wizard.files.GradleBat
+import wizard.files.GradleLibsVersion
+import wizard.files.GradleProperties
+import wizard.files.GradleWrapperJar
+import wizard.files.GradleWrapperProperties
+import wizard.files.Gradlew
+import wizard.files.Readme
+import wizard.files.RootBuildGradleKts
+import wizard.files.SettingsGradleKts
+import wizard.files.app.AndroidAppKt
+import wizard.files.app.AndroidManifest
+import wizard.files.app.AppKt
+import wizard.files.app.BrowserAppKt
+import wizard.files.app.BrowserMainKt
+import wizard.files.app.ColorKt
+import wizard.files.app.DesktopAppKt
+import wizard.files.app.DesktopMainKt
+import wizard.files.app.GraphQLQuery
+import wizard.files.app.GraphQLSchema
+import wizard.files.app.IconsKt
+import wizard.files.app.IndexHtml
+import wizard.files.app.IosAccentColor
+import wizard.files.app.IosAppIcon
+import wizard.files.app.IosAppKt
+import wizard.files.app.IosAppSwift
+import wizard.files.app.IosAssets
+import wizard.files.app.IosMainKt
+import wizard.files.app.IosPbxproj
+import wizard.files.app.IosPreviewAssets
+import wizard.files.app.IosXcworkspace
+import wizard.files.app.ModuleBuildGradleKts
+import wizard.files.app.ThemeKt
 
 fun ProjectInfo.buildFiles() = buildList {
     add(Gitignore())
@@ -21,6 +52,7 @@ fun ProjectInfo.buildFiles() = buildList {
     add(ColorKt(this@buildFiles))
     add(ThemeKt(this@buildFiles))
     add(AppKt(this@buildFiles))
+    add(IconsKt(this@buildFiles))
 
     if (this@buildFiles.dependencies.contains(ApolloPlugin)) {
         add(GraphQLSchema())

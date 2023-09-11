@@ -18,6 +18,11 @@ class ThemeKt(info: ProjectInfo) : ProjectFile {
         import androidx.compose.material3.Surface
         import androidx.compose.material3.Typography
         import androidx.compose.runtime.Composable
+        import androidx.compose.runtime.CompositionLocalProvider
+        import androidx.compose.runtime.LaunchedEffect
+        import androidx.compose.runtime.compositionLocalOf
+        import androidx.compose.runtime.getValue
+        import androidx.compose.runtime.mutableStateOf
         import androidx.compose.ui.text.TextStyle
         import androidx.compose.ui.text.font.FontFamily
         import androidx.compose.ui.text.font.FontWeight
@@ -104,25 +109,29 @@ class ThemeKt(info: ProjectInfo) : ProjectFile {
             )
         )
 
+        internal val LocalThemeIsDark = compositionLocalOf { mutableStateOf(true) }
+
         @Composable
         internal fun AppTheme(
-            useDarkTheme: Boolean = isSystemInDarkTheme(),
+            systemAppearance: (isLight: Boolean) -> Unit,
             content: @Composable() () -> Unit
         ) {
-            val colors = if (!useDarkTheme) {
-                LightColorScheme
-            } else {
-                DarkColorScheme
-            }
-
-            MaterialTheme(
-                colorScheme = colors,
-                typography = AppTypography,
-                shapes = AppShapes,
-                content = {
-                    Surface(content = content)
+            CompositionLocalProvider(
+                LocalThemeIsDark provides mutableStateOf(isSystemInDarkTheme())
+            ) {
+                val isDark by LocalThemeIsDark.current
+                LaunchedEffect(isDark) {
+                    systemAppearance(!isDark)
                 }
-            )
+                MaterialTheme(
+                    colorScheme = if (!isDark) LightColorScheme else DarkColorScheme,
+                    typography = AppTypography,
+                    shapes = AppShapes,
+                    content = {
+                        Surface(content = content)
+                    }
+                )
+            }
         }
 
     """.trimIndent()

@@ -1,6 +1,8 @@
 package wizard.files
 
-import wizard.*
+import wizard.ProjectFile
+import wizard.ProjectInfo
+import wizard.safeName
 
 class SettingsGradleKts(info: ProjectInfo) : ProjectFile {
     override val path = "settings.gradle.kts"

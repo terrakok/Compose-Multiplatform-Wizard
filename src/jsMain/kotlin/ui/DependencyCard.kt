@@ -3,12 +3,27 @@ package ui
 import mui.icons.material.CheckCircleRounded
 import mui.icons.material.Edit
 import mui.icons.material.RadioButtonUncheckedRounded
-import mui.material.*
+import mui.material.Box
+import mui.material.Button
+import mui.material.Card
+import mui.material.CardActionArea
+import mui.material.Checkbox
+import mui.material.Stack
+import mui.material.StackDirection
+import mui.material.Typography
 import mui.material.styles.TypographyVariant
 import mui.system.responsive
 import mui.system.sx
-import react.*
-import web.cssom.*
+import react.FC
+import react.Props
+import react.create
+import react.useRequiredContext
+import react.useState
+import web.cssom.AlignItems
+import web.cssom.JustifyContent
+import web.cssom.Position
+import web.cssom.px
+import web.cssom.unaryMinus
 import web.window.window
 
 external interface DependencyCardProps : Props {

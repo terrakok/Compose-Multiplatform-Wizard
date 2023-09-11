@@ -10,8 +10,6 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.InputStream
 import java.io.InputStreamReader
-import java.io.StringReader
-import java.lang.ProcessBuilder.Redirect
 import kotlin.io.path.createTempDirectory
 import kotlin.test.assertEquals
 

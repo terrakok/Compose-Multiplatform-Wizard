@@ -1,6 +1,11 @@
 package ui
 
-import mui.icons.material.*
+import mui.icons.material.Brightness4
+import mui.icons.material.Brightness7
+import mui.icons.material.Code
+import mui.icons.material.CodeOff
+import mui.icons.material.GitHub
+import mui.icons.material.MenuBook
 import mui.material.Box
 import mui.material.IconButton
 import mui.material.Stack

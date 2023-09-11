@@ -30,6 +30,7 @@ class GeneratorTest {
             composeApp/src/commonMain/kotlin/org/company/app/theme/Color.kt
             composeApp/src/commonMain/kotlin/org/company/app/theme/Theme.kt
             composeApp/src/commonMain/kotlin/org/company/app/App.kt
+            composeApp/src/commonMain/kotlin/org/company/app/Icons.kt
             composeApp/src/commonMain/graphql/schema.graphqls
             composeApp/src/commonMain/graphql/HelloQuery.graphql
             composeApp/src/androidMain/AndroidManifest.xml
@@ -327,6 +328,7 @@ class GeneratorTest {
             composeApp/src/commonMain/kotlin/org/android/app/theme/Color.kt
             composeApp/src/commonMain/kotlin/org/android/app/theme/Theme.kt
             composeApp/src/commonMain/kotlin/org/android/app/App.kt
+            composeApp/src/commonMain/kotlin/org/android/app/Icons.kt
             composeApp/src/androidMain/AndroidManifest.xml
             composeApp/src/androidMain/kotlin/org/android/app/App.android.kt
         """.trimIndent(),
@@ -435,6 +437,7 @@ class GeneratorTest {
             composeApp/src/commonMain/kotlin/org/ios/app/theme/Color.kt
             composeApp/src/commonMain/kotlin/org/ios/app/theme/Theme.kt
             composeApp/src/commonMain/kotlin/org/ios/app/App.kt
+            composeApp/src/commonMain/kotlin/org/ios/app/Icons.kt
             composeApp/src/iosMain/kotlin/org/ios/app/App.ios.kt
             composeApp/src/iosMain/kotlin/main.kt
             iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/Contents.json
@@ -528,6 +531,7 @@ class GeneratorTest {
             composeApp/src/commonMain/kotlin/org/desktop/app/theme/Color.kt
             composeApp/src/commonMain/kotlin/org/desktop/app/theme/Theme.kt
             composeApp/src/commonMain/kotlin/org/desktop/app/App.kt
+            composeApp/src/commonMain/kotlin/org/desktop/app/Icons.kt
             composeApp/src/desktopMain/kotlin/org/desktop/app/App.jvm.kt
             composeApp/src/desktopMain/kotlin/main.kt
         """.trimIndent(),
@@ -620,6 +624,7 @@ class GeneratorTest {
             composeApp/src/commonMain/kotlin/org/js/app/theme/Color.kt
             composeApp/src/commonMain/kotlin/org/js/app/theme/Theme.kt
             composeApp/src/commonMain/kotlin/org/js/app/App.kt
+            composeApp/src/commonMain/kotlin/org/js/app/Icons.kt
             composeApp/src/jsMain/kotlin/org/js/app/App.js.kt
             composeApp/src/jsMain/resources/index.html
             composeApp/src/jsMain/kotlin/main.kt
