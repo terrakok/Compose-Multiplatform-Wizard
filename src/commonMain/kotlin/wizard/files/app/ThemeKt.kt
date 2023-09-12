@@ -23,6 +23,7 @@ class ThemeKt(info: ProjectInfo) : ProjectFile {
         import androidx.compose.runtime.compositionLocalOf
         import androidx.compose.runtime.getValue
         import androidx.compose.runtime.mutableStateOf
+        import androidx.compose.runtime.remember
         import androidx.compose.ui.text.TextStyle
         import androidx.compose.ui.text.font.FontFamily
         import androidx.compose.ui.text.font.FontWeight
@@ -116,10 +117,12 @@ class ThemeKt(info: ProjectInfo) : ProjectFile {
             systemAppearance: (isLight: Boolean) -> Unit,
             content: @Composable() () -> Unit
         ) {
+            val systemIsDark = isSystemInDarkTheme()
+            val isDarkState = remember { mutableStateOf(systemIsDark) }
             CompositionLocalProvider(
-                LocalThemeIsDark provides mutableStateOf(isSystemInDarkTheme())
+                LocalThemeIsDark provides isDarkState
             ) {
-                val isDark by LocalThemeIsDark.current
+                val isDark by isDarkState
                 LaunchedEffect(isDark) {
                     systemAppearance(!isDark)
                 }

@@ -173,6 +173,7 @@ class AndroidAppKt(info: ProjectInfo) : ProjectFile {
                             window.navigationBarColor = systemBarColor
                             WindowCompat.getInsetsController(window, window.decorView).apply {
                                 isAppearanceLightStatusBars = isLightStatusBars
+                                isAppearanceLightNavigationBars = isLightStatusBars
                             }
                         }
                     }
