@@ -34,6 +34,7 @@ internal val allDependencies = setOf(
     KtorClientOkhttp,
     KtorClientJs,
     KotlinxCoroutinesCore,
+    MokoMvvm,
     KotlinxCoroutinesAndroid,
     KotlinxSerializationPlugin,
     KotlinxSerializationJson,

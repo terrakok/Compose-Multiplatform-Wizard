@@ -57,6 +57,7 @@ import wizard.KtorClientOkhttp
 import wizard.KtorCore
 import wizard.LibresCompose
 import wizard.LibresPlugin
+import wizard.MokoMvvm
 import wizard.MultiplatformSettings
 import wizard.Napier
 import wizard.ProjectInfo
@@ -159,6 +160,7 @@ val Content = FC<AppProps> { props ->
                     }
 
                     val deps = setOf(
+                        DependencyBox(MokoMvvm, false),
                         DependencyBox(LibresCompose, true),
                         DependencyBox(Voyager, true),
                         DependencyBox(ImageLoader, true),

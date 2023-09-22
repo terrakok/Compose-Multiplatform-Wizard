@@ -114,6 +114,7 @@ class GeneratorTest {
                                 implementation(libs.composeIcons.featherIcons)
                                 implementation(libs.ktor.core)
                                 implementation(libs.kotlinx.coroutines.core)
+                                implementation(libs.moko.mvvm)
                                 implementation(libs.kotlinx.serialization.json)
                             }
                         }
@@ -256,6 +257,7 @@ class GeneratorTest {
                 composeIcons = "${ComposeIconsFeather.version}"
                 ktor = "${KtorCore.version}"
                 kotlinx-coroutines = "${KotlinxCoroutinesCore.version}"
+                moko-mvvm= "${MokoMvvm.version}"
                 kotlinx-serialization = "${KotlinxSerializationJson.version}"
                 sqlDelight = "${SQLDelightPlugin.version}"
                 buildConfig = "${BuildConfigPlugin.version}"

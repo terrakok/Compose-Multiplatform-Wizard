@@ -131,7 +131,7 @@ val Koin = Dependency(
     url = "https://github.com/InsertKoinIO/koin",
     group = "io.insert-koin",
     id = "koin-core",
-    version = "3.4.3",
+    version = "3.5.0",
     catalogVersionName = "koin",
     catalogName = "koin-core",
     platforms = AllPlatforms
@@ -200,6 +200,18 @@ val KotlinxCoroutinesCore = Dependency(
     version = "1.7.3",
     catalogVersionName = "kotlinx-coroutines",
     catalogName = "kotlinx-coroutines-core",
+    platforms = AllPlatforms
+)
+
+val MokoMvvm = Dependency(
+    title = "Moko MVVM",
+    description = "IceRock - Model-View-ViewModel architecture components for mobile (android & ios) Kotlin Multiplatform development",
+    url = "https://github.com/icerockdev/moko-mvvm",
+    group = "dev.icerock.moko",
+    id = "mvvm-compose",
+    version = "0.16.1",
+    catalogVersionName = "moko-mvvm",
+    catalogName = "moko-mvvm",
     platforms = AllPlatforms
 )
 
