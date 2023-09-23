@@ -35,6 +35,7 @@ internal val allDependencies = setOf(
     KtorClientJs,
     KotlinxCoroutinesCore,
     KotlinxCoroutinesAndroid,
+    MokoMvvm,
     KotlinxSerializationPlugin,
     KotlinxSerializationJson,
     SQLDelightPlugin,

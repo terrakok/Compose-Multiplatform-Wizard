@@ -203,6 +203,18 @@ val KotlinxCoroutinesCore = Dependency(
     platforms = AllPlatforms
 )
 
+val MokoMvvm = Dependency(
+    title = "Moko MVVM",
+    description = "IceRock - Model-View-ViewModel architecture components for mobile (android & ios) Kotlin Multiplatform development",
+    url = "https://github.com/icerockdev/moko-mvvm",
+    group = "dev.icerock.moko",
+    id = "mvvm-compose",
+    version = "0.16.1",
+    catalogVersionName = "moko-mvvm",
+    catalogName = "moko-mvvm",
+    platforms = AllPlatforms
+)
+
 val KotlinxCoroutinesAndroid = KotlinxCoroutinesCore.copy(
     id = "kotlinx-coroutines-android",
     catalogName = "kotlinx-coroutines-android",
