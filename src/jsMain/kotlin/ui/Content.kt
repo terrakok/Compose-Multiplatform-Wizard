@@ -160,13 +160,13 @@ val Content = FC<AppProps> { props ->
                     }
 
                     val deps = setOf(
-                        DependencyBox(MokoMvvm, false),
                         DependencyBox(LibresCompose, true),
                         DependencyBox(Voyager, true),
                         DependencyBox(ImageLoader, true),
                         DependencyBox(listOf(Napier, Kermit), true),
                         DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin), true),
                         DependencyBox(KotlinxCoroutinesCore, true),
+                        DependencyBox(MokoMvvm, false),
                         DependencyBox(KtorCore, false),
                         DependencyBox(
                             listOf(
