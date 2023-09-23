@@ -74,7 +74,7 @@ class GeneratorTest {
                     androidTarget {
                         compilations.all {
                             kotlinOptions {
-                                jvmTarget = "1.8"
+                                jvmTarget = "17"
                             }
                         }
                     }
@@ -179,8 +179,8 @@ class GeneratorTest {
                         res.srcDirs("src/androidMain/resources")
                     }
                     compileOptions {
-                        sourceCompatibility = JavaVersion.VERSION_1_8
-                        targetCompatibility = JavaVersion.VERSION_1_8
+                        sourceCompatibility = JavaVersion.VERSION_17
+                        targetCompatibility = JavaVersion.VERSION_17
                     }
                 }
 
@@ -350,7 +350,7 @@ class GeneratorTest {
                     androidTarget {
                         compilations.all {
                             kotlinOptions {
-                                jvmTarget = "1.8"
+                                jvmTarget = "17"
                             }
                         }
                     }
@@ -398,8 +398,8 @@ class GeneratorTest {
                         res.srcDirs("src/androidMain/resources")
                     }
                     compileOptions {
-                        sourceCompatibility = JavaVersion.VERSION_1_8
-                        targetCompatibility = JavaVersion.VERSION_1_8
+                        sourceCompatibility = JavaVersion.VERSION_17
+                        targetCompatibility = JavaVersion.VERSION_17
                     }
                 }
 
