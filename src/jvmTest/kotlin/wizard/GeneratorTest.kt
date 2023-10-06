@@ -35,10 +35,13 @@ class GeneratorTest {
             composeApp/src/commonMain/graphql/HelloQuery.graphql
             composeApp/src/androidMain/AndroidManifest.xml
             composeApp/src/androidMain/kotlin/org/company/app/App.android.kt
-            composeApp/src/desktopMain/kotlin/org/company/app/App.jvm.kt
+            composeApp/src/androidMain/kotlin/org/company/app/theme/Theme.android.kt
+            composeApp/src/desktopMain/kotlin/org/company/app/App.desktop.kt
             composeApp/src/desktopMain/kotlin/main.kt
+            composeApp/src/desktopMain/kotlin/org/company/app/theme/Theme.desktop.kt
             composeApp/src/iosMain/kotlin/org/company/app/App.ios.kt
             composeApp/src/iosMain/kotlin/main.kt
+            composeApp/src/iosMain/kotlin/org/company/app/theme/Theme.ios.kt
             iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/Contents.json
             iosApp/iosApp/Assets.xcassets/AccentColor.colorset/Contents.json
             iosApp/iosApp/Assets.xcassets/Contents.json
@@ -49,6 +52,7 @@ class GeneratorTest {
             composeApp/src/jsMain/kotlin/org/company/app/App.js.kt
             composeApp/src/jsMain/resources/index.html
             composeApp/src/jsMain/kotlin/main.kt
+            composeApp/src/jsMain/kotlin/org/company/app/theme/Theme.js.kt
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -334,6 +338,7 @@ class GeneratorTest {
             composeApp/src/commonMain/kotlin/org/android/app/Icons.kt
             composeApp/src/androidMain/AndroidManifest.xml
             composeApp/src/androidMain/kotlin/org/android/app/App.android.kt
+            composeApp/src/androidMain/kotlin/org/android/app/theme/Theme.android.kt
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -443,6 +448,7 @@ class GeneratorTest {
             composeApp/src/commonMain/kotlin/org/ios/app/Icons.kt
             composeApp/src/iosMain/kotlin/org/ios/app/App.ios.kt
             composeApp/src/iosMain/kotlin/main.kt
+            composeApp/src/iosMain/kotlin/org/ios/app/theme/Theme.ios.kt
             iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/Contents.json
             iosApp/iosApp/Assets.xcassets/AccentColor.colorset/Contents.json
             iosApp/iosApp/Assets.xcassets/Contents.json
@@ -535,8 +541,9 @@ class GeneratorTest {
             composeApp/src/commonMain/kotlin/org/desktop/app/theme/Theme.kt
             composeApp/src/commonMain/kotlin/org/desktop/app/App.kt
             composeApp/src/commonMain/kotlin/org/desktop/app/Icons.kt
-            composeApp/src/desktopMain/kotlin/org/desktop/app/App.jvm.kt
+            composeApp/src/desktopMain/kotlin/org/desktop/app/App.desktop.kt
             composeApp/src/desktopMain/kotlin/main.kt
+            composeApp/src/desktopMain/kotlin/org/desktop/app/theme/Theme.desktop.kt
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -631,6 +638,7 @@ class GeneratorTest {
             composeApp/src/jsMain/kotlin/org/js/app/App.js.kt
             composeApp/src/jsMain/resources/index.html
             composeApp/src/jsMain/kotlin/main.kt
+            composeApp/src/jsMain/kotlin/org/js/app/theme/Theme.js.kt
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )

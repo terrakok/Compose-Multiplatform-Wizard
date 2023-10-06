@@ -34,15 +34,13 @@ class IosMainKt(info: ProjectInfo) : ProjectFile {
         import ${info.packageId}.App
         import platform.UIKit.UIViewController
 
-        fun MainViewController(): UIViewController {
-            return ComposeUIViewController(
-                configure = {
-                    //Required for WindowInsets behaviour.
-                    //Analog of Android Manifest activity.windowSoftInputMode="adjustNothing"
-                    onFocusBehavior = OnFocusBehavior.DoNothing
-                }
-            ) { App() }
-        }
+        fun MainViewController(): UIViewController = ComposeUIViewController(
+            configure = {
+                //Required for WindowInsets behaviour.
+                //Analog of Android Manifest activity.windowSoftInputMode="adjustNothing"
+                onFocusBehavior = OnFocusBehavior.DoNothing
+            }
+        ) { App() }
         
     """.trimIndent()
 }

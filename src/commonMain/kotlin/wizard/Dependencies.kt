@@ -205,7 +205,7 @@ val KotlinxCoroutinesCore = Dependency(
 
 val MokoMvvm = Dependency(
     title = "Moko MVVM",
-    description = "IceRock - Model-View-ViewModel architecture components for mobile (android & ios) Kotlin Multiplatform development",
+    description = "This is a Kotlin Multiplatform library that provides architecture components of Model-View-ViewModel for UI applications.",
     url = "https://github.com/icerockdev/moko-mvvm",
     group = "dev.icerock.moko",
     id = "mvvm-compose",
