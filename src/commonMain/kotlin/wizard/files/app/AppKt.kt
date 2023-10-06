@@ -47,9 +47,7 @@ class AppKt(info: ProjectInfo) : ProjectFile {
         import ${info.packageId}.theme.LocalThemeIsDark
 
         @Composable
-        internal fun App(
-            systemAppearance: (isLight: Boolean) -> Unit = {}
-        ) = AppTheme(systemAppearance) {
+        internal fun App() = AppTheme {
             var email by remember { mutableStateOf("") }
             var password by remember { mutableStateOf("") }
             var passwordVisibility by remember { mutableStateOf(false) }
@@ -130,22 +128,12 @@ class AndroidAppKt(info: ProjectInfo) : ProjectFile {
     override val content = """
         package ${info.packageId}
 
-        import android.app.Activity
         import android.app.Application
         import android.content.Intent
-        import android.graphics.Color
         import android.net.Uri
         import android.os.Bundle
         import androidx.activity.ComponentActivity
         import androidx.activity.compose.setContent
-        import androidx.compose.runtime.LaunchedEffect
-        import androidx.compose.runtime.SideEffect
-        import androidx.compose.runtime.getValue
-        import androidx.compose.runtime.mutableStateOf
-        import androidx.compose.runtime.remember
-        import androidx.compose.runtime.setValue
-        import androidx.compose.ui.platform.LocalView
-        import androidx.core.view.WindowCompat
         
         class AndroidApp : Application() {
             companion object {
@@ -161,23 +149,8 @@ class AndroidAppKt(info: ProjectInfo) : ProjectFile {
         class AppActivity : ComponentActivity() {
             override fun onCreate(savedInstanceState: Bundle?) {
                 super.onCreate(savedInstanceState)
-                val systemBarColor = Color.TRANSPARENT
                 setContent {
-                    val view = LocalView.current
-                    var isLightStatusBars by remember { mutableStateOf(false) }
-                    if (!view.isInEditMode) {
-                        LaunchedEffect(isLightStatusBars) {
-                            val window = (view.context as Activity).window
-                            WindowCompat.setDecorFitsSystemWindows(window, false)
-                            window.statusBarColor = systemBarColor
-                            window.navigationBarColor = systemBarColor
-                            WindowCompat.getInsetsController(window, window.decorView).apply {
-                                isAppearanceLightStatusBars = isLightStatusBars
-                                isAppearanceLightNavigationBars = isLightStatusBars
-                            }
-                        }
-                    }
-                    App(systemAppearance = { isLight -> isLightStatusBars = isLight })
+                    App()
                 }
             }
         }
@@ -195,7 +168,7 @@ class AndroidAppKt(info: ProjectInfo) : ProjectFile {
 }
 
 class DesktopAppKt(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/desktopMain/kotlin/${info.packagePath}/App.jvm.kt"
+    override val path = "composeApp/src/desktopMain/kotlin/${info.packagePath}/App.desktop.kt"
     override val content = """
         package ${info.packageId}
 

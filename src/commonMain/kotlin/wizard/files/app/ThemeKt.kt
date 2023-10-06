@@ -114,7 +114,6 @@ class ThemeKt(info: ProjectInfo) : ProjectFile {
 
         @Composable
         internal fun AppTheme(
-            systemAppearance: (isLight: Boolean) -> Unit,
             content: @Composable() () -> Unit
         ) {
             val systemIsDark = isSystemInDarkTheme()
@@ -123,11 +122,9 @@ class ThemeKt(info: ProjectInfo) : ProjectFile {
                 LocalThemeIsDark provides isDarkState
             ) {
                 val isDark by isDarkState
-                LaunchedEffect(isDark) {
-                    systemAppearance(!isDark)
-                }
+                SystemAppearance(!isDark)
                 MaterialTheme(
-                    colorScheme = if (!isDark) LightColorScheme else DarkColorScheme,
+                    colorScheme = if (isDark) DarkColorScheme else LightColorScheme,
                     typography = AppTypography,
                     shapes = AppShapes,
                     content = {
@@ -137,5 +134,84 @@ class ThemeKt(info: ProjectInfo) : ProjectFile {
             }
         }
 
+        @Composable
+        internal expect fun SystemAppearance(isDark: Boolean)
+
+    """.trimIndent()
+}
+
+class DesktopThemeKt(info: ProjectInfo) : ProjectFile {
+    override val path = "composeApp/src/desktopMain/kotlin/${info.packagePath}/theme/Theme.desktop.kt"
+    override val content = """
+        package ${info.packageId}.theme
+
+        import androidx.compose.runtime.Composable
+
+        @Composable
+        internal actual fun SystemAppearance(isDark: Boolean) {
+        }
+    """.trimIndent()
+}
+
+class BrowserThemeKt(info: ProjectInfo) : ProjectFile {
+    override val path = "composeApp/src/jsMain/kotlin/${info.packagePath}/theme/Theme.js.kt"
+    override val content = """
+        package ${info.packageId}.theme
+
+        import androidx.compose.runtime.Composable
+
+        @Composable
+        internal actual fun SystemAppearance(isDark: Boolean) {
+        }
+    """.trimIndent()
+}
+
+class IosThemeKt(info: ProjectInfo) : ProjectFile {
+    override val path = "composeApp/src/iosMain/kotlin/${info.packagePath}/theme/Theme.ios.kt"
+    override val content = """
+        package ${info.packageId}.theme
+
+        import androidx.compose.runtime.Composable
+        import platform.UIKit.UIApplication
+        import platform.UIKit.UIStatusBarStyleDarkContent
+        import platform.UIKit.UIStatusBarStyleLightContent
+        import platform.UIKit.setStatusBarStyle
+
+        @Composable
+        internal actual fun SystemAppearance(isDark: Boolean) {
+            UIApplication.sharedApplication.setStatusBarStyle(
+                if (isDark) UIStatusBarStyleDarkContent else UIStatusBarStyleLightContent
+            )
+        }
+    """.trimIndent()
+}
+
+class AndroidThemeKt(info: ProjectInfo) : ProjectFile {
+    override val path = "composeApp/src/androidMain/kotlin/${info.packagePath}/theme/Theme.android.kt"
+    override val content = """
+        package ${info.packageId}.theme
+
+        import android.app.Activity
+        import android.graphics.Color
+        import androidx.compose.runtime.Composable
+        import androidx.compose.runtime.LaunchedEffect
+        import androidx.compose.ui.platform.LocalView
+        import androidx.core.view.WindowCompat
+
+        @Composable
+        internal actual fun SystemAppearance(isDark: Boolean) {
+            val view = LocalView.current
+            val systemBarColor = Color.TRANSPARENT
+            LaunchedEffect(isDark) {
+                val window = (view.context as Activity).window
+                WindowCompat.setDecorFitsSystemWindows(window, false)
+                window.statusBarColor = systemBarColor
+                window.navigationBarColor = systemBarColor
+                WindowCompat.getInsetsController(window, window.decorView).apply {
+                    isAppearanceLightStatusBars = isDark
+                    isAppearanceLightNavigationBars = isDark
+                }
+            }
+        }
     """.trimIndent()
 }

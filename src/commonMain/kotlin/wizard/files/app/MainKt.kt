@@ -34,14 +34,14 @@ class IosMainKt(info: ProjectInfo) : ProjectFile {
         import ${info.packageId}.App
         import platform.UIKit.UIViewController
 
-        fun MainViewController(systemAppearance: (isLight: Boolean) -> Unit): UIViewController {
+        fun MainViewController(): UIViewController {
             return ComposeUIViewController(
                 configure = {
                     //Required for WindowInsets behaviour.
                     //Analog of Android Manifest activity.windowSoftInputMode="adjustNothing"
                     onFocusBehavior = OnFocusBehavior.DoNothing
                 }
-            ) { App(systemAppearance) }
+            ) { App() }
         }
         
     """.trimIndent()

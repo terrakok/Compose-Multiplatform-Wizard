@@ -12,12 +12,15 @@ import wizard.files.RootBuildGradleKts
 import wizard.files.SettingsGradleKts
 import wizard.files.app.AndroidAppKt
 import wizard.files.app.AndroidManifest
+import wizard.files.app.AndroidThemeKt
 import wizard.files.app.AppKt
 import wizard.files.app.BrowserAppKt
 import wizard.files.app.BrowserMainKt
+import wizard.files.app.BrowserThemeKt
 import wizard.files.app.ColorKt
 import wizard.files.app.DesktopAppKt
 import wizard.files.app.DesktopMainKt
+import wizard.files.app.DesktopThemeKt
 import wizard.files.app.GraphQLQuery
 import wizard.files.app.GraphQLSchema
 import wizard.files.app.IconsKt
@@ -30,6 +33,7 @@ import wizard.files.app.IosAssets
 import wizard.files.app.IosMainKt
 import wizard.files.app.IosPbxproj
 import wizard.files.app.IosPreviewAssets
+import wizard.files.app.IosThemeKt
 import wizard.files.app.IosXcworkspace
 import wizard.files.app.ModuleBuildGradleKts
 import wizard.files.app.ThemeKt
@@ -62,16 +66,19 @@ fun ProjectInfo.buildFiles() = buildList {
     if (this@buildFiles.hasAndroid) {
         add(AndroidManifest(this@buildFiles))
         add(AndroidAppKt(this@buildFiles))
+        add(AndroidThemeKt(this@buildFiles))
     }
 
     if (this@buildFiles.hasDesktop) {
         add(DesktopAppKt(this@buildFiles))
         add(DesktopMainKt(this@buildFiles))
+        add(DesktopThemeKt(this@buildFiles))
     }
 
     if (this@buildFiles.hasIos) {
         add(IosAppKt(this@buildFiles))
         add(IosMainKt(this@buildFiles))
+        add(IosThemeKt(this@buildFiles))
 
         add(IosAppIcon())
         add(IosAccentColor())
@@ -86,5 +93,6 @@ fun ProjectInfo.buildFiles() = buildList {
         add(BrowserAppKt(this@buildFiles))
         add(IndexHtml(this@buildFiles))
         add(BrowserMainKt(this@buildFiles))
+        add(BrowserThemeKt(this@buildFiles))
     }
 }
