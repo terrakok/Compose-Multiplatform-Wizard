@@ -18,7 +18,7 @@ class GeneratorTest {
             """
             .gitignore
             README.MD
-            gradle.bat
+            gradlew.bat
             gradlew
             gradle/wrapper/gradle-wrapper.properties
             gradle/wrapper/gradle-wrapper.jar
@@ -323,7 +323,7 @@ class GeneratorTest {
             """
             .gitignore
             README.MD
-            gradle.bat
+            gradlew.bat
             gradlew
             gradle/wrapper/gradle-wrapper.properties
             gradle/wrapper/gradle-wrapper.jar
@@ -433,7 +433,7 @@ class GeneratorTest {
             """
             .gitignore
             README.MD
-            gradle.bat
+            gradlew.bat
             gradlew
             gradle/wrapper/gradle-wrapper.properties
             gradle/wrapper/gradle-wrapper.jar
@@ -528,7 +528,7 @@ class GeneratorTest {
             """
             .gitignore
             README.MD
-            gradle.bat
+            gradlew.bat
             gradlew
             gradle/wrapper/gradle-wrapper.properties
             gradle/wrapper/gradle-wrapper.jar
@@ -622,7 +622,7 @@ class GeneratorTest {
             """
             .gitignore
             README.MD
-            gradle.bat
+            gradlew.bat
             gradlew
             gradle/wrapper/gradle-wrapper.properties
             gradle/wrapper/gradle-wrapper.jar

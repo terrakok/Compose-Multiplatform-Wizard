@@ -3,7 +3,7 @@ package wizard.files
 import wizard.ProjectFile
 
 class GradleBat : ProjectFile {
-    override val path = "gradle.bat"
+    override val path = "gradlew.bat"
     override val content = """
 @rem
 @rem Copyright 2015 the original author or authors.
