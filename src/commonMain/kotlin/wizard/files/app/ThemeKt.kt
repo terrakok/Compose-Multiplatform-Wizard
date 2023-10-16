@@ -172,6 +172,7 @@ class IosThemeKt(info: ProjectInfo) : ProjectFile {
         package ${info.packageId}.theme
 
         import androidx.compose.runtime.Composable
+        import androidx.compose.runtime.LaunchedEffect
         import platform.UIKit.UIApplication
         import platform.UIKit.UIStatusBarStyleDarkContent
         import platform.UIKit.UIStatusBarStyleLightContent
@@ -179,9 +180,11 @@ class IosThemeKt(info: ProjectInfo) : ProjectFile {
 
         @Composable
         internal actual fun SystemAppearance(isDark: Boolean) {
-            UIApplication.sharedApplication.setStatusBarStyle(
-                if (isDark) UIStatusBarStyleDarkContent else UIStatusBarStyleLightContent
-            )
+            LaunchedEffect(isDark) {
+                UIApplication.sharedApplication.setStatusBarStyle(
+                    if (isDark) UIStatusBarStyleDarkContent else UIStatusBarStyleLightContent
+                )
+            }
         }
     """.trimIndent()
 }
