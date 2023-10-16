@@ -18,7 +18,7 @@ class AndroidManifest(info: ProjectInfo) : ProjectFile {
                     android:name=".AppActivity"
                     android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
                     android:launchMode="singleInstance"
-                    android:windowSoftInputMode="adjustNothing"
+                    android:windowSoftInputMode="adjustPan"
                     android:exported="true">
                     <intent-filter>
                         <action android:name="android.intent.action.MAIN" />

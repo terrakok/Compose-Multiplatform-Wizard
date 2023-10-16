@@ -30,17 +30,10 @@ class IosMainKt(info: ProjectInfo) : ProjectFile {
     override val path = "composeApp/src/iosMain/kotlin/main.kt"
     override val content = """
         import androidx.compose.ui.window.ComposeUIViewController
-        import androidx.compose.ui.uikit.OnFocusBehavior
         import ${info.packageId}.App
         import platform.UIKit.UIViewController
 
-        fun MainViewController(): UIViewController = ComposeUIViewController(
-            configure = {
-                //Required for WindowInsets behaviour.
-                //Analog of Android Manifest activity.windowSoftInputMode="adjustNothing"
-                onFocusBehavior = OnFocusBehavior.DoNothing
-            }
-        ) { App() }
+        fun MainViewController(): UIViewController = ComposeUIViewController { App() }
         
     """.trimIndent()
 }
