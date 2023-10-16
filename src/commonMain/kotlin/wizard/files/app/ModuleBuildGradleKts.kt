@@ -102,6 +102,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("            dependencies {")
         appendLine("                implementation(compose.runtime)")
         appendLine("                implementation(compose.material3)")
+        appendLine("                implementation(compose.materialIconsExtended)")
 
         if (withComposeResources) {
             appendLine("                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)")
