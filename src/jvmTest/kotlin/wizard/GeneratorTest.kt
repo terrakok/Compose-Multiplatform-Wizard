@@ -106,6 +106,7 @@ class GeneratorTest {
                             dependencies {
                                 implementation(compose.runtime)
                                 implementation(compose.material3)
+                                implementation(compose.materialIconsExtended)
                                 implementation(libs.apollo.runtime)
                                 implementation(libs.libres)
                                 implementation(libs.voyager.navigator)
@@ -368,6 +369,7 @@ class GeneratorTest {
                             dependencies {
                                 implementation(compose.runtime)
                                 implementation(compose.material3)
+                                implementation(compose.materialIconsExtended)
                                 implementation(libs.libres)
                             }
                         }
@@ -491,6 +493,7 @@ class GeneratorTest {
                             dependencies {
                                 implementation(compose.runtime)
                                 implementation(compose.material3)
+                                implementation(compose.materialIconsExtended)
                                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                                 implementation(compose.components.resources)
                             }
@@ -572,6 +575,7 @@ class GeneratorTest {
                             dependencies {
                                 implementation(compose.runtime)
                                 implementation(compose.material3)
+                                implementation(compose.materialIconsExtended)
                                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                                 implementation(compose.components.resources)
                             }
@@ -668,6 +672,7 @@ class GeneratorTest {
                             dependencies {
                                 implementation(compose.runtime)
                                 implementation(compose.material3)
+                                implementation(compose.materialIconsExtended)
                                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                                 implementation(compose.components.resources)
                             }
