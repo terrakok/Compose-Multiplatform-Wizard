@@ -51,9 +51,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
         appendLine("}")
         appendLine("")
-        appendLine("@OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)")
         appendLine("kotlin {")
-        appendLine("    targetHierarchy.default()")
         if (info.hasAndroid) {
             appendLine("    androidTarget {")
             appendLine("        compilations.all {")
@@ -65,7 +63,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         if (info.hasDesktop) {
-            appendLine("    jvm(\"desktop\")")
+            appendLine("    jvm()")
             appendLine("")
         }
         if (info.hasBrowser) {
@@ -98,7 +96,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        }")
         }
 
-        appendLine("        val commonMain by getting {")
+        appendLine("        commonMain {")
         appendLine("            dependencies {")
         appendLine("                implementation(compose.runtime)")
         appendLine("                implementation(compose.material3)")
@@ -116,14 +114,14 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("            }")
         appendLine("        }")
         appendLine("")
-        appendLine("        val commonTest by getting {")
+        appendLine("        commonTest {")
         appendLine("            dependencies {")
         appendLine("                implementation(kotlin(\"test\"))")
         appendLine("            }")
         appendLine("        }")
         appendLine("")
         if (info.hasAndroid) {
-            appendLine("        val androidMain by getting {")
+            appendLine("        androidMain {")
             appendLine("            dependencies {")
 
             otherDeps.forEach { dep ->
@@ -137,7 +135,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         if (info.hasDesktop) {
-            appendLine("        val desktopMain by getting {")
+            appendLine("        jvmMain {")
             appendLine("            dependencies {")
             appendLine("                implementation(compose.desktop.common)")
             appendLine("                implementation(compose.desktop.currentOs)")
@@ -153,7 +151,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         if (info.hasBrowser) {
-            appendLine("        val jsMain by getting {")
+            appendLine("        jsMain {")
             appendLine("            dependencies {")
             appendLine("                implementation(compose.html.core)")
 
@@ -168,7 +166,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         if (info.hasIos) {
-            appendLine("        val iosMain by getting {")
+            appendLine("        iosMain {")
             appendLine("            dependencies {")
 
             otherDeps.forEach { dep ->
@@ -241,8 +239,8 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("}")
 
             if (info.hasDesktop) {
-                appendLine("tasks.getByPath(\"desktopProcessResources\").dependsOn(\"libresGenerateResources\")")
-                appendLine("tasks.getByPath(\"desktopSourcesJar\").dependsOn(\"libresGenerateResources\")")
+                appendLine("tasks.getByPath(\"jvmProcessResources\").dependsOn(\"libresGenerateResources\")")
+                appendLine("tasks.getByPath(\"jvmSourcesJar\").dependsOn(\"libresGenerateResources\")")
             }
             if (info.hasBrowser) {
                 appendLine("tasks.getByPath(\"jsProcessResources\").dependsOn(\"libresGenerateResources\")")

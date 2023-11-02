@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform").version("1.9.10")
+    kotlin("multiplatform").version("1.9.20")
 }
 
 repositories {
@@ -8,7 +8,7 @@ repositories {
 
 kotlin {
     jvm()
-    js(IR) {
+    js {
         browser {
             testTask {
                 enabled = false
@@ -17,7 +17,7 @@ kotlin {
         binaries.executable()
     }
     sourceSets {
-        val jsMain by getting {
+        jsMain {
             dependencies {
                 implementation(enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.605"))
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-react")
@@ -31,7 +31,7 @@ kotlin {
                 implementation(npm("stream", "0.0.2"))
             }
         }
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation(kotlin("test"))
             }

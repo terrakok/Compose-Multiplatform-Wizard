@@ -168,7 +168,7 @@ class AndroidAppKt(info: ProjectInfo) : ProjectFile {
 }
 
 class DesktopAppKt(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/desktopMain/kotlin/${info.packagePath}/App.desktop.kt"
+    override val path = "composeApp/src/jvmMain/kotlin/${info.packagePath}/App.jvm.kt"
     override val content = """
         package ${info.packageId}
 

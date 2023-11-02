@@ -4,7 +4,7 @@ import wizard.ProjectFile
 import wizard.ProjectInfo
 
 class DesktopMainKt(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/desktopMain/kotlin/main.kt"
+    override val path = "composeApp/src/jvmMain/kotlin/main.kt"
     override val content = """
         import androidx.compose.ui.unit.dp
         import androidx.compose.ui.window.Window

@@ -58,5 +58,6 @@ fun ProjectInfo.buildFiles() = buildList {
         add(IndexHtml(this@buildFiles))
         add(BrowserMainKt(this@buildFiles))
         add(BrowserThemeKt(this@buildFiles))
+        add(WebPackConfig(this@buildFiles))
     }
 }

@@ -35,9 +35,9 @@ class GeneratorTest {
             composeApp/src/androidMain/AndroidManifest.xml
             composeApp/src/androidMain/kotlin/org/company/app/App.android.kt
             composeApp/src/androidMain/kotlin/org/company/app/theme/Theme.android.kt
-            composeApp/src/desktopMain/kotlin/org/company/app/App.desktop.kt
-            composeApp/src/desktopMain/kotlin/main.kt
-            composeApp/src/desktopMain/kotlin/org/company/app/theme/Theme.desktop.kt
+            composeApp/src/jvmMain/kotlin/org/company/app/App.jvm.kt
+            composeApp/src/jvmMain/kotlin/main.kt
+            composeApp/src/jvmMain/kotlin/org/company/app/theme/Theme.jvm.kt
             composeApp/src/iosMain/kotlin/org/company/app/App.ios.kt
             composeApp/src/iosMain/kotlin/main.kt
             composeApp/src/iosMain/kotlin/org/company/app/theme/Theme.ios.kt
@@ -52,6 +52,7 @@ class GeneratorTest {
             composeApp/src/jsMain/resources/index.html
             composeApp/src/jsMain/kotlin/main.kt
             composeApp/src/jsMain/kotlin/org/company/app/theme/Theme.js.kt
+            composeApp/webpack.config.d/config.js
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -71,9 +72,7 @@ class GeneratorTest {
                     alias(libs.plugins.buildConfig)
                 }
 
-                @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
                 kotlin {
-                    targetHierarchy.default()
                     androidTarget {
                         compilations.all {
                             kotlinOptions {
@@ -82,7 +81,7 @@ class GeneratorTest {
                         }
                     }
 
-                    jvm("desktop")
+                    jvm()
 
                     js {
                         browser()
@@ -101,7 +100,7 @@ class GeneratorTest {
                     }
 
                     sourceSets {
-                        val commonMain by getting {
+                        commonMain {
                             dependencies {
                                 implementation(compose.runtime)
                                 implementation(compose.material3)
@@ -123,13 +122,13 @@ class GeneratorTest {
                             }
                         }
 
-                        val commonTest by getting {
+                        commonTest {
                             dependencies {
                                 implementation(kotlin("test"))
                             }
                         }
 
-                        val androidMain by getting {
+                        androidMain {
                             dependencies {
                                 implementation(libs.androidx.appcompat)
                                 implementation(libs.androidx.activityCompose)
@@ -140,7 +139,7 @@ class GeneratorTest {
                             }
                         }
 
-                        val desktopMain by getting {
+                        jvmMain {
                             dependencies {
                                 implementation(compose.desktop.common)
                                 implementation(compose.desktop.currentOs)
@@ -149,7 +148,7 @@ class GeneratorTest {
                             }
                         }
 
-                        val jsMain by getting {
+                        jsMain {
                             dependencies {
                                 implementation(compose.html.core)
                                 implementation(libs.ktor.client.js)
@@ -157,7 +156,7 @@ class GeneratorTest {
                             }
                         }
 
-                        val iosMain by getting {
+                        iosMain {
                             dependencies {
                                 implementation(libs.ktor.client.darwin)
                                 implementation(libs.sqlDelight.driver.native)
@@ -208,8 +207,8 @@ class GeneratorTest {
                 libres {
                     // https://github.com/Skeptick/libres#setup
                 }
-                tasks.getByPath("desktopProcessResources").dependsOn("libresGenerateResources")
-                tasks.getByPath("desktopSourcesJar").dependsOn("libresGenerateResources")
+                tasks.getByPath("jvmProcessResources").dependsOn("libresGenerateResources")
+                tasks.getByPath("jvmSourcesJar").dependsOn("libresGenerateResources")
                 tasks.getByPath("jsProcessResources").dependsOn("libresGenerateResources")
 
                 buildConfig {
@@ -351,9 +350,7 @@ class GeneratorTest {
                     alias(libs.plugins.libres)
                 }
 
-                @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
                 kotlin {
-                    targetHierarchy.default()
                     androidTarget {
                         compilations.all {
                             kotlinOptions {
@@ -363,7 +360,7 @@ class GeneratorTest {
                     }
 
                     sourceSets {
-                        val commonMain by getting {
+                        commonMain {
                             dependencies {
                                 implementation(compose.runtime)
                                 implementation(compose.material3)
@@ -372,13 +369,13 @@ class GeneratorTest {
                             }
                         }
 
-                        val commonTest by getting {
+                        commonTest {
                             dependencies {
                                 implementation(kotlin("test"))
                             }
                         }
 
-                        val androidMain by getting {
+                        androidMain {
                             dependencies {
                                 implementation(libs.androidx.appcompat)
                                 implementation(libs.androidx.activityCompose)
@@ -466,9 +463,7 @@ class GeneratorTest {
                     alias(libs.plugins.compose)
                 }
 
-                @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
                 kotlin {
-                    targetHierarchy.default()
                     listOf(
                         iosX64(),
                         iosArm64(),
@@ -486,7 +481,7 @@ class GeneratorTest {
                                 optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
                             }
                         }
-                        val commonMain by getting {
+                        commonMain {
                             dependencies {
                                 implementation(compose.runtime)
                                 implementation(compose.material3)
@@ -496,13 +491,13 @@ class GeneratorTest {
                             }
                         }
 
-                        val commonTest by getting {
+                        commonTest {
                             dependencies {
                                 implementation(kotlin("test"))
                             }
                         }
 
-                        val iosMain by getting {
+                        iosMain {
                             dependencies {
                             }
                         }
@@ -540,9 +535,9 @@ class GeneratorTest {
             composeApp/src/commonMain/kotlin/org/desktop/app/theme/Color.kt
             composeApp/src/commonMain/kotlin/org/desktop/app/theme/Theme.kt
             composeApp/src/commonMain/kotlin/org/desktop/app/App.kt
-            composeApp/src/desktopMain/kotlin/org/desktop/app/App.desktop.kt
-            composeApp/src/desktopMain/kotlin/main.kt
-            composeApp/src/desktopMain/kotlin/org/desktop/app/theme/Theme.desktop.kt
+            composeApp/src/jvmMain/kotlin/org/desktop/app/App.jvm.kt
+            composeApp/src/jvmMain/kotlin/main.kt
+            composeApp/src/jvmMain/kotlin/org/desktop/app/theme/Theme.jvm.kt
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -556,10 +551,8 @@ class GeneratorTest {
                     alias(libs.plugins.compose)
                 }
 
-                @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
                 kotlin {
-                    targetHierarchy.default()
-                    jvm("desktop")
+                    jvm()
 
                     sourceSets {
                         all {
@@ -567,7 +560,7 @@ class GeneratorTest {
                                 optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
                             }
                         }
-                        val commonMain by getting {
+                        commonMain {
                             dependencies {
                                 implementation(compose.runtime)
                                 implementation(compose.material3)
@@ -577,13 +570,13 @@ class GeneratorTest {
                             }
                         }
 
-                        val commonTest by getting {
+                        commonTest {
                             dependencies {
                                 implementation(kotlin("test"))
                             }
                         }
 
-                        val desktopMain by getting {
+                        jvmMain {
                             dependencies {
                                 implementation(compose.desktop.common)
                                 implementation(compose.desktop.currentOs)
@@ -638,6 +631,7 @@ class GeneratorTest {
             composeApp/src/jsMain/resources/index.html
             composeApp/src/jsMain/kotlin/main.kt
             composeApp/src/jsMain/kotlin/org/js/app/theme/Theme.js.kt
+            composeApp/webpack.config.d/config.js
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -649,9 +643,7 @@ class GeneratorTest {
                     alias(libs.plugins.compose)
                 }
 
-                @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
                 kotlin {
-                    targetHierarchy.default()
                     js {
                         browser()
                         binaries.executable()
@@ -663,7 +655,7 @@ class GeneratorTest {
                                 optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
                             }
                         }
-                        val commonMain by getting {
+                        commonMain {
                             dependencies {
                                 implementation(compose.runtime)
                                 implementation(compose.material3)
@@ -673,13 +665,13 @@ class GeneratorTest {
                             }
                         }
 
-                        val commonTest by getting {
+                        commonTest {
                             dependencies {
                                 implementation(kotlin("test"))
                             }
                         }
 
-                        val jsMain by getting {
+                        jsMain {
                             dependencies {
                                 implementation(compose.html.core)
                             }

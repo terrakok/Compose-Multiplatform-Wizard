@@ -16,11 +16,11 @@ data class ProjectInfo(
     val name: String = "Multiplatform App",
     val platforms: Set<ComposePlatform> = AllPlatforms,
     val gradleVersion: String = "8.4",
-    val kotlinVersion: String = "1.9.10",
+    val kotlinVersion: String = "1.9.20",
     val agpVersion: String = "8.1.2",
     val androidMinSdk: Int = 24,
     val androidTargetSdk: Int = 34,
-    val composeVersion: String = "1.5.1",
+    val composeVersion: String = "1.5.10",
     val dependencies: Set<Dependency> = requiredAndroidDependencies
 )
 
