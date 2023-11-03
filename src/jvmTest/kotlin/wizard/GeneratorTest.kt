@@ -100,67 +100,55 @@ class GeneratorTest {
                     }
 
                     sourceSets {
-                        commonMain {
-                            dependencies {
-                                implementation(compose.runtime)
-                                implementation(compose.material3)
-                                implementation(compose.materialIconsExtended)
-                                implementation(libs.apollo.runtime)
-                                implementation(libs.libres)
-                                implementation(libs.voyager.navigator)
-                                implementation(libs.composeImageLoader)
-                                implementation(libs.napier)
-                                implementation(libs.kotlinx.datetime)
-                                implementation(libs.multiplatformSettings)
-                                implementation(libs.koin.core)
-                                implementation(libs.kstore)
-                                implementation(libs.composeIcons.featherIcons)
-                                implementation(libs.ktor.core)
-                                implementation(libs.kotlinx.coroutines.core)
-                                implementation(libs.moko.mvvm)
-                                implementation(libs.kotlinx.serialization.json)
-                            }
+                        commonMain.dependencies {
+                            implementation(compose.runtime)
+                            implementation(compose.material3)
+                            implementation(compose.materialIconsExtended)
+                            implementation(libs.apollo.runtime)
+                            implementation(libs.libres)
+                            implementation(libs.voyager.navigator)
+                            implementation(libs.composeImageLoader)
+                            implementation(libs.napier)
+                            implementation(libs.kotlinx.datetime)
+                            implementation(libs.multiplatformSettings)
+                            implementation(libs.koin.core)
+                            implementation(libs.kstore)
+                            implementation(libs.composeIcons.featherIcons)
+                            implementation(libs.ktor.core)
+                            implementation(libs.kotlinx.coroutines.core)
+                            implementation(libs.moko.mvvm)
+                            implementation(libs.kotlinx.serialization.json)
                         }
 
-                        commonTest {
-                            dependencies {
-                                implementation(kotlin("test"))
-                            }
+                        commonTest.dependencies {
+                            implementation(kotlin("test"))
                         }
 
-                        androidMain {
-                            dependencies {
-                                implementation(libs.androidx.appcompat)
-                                implementation(libs.androidx.activityCompose)
-                                implementation(libs.compose.uitooling)
-                                implementation(libs.ktor.client.okhttp)
-                                implementation(libs.kotlinx.coroutines.android)
-                                implementation(libs.sqlDelight.driver.android)
-                            }
+                        androidMain.dependencies {
+                            implementation(libs.androidx.appcompat)
+                            implementation(libs.androidx.activityCompose)
+                            implementation(libs.compose.uitooling)
+                            implementation(libs.ktor.client.okhttp)
+                            implementation(libs.kotlinx.coroutines.android)
+                            implementation(libs.sqlDelight.driver.android)
                         }
 
-                        jvmMain {
-                            dependencies {
-                                implementation(compose.desktop.common)
-                                implementation(compose.desktop.currentOs)
-                                implementation(libs.ktor.client.okhttp)
-                                implementation(libs.sqlDelight.driver.sqlite)
-                            }
+                        jvmMain.dependencies {
+                            implementation(compose.desktop.common)
+                            implementation(compose.desktop.currentOs)
+                            implementation(libs.ktor.client.okhttp)
+                            implementation(libs.sqlDelight.driver.sqlite)
                         }
 
-                        jsMain {
-                            dependencies {
-                                implementation(compose.html.core)
-                                implementation(libs.ktor.client.js)
-                                implementation(libs.sqlDelight.driver.js)
-                            }
+                        jsMain.dependencies {
+                            implementation(compose.html.core)
+                            implementation(libs.ktor.client.js)
+                            implementation(libs.sqlDelight.driver.js)
                         }
 
-                        iosMain {
-                            dependencies {
-                                implementation(libs.ktor.client.darwin)
-                                implementation(libs.sqlDelight.driver.native)
-                            }
+                        iosMain.dependencies {
+                            implementation(libs.ktor.client.darwin)
+                            implementation(libs.sqlDelight.driver.native)
                         }
 
                     }
@@ -360,27 +348,21 @@ class GeneratorTest {
                     }
 
                     sourceSets {
-                        commonMain {
-                            dependencies {
-                                implementation(compose.runtime)
-                                implementation(compose.material3)
-                                implementation(compose.materialIconsExtended)
-                                implementation(libs.libres)
-                            }
+                        commonMain.dependencies {
+                            implementation(compose.runtime)
+                            implementation(compose.material3)
+                            implementation(compose.materialIconsExtended)
+                            implementation(libs.libres)
                         }
 
-                        commonTest {
-                            dependencies {
-                                implementation(kotlin("test"))
-                            }
+                        commonTest.dependencies {
+                            implementation(kotlin("test"))
                         }
 
-                        androidMain {
-                            dependencies {
-                                implementation(libs.androidx.appcompat)
-                                implementation(libs.androidx.activityCompose)
-                                implementation(libs.compose.uitooling)
-                            }
+                        androidMain.dependencies {
+                            implementation(libs.androidx.appcompat)
+                            implementation(libs.androidx.activityCompose)
+                            implementation(libs.compose.uitooling)
                         }
 
                     }
@@ -481,25 +463,19 @@ class GeneratorTest {
                                 optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
                             }
                         }
-                        commonMain {
-                            dependencies {
-                                implementation(compose.runtime)
-                                implementation(compose.material3)
-                                implementation(compose.materialIconsExtended)
-                                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-                                implementation(compose.components.resources)
-                            }
+                        commonMain.dependencies {
+                            implementation(compose.runtime)
+                            implementation(compose.material3)
+                            implementation(compose.materialIconsExtended)
+                            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                            implementation(compose.components.resources)
                         }
 
-                        commonTest {
-                            dependencies {
-                                implementation(kotlin("test"))
-                            }
+                        commonTest.dependencies {
+                            implementation(kotlin("test"))
                         }
 
-                        iosMain {
-                            dependencies {
-                            }
+                        iosMain.dependencies {
                         }
 
                     }
@@ -560,27 +536,21 @@ class GeneratorTest {
                                 optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
                             }
                         }
-                        commonMain {
-                            dependencies {
-                                implementation(compose.runtime)
-                                implementation(compose.material3)
-                                implementation(compose.materialIconsExtended)
-                                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-                                implementation(compose.components.resources)
-                            }
+                        commonMain.dependencies {
+                            implementation(compose.runtime)
+                            implementation(compose.material3)
+                            implementation(compose.materialIconsExtended)
+                            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                            implementation(compose.components.resources)
                         }
 
-                        commonTest {
-                            dependencies {
-                                implementation(kotlin("test"))
-                            }
+                        commonTest.dependencies {
+                            implementation(kotlin("test"))
                         }
 
-                        jvmMain {
-                            dependencies {
-                                implementation(compose.desktop.common)
-                                implementation(compose.desktop.currentOs)
-                            }
+                        jvmMain.dependencies {
+                            implementation(compose.desktop.common)
+                            implementation(compose.desktop.currentOs)
                         }
 
                     }
@@ -655,26 +625,20 @@ class GeneratorTest {
                                 optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
                             }
                         }
-                        commonMain {
-                            dependencies {
-                                implementation(compose.runtime)
-                                implementation(compose.material3)
-                                implementation(compose.materialIconsExtended)
-                                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-                                implementation(compose.components.resources)
-                            }
+                        commonMain.dependencies {
+                            implementation(compose.runtime)
+                            implementation(compose.material3)
+                            implementation(compose.materialIconsExtended)
+                            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                            implementation(compose.components.resources)
                         }
 
-                        commonTest {
-                            dependencies {
-                                implementation(kotlin("test"))
-                            }
+                        commonTest.dependencies {
+                            implementation(kotlin("test"))
                         }
 
-                        jsMain {
-                            dependencies {
-                                implementation(compose.html.core)
-                            }
+                        jsMain.dependencies {
+                            implementation(compose.html.core)
                         }
 
                     }

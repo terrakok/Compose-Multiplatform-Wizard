@@ -96,86 +96,74 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        }")
         }
 
-        appendLine("        commonMain {")
-        appendLine("            dependencies {")
-        appendLine("                implementation(compose.runtime)")
-        appendLine("                implementation(compose.material3)")
-        appendLine("                implementation(compose.materialIconsExtended)")
+        appendLine("        commonMain.dependencies {")
+        appendLine("            implementation(compose.runtime)")
+        appendLine("            implementation(compose.material3)")
+        appendLine("            implementation(compose.materialIconsExtended)")
 
         if (withComposeResources) {
-            appendLine("                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)")
-            appendLine("                implementation(compose.components.resources)")
+            appendLine("            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)")
+            appendLine("            implementation(compose.components.resources)")
         }
 
         commonDeps.forEach { dep ->
-            appendLine("                ${dep.libraryNotation}")
+            appendLine("            ${dep.libraryNotation}")
         }
 
-        appendLine("            }")
         appendLine("        }")
         appendLine("")
-        appendLine("        commonTest {")
-        appendLine("            dependencies {")
-        appendLine("                implementation(kotlin(\"test\"))")
-        appendLine("            }")
+        appendLine("        commonTest.dependencies {")
+        appendLine("            implementation(kotlin(\"test\"))")
         appendLine("        }")
         appendLine("")
         if (info.hasAndroid) {
-            appendLine("        androidMain {")
-            appendLine("            dependencies {")
+            appendLine("        androidMain.dependencies {")
 
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ComposePlatform.Android)) {
-                    appendLine("                ${dep.libraryNotation}")
+                    appendLine("            ${dep.libraryNotation}")
                 }
             }
 
-            appendLine("            }")
             appendLine("        }")
             appendLine("")
         }
         if (info.hasDesktop) {
-            appendLine("        jvmMain {")
-            appendLine("            dependencies {")
-            appendLine("                implementation(compose.desktop.common)")
-            appendLine("                implementation(compose.desktop.currentOs)")
+            appendLine("        jvmMain.dependencies {")
+            appendLine("            implementation(compose.desktop.common)")
+            appendLine("            implementation(compose.desktop.currentOs)")
 
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ComposePlatform.Desktop)) {
-                    appendLine("                ${dep.libraryNotation}")
+                    appendLine("            ${dep.libraryNotation}")
                 }
             }
 
-            appendLine("            }")
             appendLine("        }")
             appendLine("")
         }
         if (info.hasBrowser) {
-            appendLine("        jsMain {")
-            appendLine("            dependencies {")
-            appendLine("                implementation(compose.html.core)")
+            appendLine("        jsMain.dependencies {")
+            appendLine("            implementation(compose.html.core)")
 
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ComposePlatform.Browser)) {
-                    appendLine("                ${dep.libraryNotation}")
+                    appendLine("            ${dep.libraryNotation}")
                 }
             }
 
-            appendLine("            }")
             appendLine("        }")
             appendLine("")
         }
         if (info.hasIos) {
-            appendLine("        iosMain {")
-            appendLine("            dependencies {")
+            appendLine("        iosMain.dependencies {")
 
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ComposePlatform.Ios)) {
-                    appendLine("                ${dep.libraryNotation}")
+                    appendLine("            ${dep.libraryNotation}")
                 }
             }
 
-            appendLine("            }")
             appendLine("        }")
             appendLine("")
         }

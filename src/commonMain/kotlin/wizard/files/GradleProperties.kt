@@ -7,6 +7,8 @@ class GradleProperties : ProjectFile {
     override val content = """
 #Gradle
 org.gradle.jvmargs=-Xmx2048M -Dfile.encoding=UTF-8 -Dkotlin.daemon.jvm.options\="-Xmx2048M"
+org.gradle.caching=true
+org.gradle.configuration-cache=true
 
 #Kotlin
 kotlin.code.style=official
