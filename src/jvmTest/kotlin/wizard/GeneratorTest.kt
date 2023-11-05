@@ -174,6 +174,12 @@ class GeneratorTest {
                         sourceCompatibility = JavaVersion.VERSION_17
                         targetCompatibility = JavaVersion.VERSION_17
                     }
+                    buildFeatures {
+                        compose = true
+                    }
+                    composeOptions {
+                        kotlinCompilerExtensionVersion = "1.5.3"
+                    }
                 }
 
                 compose.desktop {
@@ -387,6 +393,12 @@ class GeneratorTest {
                     compileOptions {
                         sourceCompatibility = JavaVersion.VERSION_17
                         targetCompatibility = JavaVersion.VERSION_17
+                    }
+                    buildFeatures {
+                        compose = true
+                    }
+                    composeOptions {
+                        kotlinCompilerExtensionVersion = "1.5.3"
                     }
                 }
 
