@@ -196,9 +196,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        sourceCompatibility = JavaVersion.VERSION_17")
             appendLine("        targetCompatibility = JavaVersion.VERSION_17")
             appendLine("    }")
-            appendLine("    buildFeatures {")
-            appendLine("        compose = true")
-            appendLine("    }")
             appendLine("}")
             appendLine("")
         }
