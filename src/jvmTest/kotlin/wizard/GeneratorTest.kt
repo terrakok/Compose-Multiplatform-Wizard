@@ -178,7 +178,7 @@ class GeneratorTest {
                         compose = true
                     }
                     composeOptions {
-                        kotlinCompilerExtensionVersion = "1.5.3"
+                        kotlinCompilerExtensionVersion = "${info.composeCompilerVersion}"
                     }
                 }
 
@@ -398,7 +398,7 @@ class GeneratorTest {
                         compose = true
                     }
                     composeOptions {
-                        kotlinCompilerExtensionVersion = "1.5.3"
+                        kotlinCompilerExtensionVersion = "${info.composeCompilerVersion}"
                     }
                 }
 

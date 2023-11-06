@@ -200,7 +200,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        compose = true")
             appendLine("    }")
             appendLine("    composeOptions {")
-            appendLine("        kotlinCompilerExtensionVersion = \"1.5.3\"")
+            appendLine("        kotlinCompilerExtensionVersion = \"${info.composeCompilerVersion}\"")
             appendLine("    }")
             appendLine("}")
             appendLine("")

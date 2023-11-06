@@ -64,13 +64,12 @@ class GeneratedProjectTest {
         }
     }
 
-    // TODO: https://youtrack.jetbrains.com/issue/KT-58568
     @Test
     fun testDesktopAndBrowserProject() {
         checkProject(
             ProjectInfo(
                 platforms = setOf(ComposePlatform.Desktop, ComposePlatform.Browser),
-                dependencies = allDependencies.minus(ApolloPlugin).minus(ApolloRuntime)
+                dependencies = allDependencies
             )
         )
     }
