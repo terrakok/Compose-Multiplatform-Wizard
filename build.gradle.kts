@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform").version("1.9.20")
+    kotlin("multiplatform").version("1.9.21")
 }
 
 repositories {
@@ -18,12 +18,12 @@ kotlin {
     }
     sourceSets {
         jsMain.dependencies {
-            implementation(enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.605"))
+            implementation(dependencies.enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.647"))
             implementation("org.jetbrains.kotlin-wrappers:kotlin-react")
             implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom")
             implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion")
-            implementation("org.jetbrains.kotlin-wrappers:kotlin-mui")
-            implementation("org.jetbrains.kotlin-wrappers:kotlin-mui-icons")
+            implementation("org.jetbrains.kotlin-wrappers:kotlin-mui-material")
+            implementation("org.jetbrains.kotlin-wrappers:kotlin-mui-icons-material")
 
             implementation(npm("file-saver", "2.0.5"))
             implementation(npm("jszip", "3.10.1"))
@@ -38,7 +38,7 @@ kotlin {
 task<Copy>("fixMissingJvmResources") {
     dependsOn("jvmProcessResources")
     tasks.findByPath("jvmTest")?.dependsOn(this)
-
-    from("$buildDir/processedResources/jvm/main")
-    into("$buildDir/resources/")
+    
+    from(project.layout.buildDirectory.dir("processedResources/jvm/main"))
+    into(project.layout.buildDirectory.dir("resources"))
 }
