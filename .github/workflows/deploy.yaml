@@ -32,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Test-Reports
-          path: app/build/reports
+          path: build/reports
         if: always()
 
       - name: Build
