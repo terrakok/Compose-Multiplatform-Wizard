@@ -18,7 +18,7 @@ kotlin {
     }
     sourceSets {
         jsMain.dependencies {
-            implementation(dependencies.enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.657"))
+            implementation(dependencies.enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.666"))
             implementation("org.jetbrains.kotlin-wrappers:kotlin-react")
             implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom")
             implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion")
