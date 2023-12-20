@@ -66,7 +66,6 @@ class GeneratorTest {
                     alias(libs.plugins.compose)
                     alias(libs.plugins.android.application)
                     alias(libs.plugins.apollo)
-                    alias(libs.plugins.libres)
                     alias(libs.plugins.kotlinx.serialization)
                     alias(libs.plugins.sqlDelight)
                     alias(libs.plugins.buildConfig)
@@ -100,12 +99,18 @@ class GeneratorTest {
                     }
 
                     sourceSets {
+                        all {
+                            languageSettings {
+                                optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
+                            }
+                        }
                         commonMain.dependencies {
                             implementation(compose.runtime)
                             implementation(compose.material3)
                             implementation(compose.materialIconsExtended)
+                            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                            implementation(compose.components.resources)
                             implementation(libs.apollo.runtime)
-                            implementation(libs.libres)
                             implementation(libs.voyager.navigator)
                             implementation(libs.composeImageLoader)
                             implementation(libs.napier)
@@ -169,6 +174,7 @@ class GeneratorTest {
                     sourceSets["main"].apply {
                         manifest.srcFile("src/androidMain/AndroidManifest.xml")
                         res.srcDirs("src/androidMain/resources")
+                        resources.srcDirs("src/commonMain/resources")
                     }
                     compileOptions {
                         sourceCompatibility = JavaVersion.VERSION_17
@@ -197,13 +203,6 @@ class GeneratorTest {
                 compose.experimental {
                     web.application {}
                 }
-
-                libres {
-                    // https://github.com/Skeptick/libres#setup
-                }
-                tasks.getByPath("jvmProcessResources").dependsOn("libresGenerateResources")
-                tasks.getByPath("jvmSourcesJar").dependsOn("libresGenerateResources")
-                tasks.getByPath("jsProcessResources").dependsOn("libresGenerateResources")
 
                 buildConfig {
                     // BuildConfig configuration here.
@@ -243,7 +242,6 @@ class GeneratorTest {
                 androidx-activityCompose = "${AndroidxActivityCompose.version}"
                 apollo = "${ApolloRuntime.version}"
                 compose-uitooling = "${ComposeUiTooling.version}"
-                libres = "${LibresCompose.version}"
                 voyager = "${Voyager.version}"
                 composeImageLoader = "${ImageLoader.version}"
                 napier = "${Napier.version}"
@@ -265,7 +263,6 @@ class GeneratorTest {
                 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
                 apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apollo" }
                 compose-uitooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-uitooling" }
-                libres = { module = "io.github.skeptick.libres:libres-compose", version.ref = "libres" }
                 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
                 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "composeImageLoader" }
                 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
@@ -293,7 +290,6 @@ class GeneratorTest {
                 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
                 android-application = { id = "com.android.application", version.ref = "agp" }
                 apollo = { id = "com.apollographql.apollo3", version.ref = "apollo" }
-                libres = { id = "io.github.skeptick.libres", version.ref = "libres" }
                 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
                 sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
                 buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }
@@ -308,7 +304,7 @@ class GeneratorTest {
         val info = ProjectInfo(
             packageId = "org.android.app",
             platforms = setOf(ComposePlatform.Android),
-            dependencies = requiredAndroidDependencies + setOf(LibresPlugin, LibresCompose)
+            dependencies = requiredAndroidDependencies
         )
         val files = info.buildFiles()
 
@@ -341,7 +337,6 @@ class GeneratorTest {
                     alias(libs.plugins.multiplatform)
                     alias(libs.plugins.compose)
                     alias(libs.plugins.android.application)
-                    alias(libs.plugins.libres)
                 }
 
                 kotlin {
@@ -354,11 +349,17 @@ class GeneratorTest {
                     }
 
                     sourceSets {
+                        all {
+                            languageSettings {
+                                optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
+                            }
+                        }
                         commonMain.dependencies {
                             implementation(compose.runtime)
                             implementation(compose.material3)
                             implementation(compose.materialIconsExtended)
-                            implementation(libs.libres)
+                            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                            implementation(compose.components.resources)
                         }
 
                         commonTest.dependencies {
@@ -389,6 +390,7 @@ class GeneratorTest {
                     sourceSets["main"].apply {
                         manifest.srcFile("src/androidMain/AndroidManifest.xml")
                         res.srcDirs("src/androidMain/resources")
+                        resources.srcDirs("src/commonMain/resources")
                     }
                     compileOptions {
                         sourceCompatibility = JavaVersion.VERSION_17
@@ -400,11 +402,6 @@ class GeneratorTest {
                     composeOptions {
                         kotlinCompilerExtensionVersion = "${info.composeCompilerVersion}"
                     }
-                }
-
-
-                libres {
-                    // https://github.com/Skeptick/libres#setup
                 }
 
             """.trimIndent(),
@@ -492,7 +489,6 @@ class GeneratorTest {
 
                     }
                 }
-
 
             """.trimIndent(),
             files.first { it is ModuleBuildGradleKts }.content
@@ -655,7 +651,6 @@ class GeneratorTest {
 
                     }
                 }
-
 
                 compose.experimental {
                     web.application {}

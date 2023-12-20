@@ -19,8 +19,6 @@ internal val allDependencies = setOf(
     ApolloPlugin,
     ApolloRuntime,
     ComposeUiTooling,
-    LibresPlugin,
-    LibresCompose,
     Voyager,
     ImageLoader,
     Napier,
@@ -82,8 +80,6 @@ class GeneratedProjectTest {
                 name = "DesktopApp",
                 platforms = setOf(ComposePlatform.Desktop),
                 dependencies = setOf(
-                    LibresPlugin,
-                    LibresCompose,
                     Voyager,
                     ImageLoader,
                     Napier,

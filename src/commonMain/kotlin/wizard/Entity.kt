@@ -31,7 +31,6 @@ val ProjectInfo.hasDesktop get() = platforms.any { it == ComposePlatform.Desktop
 val ProjectInfo.hasBrowser get() = platforms.any { it == ComposePlatform.Browser }
 val ProjectInfo.packagePath get() = packageId.replace(".", "/")
 val ProjectInfo.safeName get() = name.replace(" ", "-")
-val ProjectInfo.hasCustomResources get() = dependencies.contains(LibresPlugin)
 
 data class Dependency(
     val title: String,

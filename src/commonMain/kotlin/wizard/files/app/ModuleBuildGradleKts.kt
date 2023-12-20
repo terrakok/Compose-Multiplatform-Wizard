@@ -5,13 +5,11 @@ import wizard.BuildConfigPlugin
 import wizard.BuildKonfigPlugin
 import wizard.ComposePlatform
 import wizard.Dependency
-import wizard.LibresPlugin
 import wizard.ProjectFile
 import wizard.ProjectInfo
 import wizard.SQLDelightPlugin
 import wizard.hasAndroid
 import wizard.hasBrowser
-import wizard.hasCustomResources
 import wizard.hasDesktop
 import wizard.hasIos
 import wizard.isCommon
@@ -22,8 +20,6 @@ import wizard.pluginNotation
 class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
     override val path = "composeApp/build.gradle.kts"
     override val content = buildString {
-        val withComposeResources = !info.hasCustomResources
-
         val plugins = mutableSetOf<Dependency>()
         val commonDeps = mutableSetOf<Dependency>()
         val otherDeps = mutableSetOf<Dependency>()
@@ -87,24 +83,17 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         appendLine("    sourceSets {")
-
-        if (withComposeResources) {
-            appendLine("        all {")
-            appendLine("            languageSettings {")
-            appendLine("                optIn(\"org.jetbrains.compose.resources.ExperimentalResourceApi\")")
-            appendLine("            }")
-            appendLine("        }")
-        }
-
+        appendLine("        all {")
+        appendLine("            languageSettings {")
+        appendLine("                optIn(\"org.jetbrains.compose.resources.ExperimentalResourceApi\")")
+        appendLine("            }")
+        appendLine("        }")
         appendLine("        commonMain.dependencies {")
         appendLine("            implementation(compose.runtime)")
         appendLine("            implementation(compose.material3)")
         appendLine("            implementation(compose.materialIconsExtended)")
-
-        if (withComposeResources) {
-            appendLine("            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)")
-            appendLine("            implementation(compose.components.resources)")
-        }
+        appendLine("            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)")
+        appendLine("            implementation(compose.components.resources)")
 
         commonDeps.forEach { dep ->
             appendLine("            ${dep.libraryNotation}")
@@ -169,8 +158,9 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
         appendLine("    }")
         appendLine("}")
-        appendLine("")
+
         if (info.hasAndroid) {
+            appendLine("")
             appendLine("android {")
             appendLine("    namespace = \"${info.packageId}\"")
             appendLine("    compileSdk = ${info.androidTargetSdk}")
@@ -186,11 +176,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    sourceSets[\"main\"].apply {")
             appendLine("        manifest.srcFile(\"src/androidMain/AndroidManifest.xml\")")
             appendLine("        res.srcDirs(\"src/androidMain/resources\")")
-
-            if (withComposeResources) {
-                appendLine("        resources.srcDirs(\"src/commonMain/resources\")")
-            }
-
+            appendLine("        resources.srcDirs(\"src/commonMain/resources\")")
             appendLine("    }")
             appendLine("    compileOptions {")
             appendLine("        sourceCompatibility = JavaVersion.VERSION_17")
@@ -203,9 +189,9 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        kotlinCompilerExtensionVersion = \"${info.composeCompilerVersion}\"")
             appendLine("    }")
             appendLine("}")
-            appendLine("")
         }
         if (info.hasDesktop) {
+            appendLine("")
             appendLine("compose.desktop {")
             appendLine("    application {")
             appendLine("        mainClass = \"MainKt\"")
@@ -224,21 +210,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("compose.experimental {")
             appendLine("    web.application {}")
             appendLine("}")
-        }
-
-        if (plugins.contains(LibresPlugin)) {
-            appendLine("")
-            appendLine("libres {")
-            appendLine("    // https://github.com/Skeptick/libres#setup")
-            appendLine("}")
-
-            if (info.hasDesktop) {
-                appendLine("tasks.getByPath(\"jvmProcessResources\").dependsOn(\"libresGenerateResources\")")
-                appendLine("tasks.getByPath(\"jvmSourcesJar\").dependsOn(\"libresGenerateResources\")")
-            }
-            if (info.hasBrowser) {
-                appendLine("tasks.getByPath(\"jsProcessResources\").dependsOn(\"libresGenerateResources\")")
-            }
         }
 
         if (plugins.contains(BuildConfigPlugin)) {

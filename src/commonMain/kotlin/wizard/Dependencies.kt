@@ -36,23 +36,6 @@ val ComposeUiTooling = Dependency(
     platforms = setOf(ComposePlatform.Android)
 )
 
-val LibresPlugin = Dependency(
-    title = "Libres",
-    description = "Resources generation in Kotlin Multiplatform.",
-    url = "https://github.com/Skeptick/libres",
-    group = "io.github.skeptick.libres",
-    id = "gradle-plugin",
-    version = "1.2.2",
-    catalogVersionName = "libres",
-    catalogName = "libres",
-    platforms = emptySet()
-)
-
-val LibresCompose = LibresPlugin.copy(
-    id = "libres-compose",
-    platforms = AllPlatforms
-)
-
 val Voyager = Dependency(
     title = "Voyager",
     description = "A pragmatic navigation library for Compose.",

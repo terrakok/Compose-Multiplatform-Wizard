@@ -160,7 +160,6 @@ val Content = FC<AppProps> { props ->
                     }
 
                     val deps = setOf(
-                        DependencyBox(LibresCompose, true),
                         DependencyBox(Voyager, true),
                         DependencyBox(ImageLoader, true),
                         DependencyBox(listOf(Napier, Kermit), true),
@@ -247,7 +246,6 @@ private fun Set<DependencyBox>.getSelectedDependencies() =
         .map { it.selectedDep.component1() }
         .flatMap {
             when {
-                it.group == "io.github.skeptick.libres" -> listOf(LibresPlugin, LibresCompose)
                 it.group == "io.ktor" -> listOfNotNull(KtorCore, KtorClientDarwin, KtorClientOkhttp)
                 it.group == "app.cash.sqldelight" -> listOf(
                     SQLDelightPlugin,
