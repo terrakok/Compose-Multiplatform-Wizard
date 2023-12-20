@@ -55,8 +55,6 @@ import wizard.KotlinxSerializationPlugin
 import wizard.KtorClientDarwin
 import wizard.KtorClientOkhttp
 import wizard.KtorCore
-import wizard.LibresCompose
-import wizard.LibresPlugin
 import wizard.MokoMvvm
 import wizard.MultiplatformSettings
 import wizard.Napier
