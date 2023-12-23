@@ -27,19 +27,19 @@ fun ProjectInfo.buildFiles() = buildList {
         add(GraphQLQuery())
     }
 
-    if (this@buildFiles.hasAndroid) {
+    if (this@buildFiles.hasPlatform(ComposePlatform.Android)) {
         add(AndroidManifest(this@buildFiles))
         add(AndroidAppKt(this@buildFiles))
         add(AndroidThemeKt(this@buildFiles))
     }
 
-    if (this@buildFiles.hasDesktop) {
+    if (this@buildFiles.hasPlatform(ComposePlatform.Desktop)) {
         add(DesktopAppKt(this@buildFiles))
         add(DesktopMainKt(this@buildFiles))
         add(DesktopThemeKt(this@buildFiles))
     }
 
-    if (this@buildFiles.hasIos) {
+    if (this@buildFiles.hasPlatform(ComposePlatform.Ios)) {
         add(IosAppKt(this@buildFiles))
         add(IosMainKt(this@buildFiles))
         add(IosThemeKt(this@buildFiles))
@@ -53,7 +53,7 @@ fun ProjectInfo.buildFiles() = buildList {
         add(IosPbxproj(this@buildFiles))
     }
 
-    if (this@buildFiles.hasBrowser) {
+    if (this@buildFiles.hasPlatform(ComposePlatform.Browser)) {
         add(BrowserAppKt(this@buildFiles))
         add(IndexHtml(this@buildFiles))
         add(BrowserMainKt(this@buildFiles))

@@ -28,10 +28,7 @@ data class ProjectInfo(
     )
 )
 
-val ProjectInfo.hasAndroid get() = platforms.any { it == ComposePlatform.Android }
-val ProjectInfo.hasIos get() = platforms.any { it == ComposePlatform.Ios }
-val ProjectInfo.hasDesktop get() = platforms.any { it == ComposePlatform.Desktop }
-val ProjectInfo.hasBrowser get() = platforms.any { it == ComposePlatform.Browser }
+fun ProjectInfo.hasPlatform(platform: ComposePlatform) = platforms.any { it == platform }
 val ProjectInfo.packagePath get() = packageId.replace(".", "/")
 val ProjectInfo.safeName get() = name.replace(" ", "-")
 

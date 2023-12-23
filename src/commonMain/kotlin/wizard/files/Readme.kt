@@ -1,11 +1,6 @@
 package wizard.files
 
-import wizard.ProjectFile
-import wizard.ProjectInfo
-import wizard.hasAndroid
-import wizard.hasBrowser
-import wizard.hasDesktop
-import wizard.hasIos
+import wizard.*
 
 class Readme(info: ProjectInfo) : ProjectFile {
     override val path = "README.MD"
@@ -13,19 +8,19 @@ class Readme(info: ProjectInfo) : ProjectFile {
 
         appendLine("# Compose Multiplatform Application")
         appendLine("")
-        if (info.hasAndroid || info.hasIos) {
+        if (info.hasPlatform(ComposePlatform.Android) || info.hasPlatform(ComposePlatform.Ios)) {
             appendLine("## Before running!")
-            if (info.hasIos) {
+            if (info.hasPlatform(ComposePlatform.Ios)) {
                 appendLine(" - check your system with [KDoctor](https://github.com/Kotlin/kdoctor)")
             }
-            if (info.hasAndroid) {
+            if (info.hasPlatform(ComposePlatform.Android)) {
                 appendLine(" - install JDK 17 on your machine")
                 appendLine(" - add `local.properties` file to the project root and set a path to Android SDK there")
             }
             appendLine("")
         }
 
-        if (info.hasAndroid) {
+        if (info.hasPlatform(ComposePlatform.Android)) {
             appendLine("### Android")
             appendLine("To run the application on android device/emulator:  ")
             appendLine(" - open project in Android Studio and run imported android run configuration")
@@ -36,13 +31,13 @@ class Readme(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
 
-        if (info.hasDesktop) {
+        if (info.hasPlatform(ComposePlatform.Desktop)) {
             appendLine("### Desktop")
             appendLine("Run the desktop application: `./gradlew :composeApp:run`")
             appendLine("")
         }
 
-        if (info.hasIos) {
+        if (info.hasPlatform(ComposePlatform.Ios)) {
             appendLine("### iOS")
             appendLine("To run the application on iPhone device/simulator:")
             appendLine(" - Open `iosApp/iosApp.xcproject` in Xcode and run standard configuration")
@@ -50,7 +45,7 @@ class Readme(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
 
-        if (info.hasBrowser) {
+        if (info.hasPlatform(ComposePlatform.Browser)) {
             appendLine("### Browser")
             appendLine("Run the browser application: `./gradlew :composeApp:jsBrowserDevelopmentRun`")
             appendLine("")

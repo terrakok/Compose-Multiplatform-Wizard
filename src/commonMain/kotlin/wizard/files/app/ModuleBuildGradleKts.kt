@@ -1,21 +1,6 @@
 package wizard.files.app
 
-import wizard.ApolloPlugin
-import wizard.BuildConfigPlugin
-import wizard.BuildKonfigPlugin
-import wizard.ComposePlatform
-import wizard.Dependency
-import wizard.ProjectFile
-import wizard.ProjectInfo
-import wizard.SQLDelightPlugin
-import wizard.hasAndroid
-import wizard.hasBrowser
-import wizard.hasDesktop
-import wizard.hasIos
-import wizard.isCommon
-import wizard.isPlugin
-import wizard.libraryNotation
-import wizard.pluginNotation
+import wizard.*
 
 class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
     override val path = "composeApp/build.gradle.kts"
@@ -32,7 +17,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
 
 
-        if (info.hasDesktop) {
+        if (info.hasPlatform(ComposePlatform.Desktop)) {
             appendLine("import org.jetbrains.compose.desktop.application.dsl.TargetFormat")
             appendLine("")
         }
@@ -43,7 +28,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("}")
         appendLine("")
         appendLine("kotlin {")
-        if (info.hasAndroid) {
+        if (info.hasPlatform(ComposePlatform.Android)) {
             appendLine("    androidTarget {")
             appendLine("        compilations.all {")
             appendLine("            kotlinOptions {")
@@ -53,18 +38,18 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    }")
             appendLine("")
         }
-        if (info.hasDesktop) {
+        if (info.hasPlatform(ComposePlatform.Desktop)) {
             appendLine("    jvm()")
             appendLine("")
         }
-        if (info.hasBrowser) {
+        if (info.hasPlatform(ComposePlatform.Browser)) {
             appendLine("    js {")
             appendLine("        browser()")
             appendLine("        binaries.executable()")
             appendLine("    }")
             appendLine("")
         }
-        if (info.hasIos) {
+        if (info.hasPlatform(ComposePlatform.Ios)) {
             appendLine("    listOf(")
             appendLine("        iosX64(),")
             appendLine("        iosArm64(),")
@@ -100,7 +85,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("            implementation(kotlin(\"test\"))")
         appendLine("        }")
         appendLine("")
-        if (info.hasAndroid) {
+        if (info.hasPlatform(ComposePlatform.Android)) {
             appendLine("        androidMain.dependencies {")
 
             otherDeps.forEach { dep ->
@@ -112,7 +97,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        }")
             appendLine("")
         }
-        if (info.hasDesktop) {
+        if (info.hasPlatform(ComposePlatform.Desktop)) {
             appendLine("        jvmMain.dependencies {")
             appendLine("            implementation(compose.desktop.common)")
             appendLine("            implementation(compose.desktop.currentOs)")
@@ -126,7 +111,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        }")
             appendLine("")
         }
-        if (info.hasBrowser) {
+        if (info.hasPlatform(ComposePlatform.Browser)) {
             appendLine("        jsMain.dependencies {")
             appendLine("            implementation(compose.html.core)")
 
@@ -139,7 +124,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        }")
             appendLine("")
         }
-        if (info.hasIos) {
+        if (info.hasPlatform(ComposePlatform.Ios)) {
             appendLine("        iosMain.dependencies {")
 
             otherDeps.forEach { dep ->
@@ -154,7 +139,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("    }")
         appendLine("}")
 
-        if (info.hasAndroid) {
+        if (info.hasPlatform(ComposePlatform.Android)) {
             appendLine("")
             appendLine("android {")
             appendLine("    namespace = \"${info.packageId}\"")
@@ -185,7 +170,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    }")
             appendLine("}")
         }
-        if (info.hasDesktop) {
+        if (info.hasPlatform(ComposePlatform.Desktop)) {
             appendLine("")
             appendLine("compose.desktop {")
             appendLine("    application {")
@@ -200,7 +185,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("}")
         }
 
-        if (info.hasBrowser) {
+        if (info.hasPlatform(ComposePlatform.Browser)) {
             appendLine("")
             appendLine("compose.experimental {")
             appendLine("    web.application {}")
