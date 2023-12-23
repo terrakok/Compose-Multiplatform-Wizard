@@ -49,7 +49,7 @@ val TopMenu = FC<Props> {
 
             IconButton {
                 onClick = {
-                    window.open("https://developer.android.com/jetpack/compose/documentation")
+                    window.open("https://www.jetbrains.com/lp/compose-multiplatform/")
                 }
                 title = "View compose documentation"
                 MenuBook()
