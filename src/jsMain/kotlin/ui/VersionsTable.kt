@@ -9,7 +9,7 @@ import mui.material.TableRow
 import mui.system.PropsWithSx
 import react.FC
 import react.useRequiredContext
-import wizard.ProjectInfo
+import wizard.*
 
 external interface VersionsTableProps : PropsWithSx {
     var info: ProjectInfo
@@ -25,11 +25,11 @@ val VersionsTable = FC<VersionsTableProps> { props ->
                 TableBody {
                     TableRow {
                         TableCell { +"Kotlin" }
-                        TableCell { +props.info.kotlinVersion }
+                        TableCell { +KotlinPlugin.version }
                     }
                     TableRow {
                         TableCell { +"Compose" }
-                        TableCell { +props.info.composeVersion }
+                        TableCell { +ComposePlugin.version }
                     }
                     TableRow {
                         TableCell { +"Gradle" }
@@ -37,7 +37,7 @@ val VersionsTable = FC<VersionsTableProps> { props ->
                     }
                     TableRow {
                         TableCell { +"Android Gradle Plugin" }
-                        TableCell { +props.info.agpVersion }
+                        TableCell { +AndroidApplicationPlugin.version }
                     }
                 }
             }

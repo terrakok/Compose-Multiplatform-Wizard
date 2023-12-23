@@ -37,11 +37,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         appendLine("plugins {")
-        appendLine("    alias(libs.plugins.multiplatform)")
-        appendLine("    alias(libs.plugins.compose)")
-        if (info.hasAndroid) {
-            appendLine("    alias(libs.plugins.android.application)")
-        }
         plugins.forEach { dep ->
             appendLine("    ${dep.pluginNotation}")
         }

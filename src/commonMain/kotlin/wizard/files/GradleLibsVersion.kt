@@ -11,11 +11,6 @@ class GradleLibsVersion(info: ProjectInfo) : ProjectFile {
         // versions
         appendLine("[versions]")
         appendLine()
-
-        appendLine("kotlin = \"${info.kotlinVersion}\"")
-        appendLine("agp = \"${info.agpVersion}\"")
-        appendLine("compose = \"${info.composeVersion}\"")
-
         info.dependencies
             .filter { it != KotlinxSerializationPlugin }
             .distinctBy { it.catalogVersionName }
@@ -27,7 +22,6 @@ class GradleLibsVersion(info: ProjectInfo) : ProjectFile {
         // libraries
         appendLine("[libraries]")
         appendLine()
-
         info.dependencies.filterNot { it.isPlugin() }.forEach {
             appendLine("${it.catalogName} = { module = \"${it.group}:${it.id}\", version.ref = \"${it.catalogVersionName}\" }")
         }
@@ -36,11 +30,6 @@ class GradleLibsVersion(info: ProjectInfo) : ProjectFile {
         // plugins
         appendLine("[plugins]")
         appendLine()
-
-        appendLine("multiplatform = { id = \"org.jetbrains.kotlin.multiplatform\", version.ref = \"kotlin\" }")
-        appendLine("compose = { id = \"org.jetbrains.compose\", version.ref = \"compose\" }")
-        appendLine("android-application = { id = \"com.android.application\", version.ref = \"agp\" }")
-
         info.dependencies.filter { it.isPlugin() }.forEach {
             appendLine("${it.catalogName} = { id = \"${it.group}\", version.ref = \"${it.catalogVersionName}\" }")
         }

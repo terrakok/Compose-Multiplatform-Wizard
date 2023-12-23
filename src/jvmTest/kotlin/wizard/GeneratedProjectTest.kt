@@ -14,11 +14,14 @@ import kotlin.io.path.createTempDirectory
 import kotlin.test.assertEquals
 
 internal val allDependencies = setOf(
+    KotlinPlugin,
+    ComposePlugin,
+    AndroidApplicationPlugin,
     AndroidxAppcompat,
     AndroidxActivityCompose,
+    ComposeUiTooling,
     ApolloPlugin,
     ApolloRuntime,
-    ComposeUiTooling,
     Voyager,
     ImageLoader,
     Napier,

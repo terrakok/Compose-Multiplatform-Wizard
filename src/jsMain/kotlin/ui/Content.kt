@@ -27,45 +27,7 @@ import web.cssom.JustifyContent
 import web.cssom.Padding
 import web.cssom.px
 import web.html.HTMLInputElement
-import wizard.ApolloPlugin
-import wizard.ApolloRuntime
-import wizard.BuildConfigPlugin
-import wizard.BuildKonfigPlugin
-import wizard.ComposeIconsCSSGG
-import wizard.ComposeIconsEva
-import wizard.ComposeIconsFeather
-import wizard.ComposeIconsFontAwesome
-import wizard.ComposeIconsLineAwesome
-import wizard.ComposeIconsLinea
-import wizard.ComposeIconsOcticons
-import wizard.ComposeIconsSimple
-import wizard.ComposeIconsTabler
-import wizard.ComposeIconsWeather
-import wizard.ComposePlatform
-import wizard.ImageLoader
-import wizard.KStore
-import wizard.Kermit
-import wizard.Kodein
-import wizard.Koin
-import wizard.KotlinxCoroutinesAndroid
-import wizard.KotlinxCoroutinesCore
-import wizard.KotlinxDateTime
-import wizard.KotlinxSerializationJson
-import wizard.KotlinxSerializationPlugin
-import wizard.KtorClientDarwin
-import wizard.KtorClientOkhttp
-import wizard.KtorCore
-import wizard.MokoMvvm
-import wizard.MultiplatformSettings
-import wizard.Napier
-import wizard.ProjectInfo
-import wizard.SQLDelightDriverAndroid
-import wizard.SQLDelightDriverJs
-import wizard.SQLDelightDriverJvm
-import wizard.SQLDelightDriverNative
-import wizard.SQLDelightPlugin
-import wizard.Voyager
-import wizard.requiredAndroidDependencies
+import wizard.*
 
 val Content = FC<AppProps> { props ->
     Container {
@@ -227,7 +189,17 @@ val Content = FC<AppProps> { props ->
                                     if (withDesktop) add(ComposePlatform.Desktop)
                                     if (withBrowser) add(ComposePlatform.Browser)
                                 },
-                                dependencies = requiredAndroidDependencies + deps.getSelectedDependencies()
+                                dependencies = buildSet {
+                                    add(KotlinPlugin)
+                                    add(ComposePlugin)
+                                    if (withAndroid) {
+                                        add(AndroidApplicationPlugin)
+                                        add(AndroidxAppcompat)
+                                        add(AndroidxActivityCompose)
+                                        add(ComposeUiTooling)
+                                    }
+                                    addAll(deps.getSelectedDependencies())
+                                }
                             )
                             props.generate(info)
                         }

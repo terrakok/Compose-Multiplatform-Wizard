@@ -235,13 +235,13 @@ class GeneratorTest {
             """
                 [versions]
 
-                kotlin = "${info.kotlinVersion}"
-                agp = "${info.agpVersion}"
-                compose = "${info.composeVersion}"
+                kotlin = "${KotlinPlugin.version}"
+                compose = "${ComposePlugin.version}"
+                agp = "${AndroidApplicationPlugin.version}"
                 androidx-appcompat = "${AndroidxAppcompat.version}"
                 androidx-activityCompose = "${AndroidxActivityCompose.version}"
-                apollo = "${ApolloRuntime.version}"
                 compose-uitooling = "${ComposeUiTooling.version}"
+                apollo = "${ApolloRuntime.version}"
                 voyager = "${Voyager.version}"
                 composeImageLoader = "${ImageLoader.version}"
                 napier = "${Napier.version}"
@@ -261,8 +261,8 @@ class GeneratorTest {
 
                 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
                 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
-                apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apollo" }
                 compose-uitooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-uitooling" }
+                apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apollo" }
                 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
                 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "composeImageLoader" }
                 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
@@ -303,8 +303,7 @@ class GeneratorTest {
     fun buildAndroidFiles() {
         val info = ProjectInfo(
             packageId = "org.android.app",
-            platforms = setOf(ComposePlatform.Android),
-            dependencies = requiredAndroidDependencies
+            platforms = setOf(ComposePlatform.Android)
         )
         val files = info.buildFiles()
 
@@ -413,7 +412,8 @@ class GeneratorTest {
     fun buildIosFiles() {
         val info = ProjectInfo(
             packageId = "org.ios.app",
-            platforms = setOf(ComposePlatform.Ios)
+            platforms = setOf(ComposePlatform.Ios),
+            dependencies = setOf(KotlinPlugin, ComposePlugin)
         )
         val files = info.buildFiles()
 
@@ -499,7 +499,8 @@ class GeneratorTest {
     fun buildDesktopFiles() {
         val info = ProjectInfo(
             packageId = "org.desktop.app",
-            platforms = setOf(ComposePlatform.Desktop)
+            platforms = setOf(ComposePlatform.Desktop),
+            dependencies = setOf(KotlinPlugin, ComposePlugin)
         )
         val files = info.buildFiles()
 
@@ -585,7 +586,8 @@ class GeneratorTest {
     fun buildBrowserFiles() {
         val info = ProjectInfo(
             packageId = "org.js.app",
-            platforms = setOf(ComposePlatform.Browser)
+            platforms = setOf(ComposePlatform.Browser),
+            dependencies = setOf(KotlinPlugin, ComposePlugin)
         )
         val files = info.buildFiles()
 
