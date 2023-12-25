@@ -13,13 +13,14 @@ import java.io.InputStreamReader
 import kotlin.io.path.createTempDirectory
 import kotlin.test.assertEquals
 
-internal val allDependencies = setOf(
-    KotlinPlugin,
-    ComposePlugin,
+internal val androidDependencies = setOf(
     AndroidApplicationPlugin,
     AndroidxAppcompat,
     AndroidxActivityCompose,
     ComposeUiTooling,
+)
+
+internal val extraDependencies = setOf(
     ApolloPlugin,
     ApolloRuntime,
     Voyager,
@@ -70,7 +71,11 @@ class GeneratedProjectTest {
         checkProject(
             ProjectInfo(
                 platforms = setOf(ComposePlatform.Desktop, ComposePlatform.Browser),
-                dependencies = allDependencies
+                dependencies = buildSet {
+                    add(KotlinPlugin)
+                    add(ComposePlugin)
+                    addAll(extraDependencies)
+                }
             )
         )
     }
@@ -83,6 +88,8 @@ class GeneratedProjectTest {
                 name = "DesktopApp",
                 platforms = setOf(ComposePlatform.Desktop),
                 dependencies = setOf(
+                    KotlinPlugin,
+                    ComposePlugin,
                     Voyager,
                     ImageLoader,
                     Napier,
@@ -111,6 +118,8 @@ class GeneratedProjectTest {
                 name = "test js compose app",
                 platforms = setOf(ComposePlatform.Browser),
                 dependencies = setOf(
+                    KotlinPlugin,
+                    ComposePlugin,
                     Napier,
                     KotlinxDateTime,
                     MultiplatformSettings,
@@ -140,7 +149,11 @@ class GeneratedProjectTest {
         }
         val projectInfo = ProjectInfo(
             platforms = setOf(ComposePlatform.Ios),
-            dependencies = allDependencies
+            dependencies =  buildSet {
+                add(KotlinPlugin)
+                add(ComposePlugin)
+                addAll(extraDependencies)
+            }
         )
         val dir = projectInfo.writeToDir(workingDir)
         checkCommand(
@@ -167,7 +180,11 @@ class GeneratedProjectTest {
     fun checkDependencyUpdates() {
         val projectInfo = ProjectInfo(
             platforms = setOf(ComposePlatform.Desktop),
-            dependencies = allDependencies
+            dependencies =  buildSet {
+                add(KotlinPlugin)
+                add(ComposePlugin)
+                addAll(extraDependencies)
+            }
         )
         val dir = projectInfo.writeToDir(workingDir)
         dir.resolve("composeApp/build.gradle.kts").apply {

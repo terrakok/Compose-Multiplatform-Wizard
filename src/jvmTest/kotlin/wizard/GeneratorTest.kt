@@ -10,7 +10,12 @@ class GeneratorTest {
     @Test
     fun buildAllFiles() {
         val info = ProjectInfo(
-            dependencies = allDependencies
+            dependencies =  buildSet {
+                add(KotlinPlugin)
+                add(ComposePlugin)
+                addAll(androidDependencies)
+                addAll(extraDependencies)
+            }
         )
         val files = info.buildFiles()
 
