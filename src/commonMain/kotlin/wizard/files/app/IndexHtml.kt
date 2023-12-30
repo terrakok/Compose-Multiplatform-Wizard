@@ -4,7 +4,7 @@ import wizard.ProjectFile
 import wizard.ProjectInfo
 
 class IndexHtml(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/jsMain/resources/index.html"
+    override val path = "${info.moduleName}/src/jsMain/resources/index.html"
     override val content = """
         <!doctype html>
         <html lang="en">
@@ -17,7 +17,7 @@ class IndexHtml(info: ProjectInfo) : ProjectFile {
         <div>
             <canvas id="ComposeTarget" width="800" height="600"></canvas>
         </div>
-        <script src="composeApp.js"></script>
+        <script src="${info.moduleName}.js"></script>
         </body>
         </html>
     """.trimIndent()

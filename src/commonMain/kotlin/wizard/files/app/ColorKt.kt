@@ -5,7 +5,7 @@ import wizard.ProjectInfo
 import wizard.packagePath
 
 class ColorKt(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/commonMain/kotlin/${info.packagePath}/theme/Color.kt"
+    override val path = "${info.moduleName}/src/commonMain/kotlin/${info.packagePath}/theme/Color.kt"
     override val content = """
         package ${info.packageId}.theme
         

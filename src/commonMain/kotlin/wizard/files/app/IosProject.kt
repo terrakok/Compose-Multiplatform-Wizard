@@ -272,7 +272,7 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             			);
             			runOnlyForDeploymentPostprocessing = 0;
             			shellPath = /bin/sh;
-            			shellScript = "cd \"${'$'}SRCROOT/..\"\n./gradlew :composeApp:embedAndSignAppleFrameworkForXcode\n";
+            			shellScript = "cd \"${'$'}SRCROOT/..\"\n./gradlew :${info.moduleName}:embedAndSignAppleFrameworkForXcode\n";
             		};
             /* End PBXShellScriptBuildPhase section */
             
@@ -413,7 +413,7 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             				ENABLE_PREVIEWS = YES;
                             FRAMEWORK_SEARCH_PATHS = (
 				            	"${'$'}{inherited}",
-				            	"${'$'}(SRCROOT)/../composeApp/build/xcode-frameworks/${'$'}(CONFIGURATION)/${'$'}(SDK_NAME)",
+				            	"${'$'}(SRCROOT)/../${info.moduleName}/build/xcode-frameworks/${'$'}(CONFIGURATION)/${'$'}(SDK_NAME)",
 				            );
             				GENERATE_INFOPLIST_FILE = YES;
             				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -450,7 +450,7 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             				ENABLE_PREVIEWS = YES;
                             FRAMEWORK_SEARCH_PATHS = (
 				            	"${'$'}{inherited}",
-				            	"${'$'}(SRCROOT)/../composeApp/build/xcode-frameworks/${'$'}(CONFIGURATION)/${'$'}(SDK_NAME)",
+				            	"${'$'}(SRCROOT)/../${info.moduleName}/build/xcode-frameworks/${'$'}(CONFIGURATION)/${'$'}(SDK_NAME)",
 				            );
             				GENERATE_INFOPLIST_FILE = YES;
             				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

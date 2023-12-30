@@ -8,7 +8,7 @@ class SettingsGradleKts(info: ProjectInfo) : ProjectFile {
     override val path = "settings.gradle.kts"
     override val content = buildString {
         appendLine("rootProject.name = \"${info.safeName}\"")
-        appendLine("include(\":composeApp\")")
+        appendLine("include(\":${info.moduleName}\")")
         appendLine("")
         appendLine("pluginManagement {")
         appendLine("    repositories {")

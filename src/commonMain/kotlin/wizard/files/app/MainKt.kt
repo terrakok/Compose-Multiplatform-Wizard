@@ -4,7 +4,7 @@ import wizard.ProjectFile
 import wizard.ProjectInfo
 
 class DesktopMainKt(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/jvmMain/kotlin/main.kt"
+    override val path = "${info.moduleName}/src/jvmMain/kotlin/main.kt"
     override val content = """
         import androidx.compose.ui.unit.dp
         import androidx.compose.ui.window.Window
@@ -27,7 +27,7 @@ class DesktopMainKt(info: ProjectInfo) : ProjectFile {
 }
 
 class IosMainKt(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/iosMain/kotlin/main.kt"
+    override val path = "${info.moduleName}/src/iosMain/kotlin/main.kt"
     override val content = """
         import androidx.compose.ui.window.ComposeUIViewController
         import ${info.packageId}.App
@@ -39,7 +39,7 @@ class IosMainKt(info: ProjectInfo) : ProjectFile {
 }
 
 class BrowserMainKt(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/jsMain/kotlin/main.kt"
+    override val path = "${info.moduleName}/src/jsMain/kotlin/main.kt"
     override val content = """
         import androidx.compose.ui.ExperimentalComposeUiApi
         import androidx.compose.ui.window.CanvasBasedWindow

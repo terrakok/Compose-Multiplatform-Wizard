@@ -31,21 +31,21 @@ class GeneratorTest {
             gradle.properties
             build.gradle.kts
             settings.gradle.kts
-            composeApp/build.gradle.kts
-            composeApp/src/commonMain/kotlin/org/company/app/theme/Color.kt
-            composeApp/src/commonMain/kotlin/org/company/app/theme/Theme.kt
-            composeApp/src/commonMain/kotlin/org/company/app/App.kt
-            composeApp/src/commonMain/graphql/schema.graphqls
-            composeApp/src/commonMain/graphql/HelloQuery.graphql
-            composeApp/src/androidMain/AndroidManifest.xml
-            composeApp/src/androidMain/kotlin/org/company/app/App.android.kt
-            composeApp/src/androidMain/kotlin/org/company/app/theme/Theme.android.kt
-            composeApp/src/jvmMain/kotlin/org/company/app/App.jvm.kt
-            composeApp/src/jvmMain/kotlin/main.kt
-            composeApp/src/jvmMain/kotlin/org/company/app/theme/Theme.jvm.kt
-            composeApp/src/iosMain/kotlin/org/company/app/App.ios.kt
-            composeApp/src/iosMain/kotlin/main.kt
-            composeApp/src/iosMain/kotlin/org/company/app/theme/Theme.ios.kt
+            ${info.moduleName}/build.gradle.kts
+            ${info.moduleName}/src/commonMain/kotlin/org/company/app/theme/Color.kt
+            ${info.moduleName}/src/commonMain/kotlin/org/company/app/theme/Theme.kt
+            ${info.moduleName}/src/commonMain/kotlin/org/company/app/App.kt
+            ${info.moduleName}/src/commonMain/graphql/schema.graphqls
+            ${info.moduleName}/src/commonMain/graphql/HelloQuery.graphql
+            ${info.moduleName}/src/androidMain/AndroidManifest.xml
+            ${info.moduleName}/src/androidMain/kotlin/org/company/app/App.android.kt
+            ${info.moduleName}/src/androidMain/kotlin/org/company/app/theme/Theme.android.kt
+            ${info.moduleName}/src/jvmMain/kotlin/org/company/app/App.jvm.kt
+            ${info.moduleName}/src/jvmMain/kotlin/main.kt
+            ${info.moduleName}/src/jvmMain/kotlin/org/company/app/theme/Theme.jvm.kt
+            ${info.moduleName}/src/iosMain/kotlin/org/company/app/App.ios.kt
+            ${info.moduleName}/src/iosMain/kotlin/main.kt
+            ${info.moduleName}/src/iosMain/kotlin/org/company/app/theme/Theme.ios.kt
             iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/Contents.json
             iosApp/iosApp/Assets.xcassets/AccentColor.colorset/Contents.json
             iosApp/iosApp/Assets.xcassets/Contents.json
@@ -53,11 +53,11 @@ class GeneratorTest {
             iosApp/iosApp/iosApp.swift
             iosApp/iosApp.xcodeproj/project.xcworkspace/contents.xcworkspacedata
             iosApp/iosApp.xcodeproj/project.pbxproj
-            composeApp/src/jsMain/kotlin/org/company/app/App.js.kt
-            composeApp/src/jsMain/resources/index.html
-            composeApp/src/jsMain/kotlin/main.kt
-            composeApp/src/jsMain/kotlin/org/company/app/theme/Theme.js.kt
-            composeApp/webpack.config.d/config.js
+            ${info.moduleName}/src/jsMain/kotlin/org/company/app/App.js.kt
+            ${info.moduleName}/src/jsMain/resources/index.html
+            ${info.moduleName}/src/jsMain/kotlin/main.kt
+            ${info.moduleName}/src/jsMain/kotlin/org/company/app/theme/Theme.js.kt
+            ${info.moduleName}/webpack.config.d/config.js
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -324,13 +324,13 @@ class GeneratorTest {
             gradle.properties
             build.gradle.kts
             settings.gradle.kts
-            composeApp/build.gradle.kts
-            composeApp/src/commonMain/kotlin/org/android/app/theme/Color.kt
-            composeApp/src/commonMain/kotlin/org/android/app/theme/Theme.kt
-            composeApp/src/commonMain/kotlin/org/android/app/App.kt
-            composeApp/src/androidMain/AndroidManifest.xml
-            composeApp/src/androidMain/kotlin/org/android/app/App.android.kt
-            composeApp/src/androidMain/kotlin/org/android/app/theme/Theme.android.kt
+            ${info.moduleName}/build.gradle.kts
+            ${info.moduleName}/src/commonMain/kotlin/org/android/app/theme/Color.kt
+            ${info.moduleName}/src/commonMain/kotlin/org/android/app/theme/Theme.kt
+            ${info.moduleName}/src/commonMain/kotlin/org/android/app/App.kt
+            ${info.moduleName}/src/androidMain/AndroidManifest.xml
+            ${info.moduleName}/src/androidMain/kotlin/org/android/app/App.android.kt
+            ${info.moduleName}/src/androidMain/kotlin/org/android/app/theme/Theme.android.kt
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -434,13 +434,13 @@ class GeneratorTest {
             gradle.properties
             build.gradle.kts
             settings.gradle.kts
-            composeApp/build.gradle.kts
-            composeApp/src/commonMain/kotlin/org/ios/app/theme/Color.kt
-            composeApp/src/commonMain/kotlin/org/ios/app/theme/Theme.kt
-            composeApp/src/commonMain/kotlin/org/ios/app/App.kt
-            composeApp/src/iosMain/kotlin/org/ios/app/App.ios.kt
-            composeApp/src/iosMain/kotlin/main.kt
-            composeApp/src/iosMain/kotlin/org/ios/app/theme/Theme.ios.kt
+            ${info.moduleName}/build.gradle.kts
+            ${info.moduleName}/src/commonMain/kotlin/org/ios/app/theme/Color.kt
+            ${info.moduleName}/src/commonMain/kotlin/org/ios/app/theme/Theme.kt
+            ${info.moduleName}/src/commonMain/kotlin/org/ios/app/App.kt
+            ${info.moduleName}/src/iosMain/kotlin/org/ios/app/App.ios.kt
+            ${info.moduleName}/src/iosMain/kotlin/main.kt
+            ${info.moduleName}/src/iosMain/kotlin/org/ios/app/theme/Theme.ios.kt
             iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/Contents.json
             iosApp/iosApp/Assets.xcassets/AccentColor.colorset/Contents.json
             iosApp/iosApp/Assets.xcassets/Contents.json
@@ -521,13 +521,13 @@ class GeneratorTest {
             gradle.properties
             build.gradle.kts
             settings.gradle.kts
-            composeApp/build.gradle.kts
-            composeApp/src/commonMain/kotlin/org/desktop/app/theme/Color.kt
-            composeApp/src/commonMain/kotlin/org/desktop/app/theme/Theme.kt
-            composeApp/src/commonMain/kotlin/org/desktop/app/App.kt
-            composeApp/src/jvmMain/kotlin/org/desktop/app/App.jvm.kt
-            composeApp/src/jvmMain/kotlin/main.kt
-            composeApp/src/jvmMain/kotlin/org/desktop/app/theme/Theme.jvm.kt
+            ${info.moduleName}/build.gradle.kts
+            ${info.moduleName}/src/commonMain/kotlin/org/desktop/app/theme/Color.kt
+            ${info.moduleName}/src/commonMain/kotlin/org/desktop/app/theme/Theme.kt
+            ${info.moduleName}/src/commonMain/kotlin/org/desktop/app/App.kt
+            ${info.moduleName}/src/jvmMain/kotlin/org/desktop/app/App.jvm.kt
+            ${info.moduleName}/src/jvmMain/kotlin/main.kt
+            ${info.moduleName}/src/jvmMain/kotlin/org/desktop/app/theme/Theme.jvm.kt
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -608,15 +608,15 @@ class GeneratorTest {
             gradle.properties
             build.gradle.kts
             settings.gradle.kts
-            composeApp/build.gradle.kts
-            composeApp/src/commonMain/kotlin/org/js/app/theme/Color.kt
-            composeApp/src/commonMain/kotlin/org/js/app/theme/Theme.kt
-            composeApp/src/commonMain/kotlin/org/js/app/App.kt
-            composeApp/src/jsMain/kotlin/org/js/app/App.js.kt
-            composeApp/src/jsMain/resources/index.html
-            composeApp/src/jsMain/kotlin/main.kt
-            composeApp/src/jsMain/kotlin/org/js/app/theme/Theme.js.kt
-            composeApp/webpack.config.d/config.js
+            ${info.moduleName}/build.gradle.kts
+            ${info.moduleName}/src/commonMain/kotlin/org/js/app/theme/Color.kt
+            ${info.moduleName}/src/commonMain/kotlin/org/js/app/theme/Theme.kt
+            ${info.moduleName}/src/commonMain/kotlin/org/js/app/App.kt
+            ${info.moduleName}/src/jsMain/kotlin/org/js/app/App.js.kt
+            ${info.moduleName}/src/jsMain/resources/index.html
+            ${info.moduleName}/src/jsMain/kotlin/main.kt
+            ${info.moduleName}/src/jsMain/kotlin/org/js/app/theme/Theme.js.kt
+            ${info.moduleName}/webpack.config.d/config.js
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )

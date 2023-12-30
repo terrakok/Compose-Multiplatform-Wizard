@@ -23,8 +23,8 @@ fun ProjectInfo.buildFiles() = buildList {
     add(AppKt(this@buildFiles))
 
     if (this@buildFiles.dependencies.contains(ApolloPlugin)) {
-        add(GraphQLSchema())
-        add(GraphQLQuery())
+        add(GraphQLSchema(this@buildFiles))
+        add(GraphQLQuery(this@buildFiles))
     }
 
     if (this@buildFiles.hasPlatform(ComposePlatform.Android)) {

@@ -13,6 +13,7 @@ data class ProjectInfo(
     val packageId: String = "org.company.app",
     //Shouldn't be "ComposeApp" because it breaks ios build. The reason is kotlin framework name is "ComposeApp"
     val name: String = "Multiplatform App",
+    val moduleName: String = "composeApp",
     val platforms: Set<ComposePlatform> = AllPlatforms,
     val gradleVersion: String = "8.5",
     val androidMinSdk: Int = 24,

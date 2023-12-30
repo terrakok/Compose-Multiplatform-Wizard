@@ -5,7 +5,7 @@ import wizard.ProjectInfo
 import wizard.packagePath
 
 class AppKt(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/commonMain/kotlin/${info.packagePath}/App.kt"
+    override val path = "${info.moduleName}/src/commonMain/kotlin/${info.packagePath}/App.kt"
     override val content = """
         package ${info.packageId}
         
@@ -124,7 +124,7 @@ class AppKt(info: ProjectInfo) : ProjectFile {
 }
 
 class AndroidAppKt(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/androidMain/kotlin/${info.packagePath}/App.android.kt"
+    override val path = "${info.moduleName}/src/androidMain/kotlin/${info.packagePath}/App.android.kt"
     override val content = """
         package ${info.packageId}
 
@@ -168,7 +168,7 @@ class AndroidAppKt(info: ProjectInfo) : ProjectFile {
 }
 
 class DesktopAppKt(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/jvmMain/kotlin/${info.packagePath}/App.jvm.kt"
+    override val path = "${info.moduleName}/src/jvmMain/kotlin/${info.packagePath}/App.jvm.kt"
     override val content = """
         package ${info.packageId}
 
@@ -183,7 +183,7 @@ class DesktopAppKt(info: ProjectInfo) : ProjectFile {
 }
 
 class IosAppKt(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/iosMain/kotlin/${info.packagePath}/App.ios.kt"
+    override val path = "${info.moduleName}/src/iosMain/kotlin/${info.packagePath}/App.ios.kt"
     override val content = """
         package ${info.packageId}
 
@@ -198,7 +198,7 @@ class IosAppKt(info: ProjectInfo) : ProjectFile {
 }
 
 class BrowserAppKt(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/jsMain/kotlin/${info.packagePath}/App.js.kt"
+    override val path = "${info.moduleName}/src/jsMain/kotlin/${info.packagePath}/App.js.kt"
     override val content = """
         package ${info.packageId}
 

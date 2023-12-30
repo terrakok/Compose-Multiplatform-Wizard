@@ -136,7 +136,7 @@ class GeneratedProjectTest {
         val dir = projectInfo.writeToDir(workingDir)
         checkCommand(
             dir = dir,
-            command = listOf("${dir.path}/gradlew", ":composeApp:assembleDebug", "--stacktrace")
+            command = listOf("${dir.path}/gradlew", ":${projectInfo.moduleName}:assembleDebug", "--stacktrace")
         )
     }
 
@@ -187,7 +187,7 @@ class GeneratedProjectTest {
             }
         )
         val dir = projectInfo.writeToDir(workingDir)
-        dir.resolve("composeApp/build.gradle.kts").apply {
+        dir.resolve("${projectInfo.moduleName}/build.gradle.kts").apply {
             writeText(
                 readText().replace(
                     "plugins {",

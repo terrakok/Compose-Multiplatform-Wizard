@@ -4,7 +4,7 @@ import wizard.ProjectFile
 import wizard.ProjectInfo
 
 class WebPackConfig(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/webpack.config.d/config.js"
+    override val path = "${info.moduleName}/webpack.config.d/config.js"
     override val content = """
         const TerserPlugin = require("terser-webpack-plugin");
 

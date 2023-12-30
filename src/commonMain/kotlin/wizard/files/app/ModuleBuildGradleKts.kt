@@ -3,7 +3,7 @@ package wizard.files.app
 import wizard.*
 
 class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/build.gradle.kts"
+    override val path = "${info.moduleName}/build.gradle.kts"
     override val content = buildString {
         val plugins = mutableSetOf<Dependency>()
         val commonDeps = mutableSetOf<Dependency>()

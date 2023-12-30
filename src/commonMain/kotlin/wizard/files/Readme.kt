@@ -26,14 +26,14 @@ class Readme(info: ProjectInfo) : ProjectFile {
             appendLine(" - open project in Android Studio and run imported android run configuration")
             appendLine("")
             appendLine("To build the application bundle:")
-            appendLine(" - run `./gradlew :composeApp:assembleDebug`")
-            appendLine(" - find `.apk` file in `composeApp/build/outputs/apk/debug/composeApp-debug.apk`")
+            appendLine(" - run `./gradlew :${info.moduleName}:assembleDebug`")
+            appendLine(" - find `.apk` file in `${info.moduleName}/build/outputs/apk/debug/${info.moduleName}-debug.apk`")
             appendLine("")
         }
 
         if (info.hasPlatform(ComposePlatform.Jvm)) {
             appendLine("### Desktop")
-            appendLine("Run the desktop application: `./gradlew :composeApp:run`")
+            appendLine("Run the desktop application: `./gradlew :${info.moduleName}:run`")
             appendLine("")
         }
 
@@ -47,7 +47,7 @@ class Readme(info: ProjectInfo) : ProjectFile {
 
         if (info.hasPlatform(ComposePlatform.Browser)) {
             appendLine("### Browser")
-            appendLine("Run the browser application: `./gradlew :composeApp:jsBrowserDevelopmentRun`")
+            appendLine("Run the browser application: `./gradlew :${info.moduleName}:jsBrowserDevelopmentRun`")
             appendLine("")
         }
     }

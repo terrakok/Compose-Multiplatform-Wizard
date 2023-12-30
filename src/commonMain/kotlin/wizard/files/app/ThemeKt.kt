@@ -5,7 +5,7 @@ import wizard.ProjectInfo
 import wizard.packagePath
 
 class ThemeKt(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/commonMain/kotlin/${info.packagePath}/theme/Theme.kt"
+    override val path = "${info.moduleName}/src/commonMain/kotlin/${info.packagePath}/theme/Theme.kt"
     override val content = """
         package ${info.packageId}.theme
 
@@ -141,7 +141,7 @@ class ThemeKt(info: ProjectInfo) : ProjectFile {
 }
 
 class DesktopThemeKt(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/jvmMain/kotlin/${info.packagePath}/theme/Theme.jvm.kt"
+    override val path = "${info.moduleName}/src/jvmMain/kotlin/${info.packagePath}/theme/Theme.jvm.kt"
     override val content = """
         package ${info.packageId}.theme
 
@@ -154,7 +154,7 @@ class DesktopThemeKt(info: ProjectInfo) : ProjectFile {
 }
 
 class BrowserThemeKt(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/jsMain/kotlin/${info.packagePath}/theme/Theme.js.kt"
+    override val path = "${info.moduleName}/src/jsMain/kotlin/${info.packagePath}/theme/Theme.js.kt"
     override val content = """
         package ${info.packageId}.theme
 
@@ -167,7 +167,7 @@ class BrowserThemeKt(info: ProjectInfo) : ProjectFile {
 }
 
 class IosThemeKt(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/iosMain/kotlin/${info.packagePath}/theme/Theme.ios.kt"
+    override val path = "${info.moduleName}/src/iosMain/kotlin/${info.packagePath}/theme/Theme.ios.kt"
     override val content = """
         package ${info.packageId}.theme
 
@@ -190,7 +190,7 @@ class IosThemeKt(info: ProjectInfo) : ProjectFile {
 }
 
 class AndroidThemeKt(info: ProjectInfo) : ProjectFile {
-    override val path = "composeApp/src/androidMain/kotlin/${info.packagePath}/theme/Theme.android.kt"
+    override val path = "${info.moduleName}/src/androidMain/kotlin/${info.packagePath}/theme/Theme.android.kt"
     override val content = """
         package ${info.packageId}.theme
 
