@@ -70,7 +70,7 @@ class GeneratedProjectTest {
     fun testDesktopAndBrowserProject() {
         checkProject(
             ProjectInfo(
-                platforms = setOf(ComposePlatform.Desktop, ComposePlatform.Browser),
+                platforms = setOf(ComposePlatform.Jvm, ComposePlatform.Browser),
                 dependencies = buildSet {
                     add(KotlinPlugin)
                     add(ComposePlugin)
@@ -86,7 +86,7 @@ class GeneratedProjectTest {
             ProjectInfo(
                 packageId = "com.test.unit.app",
                 name = "DesktopApp",
-                platforms = setOf(ComposePlatform.Desktop),
+                platforms = setOf(ComposePlatform.Jvm),
                 dependencies = setOf(
                     KotlinPlugin,
                     ComposePlugin,
@@ -179,7 +179,7 @@ class GeneratedProjectTest {
     @Test
     fun checkDependencyUpdates() {
         val projectInfo = ProjectInfo(
-            platforms = setOf(ComposePlatform.Desktop),
+            platforms = setOf(ComposePlatform.Jvm),
             dependencies =  buildSet {
                 add(KotlinPlugin)
                 add(ComposePlugin)

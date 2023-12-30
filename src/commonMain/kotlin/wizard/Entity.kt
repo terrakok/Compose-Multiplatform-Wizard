@@ -3,11 +3,11 @@ package wizard
 enum class ComposePlatform(val title: String) {
     Android("Android"),
     Ios("iOS"),
-    Desktop("Desktop"),
+    Jvm("Desktop"),
     Browser("Browser"),
 }
 
-val AllPlatforms = setOf(ComposePlatform.Android, ComposePlatform.Ios, ComposePlatform.Desktop, ComposePlatform.Browser)
+val AllPlatforms = setOf(ComposePlatform.Android, ComposePlatform.Ios, ComposePlatform.Jvm, ComposePlatform.Browser)
 
 data class ProjectInfo(
     val packageId: String = "org.company.app",

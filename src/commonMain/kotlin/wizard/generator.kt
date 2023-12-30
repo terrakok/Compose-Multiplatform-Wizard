@@ -33,7 +33,7 @@ fun ProjectInfo.buildFiles() = buildList {
         add(AndroidThemeKt(this@buildFiles))
     }
 
-    if (this@buildFiles.hasPlatform(ComposePlatform.Desktop)) {
+    if (this@buildFiles.hasPlatform(ComposePlatform.Jvm)) {
         add(DesktopAppKt(this@buildFiles))
         add(DesktopMainKt(this@buildFiles))
         add(DesktopThemeKt(this@buildFiles))

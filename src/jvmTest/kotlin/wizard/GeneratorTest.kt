@@ -504,7 +504,7 @@ class GeneratorTest {
     fun buildDesktopFiles() {
         val info = ProjectInfo(
             packageId = "org.desktop.app",
-            platforms = setOf(ComposePlatform.Desktop),
+            platforms = setOf(ComposePlatform.Jvm),
             dependencies = setOf(KotlinPlugin, ComposePlugin)
         )
         val files = info.buildFiles()

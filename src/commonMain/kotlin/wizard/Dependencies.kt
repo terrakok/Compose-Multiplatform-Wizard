@@ -201,7 +201,7 @@ val KtorClientDarwin = KtorCore.copy(
 val KtorClientOkhttp = KtorCore.copy(
     id = "ktor-client-okhttp",
     catalogName = "ktor-client-okhttp",
-    platforms = setOf(ComposePlatform.Android, ComposePlatform.Desktop)
+    platforms = setOf(ComposePlatform.Android, ComposePlatform.Jvm)
 )
 
 val KtorClientJs = KtorCore.copy(
@@ -277,7 +277,7 @@ val SQLDelightPlugin = Dependency(
 val SQLDelightDriverJvm = SQLDelightPlugin.copy(
     id = "sqlite-driver",
     catalogName = "sqlDelight-driver-sqlite",
-    platforms = setOf(ComposePlatform.Desktop)
+    platforms = setOf(ComposePlatform.Jvm)
 )
 
 val SQLDelightDriverAndroid = SQLDelightPlugin.copy(

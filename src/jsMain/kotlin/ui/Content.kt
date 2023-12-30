@@ -186,7 +186,7 @@ val Content = FC<AppProps> { props ->
                                 platforms = buildSet {
                                     if (withAndroid) add(ComposePlatform.Android)
                                     if (withIos) add(ComposePlatform.Ios)
-                                    if (withDesktop) add(ComposePlatform.Desktop)
+                                    if (withDesktop) add(ComposePlatform.Jvm)
                                     if (withBrowser) add(ComposePlatform.Browser)
                                 },
                                 dependencies = buildSet {

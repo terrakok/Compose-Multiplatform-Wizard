@@ -17,7 +17,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
 
 
-        if (info.hasPlatform(ComposePlatform.Desktop)) {
+        if (info.hasPlatform(ComposePlatform.Jvm)) {
             appendLine("import org.jetbrains.compose.desktop.application.dsl.TargetFormat")
             appendLine("")
         }
@@ -38,7 +38,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    }")
             appendLine("")
         }
-        if (info.hasPlatform(ComposePlatform.Desktop)) {
+        if (info.hasPlatform(ComposePlatform.Jvm)) {
             appendLine("    jvm()")
             appendLine("")
         }
@@ -97,13 +97,13 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        }")
             appendLine("")
         }
-        if (info.hasPlatform(ComposePlatform.Desktop)) {
+        if (info.hasPlatform(ComposePlatform.Jvm)) {
             appendLine("        jvmMain.dependencies {")
             appendLine("            implementation(compose.desktop.common)")
             appendLine("            implementation(compose.desktop.currentOs)")
 
             otherDeps.forEach { dep ->
-                if (dep.platforms.contains(ComposePlatform.Desktop)) {
+                if (dep.platforms.contains(ComposePlatform.Jvm)) {
                     appendLine("            ${dep.libraryNotation}")
                 }
             }
@@ -170,7 +170,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    }")
             appendLine("}")
         }
-        if (info.hasPlatform(ComposePlatform.Desktop)) {
+        if (info.hasPlatform(ComposePlatform.Jvm)) {
             appendLine("")
             appendLine("compose.desktop {")
             appendLine("    application {")

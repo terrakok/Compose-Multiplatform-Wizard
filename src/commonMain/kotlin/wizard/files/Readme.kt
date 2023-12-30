@@ -31,7 +31,7 @@ class Readme(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
 
-        if (info.hasPlatform(ComposePlatform.Desktop)) {
+        if (info.hasPlatform(ComposePlatform.Jvm)) {
             appendLine("### Desktop")
             appendLine("Run the desktop application: `./gradlew :composeApp:run`")
             appendLine("")
