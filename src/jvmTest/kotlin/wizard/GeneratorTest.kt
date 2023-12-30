@@ -591,7 +591,7 @@ class GeneratorTest {
     fun buildBrowserFiles() {
         val info = ProjectInfo(
             packageId = "org.js.app",
-            platforms = setOf(ComposePlatform.Browser),
+            platforms = setOf(ComposePlatform.Js),
             dependencies = setOf(KotlinPlugin, ComposePlugin)
         )
         val files = info.buildFiles()

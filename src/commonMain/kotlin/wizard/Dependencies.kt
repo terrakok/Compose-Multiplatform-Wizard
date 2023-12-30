@@ -207,7 +207,7 @@ val KtorClientOkhttp = KtorCore.copy(
 val KtorClientJs = KtorCore.copy(
     id = "ktor-client-js",
     catalogName = "ktor-client-js",
-    platforms = setOf(ComposePlatform.Browser)
+    platforms = setOf(ComposePlatform.Js)
 )
 
 val KotlinxCoroutinesCore = Dependency(
@@ -295,7 +295,7 @@ val SQLDelightDriverNative = SQLDelightPlugin.copy(
 val SQLDelightDriverJs = SQLDelightPlugin.copy(
     id = "web-worker-driver",
     catalogName = "sqlDelight-driver-js",
-    platforms = setOf(ComposePlatform.Browser)
+    platforms = setOf(ComposePlatform.Js)
 )
 
 val ApolloPlugin = Dependency(

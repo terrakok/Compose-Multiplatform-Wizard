@@ -42,7 +42,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    jvm()")
             appendLine("")
         }
-        if (info.hasPlatform(ComposePlatform.Browser)) {
+        if (info.hasPlatform(ComposePlatform.Js)) {
             appendLine("    js {")
             appendLine("        browser()")
             appendLine("        binaries.executable()")
@@ -111,12 +111,12 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        }")
             appendLine("")
         }
-        if (info.hasPlatform(ComposePlatform.Browser)) {
+        if (info.hasPlatform(ComposePlatform.Js)) {
             appendLine("        jsMain.dependencies {")
             appendLine("            implementation(compose.html.core)")
 
             otherDeps.forEach { dep ->
-                if (dep.platforms.contains(ComposePlatform.Browser)) {
+                if (dep.platforms.contains(ComposePlatform.Js)) {
                     appendLine("            ${dep.libraryNotation}")
                 }
             }
@@ -185,7 +185,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("}")
         }
 
-        if (info.hasPlatform(ComposePlatform.Browser)) {
+        if (info.hasPlatform(ComposePlatform.Js)) {
             appendLine("")
             appendLine("compose.experimental {")
             appendLine("    web.application {}")

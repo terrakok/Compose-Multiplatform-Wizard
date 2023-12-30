@@ -70,7 +70,7 @@ class GeneratedProjectTest {
     fun testDesktopAndBrowserProject() {
         checkProject(
             ProjectInfo(
-                platforms = setOf(ComposePlatform.Jvm, ComposePlatform.Browser),
+                platforms = setOf(ComposePlatform.Jvm, ComposePlatform.Js),
                 dependencies = buildSet {
                     add(KotlinPlugin)
                     add(ComposePlugin)
@@ -116,7 +116,7 @@ class GeneratedProjectTest {
             ProjectInfo(
                 packageId = "io.js.app.test",
                 name = "test js compose app",
-                platforms = setOf(ComposePlatform.Browser),
+                platforms = setOf(ComposePlatform.Js),
                 dependencies = setOf(
                     KotlinPlugin,
                     ComposePlugin,

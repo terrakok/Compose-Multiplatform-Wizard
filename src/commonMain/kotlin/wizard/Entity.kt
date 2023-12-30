@@ -4,10 +4,10 @@ enum class ComposePlatform(val title: String) {
     Android("Android"),
     Ios("iOS"),
     Jvm("Desktop"),
-    Browser("Browser"),
+    Js("Browser"),
 }
 
-val AllPlatforms = setOf(ComposePlatform.Android, ComposePlatform.Ios, ComposePlatform.Jvm, ComposePlatform.Browser)
+val AllPlatforms = setOf(ComposePlatform.Android, ComposePlatform.Ios, ComposePlatform.Jvm, ComposePlatform.Js)
 
 data class ProjectInfo(
     val packageId: String = "org.company.app",

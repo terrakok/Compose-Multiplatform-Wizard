@@ -53,7 +53,7 @@ fun ProjectInfo.buildFiles() = buildList {
         add(IosPbxproj(this@buildFiles))
     }
 
-    if (this@buildFiles.hasPlatform(ComposePlatform.Browser)) {
+    if (this@buildFiles.hasPlatform(ComposePlatform.Js)) {
         add(BrowserAppKt(this@buildFiles))
         add(IndexHtml(this@buildFiles))
         add(BrowserMainKt(this@buildFiles))

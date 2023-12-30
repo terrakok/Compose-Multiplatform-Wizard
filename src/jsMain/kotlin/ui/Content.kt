@@ -187,7 +187,7 @@ val Content = FC<AppProps> { props ->
                                     if (withAndroid) add(ComposePlatform.Android)
                                     if (withIos) add(ComposePlatform.Ios)
                                     if (withDesktop) add(ComposePlatform.Jvm)
-                                    if (withBrowser) add(ComposePlatform.Browser)
+                                    if (withBrowser) add(ComposePlatform.Js)
                                 },
                                 dependencies = buildSet {
                                     add(KotlinPlugin)
