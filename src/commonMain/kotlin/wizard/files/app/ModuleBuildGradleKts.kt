@@ -1,6 +1,7 @@
 package wizard.files.app
 
 import wizard.*
+import wizard.dependencies.*
 
 class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
     override val path = "${info.moduleName}/build.gradle.kts"

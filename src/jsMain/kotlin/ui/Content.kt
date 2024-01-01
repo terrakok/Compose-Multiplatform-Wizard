@@ -13,6 +13,7 @@ import web.cssom.*
 import web.html.HTMLInputElement
 import wizard.*
 import wizard.ProjectPlatform.*
+import wizard.dependencies.*
 import mui.icons.material.Android as AndroidIcon
 
 val Content = FC<AppProps> { props ->

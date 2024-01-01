@@ -1,0 +1,153 @@
+package wizard.dependencies
+
+import wizard.Dependency
+
+val Voyager = Dependency(
+    title = "Voyager",
+    description = "A pragmatic navigation library for Compose.",
+    url = "https://github.com/adrielcafe/voyager",
+    group = "cafe.adriel.voyager",
+    id = "voyager-navigator",
+    version = "1.0.0",
+    catalogVersionName = "voyager",
+    catalogName = "voyager-navigator",
+    platforms = emptySet()
+)
+
+val ImageLoader = Dependency(
+    title = "Compose ImageLoader",
+    description = "Compose Image library for Kotlin Multiplatform.",
+    url = "https://github.com/qdsfdhvh/compose-imageloader",
+    group = "io.github.qdsfdhvh",
+    id = "image-loader",
+    version = "1.7.1",
+    catalogVersionName = "composeImageLoader",
+    catalogName = "composeImageLoader",
+    platforms = emptySet()
+)
+
+val Napier = Dependency(
+    title = "Napier",
+    description = "Napier is a logger library for Kotlin Multiplatform.",
+    url = "https://github.com/AAkira/Napier",
+    group = "io.github.aakira",
+    id = "napier",
+    version = "2.7.0",
+    catalogVersionName = "napier",
+    catalogName = "napier",
+    platforms = emptySet()
+)
+
+val Kermit = Dependency(
+    title = "Kermit",
+    description = "Kermit is a logger library for Kotlin Multiplatform.",
+    url = "https://github.com/touchlab/Kermit",
+    group = "co.touchlab",
+    id = "kermit",
+    version = "2.0.0-RC4",
+    catalogVersionName = "kermit",
+    catalogName = "kermit",
+    platforms = emptySet()
+)
+
+val MultiplatformSettings = Dependency(
+    title = "Multiplatform Settings",
+    description = "A Kotlin Multiplatform library for saving simple key-value data.",
+    url = "https://github.com/russhwolf/multiplatform-settings",
+    group = "com.russhwolf",
+    id = "multiplatform-settings",
+    version = "1.1.1",
+    catalogVersionName = "multiplatformSettings",
+    catalogName = "multiplatformSettings",
+    platforms = emptySet()
+)
+
+val Koin = Dependency(
+    title = "Koin",
+    description = "A pragmatic lightweight dependency injection framework for Kotlin & Kotlin Multiplatform.",
+    url = "https://github.com/InsertKoinIO/koin",
+    group = "io.insert-koin",
+    id = "koin-core",
+    version = "3.5.3",
+    catalogVersionName = "koin",
+    catalogName = "koin-core",
+    platforms = emptySet()
+)
+
+val Kodein = Dependency(
+    title = "Kodein",
+    description = "KODEIN is a very simple and yet very useful dependency retrieval container.",
+    url = "https://github.com/kosi-libs/Kodein",
+    group = "org.kodein.di",
+    id = "kodein-di",
+    version = "7.19.0",
+    catalogVersionName = "kodein",
+    catalogName = "kodein",
+    platforms = emptySet()
+)
+
+val KStore = Dependency(
+    title = "KStore",
+    description = "A tiny Kotlin multiplatform library that assists in saving and restoring objects to and from disk.",
+    url = "https://github.com/xxfast/KStore",
+    group = "io.github.xxfast",
+    id = "kstore",
+    version = "0.7.1",
+    catalogVersionName = "kstore",
+    catalogName = "kstore",
+    platforms = emptySet()
+)
+
+val MokoMvvm = Dependency(
+    title = "Moko MVVM",
+    description = "This is a Kotlin Multiplatform library that provides architecture components of Model-View-ViewModel for UI applications.",
+    url = "https://github.com/icerockdev/moko-mvvm",
+    group = "dev.icerock.moko",
+    id = "mvvm-compose",
+    version = "0.16.1",
+    catalogVersionName = "moko-mvvm",
+    catalogName = "moko-mvvm",
+    platforms = emptySet()
+)
+
+val ApolloPlugin = Dependency(
+    title = "Apollo Kotlin",
+    description = "Generates typesafe Kotlin APIs from your GraphQL queries.",
+    url = "https://github.com/apollographql/apollo-kotlin/",
+    group = "com.apollographql.apollo3",
+    id = "gradle-plugin",
+    version = "4.0.0-beta.4",
+    catalogVersionName = "apollo",
+    catalogName = "apollo",
+    platforms = emptySet()
+)
+
+val ApolloRuntime = ApolloPlugin.copy(
+    id = "apollo-runtime",
+    catalogName = "apollo-runtime",
+    platforms = emptySet()
+)
+
+val BuildConfigPlugin = Dependency(
+    title = "Build Config",
+    description = "A plugin for generating BuildConstants.",
+    url = "https://github.com/gmazzo/gradle-buildconfig-plugin",
+    group = "com.github.gmazzo.buildconfig",
+    id = "gradle-plugin",
+    version = "4.1.1",
+    catalogVersionName = "buildConfig",
+    catalogName = "buildConfig",
+    platforms = emptySet()
+)
+
+val BuildKonfigPlugin = Dependency(
+    title = "BuildKonfig",
+    description = "BuildConfig for Kotlin Multiplatform Project.",
+    url = "https://github.com/yshrsmz/BuildKonfig",
+    group = "com.codingfeline.buildkonfig",
+    id = "gradle-plugin",
+    version = "0.13.3",
+    catalogVersionName = "buildKonfig",
+    catalogName = "buildKonfig",
+    platforms = emptySet()
+)

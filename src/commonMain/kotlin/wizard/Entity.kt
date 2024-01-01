@@ -1,6 +1,7 @@
 package wizard
 
 import wizard.ProjectPlatform.*
+import wizard.dependencies.*
 
 enum class ProjectPlatform(val title: String) {
     Android("Android"),

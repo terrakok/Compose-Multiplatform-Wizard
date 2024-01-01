@@ -1,5 +1,6 @@
 package wizard
 
+import wizard.dependencies.*
 import wizard.files.GradleLibsVersion
 import wizard.files.app.ModuleBuildGradleKts
 import kotlin.test.Test

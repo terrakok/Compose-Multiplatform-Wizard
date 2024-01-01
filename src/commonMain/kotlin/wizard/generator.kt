@@ -1,5 +1,6 @@
 package wizard
 
+import wizard.dependencies.ApolloPlugin
 import wizard.files.*
 import wizard.files.app.*
 

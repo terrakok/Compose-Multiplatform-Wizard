@@ -10,6 +10,7 @@ import mui.system.PropsWithSx
 import react.FC
 import react.useRequiredContext
 import wizard.*
+import wizard.dependencies.*
 
 external interface VersionsTableProps : PropsWithSx {
     var info: ProjectInfo

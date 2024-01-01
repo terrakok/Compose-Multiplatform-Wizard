@@ -1,4 +1,6 @@
-package wizard
+package wizard.dependencies
+
+import wizard.Dependency
 
 val ComposeIconsFontAwesome = Dependency(
     title = "Font Awesome Icons",

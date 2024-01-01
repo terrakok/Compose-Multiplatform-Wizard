@@ -3,6 +3,7 @@ package wizard
 import org.junit.AfterClass
 import org.junit.BeforeClass
 import org.junit.Test
+import wizard.dependencies.*
 import wizard.files.GradleBat
 import wizard.files.GradleWrapperJar
 import wizard.files.Gradlew

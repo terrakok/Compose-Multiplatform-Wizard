@@ -1,6 +1,6 @@
 package wizard.files
 
-import wizard.KotlinxSerializationPlugin
+import wizard.dependencies.KotlinxSerializationPlugin
 import wizard.ProjectFile
 import wizard.ProjectInfo
 import wizard.isPlugin
