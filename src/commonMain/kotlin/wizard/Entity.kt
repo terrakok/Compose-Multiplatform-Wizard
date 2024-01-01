@@ -1,5 +1,7 @@
 package wizard
 
+import wizard.ComposePlatform.*
+
 enum class ComposePlatform(val title: String) {
     Android("Android"),
     Ios("iOS"),
@@ -7,14 +9,12 @@ enum class ComposePlatform(val title: String) {
     Js("Browser"),
 }
 
-val AllPlatforms = setOf(ComposePlatform.Android, ComposePlatform.Ios, ComposePlatform.Jvm, ComposePlatform.Js)
-
 data class ProjectInfo(
     val packageId: String = "org.company.app",
     //Shouldn't be "ComposeApp" because it breaks ios build. The reason is kotlin framework name is "ComposeApp"
     val name: String = "Multiplatform App",
     val moduleName: String = "composeApp",
-    val platforms: Set<ComposePlatform> = AllPlatforms,
+    val platforms: Set<ComposePlatform> = setOf(Android, Ios, Jvm, Js),
     val gradleVersion: String = "8.5",
     val androidMinSdk: Int = 24,
     val androidTargetSdk: Int = 34,
@@ -45,8 +45,8 @@ data class Dependency(
     val platforms: Set<ComposePlatform>,
 )
 
-fun Dependency.isPlugin() = platforms.isEmpty()
-fun Dependency.isCommon() = platforms == AllPlatforms
+fun Dependency.isPlugin() = id == "gradle-plugin"
+fun Dependency.isCommon() = platforms.isEmpty()
 
 val Dependency.catalogAccessor get() = catalogName.replace("-", ".")
 val Dependency.libraryNotation get() = "implementation(libs.$catalogAccessor)"

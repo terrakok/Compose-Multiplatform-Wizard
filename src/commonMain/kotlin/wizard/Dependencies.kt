@@ -1,5 +1,7 @@
 package wizard
 
+import wizard.ComposePlatform.*
+
 val KotlinPlugin = Dependency(
     title = "Kotlin Multiplatform Plugin",
     description = "Kotlin gradle plugin.",
@@ -45,7 +47,7 @@ val AndroidxAppcompat = Dependency(
     version = "1.6.1",
     catalogVersionName = "androidx-appcompat",
     catalogName = "androidx-appcompat",
-    platforms = setOf(ComposePlatform.Android)
+    platforms = setOf(Android)
 )
 
 val AndroidxActivityCompose = Dependency(
@@ -57,7 +59,7 @@ val AndroidxActivityCompose = Dependency(
     version = "1.8.1",
     catalogVersionName = "androidx-activityCompose",
     catalogName = "androidx-activityCompose",
-    platforms = setOf(ComposePlatform.Android)
+    platforms = setOf(Android)
 )
 
 val ComposeUiTooling = Dependency(
@@ -69,7 +71,7 @@ val ComposeUiTooling = Dependency(
     version = "1.5.4",
     catalogVersionName = "compose-uitooling",
     catalogName = "compose-uitooling",
-    platforms = setOf(ComposePlatform.Android)
+    platforms = setOf(Android)
 )
 
 val Voyager = Dependency(
@@ -81,7 +83,7 @@ val Voyager = Dependency(
     version = "1.0.0",
     catalogVersionName = "voyager",
     catalogName = "voyager-navigator",
-    platforms = AllPlatforms
+    platforms = emptySet()
 )
 
 val ImageLoader = Dependency(
@@ -93,7 +95,7 @@ val ImageLoader = Dependency(
     version = "1.7.1",
     catalogVersionName = "composeImageLoader",
     catalogName = "composeImageLoader",
-    platforms = AllPlatforms
+    platforms = emptySet()
 )
 
 val Napier = Dependency(
@@ -102,10 +104,10 @@ val Napier = Dependency(
     url = "https://github.com/AAkira/Napier",
     group = "io.github.aakira",
     id = "napier",
-    version = "2.6.1",
+    version = "2.7.0",
     catalogVersionName = "napier",
     catalogName = "napier",
-    platforms = AllPlatforms
+    platforms = emptySet()
 )
 
 val Kermit = Dependency(
@@ -117,7 +119,7 @@ val Kermit = Dependency(
     version = "2.0.0-RC4",
     catalogVersionName = "kermit",
     catalogName = "kermit",
-    platforms = AllPlatforms
+    platforms = emptySet()
 )
 
 val KotlinxDateTime = Dependency(
@@ -129,7 +131,7 @@ val KotlinxDateTime = Dependency(
     version = "0.5.0",
     catalogVersionName = "kotlinx-datetime",
     catalogName = "kotlinx-datetime",
-    platforms = AllPlatforms
+    platforms = emptySet()
 )
 
 val MultiplatformSettings = Dependency(
@@ -141,7 +143,7 @@ val MultiplatformSettings = Dependency(
     version = "1.1.1",
     catalogVersionName = "multiplatformSettings",
     catalogName = "multiplatformSettings",
-    platforms = AllPlatforms
+    platforms = emptySet()
 )
 
 val Koin = Dependency(
@@ -153,7 +155,7 @@ val Koin = Dependency(
     version = "3.5.3",
     catalogVersionName = "koin",
     catalogName = "koin-core",
-    platforms = AllPlatforms
+    platforms = emptySet()
 )
 
 val Kodein = Dependency(
@@ -165,7 +167,7 @@ val Kodein = Dependency(
     version = "7.19.0",
     catalogVersionName = "kodein",
     catalogName = "kodein",
-    platforms = AllPlatforms
+    platforms = emptySet()
 )
 
 val KStore = Dependency(
@@ -177,7 +179,7 @@ val KStore = Dependency(
     version = "0.7.1",
     catalogVersionName = "kstore",
     catalogName = "kstore",
-    platforms = AllPlatforms
+    platforms = emptySet()
 )
 
 val KtorCore = Dependency(
@@ -189,25 +191,25 @@ val KtorCore = Dependency(
     version = "2.3.7",
     catalogVersionName = "ktor",
     catalogName = "ktor-core",
-    platforms = AllPlatforms
+    platforms = emptySet()
 )
 
 val KtorClientDarwin = KtorCore.copy(
     id = "ktor-client-darwin",
     catalogName = "ktor-client-darwin",
-    platforms = setOf(ComposePlatform.Ios)
+    platforms = setOf(Ios)
 )
 
 val KtorClientOkhttp = KtorCore.copy(
     id = "ktor-client-okhttp",
     catalogName = "ktor-client-okhttp",
-    platforms = setOf(ComposePlatform.Android, ComposePlatform.Jvm)
+    platforms = setOf(Android, Jvm)
 )
 
 val KtorClientJs = KtorCore.copy(
     id = "ktor-client-js",
     catalogName = "ktor-client-js",
-    platforms = setOf(ComposePlatform.Js)
+    platforms = setOf(Js)
 )
 
 val KotlinxCoroutinesCore = Dependency(
@@ -219,7 +221,7 @@ val KotlinxCoroutinesCore = Dependency(
     version = "1.7.3",
     catalogVersionName = "kotlinx-coroutines",
     catalogName = "kotlinx-coroutines-core",
-    platforms = AllPlatforms
+    platforms = emptySet()
 )
 
 val MokoMvvm = Dependency(
@@ -231,13 +233,13 @@ val MokoMvvm = Dependency(
     version = "0.16.1",
     catalogVersionName = "moko-mvvm",
     catalogName = "moko-mvvm",
-    platforms = AllPlatforms
+    platforms = emptySet()
 )
 
 val KotlinxCoroutinesAndroid = KotlinxCoroutinesCore.copy(
     id = "kotlinx-coroutines-android",
     catalogName = "kotlinx-coroutines-android",
-    platforms = setOf(ComposePlatform.Android)
+    platforms = setOf(Android)
 )
 
 val KotlinxSerializationPlugin = Dependency(
@@ -259,7 +261,7 @@ val KotlinxSerializationJson = KotlinxSerializationPlugin.copy(
     version = "1.6.2",
     catalogVersionName = "kotlinx-serialization",
     catalogName = "kotlinx-serialization-json",
-    platforms = AllPlatforms
+    platforms = emptySet()
 )
 
 val SQLDelightPlugin = Dependency(
@@ -277,25 +279,25 @@ val SQLDelightPlugin = Dependency(
 val SQLDelightDriverJvm = SQLDelightPlugin.copy(
     id = "sqlite-driver",
     catalogName = "sqlDelight-driver-sqlite",
-    platforms = setOf(ComposePlatform.Jvm)
+    platforms = setOf(Jvm)
 )
 
 val SQLDelightDriverAndroid = SQLDelightPlugin.copy(
     id = "android-driver",
     catalogName = "sqlDelight-driver-android",
-    platforms = setOf(ComposePlatform.Android)
+    platforms = setOf(Android)
 )
 
 val SQLDelightDriverNative = SQLDelightPlugin.copy(
     id = "native-driver",
     catalogName = "sqlDelight-driver-native",
-    platforms = setOf(ComposePlatform.Ios)
+    platforms = setOf(Ios)
 )
 
 val SQLDelightDriverJs = SQLDelightPlugin.copy(
     id = "web-worker-driver",
     catalogName = "sqlDelight-driver-js",
-    platforms = setOf(ComposePlatform.Js)
+    platforms = setOf(Js)
 )
 
 val ApolloPlugin = Dependency(
@@ -303,7 +305,7 @@ val ApolloPlugin = Dependency(
     description = "Generates typesafe Kotlin APIs from your GraphQL queries.",
     url = "https://github.com/apollographql/apollo-kotlin/",
     group = "com.apollographql.apollo3",
-    id = "apollo-gradle-plugin",
+    id = "gradle-plugin",
     version = "4.0.0-beta.4",
     catalogVersionName = "apollo",
     catalogName = "apollo",
@@ -313,7 +315,7 @@ val ApolloPlugin = Dependency(
 val ApolloRuntime = ApolloPlugin.copy(
     id = "apollo-runtime",
     catalogName = "apollo-runtime",
-    platforms = AllPlatforms
+    platforms = emptySet()
 )
 
 val BuildConfigPlugin = Dependency(
@@ -333,7 +335,7 @@ val BuildKonfigPlugin = Dependency(
     description = "BuildConfig for Kotlin Multiplatform Project.",
     url = "https://github.com/yshrsmz/BuildKonfig",
     group = "com.codingfeline.buildkonfig",
-    id = "buildkonfig-gradle-plugin",
+    id = "gradle-plugin",
     version = "0.13.3",
     catalogVersionName = "buildKonfig",
     catalogName = "buildKonfig",

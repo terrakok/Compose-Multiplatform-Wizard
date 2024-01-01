@@ -29,26 +29,26 @@ import web.cssom.unaryMinus
 external interface TargetButtonProps : Props {
     var icon: SvgIconComponent
     var title: String
-    var selection: StateInstance<Boolean>
+    var isSelected: Boolean
+    var onClick: () -> Unit
     var status: String?
 }
 
 val TargetButton = FC<TargetButtonProps> { props ->
-    var isSelected by props.selection
 
     Tooltip {
         props.status?.let { title = ReactNode(it) }
         Button {
             variant = ButtonVariant.outlined
             onClick = {
-                isSelected = !isSelected
+                props.onClick()
             }
             Box {
                 Box {
                     sx {
                         position = Position.relative
                     }
-                    if (isSelected) {
+                    if (props.isSelected) {
                         CheckCircleRounded {
                             sx {
                                 position = Position.absolute
@@ -79,7 +79,7 @@ val TargetButton = FC<TargetButtonProps> { props ->
                         color = BadgeColor.warning
                         invisible = props.status == null
                         props.icon {
-                            color = if (isSelected) {
+                            color = if (props.isSelected) {
                                 SvgIconColor.inherit
                             } else {
                                 SvgIconColor.primary

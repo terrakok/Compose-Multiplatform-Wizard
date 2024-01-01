@@ -1,33 +1,19 @@
 package ui
 
-import mui.icons.material.Android
-import mui.icons.material.Apple
-import mui.icons.material.ArrowCircleDown
-import mui.icons.material.Language
-import mui.icons.material.Laptop
-import mui.material.Button
-import mui.material.ButtonGroup
-import mui.material.ButtonVariant
-import mui.material.Grid
-import mui.material.Paper
+import mui.icons.material.*
+import mui.material.*
 import mui.material.Size
 import mui.material.Stack
-import mui.material.StackDirection
-import mui.material.TextField
 import mui.system.Container
 import mui.system.responsive
 import mui.system.sx
-import react.FC
-import react.ReactNode
-import react.create
+import react.*
 import react.dom.onChange
-import react.useState
-import web.cssom.AlignItems
-import web.cssom.JustifyContent
-import web.cssom.Padding
-import web.cssom.px
+import web.cssom.*
 import web.html.HTMLInputElement
 import wizard.*
+import wizard.ComposePlatform.*
+import mui.icons.material.Android as AndroidIcon
 
 val Content = FC<AppProps> { props ->
     Container {
@@ -82,32 +68,41 @@ val Content = FC<AppProps> { props ->
                         }
                     }
 
-                    val withAndroidState = useState(true)
-                    val withIosState = useState(true)
-                    val withDesktopState = useState(true)
-                    val withBrowserState = useState(true)
+                    var platforms by useState(setOf(Android, Ios, Jvm, Js))
+                    fun switch(platform: ComposePlatform) {
+                        platforms = if (platforms.contains(platform)) {
+                            platforms - platform
+                        } else {
+                            platforms + platform
+                        }
+                    }
+
                     ButtonGroup {
                         disableElevation = true
                         TargetButton {
-                            selection = withAndroidState
-                            icon = Android
-                            title = "Android"
+                            title = Android.title
+                            isSelected = platforms.contains(Android)
+                            onClick = { switch(Android) }
+                            icon = AndroidIcon
                         }
                         TargetButton {
-                            selection = withDesktopState
+                            title = Jvm.title
+                            isSelected = platforms.contains(Jvm)
+                            onClick = { switch(Jvm) }
                             icon = Laptop
-                            title = "Desktop"
                         }
                         TargetButton {
-                            selection = withIosState
+                            title = Ios.title
+                            isSelected = platforms.contains(Ios)
+                            onClick = { switch(Ios) }
                             icon = Apple
-                            title = "iOS"
                             status = "Alpha"
                         }
                         TargetButton {
-                            selection = withBrowserState
+                            title = Js.title
+                            isSelected = platforms.contains(Js)
+                            onClick = { switch(Js) }
                             icon = Language
-                            title = "Browser"
                             status = "Experimental"
                         }
                     }
@@ -171,28 +166,19 @@ val Content = FC<AppProps> { props ->
                         startIcon = ArrowCircleDown.create()
                         +"Download"
 
-                        val withAndroid by withAndroidState
-                        val withIos by withIosState
-                        val withDesktop by withDesktopState
-                        val withBrowser by withBrowserState
                         disabled = projectName.isBlank()
                                 || projectId.isBlank()
-                                || (!withAndroid && !withIos && !withDesktop && !withBrowser)
+                                || platforms.isEmpty()
 
                         onClick = {
                             val info = ProjectInfo(
                                 packageId = projectId,
                                 name = projectName,
-                                platforms = buildSet {
-                                    if (withAndroid) add(ComposePlatform.Android)
-                                    if (withIos) add(ComposePlatform.Ios)
-                                    if (withDesktop) add(ComposePlatform.Jvm)
-                                    if (withBrowser) add(ComposePlatform.Js)
-                                },
+                                platforms = platforms,
                                 dependencies = buildSet {
                                     add(KotlinPlugin)
                                     add(ComposePlugin)
-                                    if (withAndroid) {
+                                    if (platforms.contains(Android)) {
                                         add(AndroidApplicationPlugin)
                                         add(AndroidxAppcompat)
                                         add(AndroidxActivityCompose)

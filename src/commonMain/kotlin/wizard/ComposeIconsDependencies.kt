@@ -9,7 +9,7 @@ val ComposeIconsFontAwesome = Dependency(
     version = "1.1.0",
     catalogVersionName = "composeIcons",
     catalogName = "composeIcons-fontAwesome",
-    platforms = AllPlatforms
+    platforms = emptySet()
 )
 
 val ComposeIconsSimple = ComposeIconsFontAwesome.copy(
