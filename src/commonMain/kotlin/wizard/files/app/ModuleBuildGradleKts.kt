@@ -17,7 +17,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
 
 
-        if (info.hasPlatform(ComposePlatform.Jvm)) {
+        if (info.hasPlatform(ProjectPlatform.Jvm)) {
             appendLine("import org.jetbrains.compose.desktop.application.dsl.TargetFormat")
             appendLine("")
         }
@@ -28,7 +28,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("}")
         appendLine("")
         appendLine("kotlin {")
-        if (info.hasPlatform(ComposePlatform.Android)) {
+        if (info.hasPlatform(ProjectPlatform.Android)) {
             appendLine("    androidTarget {")
             appendLine("        compilations.all {")
             appendLine("            kotlinOptions {")
@@ -38,18 +38,18 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    }")
             appendLine("")
         }
-        if (info.hasPlatform(ComposePlatform.Jvm)) {
+        if (info.hasPlatform(ProjectPlatform.Jvm)) {
             appendLine("    jvm()")
             appendLine("")
         }
-        if (info.hasPlatform(ComposePlatform.Js)) {
+        if (info.hasPlatform(ProjectPlatform.Js)) {
             appendLine("    js {")
             appendLine("        browser()")
             appendLine("        binaries.executable()")
             appendLine("    }")
             appendLine("")
         }
-        if (info.hasPlatform(ComposePlatform.Ios)) {
+        if (info.hasPlatform(ProjectPlatform.Ios)) {
             appendLine("    listOf(")
             appendLine("        iosX64(),")
             appendLine("        iosArm64(),")
@@ -85,11 +85,11 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("            implementation(kotlin(\"test\"))")
         appendLine("        }")
         appendLine("")
-        if (info.hasPlatform(ComposePlatform.Android)) {
+        if (info.hasPlatform(ProjectPlatform.Android)) {
             appendLine("        androidMain.dependencies {")
 
             otherDeps.forEach { dep ->
-                if (dep.platforms.contains(ComposePlatform.Android)) {
+                if (dep.platforms.contains(ProjectPlatform.Android)) {
                     appendLine("            ${dep.libraryNotation}")
                 }
             }
@@ -97,13 +97,13 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        }")
             appendLine("")
         }
-        if (info.hasPlatform(ComposePlatform.Jvm)) {
+        if (info.hasPlatform(ProjectPlatform.Jvm)) {
             appendLine("        jvmMain.dependencies {")
             appendLine("            implementation(compose.desktop.common)")
             appendLine("            implementation(compose.desktop.currentOs)")
 
             otherDeps.forEach { dep ->
-                if (dep.platforms.contains(ComposePlatform.Jvm)) {
+                if (dep.platforms.contains(ProjectPlatform.Jvm)) {
                     appendLine("            ${dep.libraryNotation}")
                 }
             }
@@ -111,12 +111,12 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        }")
             appendLine("")
         }
-        if (info.hasPlatform(ComposePlatform.Js)) {
+        if (info.hasPlatform(ProjectPlatform.Js)) {
             appendLine("        jsMain.dependencies {")
             appendLine("            implementation(compose.html.core)")
 
             otherDeps.forEach { dep ->
-                if (dep.platforms.contains(ComposePlatform.Js)) {
+                if (dep.platforms.contains(ProjectPlatform.Js)) {
                     appendLine("            ${dep.libraryNotation}")
                 }
             }
@@ -124,11 +124,11 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        }")
             appendLine("")
         }
-        if (info.hasPlatform(ComposePlatform.Ios)) {
+        if (info.hasPlatform(ProjectPlatform.Ios)) {
             appendLine("        iosMain.dependencies {")
 
             otherDeps.forEach { dep ->
-                if (dep.platforms.contains(ComposePlatform.Ios)) {
+                if (dep.platforms.contains(ProjectPlatform.Ios)) {
                     appendLine("            ${dep.libraryNotation}")
                 }
             }
@@ -139,7 +139,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("    }")
         appendLine("}")
 
-        if (info.hasPlatform(ComposePlatform.Android)) {
+        if (info.hasPlatform(ProjectPlatform.Android)) {
             appendLine("")
             appendLine("android {")
             appendLine("    namespace = \"${info.packageId}\"")
@@ -170,7 +170,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    }")
             appendLine("}")
         }
-        if (info.hasPlatform(ComposePlatform.Jvm)) {
+        if (info.hasPlatform(ProjectPlatform.Jvm)) {
             appendLine("")
             appendLine("compose.desktop {")
             appendLine("    application {")
@@ -185,7 +185,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("}")
         }
 
-        if (info.hasPlatform(ComposePlatform.Js)) {
+        if (info.hasPlatform(ProjectPlatform.Js)) {
             appendLine("")
             appendLine("compose.experimental {")
             appendLine("    web.application {}")

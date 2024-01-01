@@ -308,7 +308,7 @@ class GeneratorTest {
     fun buildAndroidFiles() {
         val info = ProjectInfo(
             packageId = "org.android.app",
-            platforms = setOf(ComposePlatform.Android)
+            platforms = setOf(ProjectPlatform.Android)
         )
         val files = info.buildFiles()
 
@@ -417,7 +417,7 @@ class GeneratorTest {
     fun buildIosFiles() {
         val info = ProjectInfo(
             packageId = "org.ios.app",
-            platforms = setOf(ComposePlatform.Ios),
+            platforms = setOf(ProjectPlatform.Ios),
             dependencies = setOf(KotlinPlugin, ComposePlugin)
         )
         val files = info.buildFiles()
@@ -504,7 +504,7 @@ class GeneratorTest {
     fun buildDesktopFiles() {
         val info = ProjectInfo(
             packageId = "org.desktop.app",
-            platforms = setOf(ComposePlatform.Jvm),
+            platforms = setOf(ProjectPlatform.Jvm),
             dependencies = setOf(KotlinPlugin, ComposePlugin)
         )
         val files = info.buildFiles()
@@ -591,7 +591,7 @@ class GeneratorTest {
     fun buildBrowserFiles() {
         val info = ProjectInfo(
             packageId = "org.js.app",
-            platforms = setOf(ComposePlatform.Js),
+            platforms = setOf(ProjectPlatform.Js),
             dependencies = setOf(KotlinPlugin, ComposePlugin)
         )
         val files = info.buildFiles()

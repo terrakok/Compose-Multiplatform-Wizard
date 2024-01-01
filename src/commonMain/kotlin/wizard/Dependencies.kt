@@ -1,6 +1,6 @@
 package wizard
 
-import wizard.ComposePlatform.*
+import wizard.ProjectPlatform.*
 
 val KotlinPlugin = Dependency(
     title = "Kotlin Multiplatform Plugin",

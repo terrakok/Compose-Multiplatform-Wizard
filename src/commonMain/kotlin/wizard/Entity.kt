@@ -1,8 +1,8 @@
 package wizard
 
-import wizard.ComposePlatform.*
+import wizard.ProjectPlatform.*
 
-enum class ComposePlatform(val title: String) {
+enum class ProjectPlatform(val title: String) {
     Android("Android"),
     Ios("iOS"),
     Jvm("Desktop"),
@@ -14,7 +14,7 @@ data class ProjectInfo(
     //Shouldn't be "ComposeApp" because it breaks ios build. The reason is kotlin framework name is "ComposeApp"
     val name: String = "Multiplatform App",
     val moduleName: String = "composeApp",
-    val platforms: Set<ComposePlatform> = setOf(Android, Ios, Jvm, Js),
+    val platforms: Set<ProjectPlatform> = setOf(Android, Ios, Jvm, Js),
     val gradleVersion: String = "8.5",
     val androidMinSdk: Int = 24,
     val androidTargetSdk: Int = 34,
@@ -29,7 +29,7 @@ data class ProjectInfo(
     )
 )
 
-fun ProjectInfo.hasPlatform(platform: ComposePlatform) = platforms.any { it == platform }
+fun ProjectInfo.hasPlatform(platform: ProjectPlatform) = platforms.any { it == platform }
 val ProjectInfo.packagePath get() = packageId.replace(".", "/")
 val ProjectInfo.safeName get() = name.replace(" ", "-")
 
@@ -42,7 +42,7 @@ data class Dependency(
     val version: String,
     val catalogVersionName: String,
     val catalogName: String,
-    val platforms: Set<ComposePlatform>,
+    val platforms: Set<ProjectPlatform>,
 )
 
 fun Dependency.isPlugin() = id == "gradle-plugin"

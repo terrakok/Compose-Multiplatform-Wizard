@@ -8,19 +8,19 @@ class Readme(info: ProjectInfo) : ProjectFile {
 
         appendLine("# Compose Multiplatform Application")
         appendLine("")
-        if (info.hasPlatform(ComposePlatform.Android) || info.hasPlatform(ComposePlatform.Ios)) {
+        if (info.hasPlatform(ProjectPlatform.Android) || info.hasPlatform(ProjectPlatform.Ios)) {
             appendLine("## Before running!")
-            if (info.hasPlatform(ComposePlatform.Ios)) {
+            if (info.hasPlatform(ProjectPlatform.Ios)) {
                 appendLine(" - check your system with [KDoctor](https://github.com/Kotlin/kdoctor)")
             }
-            if (info.hasPlatform(ComposePlatform.Android)) {
+            if (info.hasPlatform(ProjectPlatform.Android)) {
                 appendLine(" - install JDK 17 on your machine")
                 appendLine(" - add `local.properties` file to the project root and set a path to Android SDK there")
             }
             appendLine("")
         }
 
-        if (info.hasPlatform(ComposePlatform.Android)) {
+        if (info.hasPlatform(ProjectPlatform.Android)) {
             appendLine("### Android")
             appendLine("To run the application on android device/emulator:  ")
             appendLine(" - open project in Android Studio and run imported android run configuration")
@@ -31,13 +31,13 @@ class Readme(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
 
-        if (info.hasPlatform(ComposePlatform.Jvm)) {
+        if (info.hasPlatform(ProjectPlatform.Jvm)) {
             appendLine("### Desktop")
             appendLine("Run the desktop application: `./gradlew :${info.moduleName}:run`")
             appendLine("")
         }
 
-        if (info.hasPlatform(ComposePlatform.Ios)) {
+        if (info.hasPlatform(ProjectPlatform.Ios)) {
             appendLine("### iOS")
             appendLine("To run the application on iPhone device/simulator:")
             appendLine(" - Open `iosApp/iosApp.xcproject` in Xcode and run standard configuration")
@@ -45,7 +45,7 @@ class Readme(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
 
-        if (info.hasPlatform(ComposePlatform.Js)) {
+        if (info.hasPlatform(ProjectPlatform.Js)) {
             appendLine("### Browser")
             appendLine("Run the browser application: `./gradlew :${info.moduleName}:jsBrowserDevelopmentRun`")
             appendLine("")

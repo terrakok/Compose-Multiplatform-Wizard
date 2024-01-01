@@ -12,7 +12,7 @@ import react.dom.onChange
 import web.cssom.*
 import web.html.HTMLInputElement
 import wizard.*
-import wizard.ComposePlatform.*
+import wizard.ProjectPlatform.*
 import mui.icons.material.Android as AndroidIcon
 
 val Content = FC<AppProps> { props ->
@@ -69,7 +69,7 @@ val Content = FC<AppProps> { props ->
                     }
 
                     var platforms by useState(setOf(Android, Ios, Jvm, Js))
-                    fun switch(platform: ComposePlatform) {
+                    fun switch(platform: ProjectPlatform) {
                         platforms = if (platforms.contains(platform)) {
                             platforms - platform
                         } else {

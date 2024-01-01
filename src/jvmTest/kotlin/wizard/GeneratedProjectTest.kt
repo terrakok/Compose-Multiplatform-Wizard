@@ -70,7 +70,7 @@ class GeneratedProjectTest {
     fun testDesktopAndBrowserProject() {
         checkProject(
             ProjectInfo(
-                platforms = setOf(ComposePlatform.Jvm, ComposePlatform.Js),
+                platforms = setOf(ProjectPlatform.Jvm, ProjectPlatform.Js),
                 dependencies = buildSet {
                     add(KotlinPlugin)
                     add(ComposePlugin)
@@ -86,7 +86,7 @@ class GeneratedProjectTest {
             ProjectInfo(
                 packageId = "com.test.unit.app",
                 name = "DesktopApp",
-                platforms = setOf(ComposePlatform.Jvm),
+                platforms = setOf(ProjectPlatform.Jvm),
                 dependencies = setOf(
                     KotlinPlugin,
                     ComposePlugin,
@@ -116,7 +116,7 @@ class GeneratedProjectTest {
             ProjectInfo(
                 packageId = "io.js.app.test",
                 name = "test js compose app",
-                platforms = setOf(ComposePlatform.Js),
+                platforms = setOf(ProjectPlatform.Js),
                 dependencies = setOf(
                     KotlinPlugin,
                     ComposePlugin,
@@ -148,7 +148,7 @@ class GeneratedProjectTest {
             return
         }
         val projectInfo = ProjectInfo(
-            platforms = setOf(ComposePlatform.Ios),
+            platforms = setOf(ProjectPlatform.Ios),
             dependencies =  buildSet {
                 add(KotlinPlugin)
                 add(ComposePlugin)
@@ -179,7 +179,7 @@ class GeneratedProjectTest {
     @Test
     fun checkDependencyUpdates() {
         val projectInfo = ProjectInfo(
-            platforms = setOf(ComposePlatform.Jvm),
+            platforms = setOf(ProjectPlatform.Jvm),
             dependencies =  buildSet {
                 add(KotlinPlugin)
                 add(ComposePlugin)
