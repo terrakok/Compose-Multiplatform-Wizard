@@ -116,7 +116,7 @@ val Content = FC<AppProps> { props ->
                     }
 
                     val deps = setOf(
-                        DependencyBox(Voyager, true),
+                        DependencyBox(listOf(Voyager, Decompose, PreCompose), true),
                         DependencyBox(ImageLoader, true),
                         DependencyBox(listOf(Napier, Kermit), true),
                         DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin), true),
@@ -203,8 +203,8 @@ private fun Set<DependencyBox>.getSelectedDependencies() =
         .map { it.selectedDep.component1() }
         .flatMap {
             when {
-                it.group == "io.ktor" -> listOfNotNull(KtorCore, KtorClientDarwin, KtorClientOkhttp)
-                it.group == "app.cash.sqldelight" -> listOf(
+                it.group == KtorCore.group -> listOfNotNull(KtorCore, KtorClientDarwin, KtorClientOkhttp)
+                it.group == SQLDelightPlugin.group -> listOf(
                     SQLDelightPlugin,
                     SQLDelightDriverJvm,
                     SQLDelightDriverAndroid,
@@ -212,7 +212,8 @@ private fun Set<DependencyBox>.getSelectedDependencies() =
                     SQLDelightDriverJs
                 )
 
-                it.group == "com.apollographql.apollo3" -> listOf(ApolloPlugin, ApolloRuntime)
+                it.group == Decompose.group -> listOf(Decompose, DecomposeCompose)
+                it.group == ApolloPlugin.group -> listOf(ApolloPlugin, ApolloRuntime)
 
                 it.id.contains("coroutines") -> listOf(KotlinxCoroutinesCore, KotlinxCoroutinesAndroid)
                 it.id.contains("serialization") -> listOf(KotlinxSerializationPlugin, KotlinxSerializationJson)

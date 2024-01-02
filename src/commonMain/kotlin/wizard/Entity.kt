@@ -30,7 +30,7 @@ data class ProjectInfo(
     )
 )
 
-fun ProjectInfo.hasPlatform(platform: ProjectPlatform) = platforms.any { it == platform }
+fun ProjectInfo.hasPlatform(platform: ProjectPlatform) = platforms.contains(platform)
 val ProjectInfo.packagePath get() = packageId.replace(".", "/")
 val ProjectInfo.safeName get() = name.replace(" ", "-")
 

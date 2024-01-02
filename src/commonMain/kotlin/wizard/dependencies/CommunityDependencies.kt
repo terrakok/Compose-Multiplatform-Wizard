@@ -14,6 +14,35 @@ val Voyager = Dependency(
     platforms = emptySet()
 )
 
+val Decompose = Dependency(
+    title = "Decompose",
+    description = "Decompose is a library for breaking down your code into lifecycle-aware components aka BLoC",
+    url = "https://github.com/arkivanov/Decompose",
+    group = "com.arkivanov.decompose",
+    id = "decompose",
+    version = "2.2.2-compose-experimental",
+    catalogVersionName = "decompose",
+    catalogName = "decompose",
+    platforms = emptySet()
+)
+
+val DecomposeCompose = Decompose.copy(
+    id = "extensions-compose-jetbrains",
+    catalogName = "decompose-compose"
+)
+
+val PreCompose = Dependency(
+    title = "PreCompose",
+    description = "Multiplatform Navigation && ViewModel, inspired by Jetpack Navigation, ViewModel and Lifecycle",
+    url = "https://github.com/Tlaster/PreCompose",
+    group = "moe.tlaster",
+    id = "precompose",
+    version = "1.5.10",
+    catalogVersionName = "precompose",
+    catalogName = "precompose",
+    platforms = emptySet()
+)
+
 val ImageLoader = Dependency(
     title = "Compose ImageLoader",
     description = "Compose Image library for Kotlin Multiplatform.",
