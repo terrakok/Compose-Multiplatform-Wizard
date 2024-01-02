@@ -14,6 +14,7 @@ import mui.system.responsive
 import mui.system.sx
 import react.FC
 import react.Props
+import react.dom.html.ReactHTML
 import react.useRequiredContext
 import web.cssom.Position
 import web.cssom.px
@@ -73,6 +74,19 @@ val TopMenu = FC<Props> {
                 } else {
                     title = "Use light theme"
                     Brightness4()
+                }
+            }
+
+            IconButton {
+                onClick = {
+                    window.open("https://terrakok.github.io/kmp-web-wizard/")
+                }
+                title = "KMP Library Wizard"
+
+                ReactHTML.img {
+                    src = "kotlin-logo.svg"
+                    width = 24.0
+                    height = 24.0
                 }
             }
         }
