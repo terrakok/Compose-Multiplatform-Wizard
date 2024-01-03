@@ -6,6 +6,7 @@ import mui.icons.material.Code
 import mui.icons.material.CodeOff
 import mui.icons.material.GitHub
 import mui.icons.material.MenuBook
+import mui.icons.material.Diamond
 import mui.material.Box
 import mui.material.IconButton
 import mui.material.Stack
@@ -75,6 +76,14 @@ val TopMenu = FC<Props> {
                     title = "Use light theme"
                     Brightness4()
                 }
+            }
+
+            IconButton {
+                onClick = {
+                    window.open("https://github.com/terrakok/kmp-awesome#contents")
+                }
+                title = "More KMP libraries"
+                Diamond()
             }
 
             IconButton {
