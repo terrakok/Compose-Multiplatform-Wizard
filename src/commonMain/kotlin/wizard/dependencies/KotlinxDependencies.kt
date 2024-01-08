@@ -30,7 +30,7 @@ val KtorCore = Dependency(
 val KtorClientDarwin = KtorCore.copy(
     id = "ktor-client-darwin",
     catalogName = "ktor-client-darwin",
-    platforms = setOf(Ios)
+    platforms = setOf(Ios, Macos)
 )
 
 val KtorClientOkhttp = KtorCore.copy(
@@ -43,6 +43,18 @@ val KtorClientJs = KtorCore.copy(
     id = "ktor-client-js",
     catalogName = "ktor-client-js",
     platforms = setOf(Js)
+)
+
+val KtorClientLinux = KtorCore.copy(
+    id = "ktor-client-curl",
+    catalogName = "ktor-client-curl",
+    platforms = setOf(Linux)
+)
+
+val KtorClientMingw = KtorCore.copy(
+    id = "ktor-client-winhttp",
+    catalogName = "ktor-client-winhttp",
+    platforms = setOf(Mingw)
 )
 
 val KotlinxCoroutinesCore = Dependency(
@@ -61,6 +73,12 @@ val KotlinxCoroutinesAndroid = KotlinxCoroutinesCore.copy(
     id = "kotlinx-coroutines-android",
     catalogName = "kotlinx-coroutines-android",
     platforms = setOf(Android)
+)
+
+val KotlinxCoroutinesJvm = KotlinxCoroutinesCore.copy(
+    id = "kotlinx-coroutines-swing",
+    catalogName = "kotlinx-coroutines-swing",
+    platforms = setOf(Jvm)
 )
 
 val KotlinxSerializationPlugin = Dependency(

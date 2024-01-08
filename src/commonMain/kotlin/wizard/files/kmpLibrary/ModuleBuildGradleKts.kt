@@ -1,4 +1,4 @@
-package wizard.files.app
+package wizard.files.kmpLibrary
 
 import wizard.*
 import wizard.dependencies.*
@@ -17,20 +17,20 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             }
         }
 
-
-        if (info.hasPlatform(ProjectPlatform.Jvm)) {
-            appendLine("import org.jetbrains.compose.desktop.application.dsl.TargetFormat")
-            appendLine("")
-        }
         appendLine("plugins {")
         plugins.forEach { dep ->
             appendLine("    ${dep.pluginNotation}")
         }
+        appendLine("    id(\"convention.publication\")")
         appendLine("}")
+        appendLine("")
+        appendLine("group = \"${info.packageId}\"")
+        appendLine("version = \"1.0\"")
         appendLine("")
         appendLine("kotlin {")
         if (info.hasPlatform(ProjectPlatform.Android)) {
             appendLine("    androidTarget {")
+            appendLine("        publishLibraryVariants(\"release\")")
             appendLine("        compilations.all {")
             appendLine("            kotlinOptions {")
             appendLine("                jvmTarget = \"17\"")
@@ -45,6 +45,17 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
         if (info.hasPlatform(ProjectPlatform.Js)) {
             appendLine("    js {")
+            appendLine("        browser {")
+            appendLine("            webpackTask {")
+            appendLine("                mainOutputFileName = \"${info.moduleName}.js\"")
+            appendLine("            }")
+            appendLine("        }")
+            appendLine("        binaries.executable()")
+            appendLine("    }")
+            appendLine("")
+        }
+        if (info.hasPlatform(ProjectPlatform.Wasm)) {
+            appendLine("    wasmJs {")
             appendLine("        browser()")
             appendLine("        binaries.executable()")
             appendLine("    }")
@@ -57,87 +68,141 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        iosSimulatorArm64()")
             appendLine("    ).forEach {")
             appendLine("        it.binaries.framework {")
-            appendLine("            baseName = \"ComposeApp\"")
+            appendLine("            baseName = \"${info.moduleName}\"")
             appendLine("            isStatic = true")
             appendLine("        }")
             appendLine("    }")
             appendLine("")
         }
+        if (info.hasPlatform(ProjectPlatform.Macos)) {
+            appendLine("    listOf(")
+            appendLine("        macosX64(),")
+            appendLine("        macosArm64()")
+            appendLine("    ).forEach {")
+            appendLine("        it.binaries.framework {")
+            appendLine("            baseName = \"${info.moduleName}\"")
+            appendLine("            isStatic = true")
+            appendLine("        }")
+            appendLine("    }")
+            appendLine("")
+        }
+        if (info.hasPlatform(ProjectPlatform.Linux)) {
+            appendLine("    linuxX64 {")
+            appendLine("        binaries.staticLib {")
+            appendLine("            baseName = \"${info.moduleName}\"")
+            appendLine("        }")
+            appendLine("    }")
+            appendLine("")
+            appendLine("")
+        }
+        if (info.hasPlatform(ProjectPlatform.Mingw)) {
+            appendLine("    mingwX64 {")
+            appendLine("        binaries.staticLib {")
+            appendLine("            baseName = \"${info.moduleName}\"")
+            appendLine("        }")
+            appendLine("    }")
+            appendLine("")
+        }
         appendLine("    sourceSets {")
-        appendLine("        all {")
-        appendLine("            languageSettings {")
-        appendLine("                optIn(\"org.jetbrains.compose.resources.ExperimentalResourceApi\")")
-        appendLine("            }")
-        appendLine("        }")
         appendLine("        commonMain.dependencies {")
-        appendLine("            implementation(compose.runtime)")
-        appendLine("            implementation(compose.material3)")
-        appendLine("            implementation(compose.materialIconsExtended)")
-        appendLine("            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)")
-        appendLine("            implementation(compose.components.resources)")
-
         commonDeps.forEach { dep ->
             appendLine("            ${dep.libraryNotation}")
         }
-
         appendLine("        }")
         appendLine("")
         appendLine("        commonTest.dependencies {")
         appendLine("            implementation(kotlin(\"test\"))")
         appendLine("        }")
         appendLine("")
-        if (info.hasPlatform(ProjectPlatform.Android)) {
+        if (info.hasDependenciesFor(ProjectPlatform.Android)) {
             appendLine("        androidMain.dependencies {")
-
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ProjectPlatform.Android)) {
                     appendLine("            ${dep.libraryNotation}")
                 }
             }
-
             appendLine("        }")
             appendLine("")
         }
-        if (info.hasPlatform(ProjectPlatform.Jvm)) {
+        if (info.hasDependenciesFor(ProjectPlatform.Jvm)) {
             appendLine("        jvmMain.dependencies {")
-            appendLine("            implementation(compose.desktop.common)")
-            appendLine("            implementation(compose.desktop.currentOs)")
-
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ProjectPlatform.Jvm)) {
                     appendLine("            ${dep.libraryNotation}")
                 }
             }
-
             appendLine("        }")
             appendLine("")
         }
-        if (info.hasPlatform(ProjectPlatform.Js)) {
+        if (info.hasDependenciesFor(ProjectPlatform.Js)) {
             appendLine("        jsMain.dependencies {")
-            appendLine("            implementation(compose.html.core)")
-
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ProjectPlatform.Js)) {
                     appendLine("            ${dep.libraryNotation}")
                 }
             }
-
             appendLine("        }")
             appendLine("")
         }
-        if (info.hasPlatform(ProjectPlatform.Ios)) {
+        if (info.hasDependenciesFor(ProjectPlatform.Wasm)) {
+            appendLine("        getByName(\"wasmJsMain\").dependencies {")
+            otherDeps.forEach { dep ->
+                if (dep.platforms.contains(ProjectPlatform.Wasm)) {
+                    appendLine("            ${dep.libraryNotation}")
+                }
+            }
+            appendLine("        }")
+            appendLine("")
+        }
+        if (info.hasDependenciesFor(ProjectPlatform.Ios)) {
             appendLine("        iosMain.dependencies {")
-
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ProjectPlatform.Ios)) {
                     appendLine("            ${dep.libraryNotation}")
                 }
             }
-
+            appendLine("        }")
+            appendLine("")
+        }
+        if (info.hasDependenciesFor(ProjectPlatform.Macos)) {
+            appendLine("        macosMain.dependencies {")
+            otherDeps.forEach { dep ->
+                if (dep.platforms.contains(ProjectPlatform.Macos)) {
+                    appendLine("            ${dep.libraryNotation}")
+                }
+            }
+            appendLine("        }")
+            appendLine("")
+        }
+        if (info.hasDependenciesFor(ProjectPlatform.Linux)) {
+            appendLine("        linuxMain.dependencies {")
+            otherDeps.forEach { dep ->
+                if (dep.platforms.contains(ProjectPlatform.Linux)) {
+                    appendLine("            ${dep.libraryNotation}")
+                }
+            }
+            appendLine("        }")
+            appendLine("")
+        }
+        if (info.hasDependenciesFor(ProjectPlatform.Mingw)) {
+            appendLine("        mingwMain.dependencies {")
+            otherDeps.forEach { dep ->
+                if (dep.platforms.contains(ProjectPlatform.Mingw)) {
+                    appendLine("            ${dep.libraryNotation}")
+                }
+            }
             appendLine("        }")
             appendLine("")
         }
         appendLine("    }")
+        appendLine("")
+        if (info.hasNativePlatforms()) {
+            appendLine("    //https://kotlinlang.org/docs/native-objc-interop.html#export-of-kdoc-comments-to-generated-objective-c-headers")
+            appendLine("    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {")
+            appendLine("        compilations[\"main\"].compilerOptions.options.freeCompilerArgs.add(\"-Xexport-kdoc\")")
+            appendLine("    }")
+            appendLine("")
+        }
         appendLine("}")
 
         if (info.hasPlatform(ProjectPlatform.Android)) {
@@ -148,48 +213,11 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
             appendLine("    defaultConfig {")
             appendLine("        minSdk = ${info.androidMinSdk}")
-            appendLine("        targetSdk = ${info.androidTargetSdk}")
-            appendLine("")
-            appendLine("        applicationId = \"${info.packageId}.androidApp\"")
-            appendLine("        versionCode = 1")
-            appendLine("        versionName = \"1.0.0\"")
-            appendLine("    }")
-            appendLine("    sourceSets[\"main\"].apply {")
-            appendLine("        manifest.srcFile(\"src/androidMain/AndroidManifest.xml\")")
-            appendLine("        res.srcDirs(\"src/androidMain/resources\")")
-            appendLine("        resources.srcDirs(\"src/commonMain/resources\")")
             appendLine("    }")
             appendLine("    compileOptions {")
             appendLine("        sourceCompatibility = JavaVersion.VERSION_17")
             appendLine("        targetCompatibility = JavaVersion.VERSION_17")
             appendLine("    }")
-            appendLine("    buildFeatures {")
-            appendLine("        compose = true")
-            appendLine("    }")
-            appendLine("    composeOptions {")
-            appendLine("        kotlinCompilerExtensionVersion = \"${info.composeCompilerVersion}\"")
-            appendLine("    }")
-            appendLine("}")
-        }
-        if (info.hasPlatform(ProjectPlatform.Jvm)) {
-            appendLine("")
-            appendLine("compose.desktop {")
-            appendLine("    application {")
-            appendLine("        mainClass = \"MainKt\"")
-            appendLine("")
-            appendLine("        nativeDistributions {")
-            appendLine("            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)")
-            appendLine("            packageName = \"${info.packageId}.desktopApp\"")
-            appendLine("            packageVersion = \"1.0.0\"")
-            appendLine("        }")
-            appendLine("    }")
-            appendLine("}")
-        }
-
-        if (info.hasPlatform(ProjectPlatform.Js)) {
-            appendLine("")
-            appendLine("compose.experimental {")
-            appendLine("    web.application {}")
             appendLine("}")
         }
 
@@ -224,16 +252,18 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    }")
             appendLine("}")
         }
-
-        if (plugins.contains(ApolloPlugin)) {
-            appendLine("")
-            appendLine("apollo {")
-            appendLine("    service(\"api\") {")
-            appendLine("        // GraphQL configuration here.")
-            appendLine("        // https://www.apollographql.com/docs/kotlin/advanced/plugin-configuration/")
-            appendLine("        packageName.set(\"${info.packageId}.graphql\")")
-            appendLine("    }")
-            appendLine("}")
-        }
     }
 }
+
+private fun ProjectInfo.hasDependenciesFor(platform: ProjectPlatform) =
+    hasPlatform(platform) && dependencies.any { dep ->
+        dep.platforms.contains(platform)
+    }
+
+private fun ProjectInfo.hasNativePlatforms() =
+    platforms.any {
+        it == ProjectPlatform.Ios
+                || it == ProjectPlatform.Macos
+                || it == ProjectPlatform.Linux
+                || it == ProjectPlatform.Mingw
+    }

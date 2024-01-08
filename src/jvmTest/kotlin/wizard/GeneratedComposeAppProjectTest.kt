@@ -1,16 +1,9 @@
 package wizard
 
-import org.junit.AfterClass
-import org.junit.BeforeClass
-import org.junit.Test
+import org.junit.*
 import wizard.dependencies.*
-import wizard.files.GradleBat
-import wizard.files.GradleWrapperJar
-import wizard.files.Gradlew
-import java.io.BufferedReader
-import java.io.File
-import java.io.InputStream
-import java.io.InputStreamReader
+import wizard.files.*
+import java.io.*
 import kotlin.io.path.createTempDirectory
 import kotlin.test.assertEquals
 
@@ -49,7 +42,7 @@ internal val extraDependencies = setOf(
     BuildConfigPlugin,
 )
 
-class GeneratedProjectTest {
+class GeneratedComposeAppProjectTest {
 
     companion object {
         private lateinit var workingDir: File
@@ -70,7 +63,7 @@ class GeneratedProjectTest {
     @Test
     fun testDesktopAndBrowserProject() {
         checkProject(
-            ProjectInfo(
+            DefaultComposeAppInfo().copy(
                 platforms = setOf(ProjectPlatform.Jvm, ProjectPlatform.Js),
                 dependencies = buildSet {
                     add(KotlinPlugin)
@@ -84,7 +77,7 @@ class GeneratedProjectTest {
     @Test
     fun testDesktopProject() {
         checkProject(
-            ProjectInfo(
+            DefaultComposeAppInfo().copy(
                 packageId = "com.test.unit.app",
                 name = "DesktopApp",
                 platforms = setOf(ProjectPlatform.Jvm),
@@ -114,7 +107,7 @@ class GeneratedProjectTest {
     @Test
     fun testBrowserProject() {
         checkProject(
-            ProjectInfo(
+            DefaultComposeAppInfo().copy(
                 packageId = "io.js.app.test",
                 name = "test js compose app",
                 platforms = setOf(ProjectPlatform.Js),
@@ -133,7 +126,7 @@ class GeneratedProjectTest {
 
     @Test
     fun testAndroidProject() {
-        val projectInfo = ProjectInfo()
+        val projectInfo = DefaultComposeAppInfo()
         val dir = projectInfo.writeToDir(workingDir)
         checkCommand(
             dir = dir,
@@ -148,9 +141,9 @@ class GeneratedProjectTest {
             println("iOS testing is skipped because this machine ($osName) isn't Mac")
             return
         }
-        val projectInfo = ProjectInfo(
+        val projectInfo = DefaultComposeAppInfo().copy(
             platforms = setOf(ProjectPlatform.Ios),
-            dependencies =  buildSet {
+            dependencies = buildSet {
                 add(KotlinPlugin)
                 add(ComposePlugin)
                 addAll(extraDependencies)
@@ -179,9 +172,9 @@ class GeneratedProjectTest {
 
     @Test
     fun checkDependencyUpdates() {
-        val projectInfo = ProjectInfo(
+        val projectInfo = DefaultComposeAppInfo().copy(
             platforms = setOf(ProjectPlatform.Jvm),
-            dependencies =  buildSet {
+            dependencies = buildSet {
                 add(KotlinPlugin)
                 add(ComposePlugin)
                 addAll(extraDependencies)
@@ -234,7 +227,7 @@ class GeneratedProjectTest {
         dir.deleteRecursively()
         dir.mkdirs()
 
-        buildFiles().forEach { projectFile ->
+        generateComposeAppFiles().forEach { projectFile ->
             val f = dir.resolve(projectFile.path)
             f.parentFile.mkdirs()
             f.createNewFile()

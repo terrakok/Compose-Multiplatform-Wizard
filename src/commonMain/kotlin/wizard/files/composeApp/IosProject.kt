@@ -1,4 +1,4 @@
-package wizard.files.app
+package wizard.files.composeApp
 
 import wizard.ProjectFile
 import wizard.ProjectInfo

@@ -2,15 +2,15 @@ package wizard
 
 import wizard.dependencies.*
 import wizard.files.GradleLibsVersion
-import wizard.files.app.ModuleBuildGradleKts
+import wizard.files.composeApp.ModuleBuildGradleKts
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class GeneratorTest {
+class ComposeAppGeneratorTest {
 
     @Test
     fun buildAllFiles() {
-        val info = ProjectInfo(
+        val info = DefaultComposeAppInfo().copy(
             dependencies =  buildSet {
                 add(KotlinPlugin)
                 add(ComposePlugin)
@@ -18,7 +18,7 @@ class GeneratorTest {
                 addAll(extraDependencies)
             }
         )
-        val files = info.buildFiles()
+        val files = info.generateComposeAppFiles()
 
         assertEquals(
             """
@@ -307,11 +307,11 @@ class GeneratorTest {
 
     @Test
     fun buildAndroidFiles() {
-        val info = ProjectInfo(
+        val info = DefaultComposeAppInfo().copy(
             packageId = "org.android.app",
             platforms = setOf(ProjectPlatform.Android)
         )
-        val files = info.buildFiles()
+        val files = info.generateComposeAppFiles()
 
         assertEquals(
             """
@@ -416,12 +416,12 @@ class GeneratorTest {
 
     @Test
     fun buildIosFiles() {
-        val info = ProjectInfo(
+        val info = DefaultComposeAppInfo().copy(
             packageId = "org.ios.app",
             platforms = setOf(ProjectPlatform.Ios),
             dependencies = setOf(KotlinPlugin, ComposePlugin)
         )
-        val files = info.buildFiles()
+        val files = info.generateComposeAppFiles()
 
         assertEquals(
             """
@@ -503,12 +503,12 @@ class GeneratorTest {
 
     @Test
     fun buildDesktopFiles() {
-        val info = ProjectInfo(
+        val info = DefaultComposeAppInfo().copy(
             packageId = "org.desktop.app",
             platforms = setOf(ProjectPlatform.Jvm),
             dependencies = setOf(KotlinPlugin, ComposePlugin)
         )
-        val files = info.buildFiles()
+        val files = info.generateComposeAppFiles()
 
         assertEquals(
             """
@@ -590,12 +590,12 @@ class GeneratorTest {
 
     @Test
     fun buildBrowserFiles() {
-        val info = ProjectInfo(
+        val info = DefaultComposeAppInfo().copy(
             packageId = "org.js.app",
             platforms = setOf(ProjectPlatform.Js),
             dependencies = setOf(KotlinPlugin, ComposePlugin)
         )
-        val files = info.buildFiles()
+        val files = info.generateComposeAppFiles()
 
         assertEquals(
             """

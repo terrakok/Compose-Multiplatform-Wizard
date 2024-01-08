@@ -6,21 +6,39 @@ import wizard.dependencies.*
 enum class ProjectPlatform(val title: String) {
     Android("Android"),
     Ios("iOS"),
-    Jvm("Desktop"),
-    Js("Browser"),
+    Jvm("JVM"),
+    Js("JS"),
+    Macos("macOS"),
+    Linux("Linux"),
+    Mingw("Windows"),
+    Wasm("Wasm"),
+}
+
+enum class WizardType {
+    ComposeApp,
+    KmpLibrary
 }
 
 data class ProjectInfo(
-    val packageId: String = "org.company.app",
+    val packageId: String,
     //Shouldn't be "ComposeApp" because it breaks ios build. The reason is kotlin framework name is "ComposeApp"
-    val name: String = "Multiplatform App",
-    val moduleName: String = "composeApp",
-    val platforms: Set<ProjectPlatform> = setOf(Android, Ios, Jvm, Js),
+    val name: String,
+    val moduleName: String,
+    val platforms: Set<ProjectPlatform>,
     val gradleVersion: String = "8.5",
     val androidMinSdk: Int = 24,
     val androidTargetSdk: Int = 34,
     val composeCompilerVersion: String = "1.5.4",
-    val dependencies: Set<Dependency> = setOf(
+    val dependencies: Set<Dependency>
+)
+
+fun DefaultComposeAppInfo() = ProjectInfo(
+    packageId = "org.company.app",
+    //Shouldn't be "ComposeApp" because it breaks ios build. The reason is kotlin framework name is "ComposeApp"
+    name = "Multiplatform App",
+    moduleName = "composeApp",
+    platforms = setOf(Android, Ios, Jvm, Js),
+    dependencies = setOf(
         KotlinPlugin,
         ComposePlugin,
         AndroidApplicationPlugin,
@@ -30,9 +48,25 @@ data class ProjectInfo(
     )
 )
 
+fun DefaultKmpLibraryInfo() = ProjectInfo(
+    packageId = "my.company.name",
+    name = "KMP library",
+    moduleName = "shared",
+    platforms = setOf(Android, Ios, Jvm, Js),
+    dependencies = setOf(
+        KotlinPlugin,
+        AndroidLibraryPlugin
+    )
+)
+
 fun ProjectInfo.hasPlatform(platform: ProjectPlatform) = platforms.contains(platform)
 val ProjectInfo.packagePath get() = packageId.replace(".", "/")
 val ProjectInfo.safeName get() = name.replace(" ", "-")
+
+fun ProjectInfo.generate(type: WizardType) = when (type) {
+    WizardType.ComposeApp -> generateComposeAppFiles()
+    WizardType.KmpLibrary -> generateKmpLibraryFiles()
+}
 
 data class Dependency(
     val title: String,

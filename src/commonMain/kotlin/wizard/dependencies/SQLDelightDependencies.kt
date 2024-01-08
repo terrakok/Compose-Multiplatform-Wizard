@@ -30,7 +30,7 @@ val SQLDelightDriverAndroid = SQLDelightPlugin.copy(
 val SQLDelightDriverNative = SQLDelightPlugin.copy(
     id = "native-driver",
     catalogName = "sqlDelight-driver-native",
-    platforms = setOf(Ios)
+    platforms = setOf(Ios, Macos, Linux, Mingw)
 )
 
 val SQLDelightDriverJs = SQLDelightPlugin.copy(

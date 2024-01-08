@@ -1,29 +1,20 @@
 package ui
 
-import mui.icons.material.Brightness4
-import mui.icons.material.Brightness7
-import mui.icons.material.Code
-import mui.icons.material.CodeOff
-import mui.icons.material.GitHub
-import mui.icons.material.MenuBook
-import mui.icons.material.Diamond
-import mui.material.Box
-import mui.material.IconButton
-import mui.material.Stack
-import mui.material.StackDirection
+import mui.icons.material.*
+import mui.material.*
 import mui.system.responsive
 import mui.system.sx
-import react.FC
-import react.Props
+import react.*
 import react.dom.html.ReactHTML
-import react.useRequiredContext
 import web.cssom.Position
 import web.cssom.px
 import web.window.window
+import wizard.WizardType
 
 val TopMenu = FC<Props> {
     var showVersions by useRequiredContext(ShowVersionContext)
     var theme by useRequiredContext(ThemeContext)
+    val wizardType by useRequiredContext(WizardTypeContext)
     Box {
         sx {
             position = Position.relative
@@ -49,12 +40,22 @@ val TopMenu = FC<Props> {
                 }
             }
 
-            IconButton {
-                onClick = {
-                    window.open("https://www.jetbrains.com/lp/compose-multiplatform/")
+            when (wizardType) {
+                WizardType.ComposeApp -> IconButton {
+                    onClick = {
+                        window.open("https://www.jetbrains.com/lp/compose-multiplatform/")
+                    }
+                    title = "View compose documentation"
+                    MenuBook()
                 }
-                title = "View compose documentation"
-                MenuBook()
+
+                WizardType.KmpLibrary -> IconButton {
+                    onClick = {
+                        window.open("https://kotlinlang.org/docs/multiplatform-get-started.html")
+                    }
+                    title = "View KMP documentation"
+                    MenuBook()
+                }
             }
 
             IconButton {
@@ -86,16 +87,29 @@ val TopMenu = FC<Props> {
                 Diamond()
             }
 
-            IconButton {
-                onClick = {
-                    window.open("https://terrakok.github.io/kmp-web-wizard/")
+            when (wizardType) {
+                WizardType.ComposeApp -> IconButton {
+                    onClick = {
+                        window.open("https://terrakok.github.io/kmp-web-wizard/")
+                    }
+                    title = "KMP Library Wizard"
+                    ReactHTML.img {
+                        src = "kotlin-logo.svg"
+                        width = 24.0
+                        height = 24.0
+                    }
                 }
-                title = "KMP Library Wizard"
 
-                ReactHTML.img {
-                    src = "kotlin-logo.svg"
-                    width = 24.0
-                    height = 24.0
+                WizardType.KmpLibrary -> IconButton {
+                    onClick = {
+                        window.open("https://terrakok.github.io/Compose-Multiplatform-Wizard/")
+                    }
+                    title = "Compose Multiplatform Wizard"
+                    ReactHTML.img {
+                        src = "compose-logo.svg"
+                        width = 24.0
+                        height = 24.0
+                    }
                 }
             }
         }

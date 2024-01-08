@@ -1,4 +1,4 @@
-package wizard.files
+package wizard.files.composeApp
 
 import wizard.*
 

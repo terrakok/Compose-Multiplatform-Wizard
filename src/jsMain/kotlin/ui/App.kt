@@ -3,19 +3,17 @@ package ui
 import mui.material.CssBaseline
 import mui.material.styles.Theme
 import mui.material.styles.ThemeProvider
-import react.FC
-import react.Props
-import react.StateInstance
-import react.createContext
-import react.useState
-import wizard.ProjectInfo
+import react.*
+import wizard.*
 
 external interface AppProps : Props {
     var generate: (ProjectInfo) -> Unit
+    var wizardType: WizardType
 }
 
 val ShowVersionContext = createContext<StateInstance<Boolean>>()
 val ThemeContext = createContext<StateInstance<Theme>>()
+val WizardTypeContext = createContext<StateInstance<WizardType>>()
 
 val App = FC<AppProps> { props ->
     ThemeContext.Provider {
@@ -29,8 +27,19 @@ val App = FC<AppProps> { props ->
             theme = state.component1()
             CssBaseline()
 
-            Content {
-                generate = props.generate
+            WizardTypeContext.Provider {
+                val wizardType = useState(props.wizardType)
+                value = wizardType
+
+                when (wizardType.component1()) {
+                    WizardType.ComposeApp -> ComposeAppWizardContent {
+                        generate = props.generate
+                    }
+
+                    WizardType.KmpLibrary -> KmpLibraryWizardContent {
+                        generate = props.generate
+                    }
+                }
             }
         }
     }

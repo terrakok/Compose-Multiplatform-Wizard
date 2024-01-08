@@ -11,12 +11,13 @@ import react.*
 import react.dom.onChange
 import web.cssom.*
 import web.html.HTMLInputElement
-import wizard.*
+import wizard.DefaultComposeAppInfo
+import wizard.ProjectPlatform
 import wizard.ProjectPlatform.*
 import wizard.dependencies.*
 import mui.icons.material.Android as AndroidIcon
 
-val Content = FC<AppProps> { props ->
+val ComposeAppWizardContent = FC<AppProps> { props ->
     Container {
         sx {
             padding = Padding(24.px, 24.px)
@@ -40,9 +41,12 @@ val Content = FC<AppProps> { props ->
                         alignItems = AlignItems.center
                     }
 
-                    Header()
+                    Header {
+                        image = "compose-logo.svg"
+                        title = "Compose Multiplatform Wizard"
+                    }
 
-                    val default = ProjectInfo()
+                    val default = DefaultComposeAppInfo()
                     val textFieldWidth = 565.px
 
                     var projectName by useState(default.name)
@@ -81,26 +85,26 @@ val Content = FC<AppProps> { props ->
                     ButtonGroup {
                         disableElevation = true
                         TargetButton {
-                            title = Android.title
+                            title = "Android"
                             isSelected = platforms.contains(Android)
                             onClick = { switch(Android) }
                             icon = AndroidIcon
                         }
                         TargetButton {
-                            title = Jvm.title
+                            title = "Desktop"
                             isSelected = platforms.contains(Jvm)
                             onClick = { switch(Jvm) }
                             icon = Laptop
                         }
                         TargetButton {
-                            title = Ios.title
+                            title = "iOS"
                             isSelected = platforms.contains(Ios)
                             onClick = { switch(Ios) }
                             icon = Apple
                             status = "Alpha"
                         }
                         TargetButton {
-                            title = Js.title
+                            title = "Browser"
                             isSelected = platforms.contains(Js)
                             onClick = { switch(Js) }
                             icon = Language
@@ -172,7 +176,7 @@ val Content = FC<AppProps> { props ->
                                 || platforms.isEmpty()
 
                         onClick = {
-                            val info = ProjectInfo(
+                            val info = default.copy(
                                 packageId = projectId,
                                 name = projectName,
                                 platforms = platforms,
@@ -197,13 +201,21 @@ val Content = FC<AppProps> { props ->
     }
 }
 
-private fun Set<DependencyBox>.getSelectedDependencies() =
+internal fun Set<DependencyBox>.getSelectedDependencies() =
     this
         .filter { it.isSelected.component1() }
         .map { it.selectedDep.component1() }
         .flatMap {
             when {
-                it.group == KtorCore.group -> listOfNotNull(KtorCore, KtorClientDarwin, KtorClientOkhttp)
+                it.group == KtorCore.group -> listOfNotNull(
+                    KtorCore,
+                    KtorClientDarwin,
+                    KtorClientOkhttp,
+                    KtorClientJs,
+                    KtorClientLinux,
+                    KtorClientMingw
+                )
+
                 it.group == SQLDelightPlugin.group -> listOf(
                     SQLDelightPlugin,
                     SQLDelightDriverJvm,
@@ -215,7 +227,12 @@ private fun Set<DependencyBox>.getSelectedDependencies() =
                 it.group == Decompose.group -> listOf(Decompose, DecomposeCompose)
                 it.group == ApolloPlugin.group -> listOf(ApolloPlugin, ApolloRuntime)
 
-                it.id.contains("coroutines") -> listOf(KotlinxCoroutinesCore, KotlinxCoroutinesAndroid)
+                it.id.contains("coroutines") -> listOf(
+                    KotlinxCoroutinesCore,
+                    KotlinxCoroutinesAndroid,
+                    KotlinxCoroutinesJvm
+                )
+
                 it.id.contains("serialization") -> listOf(KotlinxSerializationPlugin, KotlinxSerializationJson)
                 else -> listOf(it)
             }

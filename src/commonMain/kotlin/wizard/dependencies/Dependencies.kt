@@ -27,6 +27,13 @@ val AndroidApplicationPlugin = Dependency(
     platforms = emptySet()
 )
 
+val AndroidLibraryPlugin = AndroidApplicationPlugin.copy(
+    title = "Android Library Plugin",
+    group = "com.android.library",
+    catalogName = "android-library",
+    platforms = emptySet()
+)
+
 val ComposePlugin = Dependency(
     title = "Compose Multiplatform Plugin",
     description = "Compose gradle plugin.",

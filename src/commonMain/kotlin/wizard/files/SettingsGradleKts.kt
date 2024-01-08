@@ -4,18 +4,18 @@ import wizard.ProjectFile
 import wizard.ProjectInfo
 import wizard.safeName
 
-class SettingsGradleKts(info: ProjectInfo) : ProjectFile {
+class SettingsGradleKts(info: ProjectInfo, withConventionPlugins: Boolean) : ProjectFile {
     override val path = "settings.gradle.kts"
     override val content = buildString {
         appendLine("rootProject.name = \"${info.safeName}\"")
         appendLine("include(\":${info.moduleName}\")")
+        if (withConventionPlugins) appendLine("includeBuild(\"convention-plugins\")")
         appendLine("")
         appendLine("pluginManagement {")
         appendLine("    repositories {")
         appendLine("        google()")
         appendLine("        gradlePluginPortal()")
         appendLine("        mavenCentral()")
-        appendLine("        maven(\"https://maven.pkg.jetbrains.space/public/p/compose/dev\")")
         appendLine("    }")
         appendLine("}")
         appendLine("")
@@ -23,7 +23,6 @@ class SettingsGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("    repositories {")
         appendLine("        google()")
         appendLine("        mavenCentral()")
-        appendLine("        maven(\"https://maven.pkg.jetbrains.space/public/p/compose/dev\")")
         appendLine("    }")
         appendLine("}")
     }

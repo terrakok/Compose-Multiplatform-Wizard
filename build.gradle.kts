@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform").version("1.9.21")
+    id("com.github.gmazzo.buildconfig").version("4.1.1")
 }
 
 repositories {
@@ -32,6 +33,18 @@ kotlin {
         commonTest.dependencies {
             implementation(kotlin("test"))
         }
+    }
+}
+
+buildConfig {
+    // BuildConfig configuration here.
+    // https://github.com/gmazzo/gradle-buildconfig-plugin#usage-in-kts
+    packageName("wizard")
+
+    //-PwizardType=kmp
+    when(findProperty("wizardType")) {
+        "kmp" -> buildConfigField("wizard.WizardType", "wizardType", "WizardType.KmpLibrary")
+        else -> buildConfigField("wizard.WizardType", "wizardType", "WizardType.ComposeApp")
     }
 }
 

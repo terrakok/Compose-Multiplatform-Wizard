@@ -18,6 +18,7 @@ external interface VersionsTableProps : PropsWithSx {
 
 val VersionsTable = FC<VersionsTableProps> { props ->
     val showVersions by useRequiredContext(ShowVersionContext)
+    val wizardType by useRequiredContext(WizardTypeContext)
     if (showVersions) {
         TableContainer {
             sx = props.sx
@@ -29,16 +30,18 @@ val VersionsTable = FC<VersionsTableProps> { props ->
                         TableCell { +KotlinPlugin.version }
                     }
                     TableRow {
-                        TableCell { +"Compose" }
-                        TableCell { +ComposePlugin.version }
+                        TableCell { +"Android Gradle Plugin" }
+                        TableCell { +AndroidApplicationPlugin.version }
+                    }
+                    if (wizardType == WizardType.ComposeApp) {
+                        TableRow {
+                            TableCell { +"Compose" }
+                            TableCell { +ComposePlugin.version }
+                        }
                     }
                     TableRow {
                         TableCell { +"Gradle" }
                         TableCell { +props.info.gradleVersion }
-                    }
-                    TableRow {
-                        TableCell { +"Android Gradle Plugin" }
-                        TableCell { +AndroidApplicationPlugin.version }
                     }
                 }
             }
