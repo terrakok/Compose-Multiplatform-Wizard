@@ -1,16 +1,7 @@
 package ui
 
-import mui.icons.material.CheckCircleRounded
-import mui.icons.material.Edit
-import mui.icons.material.RadioButtonUncheckedRounded
-import mui.material.Box
-import mui.material.Button
-import mui.material.Card
-import mui.material.CardActionArea
-import mui.material.Checkbox
-import mui.material.Stack
-import mui.material.StackDirection
-import mui.material.Typography
+import mui.icons.material.*
+import mui.material.*
 import mui.material.styles.TypographyVariant
 import mui.system.responsive
 import mui.system.sx
@@ -97,6 +88,7 @@ val DependencyCard = FC<DependencyCardProps> { props ->
                                 sx {
                                     minWidth = 20.px
                                 }
+                                size = Size.small
                                 onClick = {
                                     it.stopPropagation()
                                     isDialogOpen = !isDialogOpen
@@ -109,23 +101,19 @@ val DependencyCard = FC<DependencyCardProps> { props ->
                                         isDialogOpen = !isDialogOpen
                                     }
                                 }
-                                Edit {
-                                    sx {
-                                        width = 18.px
-                                        height = 18.px
-                                    }
-                                }
+                                +"other"
                             }
                         }
                         Button {
                             sx {
                                 right = -5.px
                             }
+                            size = Size.small
                             onClick = {
                                 it.stopPropagation()
                                 window.open(dep.url)
                             }
-                            +"More info"
+                            +"info"
                         }
                     }
                 }
