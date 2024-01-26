@@ -29,7 +29,7 @@ class Readme(info: ProjectInfo) : ProjectFile {
             ossrhPassword=...
             ```
 
-            4) Run `./gradlew :dodo:publishAllPublicationsToSonatypeRepository`
+            4) Run `./gradlew :${info.moduleName}:publishAllPublicationsToSonatypeRepository`
 
             ### Build platform artifacts
         """.trimIndent())

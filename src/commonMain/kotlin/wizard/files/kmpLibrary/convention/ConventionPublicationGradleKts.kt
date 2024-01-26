@@ -99,5 +99,11 @@ signing {
         sign(publishing.publications)
     }
 }
+
+//https://github.com/gradle/gradle/issues/26132
+val signingTasks = tasks.withType<Sign>()
+tasks.withType<AbstractPublishToMaven>().configureEach {
+    mustRunAfter(signingTasks)
+}
     """.trimIndent()
 }

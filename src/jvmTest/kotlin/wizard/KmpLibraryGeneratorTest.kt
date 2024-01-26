@@ -277,7 +277,7 @@ class GeneratorTest {
                 ossrhPassword=...
                 ```
 
-                4) Run `./gradlew :dodo:publishAllPublicationsToSonatypeRepository`
+                4) Run `./gradlew :shared:publishAllPublicationsToSonatypeRepository`
 
                 ### Build platform artifacts
 
