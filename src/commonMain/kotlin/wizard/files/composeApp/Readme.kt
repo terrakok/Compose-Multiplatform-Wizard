@@ -47,7 +47,7 @@ class Readme(info: ProjectInfo) : ProjectFile {
 
         if (info.hasPlatform(ProjectPlatform.Js)) {
             appendLine("### Browser")
-            appendLine("Run the browser application: `./gradlew :${info.moduleName}:jsBrowserDevelopmentRun`")
+            appendLine("Run the browser application: `./gradlew :${info.moduleName}:jsBrowserDevelopmentRun --continue`")
             appendLine("")
         }
     }
