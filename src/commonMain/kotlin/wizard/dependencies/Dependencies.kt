@@ -9,7 +9,7 @@ val KotlinPlugin = Dependency(
     url = "https://github.com/JetBrains/kotlin/",
     group = "org.jetbrains.kotlin.multiplatform",
     id = "gradle-plugin",
-    version = "1.9.21",
+    version = "1.9.23",
     catalogVersionName = "kotlin",
     catalogName = "multiplatform",
     platforms = emptySet()
@@ -21,7 +21,7 @@ val AndroidApplicationPlugin = Dependency(
     url = "https://developer.android.com/studio/build",
     group = "com.android.application",
     id = "gradle-plugin",
-    version = "8.2.0",
+    version = "8.3.1",
     catalogVersionName = "agp",
     catalogName = "android-application",
     platforms = emptySet()
@@ -40,22 +40,10 @@ val ComposePlugin = Dependency(
     url = "https://www.jetbrains.com/lp/compose-multiplatform/",
     group = "org.jetbrains.compose",
     id = "gradle-plugin",
-    version = "1.5.11",
+    version = "1.6.1",
     catalogVersionName = "compose",
     catalogName = "compose",
     platforms = emptySet()
-)
-
-val AndroidxAppcompat = Dependency(
-    title = "Appcompat",
-    description = "Androidx Appcompat",
-    url = "https://developer.android.com/jetpack/androidx/releases/appcompat",
-    group = "androidx.appcompat",
-    id = "appcompat",
-    version = "1.6.1",
-    catalogVersionName = "androidx-appcompat",
-    catalogName = "androidx-appcompat",
-    platforms = setOf(Android)
 )
 
 val AndroidxActivityCompose = Dependency(
@@ -64,20 +52,8 @@ val AndroidxActivityCompose = Dependency(
     url = "https://developer.android.com/reference/kotlin/androidx/activity/compose/package-summary",
     group = "androidx.activity",
     id = "activity-compose",
-    version = "1.8.1",
+    version = "1.8.2",
     catalogVersionName = "androidx-activityCompose",
     catalogName = "androidx-activityCompose",
-    platforms = setOf(Android)
-)
-
-val ComposeUiTooling = Dependency(
-    title = "Compose UI Tooling",
-    description = "Compose UI Tooling",
-    url = "https://developer.android.com/jetpack/androidx/releases/compose-ui",
-    group = "androidx.compose.ui",
-    id = "ui-tooling",
-    version = "1.5.4",
-    catalogVersionName = "compose-uitooling",
-    catalogName = "compose-uitooling",
     platforms = setOf(Android)
 )

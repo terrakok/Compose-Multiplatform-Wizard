@@ -8,6 +8,7 @@ class Gitignore : ProjectFile {
 *.iml
 .gradle
 .idea
+.kotlin
 .DS_Store
 build
 */build

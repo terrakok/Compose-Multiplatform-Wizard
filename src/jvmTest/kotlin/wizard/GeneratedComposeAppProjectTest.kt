@@ -9,9 +9,7 @@ import kotlin.test.assertEquals
 
 internal val androidDependencies = setOf(
     AndroidApplicationPlugin,
-    AndroidxAppcompat,
     AndroidxActivityCompose,
-    ComposeUiTooling,
 )
 
 internal val extraDependencies = setOf(

@@ -1,6 +1,7 @@
 import kotlinx.browser.window
 import npm.FileSaverJs
 import npm.JSZip
+import org.khronos.webgl.ArrayBuffer
 import org.w3c.files.Blob
 import react.create
 import react.dom.client.createRoot
@@ -12,6 +13,8 @@ import web.html.HTML.script
 import wizard.*
 import wizard.files.GradleWrapperJar
 import wizard.files.Gradlew
+import wizard.files.composeApp.IndieFlowerTtf
+import kotlin.js.Promise
 
 fun main() {
     //title
@@ -48,15 +51,23 @@ fun main() {
 }
 
 private fun generateProject(project: ProjectInfo) {
-    window.fetch("./binaries/gradle-wrapper")
-        .then { response -> response.arrayBuffer() }
-        .then { gradleWrapperBlob ->
+    Promise.all(
+        arrayOf(
+            loadBinaryFileBytes("gradle-wrapper"),
+            loadBinaryFileBytes("IndieFlower-Regular"),
+        )
+    ).then { (gradleWrapperBlob, fontBlob) ->
             val zip = JSZip()
             project.generate(BuildConfig.wizardType).forEach { file ->
                 when (file) {
                     is GradleWrapperJar -> zip.file(
                         file.path,
                         gradleWrapperBlob
+                    )
+
+                    is IndieFlowerTtf -> zip.file(
+                        file.path,
+                        fontBlob
                     )
 
                     is Gradlew -> zip.file(
@@ -77,3 +88,6 @@ private fun generateProject(project: ProjectInfo) {
             }
         }
 }
+
+private fun loadBinaryFileBytes(name: String): Promise<ArrayBuffer> =
+    window.fetch("./binaries/$name").then { response -> response.arrayBuffer() }.then { it }

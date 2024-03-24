@@ -36,6 +36,12 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/kotlin/org/company/app/theme/Color.kt
             ${info.moduleName}/src/commonMain/kotlin/org/company/app/theme/Theme.kt
             ${info.moduleName}/src/commonMain/kotlin/org/company/app/App.kt
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_cyclone.xml
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_dark_mode.xml
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_light_mode.xml
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_rotate_right.xml
+            ${info.moduleName}/src/commonMain/composeResources/values/strings.xml
+            ${info.moduleName}/src/commonMain/composeResources/font/IndieFlower-Regular.ttf
             ${info.moduleName}/src/commonMain/graphql/schema.graphqls
             ${info.moduleName}/src/commonMain/graphql/HelloQuery.graphql
             ${info.moduleName}/src/androidMain/AndroidManifest.xml
@@ -58,7 +64,6 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/jsMain/resources/index.html
             ${info.moduleName}/src/jsMain/kotlin/main.kt
             ${info.moduleName}/src/jsMain/kotlin/org/company/app/theme/Theme.js.kt
-            ${info.moduleName}/webpack.config.d/config.js
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -81,7 +86,8 @@ class ComposeAppGeneratorTest {
                     androidTarget {
                         compilations.all {
                             kotlinOptions {
-                                jvmTarget = "17"
+                                jvmTarget = "${'$'}{JavaVersion.VERSION_1_8}"
+                                freeCompilerArgs += "-Xjdk-release=${'$'}{JavaVersion.VERSION_1_8}"
                             }
                         }
                     }
@@ -112,10 +118,10 @@ class ComposeAppGeneratorTest {
                         }
                         commonMain.dependencies {
                             implementation(compose.runtime)
+                            implementation(compose.foundation)
                             implementation(compose.material3)
-                            implementation(compose.materialIconsExtended)
-                            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                             implementation(compose.components.resources)
+                            implementation(compose.components.uiToolingPreview)
                             implementation(libs.apollo.runtime)
                             implementation(libs.voyager.navigator)
                             implementation(libs.composeImageLoader)
@@ -136,16 +142,14 @@ class ComposeAppGeneratorTest {
                         }
 
                         androidMain.dependencies {
-                            implementation(libs.androidx.appcompat)
+                            implementation(compose.uiTooling)
                             implementation(libs.androidx.activityCompose)
-                            implementation(libs.compose.uitooling)
                             implementation(libs.ktor.client.okhttp)
                             implementation(libs.kotlinx.coroutines.android)
                             implementation(libs.sqlDelight.driver.android)
                         }
 
                         jvmMain.dependencies {
-                            implementation(compose.desktop.common)
                             implementation(compose.desktop.currentOs)
                             implementation(libs.ktor.client.okhttp)
                             implementation(libs.sqlDelight.driver.sqlite)
@@ -179,12 +183,11 @@ class ComposeAppGeneratorTest {
                     }
                     sourceSets["main"].apply {
                         manifest.srcFile("src/androidMain/AndroidManifest.xml")
-                        res.srcDirs("src/androidMain/resources")
-                        resources.srcDirs("src/commonMain/resources")
+                        res.srcDirs("src/androidMain/res")
                     }
                     compileOptions {
-                        sourceCompatibility = JavaVersion.VERSION_17
-                        targetCompatibility = JavaVersion.VERSION_17
+                        sourceCompatibility = JavaVersion.VERSION_1_8
+                        targetCompatibility = JavaVersion.VERSION_1_8
                     }
                     buildFeatures {
                         compose = true
@@ -244,9 +247,7 @@ class ComposeAppGeneratorTest {
                 kotlin = "${KotlinPlugin.version}"
                 compose = "${ComposePlugin.version}"
                 agp = "${AndroidApplicationPlugin.version}"
-                androidx-appcompat = "${AndroidxAppcompat.version}"
                 androidx-activityCompose = "${AndroidxActivityCompose.version}"
-                compose-uitooling = "${ComposeUiTooling.version}"
                 apollo = "${ApolloRuntime.version}"
                 voyager = "${Voyager.version}"
                 composeImageLoader = "${ImageLoader.version}"
@@ -265,9 +266,7 @@ class ComposeAppGeneratorTest {
                 
                 [libraries]
 
-                androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
                 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
-                compose-uitooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-uitooling" }
                 apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apollo" }
                 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
                 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "composeImageLoader" }
@@ -329,6 +328,12 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/kotlin/org/android/app/theme/Color.kt
             ${info.moduleName}/src/commonMain/kotlin/org/android/app/theme/Theme.kt
             ${info.moduleName}/src/commonMain/kotlin/org/android/app/App.kt
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_cyclone.xml
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_dark_mode.xml
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_light_mode.xml
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_rotate_right.xml
+            ${info.moduleName}/src/commonMain/composeResources/values/strings.xml
+            ${info.moduleName}/src/commonMain/composeResources/font/IndieFlower-Regular.ttf
             ${info.moduleName}/src/androidMain/AndroidManifest.xml
             ${info.moduleName}/src/androidMain/kotlin/org/android/app/App.android.kt
             ${info.moduleName}/src/androidMain/kotlin/org/android/app/theme/Theme.android.kt
@@ -348,7 +353,8 @@ class ComposeAppGeneratorTest {
                     androidTarget {
                         compilations.all {
                             kotlinOptions {
-                                jvmTarget = "17"
+                                jvmTarget = "${'$'}{JavaVersion.VERSION_1_8}"
+                                freeCompilerArgs += "-Xjdk-release=${'$'}{JavaVersion.VERSION_1_8}"
                             }
                         }
                     }
@@ -361,10 +367,10 @@ class ComposeAppGeneratorTest {
                         }
                         commonMain.dependencies {
                             implementation(compose.runtime)
+                            implementation(compose.foundation)
                             implementation(compose.material3)
-                            implementation(compose.materialIconsExtended)
-                            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                             implementation(compose.components.resources)
+                            implementation(compose.components.uiToolingPreview)
                         }
 
                         commonTest.dependencies {
@@ -372,9 +378,8 @@ class ComposeAppGeneratorTest {
                         }
 
                         androidMain.dependencies {
-                            implementation(libs.androidx.appcompat)
+                            implementation(compose.uiTooling)
                             implementation(libs.androidx.activityCompose)
-                            implementation(libs.compose.uitooling)
                         }
 
                     }
@@ -394,12 +399,11 @@ class ComposeAppGeneratorTest {
                     }
                     sourceSets["main"].apply {
                         manifest.srcFile("src/androidMain/AndroidManifest.xml")
-                        res.srcDirs("src/androidMain/resources")
-                        resources.srcDirs("src/commonMain/resources")
+                        res.srcDirs("src/androidMain/res")
                     }
                     compileOptions {
-                        sourceCompatibility = JavaVersion.VERSION_17
-                        targetCompatibility = JavaVersion.VERSION_17
+                        sourceCompatibility = JavaVersion.VERSION_1_8
+                        targetCompatibility = JavaVersion.VERSION_1_8
                     }
                     buildFeatures {
                         compose = true
@@ -439,6 +443,12 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/kotlin/org/ios/app/theme/Color.kt
             ${info.moduleName}/src/commonMain/kotlin/org/ios/app/theme/Theme.kt
             ${info.moduleName}/src/commonMain/kotlin/org/ios/app/App.kt
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_cyclone.xml
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_dark_mode.xml
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_light_mode.xml
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_rotate_right.xml
+            ${info.moduleName}/src/commonMain/composeResources/values/strings.xml
+            ${info.moduleName}/src/commonMain/composeResources/font/IndieFlower-Regular.ttf
             ${info.moduleName}/src/iosMain/kotlin/org/ios/app/App.ios.kt
             ${info.moduleName}/src/iosMain/kotlin/main.kt
             ${info.moduleName}/src/iosMain/kotlin/org/ios/app/theme/Theme.ios.kt
@@ -480,10 +490,10 @@ class ComposeAppGeneratorTest {
                         }
                         commonMain.dependencies {
                             implementation(compose.runtime)
+                            implementation(compose.foundation)
                             implementation(compose.material3)
-                            implementation(compose.materialIconsExtended)
-                            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                             implementation(compose.components.resources)
+                            implementation(compose.components.uiToolingPreview)
                         }
 
                         commonTest.dependencies {
@@ -526,6 +536,12 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/kotlin/org/desktop/app/theme/Color.kt
             ${info.moduleName}/src/commonMain/kotlin/org/desktop/app/theme/Theme.kt
             ${info.moduleName}/src/commonMain/kotlin/org/desktop/app/App.kt
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_cyclone.xml
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_dark_mode.xml
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_light_mode.xml
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_rotate_right.xml
+            ${info.moduleName}/src/commonMain/composeResources/values/strings.xml
+            ${info.moduleName}/src/commonMain/composeResources/font/IndieFlower-Regular.ttf
             ${info.moduleName}/src/jvmMain/kotlin/org/desktop/app/App.jvm.kt
             ${info.moduleName}/src/jvmMain/kotlin/main.kt
             ${info.moduleName}/src/jvmMain/kotlin/org/desktop/app/theme/Theme.jvm.kt
@@ -553,10 +569,10 @@ class ComposeAppGeneratorTest {
                         }
                         commonMain.dependencies {
                             implementation(compose.runtime)
+                            implementation(compose.foundation)
                             implementation(compose.material3)
-                            implementation(compose.materialIconsExtended)
-                            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                             implementation(compose.components.resources)
+                            implementation(compose.components.uiToolingPreview)
                         }
 
                         commonTest.dependencies {
@@ -564,7 +580,6 @@ class ComposeAppGeneratorTest {
                         }
 
                         jvmMain.dependencies {
-                            implementation(compose.desktop.common)
                             implementation(compose.desktop.currentOs)
                         }
 
@@ -613,11 +628,16 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/kotlin/org/js/app/theme/Color.kt
             ${info.moduleName}/src/commonMain/kotlin/org/js/app/theme/Theme.kt
             ${info.moduleName}/src/commonMain/kotlin/org/js/app/App.kt
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_cyclone.xml
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_dark_mode.xml
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_light_mode.xml
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_rotate_right.xml
+            ${info.moduleName}/src/commonMain/composeResources/values/strings.xml
+            ${info.moduleName}/src/commonMain/composeResources/font/IndieFlower-Regular.ttf
             ${info.moduleName}/src/jsMain/kotlin/org/js/app/App.js.kt
             ${info.moduleName}/src/jsMain/resources/index.html
             ${info.moduleName}/src/jsMain/kotlin/main.kt
             ${info.moduleName}/src/jsMain/kotlin/org/js/app/theme/Theme.js.kt
-            ${info.moduleName}/webpack.config.d/config.js
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -643,10 +663,10 @@ class ComposeAppGeneratorTest {
                         }
                         commonMain.dependencies {
                             implementation(compose.runtime)
+                            implementation(compose.foundation)
                             implementation(compose.material3)
-                            implementation(compose.materialIconsExtended)
-                            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                             implementation(compose.components.resources)
+                            implementation(compose.components.uiToolingPreview)
                         }
 
                         commonTest.dependencies {

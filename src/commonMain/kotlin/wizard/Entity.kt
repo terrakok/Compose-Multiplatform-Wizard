@@ -25,12 +25,15 @@ data class ProjectInfo(
     val name: String,
     val moduleName: String,
     val platforms: Set<ProjectPlatform>,
-    val gradleVersion: String = "8.5",
+    val gradleVersion: String = "8.7",
     val androidMinSdk: Int = 24,
     val androidTargetSdk: Int = 34,
-    val composeCompilerVersion: String = "1.5.4",
+    val composeCompilerVersion: String = "1.5.11",
     val dependencies: Set<Dependency>
 )
+
+fun ProjectInfo.getResourcesPackage(): String = "$safeName.$moduleName.generated.resources"
+    .lowercase().replace('-', '_')
 
 fun DefaultComposeAppInfo() = ProjectInfo(
     packageId = "org.company.app",
@@ -42,9 +45,7 @@ fun DefaultComposeAppInfo() = ProjectInfo(
         KotlinPlugin,
         ComposePlugin,
         AndroidApplicationPlugin,
-        AndroidxAppcompat,
         AndroidxActivityCompose,
-        ComposeUiTooling
     )
 )
 

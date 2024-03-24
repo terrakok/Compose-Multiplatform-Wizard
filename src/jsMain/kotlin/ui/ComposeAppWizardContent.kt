@@ -185,9 +185,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                                     add(ComposePlugin)
                                     if (platforms.contains(Android)) {
                                         add(AndroidApplicationPlugin)
-                                        add(AndroidxAppcompat)
                                         add(AndroidxActivityCompose)
-                                        add(ComposeUiTooling)
                                     }
                                     addAll(deps.getSelectedDependencies())
                                 }

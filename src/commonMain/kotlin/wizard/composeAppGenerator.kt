@@ -25,6 +25,13 @@ fun ProjectInfo.generateComposeAppFiles() = buildList {
     add(ThemeKt(info))
     add(AppKt(info))
 
+    add(IcCycloneXml(info))
+    add(IcDarkModeXml(info))
+    add(IcLightModeXml(info))
+    add(IcRotateRightXml(info))
+    add(StringsXml(info))
+    add(IndieFlowerTtf(info))
+
     if (info.dependencies.contains(ApolloPlugin)) {
         add(GraphQLSchema(info))
         add(GraphQLQuery(info))
@@ -61,6 +68,5 @@ fun ProjectInfo.generateComposeAppFiles() = buildList {
         add(IndexHtml(info))
         add(BrowserMainKt(info))
         add(BrowserThemeKt(info))
-        add(WebPackConfig(info))
     }
 }

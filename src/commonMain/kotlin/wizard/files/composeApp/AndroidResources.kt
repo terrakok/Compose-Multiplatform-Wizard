@@ -13,7 +13,7 @@ class AndroidManifest(info: ProjectInfo) : ProjectFile {
                 android:name=".AndroidApp"
                 android:icon="@android:drawable/ic_menu_compass"
                 android:label="${info.name}"
-                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+                android:theme="@android:style/Theme.Material.NoActionBar">
                 <activity
                     android:name=".AppActivity"
                     android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"

@@ -33,7 +33,8 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    androidTarget {")
             appendLine("        compilations.all {")
             appendLine("            kotlinOptions {")
-            appendLine("                jvmTarget = \"17\"")
+            appendLine("                jvmTarget = \"${'$'}{JavaVersion.VERSION_1_8}\"")
+            appendLine("                freeCompilerArgs += \"-Xjdk-release=${'\$'}{JavaVersion.VERSION_1_8}\"")
             appendLine("            }")
             appendLine("        }")
             appendLine("    }")
@@ -71,10 +72,10 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("        }")
         appendLine("        commonMain.dependencies {")
         appendLine("            implementation(compose.runtime)")
+        appendLine("            implementation(compose.foundation)")
         appendLine("            implementation(compose.material3)")
-        appendLine("            implementation(compose.materialIconsExtended)")
-        appendLine("            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)")
         appendLine("            implementation(compose.components.resources)")
+        appendLine("            implementation(compose.components.uiToolingPreview)")
 
         commonDeps.forEach { dep ->
             appendLine("            ${dep.libraryNotation}")
@@ -88,6 +89,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         if (info.hasPlatform(ProjectPlatform.Android)) {
             appendLine("        androidMain.dependencies {")
+            appendLine("            implementation(compose.uiTooling)")
 
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ProjectPlatform.Android)) {
@@ -100,7 +102,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
         if (info.hasPlatform(ProjectPlatform.Jvm)) {
             appendLine("        jvmMain.dependencies {")
-            appendLine("            implementation(compose.desktop.common)")
             appendLine("            implementation(compose.desktop.currentOs)")
 
             otherDeps.forEach { dep ->
@@ -156,12 +157,11 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    }")
             appendLine("    sourceSets[\"main\"].apply {")
             appendLine("        manifest.srcFile(\"src/androidMain/AndroidManifest.xml\")")
-            appendLine("        res.srcDirs(\"src/androidMain/resources\")")
-            appendLine("        resources.srcDirs(\"src/commonMain/resources\")")
+            appendLine("        res.srcDirs(\"src/androidMain/res\")")
             appendLine("    }")
             appendLine("    compileOptions {")
-            appendLine("        sourceCompatibility = JavaVersion.VERSION_17")
-            appendLine("        targetCompatibility = JavaVersion.VERSION_17")
+            appendLine("        sourceCompatibility = JavaVersion.VERSION_1_8")
+            appendLine("        targetCompatibility = JavaVersion.VERSION_1_8")
             appendLine("    }")
             appendLine("    buildFeatures {")
             appendLine("        compose = true")

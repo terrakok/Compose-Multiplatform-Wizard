@@ -71,30 +71,23 @@ class IosAppSwift : ProjectFile {
     override val path = "iosApp/iosApp/iosApp.swift"
     override val content = """
         import UIKit
-        import SwiftUI
         import ComposeApp
 
         @main
-        struct iosApp: App {
-            var body: some Scene {
-                WindowGroup {
-                    ContentView()
+        class AppDelegate: UIResponder, UIApplicationDelegate {
+            var window: UIWindow?
+
+            func application(
+                _ application: UIApplication,
+                didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+            ) -> Bool {
+                window = UIWindow(frame: UIScreen.main.bounds)
+                if let window = window {
+                    window.rootViewController = MainKt.MainViewController()
+                    window.makeKeyAndVisible()
                 }
+                return true
             }
-        }
-
-        struct ContentView: View {
-            var body: some View {
-                ComposeView().ignoresSafeArea(.all)
-            }
-        }
-
-        struct ComposeView: UIViewControllerRepresentable {
-            func makeUIViewController(context: Context) -> UIViewController {
-                MainKt.MainViewController()
-            }
-
-            func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
         }
         
     """.trimIndent()
@@ -122,7 +115,7 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             	archiveVersion = 1;
             	classes = {
             	};
-            	objectVersion = 50;
+            	objectVersion = 56;
             	objects = {
             
             /* Begin PBXBuildFile section */
@@ -132,7 +125,7 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             /* End PBXBuildFile section */
             
             /* Begin PBXFileReference section */
-                    A93A953729CC810C00F8E227 /* ${info.name}.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "${info.name}.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+            		A93A953729CC810C00F8E227 /* ${info.name}.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "${info.name}.app"; sourceTree = BUILT_PRODUCTS_DIR; };
             		A93A953A29CC810C00F8E227 /* iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosApp.swift; sourceTree = "<group>"; };
             		A93A953E29CC810D00F8E227 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
             		A93A954129CC810D00F8E227 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -411,26 +404,22 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             				CURRENT_PROJECT_VERSION = 1;
             				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
             				ENABLE_PREVIEWS = YES;
-                            FRAMEWORK_SEARCH_PATHS = (
-				            	"${'$'}{inherited}",
-				            	"${'$'}(SRCROOT)/../${info.moduleName}/build/xcode-frameworks/${'$'}(CONFIGURATION)/${'$'}(SDK_NAME)",
-				            );
+            				FRAMEWORK_SEARCH_PATHS = (
+            					"${'$'}{inherited}",
+            					"${'$'}(SRCROOT)/../${info.moduleName}/build/xcode-frameworks/${'$'}(CONFIGURATION)/${'$'}(SDK_NAME)",
+            				);
             				GENERATE_INFOPLIST_FILE = YES;
-            				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-            				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
             				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-            				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-            				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
             				LD_RUNPATH_SEARCH_PATHS = (
             					"${'$'}(inherited)",
             					"@executable_path/Frameworks",
             				);
             				MARKETING_VERSION = 1.0;
-                            OTHER_LDFLAGS = (
-			                	"${'$'}{inherited}",
-			                	"-framework",
-			                	ComposeApp,
-			                );
+            				OTHER_LDFLAGS = (
+            					"${'$'}{inherited}",
+            					"-framework",
+            					ComposeApp,
+            				);
             				PRODUCT_BUNDLE_IDENTIFIER = ${info.packageId}.iosApp;
             				PRODUCT_NAME = "${info.name}";
             				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -448,26 +437,22 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             				CURRENT_PROJECT_VERSION = 1;
             				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
             				ENABLE_PREVIEWS = YES;
-                            FRAMEWORK_SEARCH_PATHS = (
-				            	"${'$'}{inherited}",
-				            	"${'$'}(SRCROOT)/../${info.moduleName}/build/xcode-frameworks/${'$'}(CONFIGURATION)/${'$'}(SDK_NAME)",
-				            );
+            				FRAMEWORK_SEARCH_PATHS = (
+            					"${'$'}{inherited}",
+            					"${'$'}(SRCROOT)/../${info.moduleName}/build/xcode-frameworks/${'$'}(CONFIGURATION)/${'$'}(SDK_NAME)",
+            				);
             				GENERATE_INFOPLIST_FILE = YES;
-            				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-            				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
             				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-            				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-            				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
             				LD_RUNPATH_SEARCH_PATHS = (
             					"${'$'}(inherited)",
             					"@executable_path/Frameworks",
             				);
             				MARKETING_VERSION = 1.0;
-                            OTHER_LDFLAGS = (
-			                	"${'$'}{inherited}",
-			                	"-framework",
-			                	ComposeApp,
-			                );
+            				OTHER_LDFLAGS = (
+            					"${'$'}{inherited}",
+            					"-framework",
+            					ComposeApp,
+            				);
             				PRODUCT_BUNDLE_IDENTIFIER = ${info.packageId}.iosApp;
             				PRODUCT_NAME = "${info.name}";
             				SWIFT_EMIT_LOC_STRINGS = YES;
