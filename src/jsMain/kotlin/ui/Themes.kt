@@ -1,6 +1,6 @@
 package ui
 
-import js.core.jso
+import js.objects.jso
 import mui.material.PaletteMode.Companion.dark
 import mui.material.PaletteMode.Companion.light
 import mui.material.styles.createTheme
