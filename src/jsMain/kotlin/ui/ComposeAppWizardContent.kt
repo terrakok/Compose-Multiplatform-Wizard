@@ -21,7 +21,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
     Container {
         sx {
             padding = Padding(24.px, 24.px)
-            minWidth = 650.px
+            minWidth = 1000.px
         }
 
         ShowVersionContext.Provider {
@@ -104,11 +104,18 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                             status = "Alpha"
                         }
                         TargetButton {
-                            title = "Browser"
+                            title = "Browser (JS)"
                             isSelected = platforms.contains(Js)
                             onClick = { switch(Js) }
                             icon = Language
                             status = "Experimental"
+                        }
+                        TargetButton {
+                            title = "Browser (Wasm)"
+                            isSelected = platforms.contains(Wasm)
+                            onClick = { switch(Wasm) }
+                            icon = Language
+                            status = "Experimental (some libraries don't sopport it yet)"
                         }
                     }
 

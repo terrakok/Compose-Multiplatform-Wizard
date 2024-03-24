@@ -64,9 +64,16 @@ fun ProjectInfo.generateComposeAppFiles() = buildList {
     }
 
     if (info.hasPlatform(ProjectPlatform.Js)) {
-        add(BrowserAppKt(info))
-        add(IndexHtml(info))
-        add(BrowserMainKt(info))
-        add(BrowserThemeKt(info))
+        add(JsAppKt(info))
+        add(JsIndexHtml(info))
+        add(JsMainKt(info))
+        add(JsThemeKt(info))
+    }
+
+    if (info.hasPlatform(ProjectPlatform.Wasm)) {
+        add(WasmJsAppKt(info))
+        add(WasmJsIndexHtml(info))
+        add(WasmJsMainKt(info))
+        add(WasmJsThemeKt(info))
     }
 }

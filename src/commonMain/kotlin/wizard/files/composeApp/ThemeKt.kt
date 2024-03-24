@@ -119,18 +119,25 @@ class DesktopThemeKt(info: ProjectInfo) : ProjectFile {
     """.trimIndent()
 }
 
-class BrowserThemeKt(info: ProjectInfo) : ProjectFile {
+class JsThemeKt(info: ProjectInfo) : ProjectFile {
     override val path = "${info.moduleName}/src/jsMain/kotlin/${info.packagePath}/theme/Theme.js.kt"
-    override val content = """
-        package ${info.packageId}.theme
-
-        import androidx.compose.runtime.Composable
-
-        @Composable
-        internal actual fun SystemAppearance(isDark: Boolean) {
-        }
-    """.trimIndent()
+    override val content = getBrowserThemeKt(info)
 }
+
+class WasmJsThemeKt(info: ProjectInfo) : ProjectFile {
+    override val path = "${info.moduleName}/src/wasmJsMain/kotlin/${info.packagePath}/theme/Theme.wasmJs.kt"
+    override val content = getBrowserThemeKt(info)
+}
+
+private fun getBrowserThemeKt(info: ProjectInfo) = """
+    package ${info.packageId}.theme
+
+    import androidx.compose.runtime.Composable
+
+    @Composable
+    internal actual fun SystemAppearance(isDark: Boolean) {
+    }
+""".trimIndent()
 
 class IosThemeKt(info: ProjectInfo) : ProjectFile {
     override val path = "${info.moduleName}/src/iosMain/kotlin/${info.packagePath}/theme/Theme.ios.kt"

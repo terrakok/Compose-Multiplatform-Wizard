@@ -177,15 +177,22 @@ class IosAppKt(info: ProjectInfo) : ProjectFile {
     """.trimIndent()
 }
 
-class BrowserAppKt(info: ProjectInfo) : ProjectFile {
+class JsAppKt(info: ProjectInfo) : ProjectFile {
     override val path = "${info.moduleName}/src/jsMain/kotlin/${info.packagePath}/App.js.kt"
-    override val content = """
-        package ${info.packageId}
-
-        import kotlinx.browser.window
-
-        internal actual fun openUrl(url: String?) {
-            url?.let { window.open(it) }
-        }
-    """.trimIndent()
+    override val content = getBrowserAppKt(info)
 }
+
+class WasmJsAppKt(info: ProjectInfo) : ProjectFile {
+    override val path = "${info.moduleName}/src/wasmJsMain/kotlin/${info.packagePath}/App.wasmJs.kt"
+    override val content = getBrowserAppKt(info)
+}
+
+private fun getBrowserAppKt(info: ProjectInfo) = """
+    package ${info.packageId}
+
+    import kotlinx.browser.window
+
+    internal actual fun openUrl(url: String?) {
+        url?.let { window.open(it) }
+    }
+""".trimIndent()

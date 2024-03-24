@@ -51,6 +51,13 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    }")
             appendLine("")
         }
+        if (info.hasPlatform(ProjectPlatform.Wasm)) {
+            appendLine("    wasmJs {")
+            appendLine("        browser()")
+            appendLine("        binaries.executable()")
+            appendLine("    }")
+            appendLine("")
+        }
         if (info.hasPlatform(ProjectPlatform.Ios)) {
             appendLine("    listOf(")
             appendLine("        iosX64(),")

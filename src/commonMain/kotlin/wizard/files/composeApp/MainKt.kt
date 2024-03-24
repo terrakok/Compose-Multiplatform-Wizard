@@ -38,7 +38,7 @@ class IosMainKt(info: ProjectInfo) : ProjectFile {
     """.trimIndent()
 }
 
-class BrowserMainKt(info: ProjectInfo) : ProjectFile {
+class JsMainKt(info: ProjectInfo) : ProjectFile {
     override val path = "${info.moduleName}/src/jsMain/kotlin/main.kt"
     override val content = """
         import androidx.compose.ui.ExperimentalComposeUiApi
@@ -52,6 +52,23 @@ class BrowserMainKt(info: ProjectInfo) : ProjectFile {
                 CanvasBasedWindow("${info.name}") {
                     App()
                 }
+            }
+        }
+
+    """.trimIndent()
+}
+
+class WasmJsMainKt(info: ProjectInfo) : ProjectFile {
+    override val path = "${info.moduleName}/src/wasmJsMain/kotlin/main.kt"
+    override val content =  """
+        import androidx.compose.ui.ExperimentalComposeUiApi
+        import androidx.compose.ui.window.CanvasBasedWindow
+        import ${info.packageId}.App
+
+        @OptIn(ExperimentalComposeUiApi::class)
+        fun main() {
+            CanvasBasedWindow("${info.name}") {
+                App()
             }
         }
 

@@ -14,7 +14,7 @@ class Readme(info: ProjectInfo) : ProjectFile {
                 appendLine(" - check your system with [KDoctor](https://github.com/Kotlin/kdoctor)")
             }
             if (info.hasPlatform(ProjectPlatform.Android)) {
-                appendLine(" - install JDK 17 on your machine")
+                appendLine(" - install JDK 17 or higher on your machine")
                 appendLine(" - add `local.properties` file to the project root and set a path to Android SDK there")
             }
             appendLine("")
@@ -46,8 +46,14 @@ class Readme(info: ProjectInfo) : ProjectFile {
         }
 
         if (info.hasPlatform(ProjectPlatform.Js)) {
-            appendLine("### Browser")
+            appendLine("### Browser (JS)")
             appendLine("Run the browser application: `./gradlew :${info.moduleName}:jsBrowserDevelopmentRun --continue`")
+            appendLine("")
+        }
+
+        if (info.hasPlatform(ProjectPlatform.Wasm)) {
+            appendLine("### Browser (Wasm)")
+            appendLine("Run the browser application: `./gradlew :${info.moduleName}:wasmJsBrowserDevelopmentRun --continue`")
             appendLine("")
         }
     }
