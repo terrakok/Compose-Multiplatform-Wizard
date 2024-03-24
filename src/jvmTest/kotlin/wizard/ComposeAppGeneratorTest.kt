@@ -376,6 +376,11 @@ class ComposeAppGeneratorTest {
 
         assertEquals(
             """
+                import org.jetbrains.compose.ExperimentalComposeLibrary
+                import com.android.build.api.dsl.ManagedVirtualDevice
+                import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+                import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+                
                 plugins {
                     alias(libs.plugins.multiplatform)
                     alias(libs.plugins.compose)
@@ -523,6 +528,8 @@ class ComposeAppGeneratorTest {
 
         assertEquals(
             """
+                import org.jetbrains.compose.ExperimentalComposeLibrary
+                
                 plugins {
                     alias(libs.plugins.multiplatform)
                     alias(libs.plugins.compose)
@@ -709,6 +716,8 @@ class ComposeAppGeneratorTest {
 
         assertEquals(
             """
+                import org.jetbrains.compose.ExperimentalComposeLibrary
+                
                 plugins {
                     alias(libs.plugins.multiplatform)
                     alias(libs.plugins.compose)
