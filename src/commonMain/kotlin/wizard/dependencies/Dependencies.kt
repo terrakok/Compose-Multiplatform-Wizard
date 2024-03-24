@@ -57,3 +57,29 @@ val AndroidxActivityCompose = Dependency(
     catalogName = "androidx-activityCompose",
     platforms = setOf(Android)
 )
+
+val AndroidxTestManifest = Dependency(
+    title = "Androidx Test Manifest",
+    description = "Androidx Test Manifest",
+    url = "https://developer.android.com/reference/kotlin/androidx/compose/ui/test/package-summary",
+    group = "androidx.compose.ui",
+    id = "ui-test-manifest",
+    version = "1.6.4",
+    catalogVersionName = "androidx-uiTest",
+    catalogName = "androidx-testManifest",
+    platforms = setOf(Android),
+    isTestDependency = true
+)
+
+val AndroidxJUnit4 = Dependency(
+    title = "Androidx JUnit4",
+    description = "Androidx JUnit4",
+    url = "https://developer.android.com/reference/kotlin/androidx/compose/ui/test/junit4/package-summary",
+    group = "androidx.compose.ui",
+    id = "ui-test-junit4",
+    version = "1.6.4",
+    catalogVersionName = "androidx-uiTest",
+    catalogName = "androidx-junit4",
+    platforms = setOf(Android),
+    isTestDependency = true
+)

@@ -28,12 +28,14 @@ class Readme(info: ProjectInfo) : ProjectFile {
             appendLine("To build the application bundle:")
             appendLine(" - run `./gradlew :${info.moduleName}:assembleDebug`")
             appendLine(" - find `.apk` file in `${info.moduleName}/build/outputs/apk/debug/${info.moduleName}-debug.apk`")
+            appendLine("Run android simulator UI tests: `./gradlew :composeApp:pixel5Check`")
             appendLine("")
         }
 
         if (info.hasPlatform(ProjectPlatform.Jvm)) {
             appendLine("### Desktop")
             appendLine("Run the desktop application: `./gradlew :${info.moduleName}:run`")
+            appendLine("Run desktop UI tests: `./gradlew :composeApp:jvmTest`")
             appendLine("")
         }
 
@@ -42,18 +44,21 @@ class Readme(info: ProjectInfo) : ProjectFile {
             appendLine("To run the application on iPhone device/simulator:")
             appendLine(" - Open `iosApp/iosApp.xcproject` in Xcode and run standard configuration")
             appendLine(" - Or use [Kotlin Multiplatform Mobile plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile) for Android Studio")
+            appendLine("Run iOS simulator UI tests: `./gradlew :composeApp:iosSimulatorArm64Test`")
             appendLine("")
         }
 
         if (info.hasPlatform(ProjectPlatform.Js)) {
-            appendLine("### Browser (JS)")
+            appendLine("### Experimental Browser (JS)")
             appendLine("Run the browser application: `./gradlew :${info.moduleName}:jsBrowserDevelopmentRun --continue`")
+            appendLine("Run browser UI tests: `./gradlew :composeApp:jsBrowserTest`")
             appendLine("")
         }
 
         if (info.hasPlatform(ProjectPlatform.Wasm)) {
-            appendLine("### Browser (Wasm)")
+            appendLine("### Experimental Browser (Wasm)")
             appendLine("Run the browser application: `./gradlew :${info.moduleName}:wasmJsBrowserDevelopmentRun --continue`")
+            appendLine("Run browser UI tests: `./gradlew :composeApp:wasmJsBrowserTest`")
             appendLine("")
         }
     }

@@ -46,6 +46,8 @@ fun DefaultComposeAppInfo() = ProjectInfo(
         ComposePlugin,
         AndroidApplicationPlugin,
         AndroidxActivityCompose,
+        AndroidxTestManifest,
+        AndroidxJUnit4,
     )
 )
 
@@ -79,6 +81,7 @@ data class Dependency(
     val catalogVersionName: String,
     val catalogName: String,
     val platforms: Set<ProjectPlatform>,
+    val isTestDependency: Boolean = false
 )
 
 fun Dependency.isPlugin() = id == "gradle-plugin"

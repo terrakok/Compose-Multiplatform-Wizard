@@ -9,19 +9,33 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         val plugins = mutableSetOf<Dependency>()
         val commonDeps = mutableSetOf<Dependency>()
         val otherDeps = mutableSetOf<Dependency>()
+        val commonTestDeps = mutableSetOf<Dependency>()
+        val otherTestDeps = mutableSetOf<Dependency>()
         info.dependencies.forEach { dep ->
             when {
                 dep.isPlugin() -> plugins.add(dep)
-                dep.isCommon() -> commonDeps.add(dep)
-                else -> otherDeps.add(dep)
+                dep.isCommon() -> {
+                    if (!dep.isTestDependency) commonDeps.add(dep)
+                    else commonTestDeps.add(dep)
+                }
+
+                else -> {
+                    if (!dep.isTestDependency) otherDeps.add(dep)
+                    else otherTestDeps.add(dep)
+                }
             }
         }
 
-
+        appendLine("import org.jetbrains.compose.ExperimentalComposeLibrary")
         if (info.hasPlatform(ProjectPlatform.Jvm)) {
             appendLine("import org.jetbrains.compose.desktop.application.dsl.TargetFormat")
-            appendLine("")
         }
+        if (info.hasPlatform(ProjectPlatform.Android)) {
+            appendLine("import com.android.build.api.dsl.ManagedVirtualDevice")
+            appendLine("import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi")
+            appendLine("import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree")
+        }
+        appendLine("")
         appendLine("plugins {")
         plugins.forEach { dep ->
             appendLine("    ${dep.pluginNotation}")
@@ -35,6 +49,15 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("            kotlinOptions {")
             appendLine("                jvmTarget = \"${'$'}{JavaVersion.VERSION_1_8}\"")
             appendLine("                freeCompilerArgs += \"-Xjdk-release=${'\$'}{JavaVersion.VERSION_1_8}\"")
+            appendLine("            }")
+            appendLine("        }")
+            appendLine("        //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html")
+            appendLine("        @OptIn(ExperimentalKotlinGradlePluginApi::class)")
+            appendLine("        instrumentedTestVariant {")
+            appendLine("            sourceSetTree.set(KotlinSourceSetTree.test)")
+            appendLine("            dependencies {")
+            appendLine("                debugImplementation(libs.androidx.testManifest)")
+            appendLine("                implementation(libs.androidx.junit4)")
             appendLine("            }")
             appendLine("        }")
             appendLine("    }")
@@ -92,6 +115,13 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("        commonTest.dependencies {")
         appendLine("            implementation(kotlin(\"test\"))")
+        appendLine("            @OptIn(ExperimentalComposeLibrary::class)")
+        appendLine("            implementation(compose.uiTest)")
+
+        commonTestDeps.forEach { dep ->
+            appendLine("            ${dep.libraryNotation}")
+        }
+
         appendLine("        }")
         appendLine("")
         if (info.hasPlatform(ProjectPlatform.Android)) {
@@ -161,10 +191,23 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        applicationId = \"${info.packageId}.androidApp\"")
             appendLine("        versionCode = 1")
             appendLine("        versionName = \"1.0.0\"")
+            appendLine("")
+            appendLine("        testInstrumentationRunner = \"androidx.test.runner.AndroidJUnitRunner\"")
             appendLine("    }")
             appendLine("    sourceSets[\"main\"].apply {")
             appendLine("        manifest.srcFile(\"src/androidMain/AndroidManifest.xml\")")
             appendLine("        res.srcDirs(\"src/androidMain/res\")")
+            appendLine("    }")
+            appendLine("    //https://developer.android.com/studio/test/gradle-managed-devices")
+            appendLine("    @Suppress(\"UnstableApiUsage\")")
+            appendLine("    testOptions {")
+            appendLine("        managedDevices.devices {")
+            appendLine("            maybeCreate<ManagedVirtualDevice>(\"pixel5\").apply {")
+            appendLine("                device = \"Pixel 5\"")
+            appendLine("                apiLevel = 34")
+            appendLine("                systemImageSource = \"aosp\"")
+            appendLine("            }")
+            appendLine("        }")
             appendLine("    }")
             appendLine("    compileOptions {")
             appendLine("        sourceCompatibility = JavaVersion.VERSION_1_8")

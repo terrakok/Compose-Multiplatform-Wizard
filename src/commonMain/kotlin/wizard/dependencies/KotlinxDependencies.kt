@@ -81,6 +81,13 @@ val KotlinxCoroutinesJvm = KotlinxCoroutinesCore.copy(
     platforms = setOf(Jvm)
 )
 
+val KotlinxCoroutinesTest = KotlinxCoroutinesCore.copy(
+    id = "kotlinx-coroutines-test",
+    catalogName = "kotlinx-coroutines-test",
+    platforms = emptySet(),
+    isTestDependency = true
+)
+
 val KotlinxSerializationPlugin = Dependency(
     title = "Kotlinx Serialization",
     description = "Kotlin serialization consists of a compiler plugin.",

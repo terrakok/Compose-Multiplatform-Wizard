@@ -10,6 +10,8 @@ import kotlin.test.assertEquals
 internal val androidDependencies = setOf(
     AndroidApplicationPlugin,
     AndroidxActivityCompose,
+    AndroidxTestManifest,
+    AndroidxJUnit4,
 )
 
 internal val extraDependencies = setOf(
@@ -68,7 +70,8 @@ class GeneratedComposeAppProjectTest {
                     add(ComposePlugin)
                     addAll(extraDependencies)
                 }
-            )
+            ),
+            taskName = "assemble"
         )
     }
 
@@ -118,7 +121,8 @@ class GeneratedComposeAppProjectTest {
                     KotlinxCoroutinesCore,
                     BuildConfigPlugin,
                 )
-            )
+            ),
+            taskName = "assemble"
         )
     }
 
@@ -196,11 +200,11 @@ class GeneratedComposeAppProjectTest {
         )
     }
 
-    private fun checkProject(projectInfo: ProjectInfo) {
+    private fun checkProject(projectInfo: ProjectInfo, taskName: String = "build") {
         val dir = projectInfo.writeToDir(workingDir)
         checkCommand(
             dir = dir,
-            command = listOf("${dir.path}/gradlew", "build", "--info")
+            command = listOf("${dir.path}/gradlew", taskName, "--info")
         )
     }
 

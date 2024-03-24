@@ -36,6 +36,7 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/kotlin/org/company/app/theme/Color.kt
             ${info.moduleName}/src/commonMain/kotlin/org/company/app/theme/Theme.kt
             ${info.moduleName}/src/commonMain/kotlin/org/company/app/App.kt
+            ${info.moduleName}/src/commonTest/kotlin/org/company/app/ComposeTest.kt
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_cyclone.xml
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_dark_mode.xml
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_light_mode.xml
@@ -70,7 +71,11 @@ class ComposeAppGeneratorTest {
 
         assertEquals(
             """
+                import org.jetbrains.compose.ExperimentalComposeLibrary
                 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+                import com.android.build.api.dsl.ManagedVirtualDevice
+                import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+                import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
                 plugins {
                     alias(libs.plugins.multiplatform)
@@ -88,6 +93,15 @@ class ComposeAppGeneratorTest {
                             kotlinOptions {
                                 jvmTarget = "${'$'}{JavaVersion.VERSION_1_8}"
                                 freeCompilerArgs += "-Xjdk-release=${'$'}{JavaVersion.VERSION_1_8}"
+                            }
+                        }
+                        //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
+                        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+                        instrumentedTestVariant {
+                            sourceSetTree.set(KotlinSourceSetTree.test)
+                            dependencies {
+                                debugImplementation(libs.androidx.testManifest)
+                                implementation(libs.androidx.junit4)
                             }
                         }
                     }
@@ -139,6 +153,8 @@ class ComposeAppGeneratorTest {
 
                         commonTest.dependencies {
                             implementation(kotlin("test"))
+                            @OptIn(ExperimentalComposeLibrary::class)
+                            implementation(compose.uiTest)
                         }
 
                         androidMain.dependencies {
@@ -180,10 +196,23 @@ class ComposeAppGeneratorTest {
                         applicationId = "org.company.app.androidApp"
                         versionCode = 1
                         versionName = "1.0.0"
+
+                        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                     }
                     sourceSets["main"].apply {
                         manifest.srcFile("src/androidMain/AndroidManifest.xml")
                         res.srcDirs("src/androidMain/res")
+                    }
+                    //https://developer.android.com/studio/test/gradle-managed-devices
+                    @Suppress("UnstableApiUsage")
+                    testOptions {
+                        managedDevices.devices {
+                            maybeCreate<ManagedVirtualDevice>("pixel5").apply {
+                                device = "Pixel 5"
+                                apiLevel = 34
+                                systemImageSource = "aosp"
+                            }
+                        }
                     }
                     compileOptions {
                         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -248,6 +277,7 @@ class ComposeAppGeneratorTest {
                 compose = "${ComposePlugin.version}"
                 agp = "${AndroidApplicationPlugin.version}"
                 androidx-activityCompose = "${AndroidxActivityCompose.version}"
+                androidx-uiTest = "${AndroidxJUnit4.version}"
                 apollo = "${ApolloRuntime.version}"
                 voyager = "${Voyager.version}"
                 composeImageLoader = "${ImageLoader.version}"
@@ -267,6 +297,8 @@ class ComposeAppGeneratorTest {
                 [libraries]
 
                 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+                androidx-testManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidx-uiTest" }
+                androidx-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx-uiTest" }
                 apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apollo" }
                 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
                 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "composeImageLoader" }
@@ -328,6 +360,7 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/kotlin/org/android/app/theme/Color.kt
             ${info.moduleName}/src/commonMain/kotlin/org/android/app/theme/Theme.kt
             ${info.moduleName}/src/commonMain/kotlin/org/android/app/App.kt
+            ${info.moduleName}/src/commonTest/kotlin/org/android/app/ComposeTest.kt
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_cyclone.xml
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_dark_mode.xml
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_light_mode.xml
@@ -357,6 +390,15 @@ class ComposeAppGeneratorTest {
                                 freeCompilerArgs += "-Xjdk-release=${'$'}{JavaVersion.VERSION_1_8}"
                             }
                         }
+                        //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
+                        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+                        instrumentedTestVariant {
+                            sourceSetTree.set(KotlinSourceSetTree.test)
+                            dependencies {
+                                debugImplementation(libs.androidx.testManifest)
+                                implementation(libs.androidx.junit4)
+                            }
+                        }
                     }
 
                     sourceSets {
@@ -375,6 +417,8 @@ class ComposeAppGeneratorTest {
 
                         commonTest.dependencies {
                             implementation(kotlin("test"))
+                            @OptIn(ExperimentalComposeLibrary::class)
+                            implementation(compose.uiTest)
                         }
 
                         androidMain.dependencies {
@@ -396,10 +440,23 @@ class ComposeAppGeneratorTest {
                         applicationId = "org.android.app.androidApp"
                         versionCode = 1
                         versionName = "1.0.0"
+
+                        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                     }
                     sourceSets["main"].apply {
                         manifest.srcFile("src/androidMain/AndroidManifest.xml")
                         res.srcDirs("src/androidMain/res")
+                    }
+                    //https://developer.android.com/studio/test/gradle-managed-devices
+                    @Suppress("UnstableApiUsage")
+                    testOptions {
+                        managedDevices.devices {
+                            maybeCreate<ManagedVirtualDevice>("pixel5").apply {
+                                device = "Pixel 5"
+                                apiLevel = 34
+                                systemImageSource = "aosp"
+                            }
+                        }
                     }
                     compileOptions {
                         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -443,6 +500,7 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/kotlin/org/ios/app/theme/Color.kt
             ${info.moduleName}/src/commonMain/kotlin/org/ios/app/theme/Theme.kt
             ${info.moduleName}/src/commonMain/kotlin/org/ios/app/App.kt
+            ${info.moduleName}/src/commonTest/kotlin/org/ios/app/ComposeTest.kt
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_cyclone.xml
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_dark_mode.xml
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_light_mode.xml
@@ -498,6 +556,8 @@ class ComposeAppGeneratorTest {
 
                         commonTest.dependencies {
                             implementation(kotlin("test"))
+                            @OptIn(ExperimentalComposeLibrary::class)
+                            implementation(compose.uiTest)
                         }
 
                         iosMain.dependencies {
@@ -536,6 +596,7 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/kotlin/org/desktop/app/theme/Color.kt
             ${info.moduleName}/src/commonMain/kotlin/org/desktop/app/theme/Theme.kt
             ${info.moduleName}/src/commonMain/kotlin/org/desktop/app/App.kt
+            ${info.moduleName}/src/commonTest/kotlin/org/desktop/app/ComposeTest.kt
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_cyclone.xml
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_dark_mode.xml
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_light_mode.xml
@@ -551,6 +612,7 @@ class ComposeAppGeneratorTest {
 
         assertEquals(
             """
+                import org.jetbrains.compose.ExperimentalComposeLibrary
                 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
                 plugins {
@@ -577,6 +639,8 @@ class ComposeAppGeneratorTest {
 
                         commonTest.dependencies {
                             implementation(kotlin("test"))
+                            @OptIn(ExperimentalComposeLibrary::class)
+                            implementation(compose.uiTest)
                         }
 
                         jvmMain.dependencies {
@@ -628,6 +692,7 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/kotlin/org/js/app/theme/Color.kt
             ${info.moduleName}/src/commonMain/kotlin/org/js/app/theme/Theme.kt
             ${info.moduleName}/src/commonMain/kotlin/org/js/app/App.kt
+            ${info.moduleName}/src/commonTest/kotlin/org/js/app/ComposeTest.kt
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_cyclone.xml
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_dark_mode.xml
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_light_mode.xml
@@ -671,6 +736,8 @@ class ComposeAppGeneratorTest {
 
                         commonTest.dependencies {
                             implementation(kotlin("test"))
+                            @OptIn(ExperimentalComposeLibrary::class)
+                            implementation(compose.uiTest)
                         }
 
                         jsMain.dependencies {

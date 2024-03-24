@@ -193,6 +193,8 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                                     if (platforms.contains(Android)) {
                                         add(AndroidApplicationPlugin)
                                         add(AndroidxActivityCompose)
+                                        add(AndroidxTestManifest)
+                                        add(AndroidxJUnit4)
                                     }
                                     addAll(deps.getSelectedDependencies())
                                 }
@@ -235,7 +237,8 @@ internal fun Set<DependencyBox>.getSelectedDependencies() =
                 it.id.contains("coroutines") -> listOf(
                     KotlinxCoroutinesCore,
                     KotlinxCoroutinesAndroid,
-                    KotlinxCoroutinesJvm
+                    KotlinxCoroutinesJvm,
+                    KotlinxCoroutinesTest
                 )
 
                 it.id.contains("serialization") -> listOf(KotlinxSerializationPlugin, KotlinxSerializationJson)
