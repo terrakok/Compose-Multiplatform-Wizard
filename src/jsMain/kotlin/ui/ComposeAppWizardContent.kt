@@ -115,7 +115,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                             isSelected = platforms.contains(Wasm)
                             onClick = { switch(Wasm) }
                             icon = Language
-                            status = "Experimental (some libraries don't sopport it yet)"
+                            status = "Experimental (some libraries don't support it yet)"
                         }
                     }
 
