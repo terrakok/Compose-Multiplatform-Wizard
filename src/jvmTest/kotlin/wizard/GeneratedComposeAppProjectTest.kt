@@ -132,7 +132,18 @@ class GeneratedComposeAppProjectTest {
         val dir = projectInfo.writeToDir(workingDir)
         checkCommand(
             dir = dir,
-            command = listOf("${dir.path}/gradlew", ":${projectInfo.moduleName}:assembleDebug", "--stacktrace")
+            command = mutableListOf(
+                "${dir.path}/gradlew",
+                ":${projectInfo.moduleName}:assembleDebug"
+            ).also {
+                if (!(System.getProperty("os.name").contains(other = "mac", ignoreCase = true) &&
+                            "true".equals(other = System.getenv("CI"), ignoreCase = true))
+                ) {
+                    // Run Android native test on Ubuntu build agent only
+                    it.add(":${projectInfo.moduleName}:pixel5Check")
+                }
+                it.add("--stacktrace")
+            }
         )
     }
 
