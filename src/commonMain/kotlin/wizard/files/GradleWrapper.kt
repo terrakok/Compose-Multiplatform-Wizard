@@ -9,6 +9,8 @@ class GradleWrapperProperties(info: ProjectInfo) : ProjectFile {
 distributionBase=GRADLE_USER_HOME
 distributionPath=wrapper/dists
 distributionUrl=https\://services.gradle.org/distributions/gradle-${info.gradleVersion}-bin.zip
+networkTimeout=10000
+validateDistributionUrl=true
 zipStoreBase=GRADLE_USER_HOME
 zipStorePath=wrapper/dists
 """
