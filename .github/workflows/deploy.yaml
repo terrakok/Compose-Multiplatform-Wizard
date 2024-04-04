@@ -12,6 +12,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.3.1
 
+      - name: Enable KVM group perms
+        if: contains(matrix.os, 'ubuntu')
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
       - uses: actions/cache@v2
         with:
           path: |
