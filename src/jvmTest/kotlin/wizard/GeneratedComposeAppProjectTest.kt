@@ -4,6 +4,7 @@ import org.junit.*
 import wizard.dependencies.*
 import wizard.files.*
 import java.io.*
+import javax.json.Json
 import kotlin.io.path.createTempDirectory
 import kotlin.test.assertEquals
 
@@ -163,6 +164,34 @@ class GeneratedComposeAppProjectTest {
             }
         )
         val dir = projectInfo.writeToDir(workingDir)
+        val devicesJson = checkCommand(
+            dir = dir,
+            command = listOf(
+                "xcrun",
+                "simctl",
+                "list",
+                "devices",
+                "available",
+                "-j"
+            )
+        )
+        val devicesList = Json.createReader(StringReader(devicesJson)).use { it.readObject() }
+            .getJsonObject("devices")
+            .let { devicesMap -> devicesMap.keys.map { devicesMap.getJsonArray(it) } }
+            .map { jsonArray -> jsonArray.map { it.asJsonObject() } }
+            .flatten()
+            .filter { it.getBoolean("isAvailable") }
+            .filter {
+                if (System.getenv("CI").toBoolean()) {
+                    listOf("iphone 15", "iphone 14").any { device ->
+                        it.getString("name").contains(device, true)
+                    }
+                } else {
+                    true
+                }
+            }
+        println("Devices:$devicesList")
+        val deviceId = devicesList.firstOrNull()?.getString("udid")
         checkCommand(
             dir = dir,
             command = listOf(
@@ -175,8 +204,8 @@ class GeneratedComposeAppProjectTest {
                 "Debug",
                 "OBJROOT=${dir.path}/build/ios",
                 "SYMROOT=${dir.path}/build/ios",
-                "-sdk",
-                "iphonesimulator",
+                "-destination",
+                "id=$deviceId",
                 "-allowProvisioningDeviceRegistration",
                 "-allowProvisioningUpdates"
             )
@@ -219,16 +248,21 @@ class GeneratedComposeAppProjectTest {
         )
     }
 
-    private fun checkCommand(dir: File, command: List<String>) {
+    private fun checkCommand(dir: File, command: List<String>): String {
         println("Project dir: ${dir.absolutePath}")
         println("command: ${command.joinToString(" ")}")
         println("============start of the command============")
         val proc = ProcessBuilder(command).apply { directory(dir) }.start()
-        proc.inputStream.printStream()
+        val stringBuilder = StringBuilder()
+        BufferedReader(InputStreamReader(proc.inputStream)).forEachLine {
+            println(it)
+            stringBuilder.appendLine(it)
+        }
         proc.errorStream.printStream()
         proc.waitFor()
         println("============end of the command============")
         assertEquals(0, proc.exitValue(), "command exit code")
+        return stringBuilder.toString()
     }
 
     private fun InputStream.printStream() {
