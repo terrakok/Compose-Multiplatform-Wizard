@@ -68,6 +68,7 @@ class GeneratedComposeAppProjectTest {
                 platforms = setOf(ProjectPlatform.Jvm, ProjectPlatform.Js),
                 dependencies = buildSet {
                     add(KotlinPlugin)
+                    add(ComposeCompilerPlugin)
                     add(ComposePlugin)
                     addAll(extraDependencies)
                 }
@@ -85,6 +86,7 @@ class GeneratedComposeAppProjectTest {
                 platforms = setOf(ProjectPlatform.Jvm),
                 dependencies = setOf(
                     KotlinPlugin,
+                    ComposeCompilerPlugin,
                     ComposePlugin,
                     Voyager,
                     ImageLoader,
@@ -115,6 +117,7 @@ class GeneratedComposeAppProjectTest {
                 platforms = setOf(ProjectPlatform.Js),
                 dependencies = setOf(
                     KotlinPlugin,
+                    ComposeCompilerPlugin,
                     ComposePlugin,
                     Napier,
                     KotlinxDateTime,
@@ -159,6 +162,7 @@ class GeneratedComposeAppProjectTest {
             platforms = setOf(ProjectPlatform.Ios),
             dependencies = buildSet {
                 add(KotlinPlugin)
+                add(ComposeCompilerPlugin)
                 add(ComposePlugin)
                 addAll(extraDependencies)
             }
@@ -177,7 +181,11 @@ class GeneratedComposeAppProjectTest {
         )
         val devicesList = Json.createReader(StringReader(devicesJson)).use { it.readObject() }
             .getJsonObject("devices")
-            .let { devicesMap -> devicesMap.keys.map { devicesMap.getJsonArray(it) } }
+            .let { devicesMap -> 
+                devicesMap.keys
+                    .filter { it.startsWith("com.apple.CoreSimulator.SimRuntime.iOS") }
+                    .map { devicesMap.getJsonArray(it) } 
+            }
             .map { jsonArray -> jsonArray.map { it.asJsonObject() } }
             .flatten()
             .filter { it.getBoolean("isAvailable") }
@@ -190,7 +198,7 @@ class GeneratedComposeAppProjectTest {
                     true
                 }
             }
-        println("Devices:$devicesList")
+        println("Devices:${devicesList.joinToString { "\n" + it["udid"] + ": " + it["name"] }}")
         val deviceId = devicesList.firstOrNull()?.getString("udid")
         checkCommand(
             dir = dir,
@@ -218,6 +226,7 @@ class GeneratedComposeAppProjectTest {
             platforms = setOf(ProjectPlatform.Jvm),
             dependencies = buildSet {
                 add(KotlinPlugin)
+                add(ComposeCompilerPlugin)
                 add(ComposePlugin)
                 addAll(extraDependencies)
             }

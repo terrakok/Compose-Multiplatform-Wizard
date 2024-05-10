@@ -33,6 +33,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         if (info.hasPlatform(ProjectPlatform.Android)) {
             appendLine("import com.android.build.api.dsl.ManagedVirtualDevice")
             appendLine("import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi")
+            appendLine("import org.jetbrains.kotlin.gradle.dsl.JvmTarget")
             appendLine("import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree")
         }
         appendLine("")
@@ -46,9 +47,11 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         if (info.hasPlatform(ProjectPlatform.Android)) {
             appendLine("    androidTarget {")
             appendLine("        compilations.all {")
-            appendLine("            kotlinOptions {")
-            appendLine("                jvmTarget = \"${'$'}{JavaVersion.VERSION_1_8}\"")
-            appendLine("                freeCompilerArgs += \"-Xjdk-release=${'\$'}{JavaVersion.VERSION_1_8}\"")
+            appendLine("            compileTaskProvider {")
+            appendLine("                compilerOptions {")
+            appendLine("                    jvmTarget.set(JvmTarget.JVM_1_8)")
+            appendLine("                    freeCompilerArgs.add(\"-Xjdk-release=${'$'}{JavaVersion.VERSION_1_8}\")")
+            appendLine("                }")
             appendLine("            }")
             appendLine("        }")
             appendLine("        //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html")

@@ -13,6 +13,7 @@ class ComposeAppGeneratorTest {
         val info = DefaultComposeAppInfo().copy(
             dependencies =  buildSet {
                 add(KotlinPlugin)
+                add(ComposeCompilerPlugin)
                 add(ComposePlugin)
                 addAll(androidDependencies)
                 addAll(extraDependencies)
@@ -75,10 +76,12 @@ class ComposeAppGeneratorTest {
                 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
                 import com.android.build.api.dsl.ManagedVirtualDevice
                 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+                import org.jetbrains.kotlin.gradle.dsl.JvmTarget
                 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
                 plugins {
                     alias(libs.plugins.multiplatform)
+                    alias(libs.plugins.compose.compiler)
                     alias(libs.plugins.compose)
                     alias(libs.plugins.android.application)
                     alias(libs.plugins.apollo)
@@ -90,9 +93,11 @@ class ComposeAppGeneratorTest {
                 kotlin {
                     androidTarget {
                         compilations.all {
-                            kotlinOptions {
-                                jvmTarget = "${'$'}{JavaVersion.VERSION_1_8}"
-                                freeCompilerArgs += "-Xjdk-release=${'$'}{JavaVersion.VERSION_1_8}"
+                            compileTaskProvider {
+                                compilerOptions {
+                                    jvmTarget.set(JvmTarget.JVM_1_8)
+                                    freeCompilerArgs.add("-Xjdk-release=${'$'}{JavaVersion.VERSION_1_8}")
+                                }
                             }
                         }
                         //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
@@ -324,6 +329,7 @@ class ComposeAppGeneratorTest {
                 [plugins]
 
                 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+                compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
                 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
                 android-application = { id = "com.android.application", version.ref = "agp" }
                 apollo = { id = "com.apollographql.apollo3", version.ref = "apollo" }
@@ -379,10 +385,12 @@ class ComposeAppGeneratorTest {
                 import org.jetbrains.compose.ExperimentalComposeLibrary
                 import com.android.build.api.dsl.ManagedVirtualDevice
                 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+                import org.jetbrains.kotlin.gradle.dsl.JvmTarget
                 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
                 
                 plugins {
                     alias(libs.plugins.multiplatform)
+                    alias(libs.plugins.compose.compiler)
                     alias(libs.plugins.compose)
                     alias(libs.plugins.android.application)
                 }
@@ -390,9 +398,11 @@ class ComposeAppGeneratorTest {
                 kotlin {
                     androidTarget {
                         compilations.all {
-                            kotlinOptions {
-                                jvmTarget = "${'$'}{JavaVersion.VERSION_1_8}"
-                                freeCompilerArgs += "-Xjdk-release=${'$'}{JavaVersion.VERSION_1_8}"
+                            compileTaskProvider {
+                                compilerOptions {
+                                    jvmTarget.set(JvmTarget.JVM_1_8)
+                                    freeCompilerArgs.add("-Xjdk-release=${'$'}{JavaVersion.VERSION_1_8}")
+                                }
                             }
                         }
                         //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html

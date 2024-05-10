@@ -43,6 +43,7 @@ fun DefaultComposeAppInfo() = ProjectInfo(
     platforms = setOf(Android, Ios, Jvm, Js),
     dependencies = setOf(
         KotlinPlugin,
+        ComposeCompilerPlugin,
         ComposePlugin,
         AndroidApplicationPlugin,
         AndroidxActivityCompose,
