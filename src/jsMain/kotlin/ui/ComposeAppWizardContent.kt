@@ -189,6 +189,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                                 platforms = platforms,
                                 dependencies = buildSet {
                                     add(KotlinPlugin)
+                                    add(ComposeCompilerPlugin)
                                     add(ComposePlugin)
                                     if (platforms.contains(Android)) {
                                         add(AndroidApplicationPlugin)
