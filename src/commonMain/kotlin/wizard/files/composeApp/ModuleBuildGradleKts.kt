@@ -239,7 +239,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("}")
         }
 
-        if (info.hasPlatform(ProjectPlatform.Js)) {
+        if (info.hasPlatform(ProjectPlatform.Js) || info.hasPlatform(ProjectPlatform.Wasm)) {
             appendLine("")
             appendLine("compose.experimental {")
             appendLine("    web.application {}")
