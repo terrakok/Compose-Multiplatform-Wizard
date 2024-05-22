@@ -1,5 +1,6 @@
 # Project exclude paths
 .gradle
+.kotlin
 build
 .idea
 kotlin-js-store

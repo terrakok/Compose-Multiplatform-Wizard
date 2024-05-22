@@ -115,7 +115,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                             isSelected = platforms.contains(Wasm)
                             onClick = { switch(Wasm) }
                             icon = Language
-                            status = "Experimental (some libraries don't support it yet)"
+                            status = "Alpha (some libraries don't support it yet)"
                         }
                     }
 
@@ -127,11 +127,11 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                     }
 
                     val deps = setOf(
-                        DependencyBox(listOf(Voyager, Decompose, PreCompose), true),
-                        DependencyBox(ImageLoader, true),
-                        DependencyBox(listOf(Napier, Kermit), true),
-                        DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin), true),
-                        DependencyBox(KotlinxCoroutinesCore, true),
+                        DependencyBox(listOf(Voyager, Decompose, PreCompose), false),
+                        DependencyBox(ImageLoader, false),
+                        DependencyBox(listOf(Napier, Kermit), false),
+                        DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin), false),
+                        DependencyBox(KotlinxCoroutinesCore, false),
                         DependencyBox(MokoMvvm, false),
                         DependencyBox(KtorCore, false),
                         DependencyBox(

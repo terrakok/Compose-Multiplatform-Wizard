@@ -404,10 +404,6 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             				CURRENT_PROJECT_VERSION = 1;
             				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
             				ENABLE_PREVIEWS = YES;
-            				FRAMEWORK_SEARCH_PATHS = (
-            					"${'$'}{inherited}",
-            					"${'$'}(SRCROOT)/../${info.moduleName}/build/xcode-frameworks/${'$'}(CONFIGURATION)/${'$'}(SDK_NAME)",
-            				);
             				GENERATE_INFOPLIST_FILE = YES;
             				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
             				LD_RUNPATH_SEARCH_PATHS = (
@@ -415,11 +411,6 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             					"@executable_path/Frameworks",
             				);
             				MARKETING_VERSION = 1.0;
-            				OTHER_LDFLAGS = (
-            					"${'$'}{inherited}",
-            					"-framework",
-            					ComposeApp,
-            				);
             				PRODUCT_BUNDLE_IDENTIFIER = ${info.packageId}.iosApp;
             				PRODUCT_NAME = "${info.name}";
             				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -437,10 +428,6 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             				CURRENT_PROJECT_VERSION = 1;
             				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
             				ENABLE_PREVIEWS = YES;
-            				FRAMEWORK_SEARCH_PATHS = (
-            					"${'$'}{inherited}",
-            					"${'$'}(SRCROOT)/../${info.moduleName}/build/xcode-frameworks/${'$'}(CONFIGURATION)/${'$'}(SDK_NAME)",
-            				);
             				GENERATE_INFOPLIST_FILE = YES;
             				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
             				LD_RUNPATH_SEARCH_PATHS = (
@@ -448,11 +435,6 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             					"@executable_path/Frameworks",
             				);
             				MARKETING_VERSION = 1.0;
-            				OTHER_LDFLAGS = (
-            					"${'$'}{inherited}",
-            					"-framework",
-            					ComposeApp,
-            				);
             				PRODUCT_BUNDLE_IDENTIFIER = ${info.packageId}.iosApp;
             				PRODUCT_NAME = "${info.name}";
             				SWIFT_EMIT_LOC_STRINGS = YES;

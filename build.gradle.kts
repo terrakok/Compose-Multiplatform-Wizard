@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform").version("1.9.23")
+    kotlin("multiplatform").version("2.0.0")
     id("com.github.gmazzo.buildconfig").version("5.3.5")
 }
 
@@ -19,7 +19,7 @@ kotlin {
     }
     sourceSets {
         jsMain.dependencies {
-            implementation(dependencies.enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.719"))
+            implementation(dependencies.enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.751"))
             implementation("org.jetbrains.kotlin-wrappers:kotlin-react")
             implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom")
             implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion")
