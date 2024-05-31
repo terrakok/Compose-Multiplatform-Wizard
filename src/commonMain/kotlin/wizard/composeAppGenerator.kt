@@ -38,9 +38,6 @@ fun ProjectInfo.generateComposeAppFiles() = buildList {
         add(GraphQLSchema(info))
         add(GraphQLQuery(info))
     }
-    if (info.dependencies.contains(RoomPlugin)) {
-
-    }
 
     if (info.hasPlatform(ProjectPlatform.Android)) {
         add(AndroidManifest(info))
