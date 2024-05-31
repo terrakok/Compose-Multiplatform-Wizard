@@ -11,12 +11,17 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         val otherDeps = mutableSetOf<Dependency>()
         val commonTestDeps = mutableSetOf<Dependency>()
         val otherTestDeps = mutableSetOf<Dependency>()
+        val kspDeps = mutableSetOf<Dependency>()
         info.dependencies.forEach { dep ->
             when {
                 dep.isPlugin() -> plugins.add(dep)
                 dep.isCommon() -> {
-                    if (!dep.isTestDependency) commonDeps.add(dep)
-                    else commonTestDeps.add(dep)
+                    if (dep.isKspDependency) {
+                        kspDeps.add(dep)
+                    } else {
+                        if (!dep.isTestDependency) commonDeps.add(dep)
+                        else commonTestDeps.add(dep)
+                    }
                 }
 
                 else -> {
@@ -111,9 +116,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("            implementation(compose.components.uiToolingPreview)")
 
         commonDeps.forEach { dep ->
-            if (dep != RoomPluginCompiler) {
-                appendLine("            ${dep.libraryNotation}")
-            }
+            appendLine("            ${dep.libraryNotation}")
         }
 
         appendLine("        }")
