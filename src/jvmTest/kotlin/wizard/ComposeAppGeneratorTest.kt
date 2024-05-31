@@ -21,6 +21,7 @@ class ComposeAppGeneratorTest {
         )
         val files = info.generateComposeAppFiles()
 
+        val projectDir = "\$projectDir"
         assertEquals(
             """
             .gitignore
@@ -88,6 +89,8 @@ class ComposeAppGeneratorTest {
                     alias(libs.plugins.kotlinx.serialization)
                     alias(libs.plugins.sqlDelight)
                     alias(libs.plugins.buildConfig)
+                    alias(libs.plugins.room)
+                    alias(libs.plugins.ksp)
                 }
 
                 kotlin {
@@ -261,24 +264,24 @@ class ComposeAppGeneratorTest {
                 }
                 
                 room {
-                    schemaDirectory("\$projectDir/schemas")
+                    schemaDirectory("${projectDir}/schemas")
                 }
-
-                dependencies {
-                    with(libs.androidx.room.compiler) {
-                        add("kspAndroid", this)
-                        add("kspIos", this)
-                        add("kspIosArm64", this)
-                        add("kspIosSimulatorArm64", this)
-                        add("kspJvm", this)
-                    }
-                }
-
+                
                 apollo {
                     service("api") {
                         // GraphQL configuration here.
                         // https://www.apollographql.com/docs/kotlin/advanced/plugin-configuration/
                         packageName.set("org.company.app.graphql")
+                    }
+                }
+                
+                dependencies {
+                    with(libs.room.compiler) {
+                        add("kspAndroid", this)
+                        add("kspJvm", this)
+                        add("kspIosX64", this)
+                        add("kspIosArm64", this)
+                        add("kspIosSimulatorArm64", this)
                     }
                 }
 

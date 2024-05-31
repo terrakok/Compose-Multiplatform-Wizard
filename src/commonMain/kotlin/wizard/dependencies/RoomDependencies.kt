@@ -24,7 +24,7 @@ val RoomPluginRuntime = RoomPlugin.copy(
 val RoomPluginCompiler = RoomPlugin.copy(
     id = "room-compiler",
     catalogName = "room-compiler",
-    platforms = emptySet(),
+    platforms = setOf(Android, Ios, Jvm),
     isKspDependency = true
 )
 
