@@ -289,15 +289,15 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("dependencies {")
             appendLine("    with(libs.room.compiler) {")
             if (info.hasPlatform(ProjectPlatform.Android)) {
-                appendLine("        add(\"kspAndroid\",this)")
+                appendLine("        add(\"kspAndroid\", this)")
             }
             if (info.hasPlatform(ProjectPlatform.Ios)) {
-                appendLine("        add(\"kspIosX64\",this)")
-                appendLine("        add(\"kspIosArm64\",this)")
-                appendLine("        add(\"kspIosSimulatorArm64\",this)")
+                appendLine("        add(\"kspIosX64\", this)")
+                appendLine("        add(\"kspIosArm64\", this)")
+                appendLine("        add(\"kspIosSimulatorArm64\", this)")
             }
             if (info.hasPlatform(ProjectPlatform.Jvm)) {
-                appendLine("        add(\"kspJvm\",this)")
+                appendLine("        add(\"kspJvm\", this)")
             }
             appendLine("    }")
             appendLine("}")
