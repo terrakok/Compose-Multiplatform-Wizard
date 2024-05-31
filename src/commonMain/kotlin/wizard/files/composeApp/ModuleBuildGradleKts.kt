@@ -111,7 +111,9 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("            implementation(compose.components.uiToolingPreview)")
 
         commonDeps.forEach { dep ->
-            appendLine("            ${dep.libraryNotation}")
+            if (dep != RoomPluginCompiler) {
+                appendLine("            ${dep.libraryNotation}")
+            }
         }
 
         appendLine("        }")
@@ -274,6 +276,29 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("            // https://cashapp.github.io/sqldelight")
             appendLine("            packageName.set(\"${info.packageId}.db\")")
             appendLine("        }")
+            appendLine("    }")
+            appendLine("}")
+        }
+
+        if (plugins.contains(RoomPlugin)) {
+            appendLine("")
+            appendLine("room {")
+            appendLine("    schemaDirectory(\"\$projectDir/schemas\")")
+            appendLine("}")
+            appendLine("")
+            appendLine("dependencies {")
+            appendLine("    with(libs.room.compiler) {")
+            if (info.hasPlatform(ProjectPlatform.Android)) {
+                appendLine("        add(\"kspAndroid\",this)")
+            }
+            if (info.hasPlatform(ProjectPlatform.Ios)) {
+                appendLine("        add(\"kspIosX64\",this)")
+                appendLine("        add(\"kspIosArm64\",this)")
+                appendLine("        add(\"kspIosSimulatorArm64\",this)")
+            }
+            if (info.hasPlatform(ProjectPlatform.Jvm)) {
+                appendLine("        add(\"kspJvm\",this)")
+            }
             appendLine("    }")
             appendLine("}")
         }

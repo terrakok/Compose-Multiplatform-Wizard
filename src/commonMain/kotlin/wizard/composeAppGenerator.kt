@@ -1,6 +1,7 @@
 package wizard
 
 import wizard.dependencies.ApolloPlugin
+import wizard.dependencies.RoomPlugin
 import wizard.files.*
 import wizard.files.composeApp.*
 
@@ -36,6 +37,9 @@ fun ProjectInfo.generateComposeAppFiles() = buildList {
     if (info.dependencies.contains(ApolloPlugin)) {
         add(GraphQLSchema(info))
         add(GraphQLQuery(info))
+    }
+    if (info.dependencies.contains(RoomPlugin)) {
+
     }
 
     if (info.hasPlatform(ProjectPlatform.Android)) {
