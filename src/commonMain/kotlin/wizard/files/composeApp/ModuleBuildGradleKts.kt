@@ -12,14 +12,12 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         val commonTestDeps = mutableSetOf<Dependency>()
         val otherTestDeps = mutableSetOf<Dependency>()
         val kspDeps = mutableSetOf<Dependency>()
-        val kspTestDeps = mutableSetOf<Dependency>()
         info.dependencies.forEach { dep ->
             when {
                 dep.isPlugin() -> plugins.add(dep)
 
                 dep.isKSP() -> {
-                    if (!dep.isTestDependency) kspDeps.add(dep)
-                    else kspTestDeps.add(dep)
+                    kspDeps.add(dep)
                 }
 
                 dep.isCommon() -> {
@@ -301,7 +299,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("}")
         }
 
-        if (kspDeps.isNotEmpty() || kspTestDeps.isNotEmpty()) {
+        if (kspDeps.isNotEmpty()) {
             appendLine("")
             appendLine("dependencies {")
             kspDeps.forEach { dep ->
@@ -332,37 +330,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
                 }
                 if (info.hasPlatform(ProjectPlatform.Mingw) && dep.hasPlatform(ProjectPlatform.Mingw)) {
                     appendLine("        add(\"kspMingwX64\", this)")
-                }
-                appendLine("    }")
-            }
-            kspTestDeps.forEach { dep ->
-                appendLine("    with(libs.${dep.catalogAccessor}) {")
-                if (info.hasPlatform(ProjectPlatform.Android) && dep.hasPlatform(ProjectPlatform.Android)) {
-                    appendLine("        add(\"kspAndroidTest\", this)")
-                }
-                if (info.hasPlatform(ProjectPlatform.Jvm) && dep.hasPlatform(ProjectPlatform.Jvm)) {
-                    appendLine("        add(\"kspJvmTest\", this)")
-                }
-                if (info.hasPlatform(ProjectPlatform.Js) && dep.hasPlatform(ProjectPlatform.Js)) {
-                    appendLine("        add(\"kspJsTest\", this)")
-                }
-                if (info.hasPlatform(ProjectPlatform.Wasm) && dep.hasPlatform(ProjectPlatform.Wasm)) {
-                    appendLine("        add(\"kspWasmJsTest\", this)")
-                }
-                if (info.hasPlatform(ProjectPlatform.Ios) && dep.hasPlatform(ProjectPlatform.Ios)) {
-                    appendLine("        add(\"kspIosX64Test\", this)")
-                    appendLine("        add(\"kspIosArm64Test\", this)")
-                    appendLine("        add(\"kspIosSimulatorArm64Test\", this)")
-                }
-                if (info.hasPlatform(ProjectPlatform.Macos) && dep.hasPlatform(ProjectPlatform.Macos)) {
-                    appendLine("        add(\"kspMacosX64Test\", this)")
-                    appendLine("        add(\"kspMacosArm64Test\", this)")
-                }
-                if (info.hasPlatform(ProjectPlatform.Linux) && dep.hasPlatform(ProjectPlatform.Linux)) {
-                    appendLine("        add(\"kspLinuxX64Test\", this)")
-                }
-                if (info.hasPlatform(ProjectPlatform.Mingw) && dep.hasPlatform(ProjectPlatform.Mingw)) {
-                    appendLine("        add(\"kspMingwX64Test\", this)")
                 }
                 appendLine("    }")
             }
