@@ -28,7 +28,6 @@ data class ProjectInfo(
     val gradleVersion: String = "8.7",
     val androidMinSdk: Int = 24,
     val androidTargetSdk: Int = 34,
-    val composeCompilerVersion: String = "1.5.11",
     val dependencies: Set<Dependency>
 )
 
