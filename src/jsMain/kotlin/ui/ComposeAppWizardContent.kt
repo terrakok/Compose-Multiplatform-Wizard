@@ -153,7 +153,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         DependencyBox(MultiplatformSettings, false),
                         DependencyBox(listOf(Koin, Kodein), false),
                         DependencyBox(KStore, false),
-                        DependencyBox(SQLDelightPlugin, false),
+                        DependencyBox(listOf(SQLDelightPlugin,RoomPlugin), false),
                         DependencyBox(ApolloPlugin, false),
                     )
                     Grid {
@@ -230,6 +230,13 @@ internal fun Set<DependencyBox>.getSelectedDependencies() =
                     SQLDelightDriverAndroid,
                     SQLDelightDriverNative,
                     SQLDelightDriverJs
+                )
+
+                it.group == RoomPlugin.group -> listOf(
+                    RoomPlugin,
+                    RoomPluginRuntime,
+                    RoomPluginCompiler,
+                    DevToolKSP
                 )
 
                 it.group == Decompose.group -> listOf(Decompose, DecomposeCompose)

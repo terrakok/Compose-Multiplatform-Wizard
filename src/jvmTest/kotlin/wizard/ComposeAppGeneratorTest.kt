@@ -226,9 +226,6 @@ class ComposeAppGeneratorTest {
                     buildFeatures {
                         compose = true
                     }
-                    composeOptions {
-                        kotlinCompilerExtensionVersion = "${info.composeCompilerVersion}"
-                    }
                 }
 
                 compose.desktop {
@@ -479,9 +476,6 @@ class ComposeAppGeneratorTest {
                     }
                     buildFeatures {
                         compose = true
-                    }
-                    composeOptions {
-                        kotlinCompilerExtensionVersion = "${info.composeCompilerVersion}"
                     }
                 }
 
