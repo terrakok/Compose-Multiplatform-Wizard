@@ -296,9 +296,9 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
                 appendLine("        add(\"kspIosArm64\",this)")
                 appendLine("        add(\"kspIosSimulatorArm64\",this)")
             }
-            if (info.hasPlatform(ProjectPlatform.Jvm)) {
-                appendLine("        add(\"kspJvm\",this)")
-            }
+//            if (info.hasPlatform(ProjectPlatform.Jvm)) {
+//                appendLine("        add(\"kspJvm\",this)")
+//            }
             appendLine("    }")
             appendLine("}")
         }

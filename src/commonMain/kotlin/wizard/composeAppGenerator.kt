@@ -7,6 +7,7 @@ import wizard.files.composeApp.*
 
 fun ProjectInfo.generateComposeAppFiles() = buildList {
     val info = this@generateComposeAppFiles
+    val useRoom = info.dependencies.contains(RoomPlugin)
 
     add(Gitignore())
     add(Readme(info))
@@ -17,7 +18,7 @@ fun ProjectInfo.generateComposeAppFiles() = buildList {
     add(GradleWrapperJar())
     add(GradleLibsVersion(info))
 
-    add(GradleProperties(true))
+    add(GradleProperties(true,useRoom))
     add(RootBuildGradleKts(info))
     add(SettingsGradleKts(info, false))
 
@@ -37,6 +38,21 @@ fun ProjectInfo.generateComposeAppFiles() = buildList {
     if (info.dependencies.contains(ApolloPlugin)) {
         add(GraphQLSchema(info))
         add(GraphQLQuery(info))
+    }
+    if (useRoom) {
+        add(RoomDataBase(info))
+        if (info.hasPlatform(ProjectPlatform.Android)) {
+            add(AndroidRoomProvider(info))
+        }
+//        if (info.hasPlatform(ProjectPlatform.Jvm)) {
+//            add(JVMRoomProvider(info))
+//        }
+        if (info.hasPlatform(ProjectPlatform.Ios)) {
+            add(IOSRoomProvider(info))
+            add(IOSX64RoomProvider(info))
+            add(IOSArm64RoomProvider(info))
+            add(IOSSimulatorArm64RoomProvider(info))
+        }
     }
 
     if (info.hasPlatform(ProjectPlatform.Android)) {
