@@ -18,13 +18,13 @@ val RoomPlugin = Dependency(
 val RoomPluginRuntime = RoomPlugin.copy(
     id = "room-runtime",
     catalogName = "room-runtime",
-    platforms = setOf()
+    platforms = emptySet()
 )
 
-val RoomPluginCompiler= RoomPlugin.copy(
+val RoomPluginCompiler = RoomPlugin.copy(
     id = "room-compiler",
     catalogName = "room-compiler",
-    platforms = setOf()
+    platforms = emptySet()
 )
 
 val DevToolKSP = Dependency(

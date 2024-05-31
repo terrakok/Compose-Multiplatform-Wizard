@@ -153,7 +153,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         DependencyBox(MultiplatformSettings, false),
                         DependencyBox(listOf(Koin, Kodein), false),
                         DependencyBox(KStore, false),
-                        DependencyBox(listOf(SQLDelightPlugin,RoomPlugin), false),
+                        DependencyBox(listOf(SQLDelightPlugin, RoomPlugin), false),
                         DependencyBox(ApolloPlugin, false),
                     )
                     Grid {
