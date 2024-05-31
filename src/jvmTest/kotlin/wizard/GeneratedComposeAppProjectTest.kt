@@ -41,6 +41,10 @@ internal val extraDependencies = setOf(
     SQLDelightDriverNative,
     SQLDelightDriverJs,
     BuildConfigPlugin,
+    RoomPlugin,
+    RoomPluginRuntime,
+    RoomPluginCompiler,
+    DevToolKSP
 )
 
 class GeneratedComposeAppProjectTest {

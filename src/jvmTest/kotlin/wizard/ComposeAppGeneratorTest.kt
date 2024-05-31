@@ -154,6 +154,7 @@ class ComposeAppGeneratorTest {
                             implementation(libs.kotlinx.coroutines.core)
                             implementation(libs.moko.mvvm)
                             implementation(libs.kotlinx.serialization.json)
+                            implementation(libs.room.runtime)
                         }
 
                         commonTest.dependencies {
@@ -258,6 +259,20 @@ class ComposeAppGeneratorTest {
                         }
                     }
                 }
+                
+                room {
+                    schemaDirectory("\$projectDir/schemas")
+                }
+
+                dependencies {
+                    with(libs.androidx.room.compiler) {
+                        add("kspAndroid", this)
+                        add("kspIos", this)
+                        add("kspIosArm64", this)
+                        add("kspIosSimulatorArm64", this)
+                        add("kspJvm", this)
+                    }
+                }
 
                 apollo {
                     service("api") {
@@ -295,7 +310,9 @@ class ComposeAppGeneratorTest {
                 kotlinx-serialization = "${KotlinxSerializationJson.version}"
                 sqlDelight = "${SQLDelightPlugin.version}"
                 buildConfig = "${BuildConfigPlugin.version}"
-                
+                room = "${RoomPlugin.version}"
+                ksp = "${DevToolKSP.version}"
+
                 [libraries]
 
                 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
@@ -322,6 +339,8 @@ class ComposeAppGeneratorTest {
                 sqlDelight-driver-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
                 sqlDelight-driver-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
                 sqlDelight-driver-js = { module = "app.cash.sqldelight:web-worker-driver", version.ref = "sqlDelight" }
+                room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+                room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 
                 [plugins]
 
@@ -333,6 +352,8 @@ class ComposeAppGeneratorTest {
                 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
                 sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
                 buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }
+                room = { id = "androidx.room", version.ref = "room" }
+                ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
             """.trimIndent(),
             files.first { it is GradleLibsVersion }.content
