@@ -17,6 +17,7 @@ class ComposeAppGeneratorTest {
                 add(ComposePlugin)
                 addAll(androidDependencies)
                 addAll(extraDependencies)
+                addAll(roomDependencies)
             }
         )
         val files = info.generateComposeAppFiles()

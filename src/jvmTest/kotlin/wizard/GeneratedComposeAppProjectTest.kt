@@ -40,7 +40,10 @@ internal val extraDependencies = setOf(
     SQLDelightDriverAndroid,
     SQLDelightDriverNative,
     SQLDelightDriverJs,
-    BuildConfigPlugin,
+    BuildConfigPlugin
+)
+
+internal val roomDependencies = setOf(
     RoomPlugin,
     RoomPluginRuntime,
     RoomPluginCompiler,
@@ -107,6 +110,10 @@ class GeneratedComposeAppProjectTest {
                     SQLDelightPlugin,
                     SQLDelightDriverJvm,
                     BuildConfigPlugin,
+                    RoomPlugin,
+                    RoomPluginRuntime,
+                    RoomPluginCompiler,
+                    DevToolKSP
                 )
             )
         )
@@ -169,6 +176,7 @@ class GeneratedComposeAppProjectTest {
                 add(ComposeCompilerPlugin)
                 add(ComposePlugin)
                 addAll(extraDependencies)
+                addAll(roomDependencies)
             }
         )
         val dir = projectInfo.writeToDir(workingDir)
@@ -233,6 +241,7 @@ class GeneratedComposeAppProjectTest {
                 add(ComposeCompilerPlugin)
                 add(ComposePlugin)
                 addAll(extraDependencies)
+                addAll(roomDependencies)
             }
         )
         val dir = projectInfo.writeToDir(workingDir)

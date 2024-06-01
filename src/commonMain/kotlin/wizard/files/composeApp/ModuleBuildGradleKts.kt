@@ -301,39 +301,50 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
 
         if (kspDeps.isNotEmpty()) {
             appendLine("")
-            appendLine("dependencies {")
-            kspDeps.forEach { dep ->
-                appendLine("    with(libs.${dep.catalogAccessor}) {")
-                if (info.hasPlatform(ProjectPlatform.Android) && dep.hasPlatform(ProjectPlatform.Android)) {
-                    appendLine("        add(\"kspAndroid\", this)")
+            val makeKSP = { depth : Int ->
+                val addDepth = if (depth==0) "" else "    "
+                appendLine("${addDepth}dependencies {")
+                kspDeps.forEach { dep ->
+                    appendLine("$addDepth    with(libs.${dep.catalogAccessor}) {")
+                    if (info.hasPlatform(ProjectPlatform.Android) && dep.hasPlatform(ProjectPlatform.Android)) {
+                        appendLine("$addDepth        add(\"kspAndroid\", this)")
+                    }
+                    if (info.hasPlatform(ProjectPlatform.Jvm) && dep.hasPlatform(ProjectPlatform.Jvm)) {
+                        appendLine("$addDepth        add(\"kspJvm\", this)")
+                    }
+                    if (info.hasPlatform(ProjectPlatform.Js) && dep.hasPlatform(ProjectPlatform.Js)) {
+                        appendLine("$addDepth        add(\"kspJs\", this)")
+                    }
+                    if (info.hasPlatform(ProjectPlatform.Wasm) && dep.hasPlatform(ProjectPlatform.Wasm)) {
+                        appendLine("$addDepth        add(\"kspWasmJs\", this)")
+                    }
+                    if (info.hasPlatform(ProjectPlatform.Ios) && dep.hasPlatform(ProjectPlatform.Ios)) {
+                        appendLine("$addDepth        add(\"kspIosX64\", this)")
+                        appendLine("$addDepth        add(\"kspIosArm64\", this)")
+                        appendLine("$addDepth        add(\"kspIosSimulatorArm64\", this)")
+                    }
+                    if (info.hasPlatform(ProjectPlatform.Macos) && dep.hasPlatform(ProjectPlatform.Macos)) {
+                        appendLine("$addDepth        add(\"kspMacosX64\", this)")
+                        appendLine("$addDepth        add(\"kspMacosArm64\", this)")
+                    }
+                    if (info.hasPlatform(ProjectPlatform.Linux) && dep.hasPlatform(ProjectPlatform.Linux)) {
+                        appendLine("$addDepth        add(\"kspLinuxX64\", this)")
+                    }
+                    if (info.hasPlatform(ProjectPlatform.Mingw) && dep.hasPlatform(ProjectPlatform.Mingw)) {
+                        appendLine("$addDepth        add(\"kspMingwX64\", this)")
+                    }
+                    appendLine("$addDepth    }")
                 }
-                if (info.hasPlatform(ProjectPlatform.Jvm) && dep.hasPlatform(ProjectPlatform.Jvm)) {
-                    appendLine("        add(\"kspJvm\", this)")
-                }
-                if (info.hasPlatform(ProjectPlatform.Js) && dep.hasPlatform(ProjectPlatform.Js)) {
-                    appendLine("        add(\"kspJs\", this)")
-                }
-                if (info.hasPlatform(ProjectPlatform.Wasm) && dep.hasPlatform(ProjectPlatform.Wasm)) {
-                    appendLine("        add(\"kspWasmJs\", this)")
-                }
-                if (info.hasPlatform(ProjectPlatform.Ios) && dep.hasPlatform(ProjectPlatform.Ios)) {
-                    appendLine("        add(\"kspIosX64\", this)")
-                    appendLine("        add(\"kspIosArm64\", this)")
-                    appendLine("        add(\"kspIosSimulatorArm64\", this)")
-                }
-                if (info.hasPlatform(ProjectPlatform.Macos) && dep.hasPlatform(ProjectPlatform.Macos)) {
-                    appendLine("        add(\"kspMacosX64\", this)")
-                    appendLine("        add(\"kspMacosArm64\", this)")
-                }
-                if (info.hasPlatform(ProjectPlatform.Linux) && dep.hasPlatform(ProjectPlatform.Linux)) {
-                    appendLine("        add(\"kspLinuxX64\", this)")
-                }
-                if (info.hasPlatform(ProjectPlatform.Mingw) && dep.hasPlatform(ProjectPlatform.Mingw)) {
-                    appendLine("        add(\"kspMingwX64\", this)")
-                }
-                appendLine("    }")
+                appendLine("$addDepth}")
             }
-            appendLine("}")
+            val isIOSOnly = info.platforms == setOf(ProjectPlatform.Ios)
+            if (isIOSOnly) {
+                appendLine("afterEvaluate {")
+                makeKSP(1)
+                appendLine("}")
+            } else {
+                makeKSP(0)
+            }
         }
     }
 }
