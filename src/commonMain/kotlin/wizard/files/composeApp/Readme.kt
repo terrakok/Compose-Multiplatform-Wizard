@@ -49,14 +49,14 @@ class Readme(info: ProjectInfo) : ProjectFile {
         }
 
         if (info.hasPlatform(ProjectPlatform.Js)) {
-            appendLine("### Experimental Browser (JS)")
+            appendLine("### JS Browser (Experimental)")
             appendLine("Run the browser application: `./gradlew :${info.moduleName}:jsBrowserDevelopmentRun --continue`")
             appendLine("Run browser UI tests: `./gradlew :composeApp:jsBrowserTest`")
             appendLine("")
         }
 
         if (info.hasPlatform(ProjectPlatform.Wasm)) {
-            appendLine("### Experimental Browser (Wasm)")
+            appendLine("### Wasm Browser (Alpha)")
             appendLine("Run the browser application: `./gradlew :${info.moduleName}:wasmJsBrowserDevelopmentRun --continue`")
             appendLine("Run browser UI tests: `./gradlew :composeApp:wasmJsBrowserTest`")
             appendLine("")

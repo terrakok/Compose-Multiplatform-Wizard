@@ -62,10 +62,10 @@ class ComposeAppGeneratorTest {
             iosApp/iosApp/iosApp.swift
             iosApp/iosApp.xcodeproj/project.xcworkspace/contents.xcworkspacedata
             iosApp/iosApp.xcodeproj/project.pbxproj
-            ${info.moduleName}/src/jsMain/kotlin/org/company/app/App.js.kt
-            ${info.moduleName}/src/jsMain/resources/index.html
-            ${info.moduleName}/src/jsMain/kotlin/main.kt
-            ${info.moduleName}/src/jsMain/kotlin/org/company/app/theme/Theme.js.kt
+            ${info.moduleName}/src/wasmJsMain/kotlin/org/company/app/App.wasmJs.kt
+            ${info.moduleName}/src/wasmJsMain/resources/index.html
+            ${info.moduleName}/src/wasmJsMain/kotlin/main.kt
+            ${info.moduleName}/src/wasmJsMain/kotlin/org/company/app/theme/Theme.wasmJs.kt
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -113,7 +113,7 @@ class ComposeAppGeneratorTest {
 
                     jvm()
 
-                    js {
+                    wasmJs {
                         browser()
                         binaries.executable()
                     }
@@ -130,11 +130,6 @@ class ComposeAppGeneratorTest {
                     }
 
                     sourceSets {
-                        all {
-                            languageSettings {
-                                optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
-                            }
-                        }
                         commonMain.dependencies {
                             implementation(compose.runtime)
                             implementation(compose.foundation)
@@ -144,6 +139,8 @@ class ComposeAppGeneratorTest {
                             implementation(libs.apollo.runtime)
                             implementation(libs.voyager.navigator)
                             implementation(libs.composeImageLoader)
+                            implementation(libs.coil)
+                            implementation(libs.coil.network.ktor)
                             implementation(libs.napier)
                             implementation(libs.kotlinx.datetime)
                             implementation(libs.multiplatformSettings)
@@ -174,12 +171,6 @@ class ComposeAppGeneratorTest {
                             implementation(compose.desktop.currentOs)
                             implementation(libs.ktor.client.okhttp)
                             implementation(libs.sqlDelight.driver.sqlite)
-                        }
-
-                        jsMain.dependencies {
-                            implementation(compose.html.core)
-                            implementation(libs.ktor.client.js)
-                            implementation(libs.sqlDelight.driver.js)
                         }
 
                         iosMain.dependencies {
@@ -224,10 +215,8 @@ class ComposeAppGeneratorTest {
                         targetCompatibility = JavaVersion.VERSION_1_8
                     }
                     buildFeatures {
+                        //enables a Compose tooling support in the AndroidStudio
                         compose = true
-                    }
-                    composeOptions {
-                        kotlinCompilerExtensionVersion = "${info.composeCompilerVersion}"
                     }
                 }
 
@@ -241,10 +230,6 @@ class ComposeAppGeneratorTest {
                             packageVersion = "1.0.0"
                         }
                     }
-                }
-
-                compose.experimental {
-                    web.application {}
                 }
 
                 buildConfig {
@@ -286,6 +271,7 @@ class ComposeAppGeneratorTest {
                 apollo = "${ApolloRuntime.version}"
                 voyager = "${Voyager.version}"
                 composeImageLoader = "${ImageLoader.version}"
+                coil = "${Coil.version}"
                 napier = "${Napier.version}"
                 kotlinx-datetime = "${KotlinxDateTime.version}"
                 multiplatformSettings = "${MultiplatformSettings.version}"
@@ -307,6 +293,8 @@ class ComposeAppGeneratorTest {
                 apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apollo" }
                 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
                 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "composeImageLoader" }
+                coil = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil" }
+                coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil" }
                 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
                 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
                 multiplatformSettings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
@@ -417,11 +405,6 @@ class ComposeAppGeneratorTest {
                     }
 
                     sourceSets {
-                        all {
-                            languageSettings {
-                                optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
-                            }
-                        }
                         commonMain.dependencies {
                             implementation(compose.runtime)
                             implementation(compose.foundation)
@@ -478,10 +461,8 @@ class ComposeAppGeneratorTest {
                         targetCompatibility = JavaVersion.VERSION_1_8
                     }
                     buildFeatures {
+                        //enables a Compose tooling support in the AndroidStudio
                         compose = true
-                    }
-                    composeOptions {
-                        kotlinCompilerExtensionVersion = "${info.composeCompilerVersion}"
                     }
                 }
 
@@ -558,11 +539,6 @@ class ComposeAppGeneratorTest {
                     }
 
                     sourceSets {
-                        all {
-                            languageSettings {
-                                optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
-                            }
-                        }
                         commonMain.dependencies {
                             implementation(compose.runtime)
                             implementation(compose.foundation)
@@ -641,11 +617,6 @@ class ComposeAppGeneratorTest {
                     jvm()
 
                     sourceSets {
-                        all {
-                            languageSettings {
-                                optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
-                            }
-                        }
                         commonMain.dependencies {
                             implementation(compose.runtime)
                             implementation(compose.foundation)
@@ -685,7 +656,7 @@ class ComposeAppGeneratorTest {
     }
 
     @Test
-    fun buildBrowserFiles() {
+    fun buildBrowserJsFiles() {
         val info = DefaultComposeAppInfo().copy(
             packageId = "org.js.app",
             platforms = setOf(ProjectPlatform.Js),
@@ -740,11 +711,6 @@ class ComposeAppGeneratorTest {
                     }
 
                     sourceSets {
-                        all {
-                            languageSettings {
-                                optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
-                            }
-                        }
                         commonMain.dependencies {
                             implementation(compose.runtime)
                             implementation(compose.foundation)
@@ -770,6 +736,84 @@ class ComposeAppGeneratorTest {
                     web.application {}
                 }
 
+            """.trimIndent(),
+            files.first { it is ModuleBuildGradleKts }.content
+        )
+    }
+
+    @Test
+    fun buildBrowserWasmFiles() {
+        val info = DefaultComposeAppInfo().copy(
+            packageId = "org.wasm.app",
+            platforms = setOf(ProjectPlatform.Wasm),
+            dependencies = setOf(KotlinPlugin, ComposePlugin)
+        )
+        val files = info.generateComposeAppFiles()
+
+        assertEquals(
+            """
+            .gitignore
+            README.MD
+            gradlew.bat
+            gradlew
+            gradle/wrapper/gradle-wrapper.properties
+            gradle/wrapper/gradle-wrapper.jar
+            gradle/libs.versions.toml
+            gradle.properties
+            build.gradle.kts
+            settings.gradle.kts
+            ${info.moduleName}/build.gradle.kts
+            ${info.moduleName}/src/commonMain/kotlin/org/wasm/app/theme/Color.kt
+            ${info.moduleName}/src/commonMain/kotlin/org/wasm/app/theme/Theme.kt
+            ${info.moduleName}/src/commonMain/kotlin/org/wasm/app/App.kt
+            ${info.moduleName}/src/commonTest/kotlin/org/wasm/app/ComposeTest.kt
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_cyclone.xml
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_dark_mode.xml
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_light_mode.xml
+            ${info.moduleName}/src/commonMain/composeResources/drawable/ic_rotate_right.xml
+            ${info.moduleName}/src/commonMain/composeResources/values/strings.xml
+            ${info.moduleName}/src/commonMain/composeResources/font/IndieFlower-Regular.ttf
+            ${info.moduleName}/src/wasmJsMain/kotlin/org/wasm/app/App.wasmJs.kt
+            ${info.moduleName}/src/wasmJsMain/resources/index.html
+            ${info.moduleName}/src/wasmJsMain/kotlin/main.kt
+            ${info.moduleName}/src/wasmJsMain/kotlin/org/wasm/app/theme/Theme.wasmJs.kt
+        """.trimIndent(),
+            files.joinToString("\n") { it.path }
+        )
+
+        assertEquals(
+            """
+                import org.jetbrains.compose.ExperimentalComposeLibrary
+                
+                plugins {
+                    alias(libs.plugins.multiplatform)
+                    alias(libs.plugins.compose)
+                }
+
+                kotlin {
+                    wasmJs {
+                        browser()
+                        binaries.executable()
+                    }
+
+                    sourceSets {
+                        commonMain.dependencies {
+                            implementation(compose.runtime)
+                            implementation(compose.foundation)
+                            implementation(compose.material3)
+                            implementation(compose.components.resources)
+                            implementation(compose.components.uiToolingPreview)
+                        }
+
+                        commonTest.dependencies {
+                            implementation(kotlin("test"))
+                            @OptIn(ExperimentalComposeLibrary::class)
+                            implementation(compose.uiTest)
+                        }
+
+                    }
+                }
+                
             """.trimIndent(),
             files.first { it is ModuleBuildGradleKts }.content
         )

@@ -23,6 +23,8 @@ class SettingsGradleKts(info: ProjectInfo, withConventionPlugins: Boolean) : Pro
         appendLine("    repositories {")
         appendLine("        google()")
         appendLine("        mavenCentral()")
+        appendLine("        maven(\"https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental\")")
+        appendLine("        maven(\"https://maven.pkg.jetbrains.space/public/p/ktor/eap\")")
         appendLine("    }")
         appendLine("}")
     }

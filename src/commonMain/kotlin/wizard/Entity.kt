@@ -28,7 +28,6 @@ data class ProjectInfo(
     val gradleVersion: String = "8.7",
     val androidMinSdk: Int = 24,
     val androidTargetSdk: Int = 34,
-    val composeCompilerVersion: String = "1.5.11",
     val dependencies: Set<Dependency>
 )
 
@@ -40,7 +39,7 @@ fun DefaultComposeAppInfo() = ProjectInfo(
     //Shouldn't be "ComposeApp" because it breaks ios build. The reason is kotlin framework name is "ComposeApp"
     name = "Multiplatform App",
     moduleName = "composeApp",
-    platforms = setOf(Android, Ios, Jvm, Js),
+    platforms = setOf(Android, Ios, Jvm, Wasm),
     dependencies = setOf(
         KotlinPlugin,
         ComposeCompilerPlugin,
