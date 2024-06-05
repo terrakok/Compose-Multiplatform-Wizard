@@ -8,7 +8,7 @@ val Voyager = Dependency(
     url = "https://github.com/adrielcafe/voyager",
     group = "cafe.adriel.voyager",
     id = "voyager-navigator",
-    version = "1.0.0",
+    version = "1.1.0-beta01",
     catalogVersionName = "voyager",
     catalogName = "voyager-navigator",
     platforms = emptySet()
@@ -49,10 +49,27 @@ val ImageLoader = Dependency(
     url = "https://github.com/qdsfdhvh/compose-imageloader",
     group = "io.github.qdsfdhvh",
     id = "image-loader",
-    version = "1.7.8",
+    version = "1.8.1",
     catalogVersionName = "composeImageLoader",
     catalogName = "composeImageLoader",
     platforms = emptySet()
+)
+
+val Coil = Dependency(
+    title = "Coil",
+    description = "Image loading for Android and Compose Multiplatform.",
+    url = "https://github.com/coil-kt/coil",
+    group = "io.coil-kt.coil3",
+    id = "coil-compose-core",
+    version = "3.0.0-alpha06",
+    catalogVersionName = "coil",
+    catalogName = "coil",
+    platforms = emptySet()
+)
+
+val CoilNetwork = Coil.copy(
+    id = "coil-network-ktor",
+    catalogName = "coil-network-ktor",
 )
 
 val Napier = Dependency(
@@ -97,7 +114,7 @@ val Koin = Dependency(
     url = "https://github.com/InsertKoinIO/koin",
     group = "io.insert-koin",
     id = "koin-core",
-    version = "3.5.3",
+    version = "3.6.0-wasm-alpha2",
     catalogVersionName = "koin",
     catalogName = "koin-core",
     platforms = emptySet()
@@ -121,7 +138,7 @@ val KStore = Dependency(
     url = "https://github.com/xxfast/KStore",
     group = "io.github.xxfast",
     id = "kstore",
-    version = "0.7.2",
+    version = "0.8.0",
     catalogVersionName = "kstore",
     catalogName = "kstore",
     platforms = emptySet()

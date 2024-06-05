@@ -73,7 +73,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         }
                     }
 
-                    var platforms by useState(setOf(Android, Ios, Jvm, Js))
+                    var platforms by useState(setOf(Android, Ios, Jvm, Wasm))
                     fun switch(platform: ProjectPlatform) {
                         platforms = if (platforms.contains(platform)) {
                             platforms - platform
@@ -91,24 +91,16 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                             icon = AndroidIcon
                         }
                         TargetButton {
-                            title = "Desktop"
-                            isSelected = platforms.contains(Jvm)
-                            onClick = { switch(Jvm) }
-                            icon = Laptop
-                        }
-                        TargetButton {
                             title = "iOS"
                             isSelected = platforms.contains(Ios)
                             onClick = { switch(Ios) }
                             icon = Apple
-                            status = "Alpha"
                         }
                         TargetButton {
-                            title = "Browser (JS)"
-                            isSelected = platforms.contains(Js)
-                            onClick = { switch(Js) }
-                            icon = Language
-                            status = "Experimental"
+                            title = "Desktop"
+                            isSelected = platforms.contains(Jvm)
+                            onClick = { switch(Jvm) }
+                            icon = Laptop
                         }
                         TargetButton {
                             title = "Browser (Wasm)"
@@ -116,6 +108,13 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                             onClick = { switch(Wasm) }
                             icon = Language
                             status = "Alpha (some libraries don't support it yet)"
+                        }
+                        TargetButton {
+                            title = "Browser (JS)"
+                            isSelected = platforms.contains(Js)
+                            onClick = { switch(Js) }
+                            icon = Language
+                            status = "Experimental"
                         }
                     }
 
@@ -128,7 +127,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
 
                     val deps = setOf(
                         DependencyBox(listOf(Voyager, Decompose, PreCompose), false),
-                        DependencyBox(ImageLoader, false),
+                        DependencyBox(listOf(Coil, ImageLoader), false),
                         DependencyBox(listOf(Napier, Kermit), false),
                         DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin), false),
                         DependencyBox(KotlinxCoroutinesCore, false),
@@ -232,12 +231,15 @@ internal fun Set<DependencyBox>.getSelectedDependencies() =
                     SQLDelightDriverJs
                 )
 
+
                 it.group == RoomPlugin.group -> listOf(
                     RoomPlugin,
                     RoomPluginRuntime,
                     RoomPluginCompiler,
                     DevToolKSP
                 )
+
+                it.group == Coil.group -> listOf(Coil, CoilNetwork)
 
                 it.group == Decompose.group -> listOf(Decompose, DecomposeCompose)
                 it.group == ApolloPlugin.group -> listOf(ApolloPlugin, ApolloRuntime)

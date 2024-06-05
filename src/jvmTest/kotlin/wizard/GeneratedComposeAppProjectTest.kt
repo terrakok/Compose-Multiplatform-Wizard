@@ -20,6 +20,8 @@ internal val extraDependencies = setOf(
     ApolloRuntime,
     Voyager,
     ImageLoader,
+    Coil,
+    CoilNetwork,
     Napier,
     KotlinxDateTime,
     MultiplatformSettings,
@@ -72,13 +74,23 @@ class GeneratedComposeAppProjectTest {
     fun testDesktopAndBrowserProject() {
         checkProject(
             DefaultComposeAppInfo().copy(
-                platforms = setOf(ProjectPlatform.Jvm, ProjectPlatform.Js),
-                dependencies = buildSet {
-                    add(KotlinPlugin)
-                    add(ComposeCompilerPlugin)
-                    add(ComposePlugin)
-                    addAll(extraDependencies)
-                }
+                platforms = setOf(ProjectPlatform.Jvm, ProjectPlatform.Wasm),
+                dependencies = setOf(
+                    KotlinPlugin,
+                    ComposeCompilerPlugin,
+                    ComposePlugin,
+                    Voyager,
+                    Napier,
+                    KotlinxDateTime,
+                    MultiplatformSettings,
+                    Koin,
+                    KtorCore,
+                    KtorClientOkhttp,
+                    KotlinxCoroutinesCore,
+                    KotlinxSerializationPlugin,
+                    KotlinxSerializationJson,
+                    BuildConfigPlugin,
+                )
             ),
             taskName = "assemble"
         )
@@ -91,41 +103,49 @@ class GeneratedComposeAppProjectTest {
                 packageId = "com.test.unit.app",
                 name = "DesktopApp",
                 platforms = setOf(ProjectPlatform.Jvm),
+                dependencies = buildSet {
+                    add(KotlinPlugin)
+                    add(ComposeCompilerPlugin)
+                    add(ComposePlugin)
+                    addAll(extraDependencies)
+                }
+            )
+        )
+    }
+
+    @Test
+    fun testBrowserJsProject() {
+        checkProject(
+            DefaultComposeAppInfo().copy(
+                packageId = "io.js.app.test",
+                name = "test js compose app",
+                platforms = setOf(ProjectPlatform.Js),
                 dependencies = setOf(
                     KotlinPlugin,
                     ComposeCompilerPlugin,
                     ComposePlugin,
-                    Voyager,
-                    ImageLoader,
                     Napier,
                     KotlinxDateTime,
                     MultiplatformSettings,
-                    Koin,
-                    KStore,
-                    KtorCore,
-                    KtorClientOkhttp,
                     KotlinxCoroutinesCore,
-                    KotlinxSerializationPlugin,
-                    KotlinxSerializationJson,
-                    SQLDelightPlugin,
-                    SQLDelightDriverJvm,
                     BuildConfigPlugin,
                     RoomPlugin,
                     RoomPluginRuntime,
                     RoomPluginCompiler,
                     DevToolKSP
                 )
-            )
+            ),
+            taskName = "assemble"
         )
     }
 
     @Test
-    fun testBrowserProject() {
+    fun testBrowserWasmProject() {
         checkProject(
             DefaultComposeAppInfo().copy(
-                packageId = "io.js.app.test",
-                name = "test js compose app",
-                platforms = setOf(ProjectPlatform.Js),
+                packageId = "io.wasm.app.test",
+                name = "test wasm compose app",
+                platforms = setOf(ProjectPlatform.Wasm),
                 dependencies = setOf(
                     KotlinPlugin,
                     ComposeCompilerPlugin,
@@ -152,7 +172,7 @@ class GeneratedComposeAppProjectTest {
                 ":${projectInfo.moduleName}:assembleDebug"
             ).also {
                 if (!(System.getProperty("os.name").contains(other = "mac", ignoreCase = true) &&
-                            "true".equals(other = System.getenv("CI"), ignoreCase = true))
+                        "true".equals(other = System.getenv("CI"), ignoreCase = true))
                 ) {
                     // Run Android native test on Ubuntu build agent only
                     it.add(":${projectInfo.moduleName}:pixel5Check")
@@ -193,10 +213,10 @@ class GeneratedComposeAppProjectTest {
         )
         val devicesList = Json.createReader(StringReader(devicesJson)).use { it.readObject() }
             .getJsonObject("devices")
-            .let { devicesMap -> 
+            .let { devicesMap ->
                 devicesMap.keys
                     .filter { it.startsWith("com.apple.CoreSimulator.SimRuntime.iOS") }
-                    .map { devicesMap.getJsonArray(it) } 
+                    .map { devicesMap.getJsonArray(it) }
             }
             .map { jsonArray -> jsonArray.map { it.asJsonObject() } }
             .flatten()
@@ -251,7 +271,7 @@ class GeneratedComposeAppProjectTest {
                     "plugins {",
                     """
                         plugins {
-                            id("com.github.ben-manes.versions").version("0.50.0")
+                            id("com.github.ben-manes.versions").version("0.51.0")
                     """.trimIndent()
                 )
             )

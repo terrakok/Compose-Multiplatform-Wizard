@@ -104,11 +104,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         appendLine("    sourceSets {")
-        appendLine("        all {")
-        appendLine("            languageSettings {")
-        appendLine("                optIn(\"org.jetbrains.compose.resources.ExperimentalResourceApi\")")
-        appendLine("            }")
-        appendLine("        }")
         appendLine("        commonMain.dependencies {")
         appendLine("            implementation(compose.runtime)")
         appendLine("            implementation(compose.foundation)")
@@ -136,13 +131,11 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         if (info.hasPlatform(ProjectPlatform.Android)) {
             appendLine("        androidMain.dependencies {")
             appendLine("            implementation(compose.uiTooling)")
-
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ProjectPlatform.Android)) {
                     appendLine("            ${dep.libraryNotation}")
                 }
             }
-
             appendLine("        }")
             appendLine("")
         }
@@ -223,6 +216,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        targetCompatibility = JavaVersion.VERSION_1_8")
             appendLine("    }")
             appendLine("    buildFeatures {")
+            appendLine("        //enables a Compose tooling support in the AndroidStudio")
             appendLine("        compose = true")
             appendLine("    }")
             appendLine("}")
@@ -242,7 +236,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("}")
         }
 
-        if (info.hasPlatform(ProjectPlatform.Js) || info.hasPlatform(ProjectPlatform.Wasm)) {
+        if (info.hasPlatform(ProjectPlatform.Js)) {
             appendLine("")
             appendLine("compose.experimental {")
             appendLine("    web.application {}")

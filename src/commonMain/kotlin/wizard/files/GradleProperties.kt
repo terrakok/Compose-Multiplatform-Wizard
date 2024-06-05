@@ -25,9 +25,7 @@ class GradleProperties(enableExperimentalCompose: Boolean) : ProjectFile {
             appendLine("""
                 
                 #Compose
-                org.jetbrains.compose.experimental.uikit.enabled=true
                 org.jetbrains.compose.experimental.jscanvas.enabled=true
-                org.jetbrains.compose.experimental.wasm.enabled=true
             """.trimIndent())
         }
     }

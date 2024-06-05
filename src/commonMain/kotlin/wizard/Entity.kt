@@ -39,7 +39,7 @@ fun DefaultComposeAppInfo() = ProjectInfo(
     //Shouldn't be "ComposeApp" because it breaks ios build. The reason is kotlin framework name is "ComposeApp"
     name = "Multiplatform App",
     moduleName = "composeApp",
-    platforms = setOf(Android, Ios, Jvm, Js),
+    platforms = setOf(Android, Ios, Jvm, Wasm),
     dependencies = setOf(
         KotlinPlugin,
         ComposeCompilerPlugin,
