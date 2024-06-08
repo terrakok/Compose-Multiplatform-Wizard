@@ -21,83 +21,88 @@ class AppKt(info: ProjectInfo) : ProjectFile {
         import ${info.getResourcesPackage()}.*
         import ${info.packageId}.theme.AppTheme
         import ${info.packageId}.theme.LocalThemeIsDark
+        import com.akexorcist.kotlin.multiplatform.dayandnight.DayAndNightContainer
+        import com.akexorcist.kotlin.multiplatform.dayandnight.DayAndNightSwitch
         import org.jetbrains.compose.resources.Font
         import org.jetbrains.compose.resources.stringResource
         import org.jetbrains.compose.resources.vectorResource
 
         @Composable
-        internal fun App() = AppTheme {
-            Column(
+    internal fun App() = AppTheme {
+    var isDark by LocalThemeIsDark.current
+    val icon = remember(isDark) {
+        if (isDark) Res.drawable.ic_light_mode
+        else Res.drawable.ic_dark_mode
+    }
+    DayAndNightContainer(
+        modifier = Modifier.fillMaxSize(),
+        selected = isDark,
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.safeDrawing)
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = stringResource(Res.string.cyclone),
+                fontFamily = FontFamily(Font(Res.font.IndieFlower_Regular)),
+                style = MaterialTheme.typography.displayLarge,
+                color = if (isDark) MaterialTheme.colorScheme.onSurface else Color.White
+            )
+
+            var isAnimate by remember { mutableStateOf(false) }
+            val transition = rememberInfiniteTransition()
+            val rotate by transition.animateFloat(
+                initialValue = 0f,
+                targetValue = 360f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(1000, easing = LinearEasing)
+                )
+            )
+
+            Image(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .windowInsetsPadding(WindowInsets.safeDrawing)
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = stringResource(Res.string.cyclone),
-                    fontFamily = FontFamily(Font(Res.font.IndieFlower_Regular)),
-                    style = MaterialTheme.typography.displayLarge
-                )
+                    .size(250.dp)
+                    .padding(16.dp)
+                    .run { if (isAnimate) rotate(rotate) else this },
+                imageVector = vectorResource(Res.drawable.ic_cyclone),
+                colorFilter = ColorFilter.tint(if (isDark) MaterialTheme.colorScheme.onSurface else Color.White),
+                contentDescription = null
+            )
 
-                var isAnimate by remember { mutableStateOf(false) }
-                val transition = rememberInfiniteTransition()
-                val rotate by transition.animateFloat(
-                    initialValue = 0f,
-                    targetValue = 360f,
-                    animationSpec = infiniteRepeatable(
-                        animation = tween(1000, easing = LinearEasing)
+            ElevatedButton(
+                modifier = Modifier
+                    .padding(horizontal = 8.dp, vertical = 4.dp)
+                    .widthIn(min = 200.dp),
+                onClick = { isAnimate = !isAnimate },
+                content = {
+                    Icon(vectorResource(Res.drawable.ic_rotate_right), contentDescription = null)
+                    Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+                    Text(
+                        stringResource(if (isAnimate) Res.string.stop else Res.string.run)
                     )
-                )
-
-                Image(
-                    modifier = Modifier
-                        .size(250.dp)
-                        .padding(16.dp)
-                        .run { if (isAnimate) rotate(rotate) else this },
-                    imageVector = vectorResource(Res.drawable.ic_cyclone),
-                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
-                    contentDescription = null
-                )
-
-                ElevatedButton(
-                    modifier = Modifier
-                        .padding(horizontal = 8.dp, vertical = 4.dp)
-                        .widthIn(min = 200.dp),
-                    onClick = { isAnimate = !isAnimate },
-                    content = {
-                        Icon(vectorResource(Res.drawable.ic_rotate_right), contentDescription = null)
-                        Spacer(Modifier.size(ButtonDefaults.IconSpacing))
-                        Text(
-                            stringResource(if (isAnimate) Res.string.stop else Res.string.run)
-                        )
-                    }
-                )
-
-                var isDark by LocalThemeIsDark.current
-                val icon = remember(isDark) {
-                    if (isDark) Res.drawable.ic_light_mode
-                    else Res.drawable.ic_dark_mode
                 }
+            )
 
-                ElevatedButton(
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp).widthIn(min = 200.dp),
-                    onClick = { isDark = !isDark },
-                    content = {
-                        Icon(vectorResource(icon), contentDescription = null)
-                        Spacer(Modifier.size(ButtonDefaults.IconSpacing))
-                        Text(stringResource(Res.string.theme))
-                    }
-                )
 
-                TextButton(
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp).widthIn(min = 200.dp),
-                    onClick = { openUrl("https://github.com/terrakok") },
-                ) {
-                    Text(stringResource(Res.string.open_github))
-                }
+
+            DayAndNightSwitch(
+                modifier = Modifier,
+                selected = isDark,
+                onSwitchToggle = { isDark = !isDark },
+            )
+
+            TextButton(
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                    .widthIn(min = 200.dp),
+                onClick = { openUrl("https://github.com/terrakok") },
+            ) {
+                Text(stringResource(Res.string.open_github))
             }
         }
+    }
 
         internal expect fun openUrl(url: String?)
     """.trimIndent()

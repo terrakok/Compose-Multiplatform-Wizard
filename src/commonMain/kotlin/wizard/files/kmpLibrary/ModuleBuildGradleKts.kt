@@ -105,6 +105,9 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
         appendLine("    sourceSets {")
         appendLine("        commonMain.dependencies {")
+        appendLine("        commonTest.dependencies {")
+        appendLine("            implementation(\"com.akexorcist.kotlin.multiplatform:dayandnight:1.0.1\")")
+        appendLine("        }")
         commonDeps.forEach { dep ->
             appendLine("            ${dep.libraryNotation}")
         }
@@ -116,6 +119,8 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         if (info.hasDependenciesFor(ProjectPlatform.Android)) {
             appendLine("        androidMain.dependencies {")
+            appendLine("            implementation(\"com.akexorcist.kotlin.multiplatform:dayandnight:1.0.1\")")
+            appendLine("        }")
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ProjectPlatform.Android)) {
                     appendLine("            ${dep.libraryNotation}")
@@ -126,6 +131,8 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
         if (info.hasDependenciesFor(ProjectPlatform.Jvm)) {
             appendLine("        jvmMain.dependencies {")
+            appendLine("            implementation(\"com.akexorcist.kotlin.multiplatform:dayandnight-desktop:1.0.1\")")
+            appendLine("        }")
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ProjectPlatform.Jvm)) {
                     appendLine("            ${dep.libraryNotation}")
@@ -136,6 +143,8 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
         if (info.hasDependenciesFor(ProjectPlatform.Js)) {
             appendLine("        jsMain.dependencies {")
+            appendLine("            implementation(\"com.akexorcist.kotlin.multiplatform:dayandnight-wasm-js:1.0.1\")")
+            appendLine("        }")
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ProjectPlatform.Js)) {
                     appendLine("            ${dep.libraryNotation}")
@@ -146,6 +155,8 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
         if (info.hasDependenciesFor(ProjectPlatform.Wasm)) {
             appendLine("        getByName(\"wasmJsMain\").dependencies {")
+            appendLine("            implementation(\"com.akexorcist.kotlin.multiplatform:dayandnight-wasm-js:1.0.1\")")
+            appendLine("        }")
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ProjectPlatform.Wasm)) {
                     appendLine("            ${dep.libraryNotation}")
@@ -156,6 +167,12 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
         if (info.hasDependenciesFor(ProjectPlatform.Ios)) {
             appendLine("        iosMain.dependencies {")
+            appendLine("            implementation(\"com.akexorcist.kotlin.multiplatform:dayandnight-iosx64:1.0.1\")")
+            appendLine("        }")
+            appendLine("            implementation(\"com.akexorcist.kotlin.multiplatform:dayandnight-iosarm64:1.0.1\")")
+            appendLine("        }")
+            appendLine("            implementation(\"com.akexorcist.kotlin.multiplatform:dayandnight-iossimulatorarm64:1.0.1\")")
+            appendLine("        }")
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ProjectPlatform.Ios)) {
                     appendLine("            ${dep.libraryNotation}")
