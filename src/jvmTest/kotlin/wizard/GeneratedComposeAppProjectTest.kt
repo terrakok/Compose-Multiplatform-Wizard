@@ -108,6 +108,7 @@ class GeneratedComposeAppProjectTest {
                     add(ComposeCompilerPlugin)
                     add(ComposePlugin)
                     addAll(extraDependencies)
+                    addAll(roomDependencies)
                 }
             )
         )
@@ -128,11 +129,7 @@ class GeneratedComposeAppProjectTest {
                     KotlinxDateTime,
                     MultiplatformSettings,
                     KotlinxCoroutinesCore,
-                    BuildConfigPlugin,
-                    RoomPlugin,
-                    RoomPluginRuntime,
-                    RoomPluginCompiler,
-                    DevToolKSP
+                    BuildConfigPlugin
                 )
             ),
             taskName = "assemble"
