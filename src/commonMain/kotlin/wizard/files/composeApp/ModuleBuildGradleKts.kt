@@ -295,9 +295,9 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
 
         if (kspDeps.isNotEmpty()) {
             appendLine("")
-            // KSP is Not Work on IOS Only Project
-            // reason : Cannot change attributes of configuration ':composeApp:debugFrameworkIosX64' after it has been locked for mutation
-            // Same For IosArm64, IosSimulatorArm64
+            // FIXME: Added a hack to resolve below issue:
+            // Cannot change attributes of configuration ':composeApp:debugFrameworkIosX64' after it has been locked for mutation
+            // KSP is Not Work on IOS Only Project, Same For IosArm64, IosSimulatorArm64
             // To pass the testIosProject, put "ksp" related statements into "afterEvaluate".
             // However, it is not common to use only ios.
             val isIOSOnly = info.platforms == setOf(ProjectPlatform.Ios)
