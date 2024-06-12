@@ -81,10 +81,13 @@ data class Dependency(
     val catalogVersionName: String,
     val catalogName: String,
     val platforms: Set<ProjectPlatform>,
-    val isTestDependency: Boolean = false
+    val isTestDependency: Boolean = false,
+    val isKspDependency: Boolean = false
 )
 
+fun Dependency.hasPlatform(platform: ProjectPlatform) = platforms.contains(platform)
 fun Dependency.isPlugin() = id == "gradle-plugin"
+fun Dependency.isKSP() = isKspDependency
 fun Dependency.isCommon() = platforms.isEmpty()
 
 val Dependency.catalogAccessor get() = catalogName.replace("-", ".")
