@@ -239,8 +239,8 @@ internal fun Set<DependencyBox>.getSelectedDependencies() =
                     DevToolKSP
                 )
 
+                it.group == Koin.group -> listOf(Koin, KoinCompose)
                 it.group == Coil.group -> listOf(Coil, CoilNetwork)
-
                 it.group == Decompose.group -> listOf(Decompose, DecomposeCompose)
                 it.group == ApolloPlugin.group -> listOf(ApolloPlugin, ApolloRuntime)
 

@@ -8,8 +8,6 @@ class SettingsGradleKts(info: ProjectInfo, withConventionPlugins: Boolean) : Pro
     override val path = "settings.gradle.kts"
     override val content = buildString {
         appendLine("rootProject.name = \"${info.safeName}\"")
-        appendLine("include(\":${info.moduleName}\")")
-        if (withConventionPlugins) appendLine("includeBuild(\"convention-plugins\")")
         appendLine("")
         appendLine("pluginManagement {")
         appendLine("    repositories {")
@@ -23,9 +21,14 @@ class SettingsGradleKts(info: ProjectInfo, withConventionPlugins: Boolean) : Pro
         appendLine("    repositories {")
         appendLine("        google()")
         appendLine("        mavenCentral()")
+        appendLine("        maven(\"https://maven.pkg.jetbrains.space/public/p/compose/dev\")")
         appendLine("        maven(\"https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental\")")
         appendLine("        maven(\"https://maven.pkg.jetbrains.space/public/p/ktor/eap\")")
         appendLine("    }")
         appendLine("}")
+        appendLine("")
+        if (withConventionPlugins) appendLine("includeBuild(\"convention-plugins\")")
+        appendLine("include(\":${info.moduleName}\")")
+        appendLine("")
     }
 }
