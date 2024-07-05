@@ -9,23 +9,38 @@ class SettingsGradleKts(info: ProjectInfo, withConventionPlugins: Boolean) : Pro
     override val content = buildString {
         appendLine("rootProject.name = \"${info.safeName}\"")
         appendLine("")
-        appendLine("pluginManagement {")
-        appendLine("    repositories {")
-        appendLine("        google()")
-        appendLine("        gradlePluginPortal()")
-        appendLine("        mavenCentral()")
-        appendLine("    }")
-        appendLine("}")
-        appendLine("")
-        appendLine("dependencyResolutionManagement {")
-        appendLine("    repositories {")
-        appendLine("        google()")
-        appendLine("        mavenCentral()")
-        appendLine("        maven(\"https://maven.pkg.jetbrains.space/public/p/compose/dev\")")
-        appendLine("        maven(\"https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental\")")
-        appendLine("        maven(\"https://maven.pkg.jetbrains.space/public/p/ktor/eap\")")
-        appendLine("    }")
-        appendLine("}")
+        append("""
+            |pluginManagement {
+            |    repositories {
+            |        google {
+            |            content { 
+            |              	includeGroupByRegex("com\\.android.*")
+            |              	includeGroupByRegex("com\\.google.*")
+            |              	includeGroupByRegex("androidx.*")
+            |                includeGroupByRegex("android.*")
+            |            }
+            |        }
+            |        gradlePluginPortal()
+            |        mavenCentral()
+            |    }
+            |}
+            |
+            |dependencyResolutionManagement {
+            |    repositories {
+            |        google {
+            |            content { 
+            |              	includeGroupByRegex("com\\.android.*")
+            |              	includeGroupByRegex("com\\.google.*")
+            |              	includeGroupByRegex("androidx.*")
+            |                includeGroupByRegex("android.*")
+            |            }
+            |        }
+            |        mavenCentral()
+            |        maven("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental")
+            |        maven("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
+            |    }
+            |}
+        """.trimMargin())
         appendLine("")
         if (withConventionPlugins) appendLine("includeBuild(\"convention-plugins\")")
         appendLine("include(\":${info.moduleName}\")")
