@@ -181,7 +181,7 @@ class GeneratorTest {
                     compileSdk = 34
 
                     defaultConfig {
-                        minSdk = 24
+                        minSdk = 26
                     }
                     compileOptions {
                         sourceCompatibility = JavaVersion.VERSION_17
@@ -457,7 +457,7 @@ class GeneratorTest {
                     compileSdk = 34
 
                     defaultConfig {
-                        minSdk = 24
+                        minSdk = 26
                     }
                     compileOptions {
                         sourceCompatibility = JavaVersion.VERSION_17
