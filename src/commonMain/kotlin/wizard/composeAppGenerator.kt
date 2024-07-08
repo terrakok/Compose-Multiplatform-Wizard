@@ -45,11 +45,13 @@ fun ProjectInfo.generateComposeAppFiles() = buildList {
     }
 
     if (info.hasPlatform(ProjectPlatform.Jvm)) {
+        add(DesktopAppKt(info))
         add(DesktopMainKt(info))
         add(DesktopThemeKt(info))
     }
 
     if (info.hasPlatform(ProjectPlatform.Ios)) {
+        add(IosAppKt(info))
         add(IosMainKt(info))
         add(IosThemeKt(info))
 
@@ -63,12 +65,14 @@ fun ProjectInfo.generateComposeAppFiles() = buildList {
     }
 
     if (info.hasPlatform(ProjectPlatform.Js)) {
+        add(JsAppKt(info))
         add(JsIndexHtml(info))
         add(JsMainKt(info))
         add(JsThemeKt(info))
     }
 
     if (info.hasPlatform(ProjectPlatform.Wasm)) {
+        add(WasmJsAppKt(info))
         add(WasmJsIndexHtml(info))
         add(WasmJsMainKt(info))
         add(WasmJsThemeKt(info))

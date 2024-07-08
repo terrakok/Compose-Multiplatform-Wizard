@@ -13,7 +13,7 @@ networkTimeout=10000
 validateDistributionUrl=true
 zipStoreBase=GRADLE_USER_HOME
 zipStorePath=wrapper/dists
-""".trimStart()
+"""
 }
 
 class GradleWrapperJar : ProjectFile {

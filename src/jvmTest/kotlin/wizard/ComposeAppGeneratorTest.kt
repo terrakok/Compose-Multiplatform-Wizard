@@ -51,8 +51,10 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/androidMain/AndroidManifest.xml
             ${info.moduleName}/src/androidMain/kotlin/org/company/app/App.android.kt
             ${info.moduleName}/src/androidMain/kotlin/org/company/app/theme/Theme.android.kt
+            ${info.moduleName}/src/jvmMain/kotlin/org/company/app/App.jvm.kt
             ${info.moduleName}/src/jvmMain/kotlin/main.kt
             ${info.moduleName}/src/jvmMain/kotlin/org/company/app/theme/Theme.jvm.kt
+            ${info.moduleName}/src/iosMain/kotlin/org/company/app/App.ios.kt
             ${info.moduleName}/src/iosMain/kotlin/main.kt
             ${info.moduleName}/src/iosMain/kotlin/org/company/app/theme/Theme.ios.kt
             iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/Contents.json
@@ -62,6 +64,7 @@ class ComposeAppGeneratorTest {
             iosApp/iosApp/iosApp.swift
             iosApp/iosApp.xcodeproj/project.xcworkspace/contents.xcworkspacedata
             iosApp/iosApp.xcodeproj/project.pbxproj
+            ${info.moduleName}/src/wasmJsMain/kotlin/org/company/app/App.wasmJs.kt
             ${info.moduleName}/src/wasmJsMain/resources/index.html
             ${info.moduleName}/src/wasmJsMain/kotlin/main.kt
             ${info.moduleName}/src/wasmJsMain/kotlin/org/company/app/theme/Theme.wasmJs.kt
@@ -146,7 +149,6 @@ class ComposeAppGeneratorTest {
                             implementation(libs.kotlinx.datetime)
                             implementation(libs.multiplatformSettings)
                             implementation(libs.koin.core)
-                            implementation(libs.koin.compose)
                             implementation(libs.kstore)
                             implementation(libs.composeIcons.featherIcons)
                             implementation(libs.ktor.core)
@@ -293,7 +295,6 @@ class ComposeAppGeneratorTest {
                 kotlinx-datetime = "${KotlinxDateTime.version}"
                 multiplatformSettings = "${MultiplatformSettings.version}"
                 koin = "${Koin.version}"
-                koin-compose = "${KoinCompose.version}"
                 kstore = "${KStore.version}"
                 composeIcons = "${ComposeIconsFeather.version}"
                 ktor = "${KtorCore.version}"
@@ -319,7 +320,6 @@ class ComposeAppGeneratorTest {
                 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
                 multiplatformSettings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
                 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-                koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin-compose" }
                 kstore = { module = "io.github.xxfast:kstore", version.ref = "kstore" }
                 composeIcons-featherIcons = { module = "br.com.devsrsouza.compose.icons:feather", version.ref = "composeIcons" }
                 ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -528,6 +528,7 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_rotate_right.xml
             ${info.moduleName}/src/commonMain/composeResources/values/strings.xml
             ${info.moduleName}/src/commonMain/composeResources/font/IndieFlower-Regular.ttf
+            ${info.moduleName}/src/iosMain/kotlin/org/ios/app/App.ios.kt
             ${info.moduleName}/src/iosMain/kotlin/main.kt
             ${info.moduleName}/src/iosMain/kotlin/org/ios/app/theme/Theme.ios.kt
             iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/Contents.json
@@ -620,6 +621,7 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_rotate_right.xml
             ${info.moduleName}/src/commonMain/composeResources/values/strings.xml
             ${info.moduleName}/src/commonMain/composeResources/font/IndieFlower-Regular.ttf
+            ${info.moduleName}/src/jvmMain/kotlin/org/desktop/app/App.jvm.kt
             ${info.moduleName}/src/jvmMain/kotlin/main.kt
             ${info.moduleName}/src/jvmMain/kotlin/org/desktop/app/theme/Theme.jvm.kt
         """.trimIndent(),
@@ -710,6 +712,7 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_rotate_right.xml
             ${info.moduleName}/src/commonMain/composeResources/values/strings.xml
             ${info.moduleName}/src/commonMain/composeResources/font/IndieFlower-Regular.ttf
+            ${info.moduleName}/src/jsMain/kotlin/org/js/app/App.js.kt
             ${info.moduleName}/src/jsMain/resources/index.html
             ${info.moduleName}/src/jsMain/kotlin/main.kt
             ${info.moduleName}/src/jsMain/kotlin/org/js/app/theme/Theme.js.kt
@@ -754,6 +757,10 @@ class ComposeAppGeneratorTest {
                     }
                 }
 
+                compose.experimental {
+                    web.application {}
+                }
+
             """.trimIndent(),
             files.first { it is ModuleBuildGradleKts }.content
         )
@@ -791,6 +798,7 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/composeResources/drawable/ic_rotate_right.xml
             ${info.moduleName}/src/commonMain/composeResources/values/strings.xml
             ${info.moduleName}/src/commonMain/composeResources/font/IndieFlower-Regular.ttf
+            ${info.moduleName}/src/wasmJsMain/kotlin/org/wasm/app/App.wasmJs.kt
             ${info.moduleName}/src/wasmJsMain/resources/index.html
             ${info.moduleName}/src/wasmJsMain/kotlin/main.kt
             ${info.moduleName}/src/wasmJsMain/kotlin/org/wasm/app/theme/Theme.wasmJs.kt
