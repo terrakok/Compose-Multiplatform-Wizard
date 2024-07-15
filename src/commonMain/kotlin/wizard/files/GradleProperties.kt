@@ -7,7 +7,7 @@ class GradleProperties(enableExperimentalCompose: Boolean) : ProjectFile {
     override val content = buildString {
         appendLine("""
             #Gradle
-            org.gradle.jvmargs=-Xmx4G -Dfile.encoding=UTF-8 -Dkotlin.daemon.jvm.options\="-Xmx4G"
+            org.gradle.jvmargs=-Xmx4G
             org.gradle.caching=true
             org.gradle.configuration-cache=true
             org.gradle.daemon=true
@@ -16,6 +16,7 @@ class GradleProperties(enableExperimentalCompose: Boolean) : ProjectFile {
             #Kotlin
             kotlin.code.style=official
             kotlin.js.compiler=ir
+            kotlin.daemon.jvmargs=-Xmx4G
 
             #Android
             android.useAndroidX=true
