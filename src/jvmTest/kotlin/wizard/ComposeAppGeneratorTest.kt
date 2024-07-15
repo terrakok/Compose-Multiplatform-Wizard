@@ -62,6 +62,7 @@ class ComposeAppGeneratorTest {
             iosApp/iosApp/iosApp.swift
             iosApp/iosApp.xcodeproj/project.xcworkspace/contents.xcworkspacedata
             iosApp/iosApp.xcodeproj/project.pbxproj
+            iosApp/iosApp/Info.plist
             ${info.moduleName}/src/wasmJsMain/resources/index.html
             ${info.moduleName}/src/wasmJsMain/kotlin/main.kt
             ${info.moduleName}/src/wasmJsMain/kotlin/org/company/app/theme/Theme.wasmJs.kt
@@ -97,19 +98,14 @@ class ComposeAppGeneratorTest {
                             compileTaskProvider {
                                 compilerOptions {
                                     jvmTarget.set(JvmTarget.JVM_1_8)
+                                    //https://jakewharton.com/gradle-toolchains-are-rarely-a-good-idea/#what-do-i-do
                                     freeCompilerArgs.add("-Xjdk-release=${'$'}{JavaVersion.VERSION_1_8}")
                                 }
                             }
                         }
                         //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
                         @OptIn(ExperimentalKotlinGradlePluginApi::class)
-                        instrumentedTestVariant {
-                            sourceSetTree.set(KotlinSourceSetTree.test)
-                            dependencies {
-                                debugImplementation(libs.androidx.testManifest)
-                                implementation(libs.androidx.junit4)
-                            }
-                        }
+                        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
                     }
 
                     jvm()
@@ -198,10 +194,6 @@ class ComposeAppGeneratorTest {
 
                         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                     }
-                    sourceSets["main"].apply {
-                        manifest.srcFile("src/androidMain/AndroidManifest.xml")
-                        res.srcDirs("src/androidMain/res")
-                    }
                     //https://developer.android.com/studio/test/gradle-managed-devices
                     @Suppress("UnstableApiUsage")
                     testOptions {
@@ -221,6 +213,12 @@ class ComposeAppGeneratorTest {
                         //enables a Compose tooling support in the AndroidStudio
                         compose = true
                     }
+                }
+                
+                //https://developer.android.com/develop/ui/compose/testing#setup
+                dependencies {
+                    androidTestImplementation(libs.androidx.uitest.junit4)
+                    debugImplementation(libs.androidx.uitest.testManifest)
                 }
 
                 compose.desktop {
@@ -308,8 +306,8 @@ class ComposeAppGeneratorTest {
                 [libraries]
 
                 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
-                androidx-testManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidx-uiTest" }
-                androidx-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx-uiTest" }
+                androidx-uitest-testManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidx-uiTest" }
+                androidx-uitest-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx-uiTest" }
                 apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apollo" }
                 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
                 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "composeImageLoader" }
@@ -414,19 +412,14 @@ class ComposeAppGeneratorTest {
                             compileTaskProvider {
                                 compilerOptions {
                                     jvmTarget.set(JvmTarget.JVM_1_8)
+                                    //https://jakewharton.com/gradle-toolchains-are-rarely-a-good-idea/#what-do-i-do
                                     freeCompilerArgs.add("-Xjdk-release=${'$'}{JavaVersion.VERSION_1_8}")
                                 }
                             }
                         }
                         //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
                         @OptIn(ExperimentalKotlinGradlePluginApi::class)
-                        instrumentedTestVariant {
-                            sourceSetTree.set(KotlinSourceSetTree.test)
-                            dependencies {
-                                debugImplementation(libs.androidx.testManifest)
-                                implementation(libs.androidx.junit4)
-                            }
-                        }
+                        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
                     }
 
                     sourceSets {
@@ -466,10 +459,6 @@ class ComposeAppGeneratorTest {
 
                         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                     }
-                    sourceSets["main"].apply {
-                        manifest.srcFile("src/androidMain/AndroidManifest.xml")
-                        res.srcDirs("src/androidMain/res")
-                    }
                     //https://developer.android.com/studio/test/gradle-managed-devices
                     @Suppress("UnstableApiUsage")
                     testOptions {
@@ -489,6 +478,12 @@ class ComposeAppGeneratorTest {
                         //enables a Compose tooling support in the AndroidStudio
                         compose = true
                     }
+                }
+                
+                //https://developer.android.com/develop/ui/compose/testing#setup
+                dependencies {
+                    androidTestImplementation(libs.androidx.uitest.junit4)
+                    debugImplementation(libs.androidx.uitest.testManifest)
                 }
 
             """.trimIndent(),
@@ -537,6 +532,7 @@ class ComposeAppGeneratorTest {
             iosApp/iosApp/iosApp.swift
             iosApp/iosApp.xcodeproj/project.xcworkspace/contents.xcworkspacedata
             iosApp/iosApp.xcodeproj/project.pbxproj
+            iosApp/iosApp/Info.plist
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
