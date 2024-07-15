@@ -60,6 +60,7 @@ fun ProjectInfo.generateComposeAppFiles() = buildList {
         add(IosAppSwift())
         add(IosXcworkspace())
         add(IosPbxproj(info))
+        add(IosInfoPlist())
     }
 
     if (info.hasPlatform(ProjectPlatform.Js)) {

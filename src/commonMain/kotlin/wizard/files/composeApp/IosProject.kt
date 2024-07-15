@@ -67,6 +67,21 @@ class IosPreviewAssets : ProjectFile {
     """.trimIndent()
 }
 
+class IosInfoPlist : ProjectFile {
+    override val path = "iosApp/iosApp/Info.plist"
+    override val content = """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+        	<key>CADisableMinimumFrameDurationOnPhone</key>
+        	<true/>
+        </dict>
+        </plist>
+        
+    """.trimIndent()
+}
+
 class IosAppSwift : ProjectFile {
     override val path = "iosApp/iosApp/iosApp.swift"
     override val content = """
@@ -405,6 +420,7 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
             				ENABLE_PREVIEWS = YES;
             				GENERATE_INFOPLIST_FILE = YES;
+				            INFOPLIST_FILE = iosApp/Info.plist;
             				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
             				LD_RUNPATH_SEARCH_PATHS = (
             					"${'$'}(inherited)",
@@ -429,6 +445,7 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
             				ENABLE_PREVIEWS = YES;
             				GENERATE_INFOPLIST_FILE = YES;
+				            INFOPLIST_FILE = iosApp/Info.plist;
             				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
             				LD_RUNPATH_SEARCH_PATHS = (
             					"${'$'}(inherited)",
