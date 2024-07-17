@@ -26,6 +26,7 @@ internal val extraDependencies = setOf(
     KotlinxDateTime,
     MultiplatformSettings,
     Koin,
+    KoinCompose,
     KStore,
     ComposeIconsFeather,
     KtorCore,

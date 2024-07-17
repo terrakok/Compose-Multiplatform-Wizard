@@ -236,13 +236,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("}")
         }
 
-        if (info.hasPlatform(ProjectPlatform.Js)) {
-            appendLine("")
-            appendLine("compose.experimental {")
-            appendLine("    web.application {}")
-            appendLine("}")
-        }
-
         if (plugins.contains(BuildConfigPlugin)) {
             appendLine("")
             appendLine("buildConfig {")
