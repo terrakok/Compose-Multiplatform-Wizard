@@ -411,7 +411,7 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             					"@executable_path/Frameworks",
             				);
             				MARKETING_VERSION = 1.0;
-            				PRODUCT_BUNDLE_IDENTIFIER = ${info.packageId}.iosApp;
+            				PRODUCT_BUNDLE_IDENTIFIER = ${info.packageId};
             				PRODUCT_NAME = "${info.name}";
             				SWIFT_EMIT_LOC_STRINGS = YES;
             				SWIFT_VERSION = 5.0;
@@ -435,7 +435,7 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             					"@executable_path/Frameworks",
             				);
             				MARKETING_VERSION = 1.0;
-            				PRODUCT_BUNDLE_IDENTIFIER = ${info.packageId}.iosApp;
+            				PRODUCT_BUNDLE_IDENTIFIER = ${info.packageId};
             				PRODUCT_NAME = "${info.name}";
             				SWIFT_EMIT_LOC_STRINGS = YES;
             				SWIFT_VERSION = 5.0;
