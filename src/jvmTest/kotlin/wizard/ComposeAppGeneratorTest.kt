@@ -209,16 +209,14 @@ class ComposeAppGeneratorTest {
                         sourceCompatibility = JavaVersion.VERSION_1_8
                         targetCompatibility = JavaVersion.VERSION_1_8
                     }
-                    buildFeatures {
-                        //enables a Compose tooling support in the AndroidStudio
-                        compose = true
-                    }
                 }
                 
                 //https://developer.android.com/develop/ui/compose/testing#setup
                 dependencies {
                     androidTestImplementation(libs.androidx.uitest.junit4)
                     debugImplementation(libs.androidx.uitest.testManifest)
+                    //temporary fix of android UI tests
+                    androidTestImplementation("androidx.test:core:1.6.1")
                 }
 
                 compose.desktop {
@@ -308,7 +306,7 @@ class ComposeAppGeneratorTest {
                 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
                 androidx-uitest-testManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidx-uiTest" }
                 androidx-uitest-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx-uiTest" }
-                apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apollo" }
+                apollo-runtime = { module = "com.apollographql.apollo:apollo-runtime", version.ref = "apollo" }
                 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
                 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "composeImageLoader" }
                 coil = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil" }
@@ -341,7 +339,7 @@ class ComposeAppGeneratorTest {
                 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
                 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
                 android-application = { id = "com.android.application", version.ref = "agp" }
-                apollo = { id = "com.apollographql.apollo3", version.ref = "apollo" }
+                apollo = { id = "com.apollographql.apollo", version.ref = "apollo" }
                 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
                 sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
                 buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }
@@ -474,16 +472,14 @@ class ComposeAppGeneratorTest {
                         sourceCompatibility = JavaVersion.VERSION_1_8
                         targetCompatibility = JavaVersion.VERSION_1_8
                     }
-                    buildFeatures {
-                        //enables a Compose tooling support in the AndroidStudio
-                        compose = true
-                    }
                 }
                 
                 //https://developer.android.com/develop/ui/compose/testing#setup
                 dependencies {
                     androidTestImplementation(libs.androidx.uitest.junit4)
                     debugImplementation(libs.androidx.uitest.testManifest)
+                    //temporary fix of android UI tests
+                    androidTestImplementation("androidx.test:core:1.6.1")
                 }
 
             """.trimIndent(),
