@@ -93,6 +93,7 @@ class ComposeAppGeneratorTest {
                 }
 
                 kotlin {
+                    task("testClasses")
                     androidTarget {
                         compilations.all {
                             compileTaskProvider {
@@ -405,6 +406,7 @@ class ComposeAppGeneratorTest {
                 }
 
                 kotlin {
+                    task("testClasses")
                     androidTarget {
                         compilations.all {
                             compileTaskProvider {
@@ -543,6 +545,7 @@ class ComposeAppGeneratorTest {
                 }
 
                 kotlin {
+                    task("testClasses")
                     listOf(
                         iosX64(),
                         iosArm64(),
@@ -629,6 +632,7 @@ class ComposeAppGeneratorTest {
                 }
 
                 kotlin {
+                    task("testClasses")
                     jvm()
 
                     sourceSets {
@@ -719,6 +723,7 @@ class ComposeAppGeneratorTest {
                 }
 
                 kotlin {
+                    task("testClasses")
                     js {
                         browser()
                         binaries.executable()
@@ -800,6 +805,7 @@ class ComposeAppGeneratorTest {
                 }
 
                 kotlin {
+                    task("testClasses")
                     wasmJs {
                         browser()
                         binaries.executable()

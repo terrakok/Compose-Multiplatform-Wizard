@@ -56,6 +56,7 @@ class GeneratorTest {
                 version = "1.0"
 
                 kotlin {
+                    task("testClasses")
                     androidTarget {
                         publishLibraryVariants("release")
                         compilations.all {
@@ -368,6 +369,7 @@ class GeneratorTest {
                 version = "1.0"
 
                 kotlin {
+                    task("testClasses")
                     jvm()
 
                     sourceSets {
@@ -429,6 +431,7 @@ class GeneratorTest {
                 version = "1.0"
                 
                 kotlin {
+                    task("testClasses")
                     androidTarget {
                         publishLibraryVariants("release")
                         compilations.all {
