@@ -50,6 +50,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("}")
         appendLine("")
         appendLine("kotlin {")
+        appendLine("    task(\"testClasses\")")
         if (info.hasPlatform(ProjectPlatform.Android)) {
             appendLine("    androidTarget {")
             appendLine("        compilations.all {")

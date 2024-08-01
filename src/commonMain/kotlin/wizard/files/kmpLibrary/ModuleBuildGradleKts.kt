@@ -28,6 +28,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("version = \"1.0\"")
         appendLine("")
         appendLine("kotlin {")
+        appendLine("    task(\"testClasses\")")
         if (info.hasPlatform(ProjectPlatform.Android)) {
             appendLine("    androidTarget {")
             appendLine("        publishLibraryVariants(\"release\")")
