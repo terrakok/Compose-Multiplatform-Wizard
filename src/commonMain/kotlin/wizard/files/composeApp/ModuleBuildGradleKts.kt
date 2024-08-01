@@ -212,8 +212,10 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("dependencies {")
             appendLine("    androidTestImplementation(libs.androidx.uitest.junit4)")
             appendLine("    debugImplementation(libs.androidx.uitest.testManifest)")
-            appendLine("    //temporary fix of android UI tests")
-            appendLine("    androidTestImplementation(\"androidx.test:core:1.6.1\")")
+            appendLine("    //temporary fix: https://youtrack.jetbrains.com/issue/CMP-5864")
+            appendLine("    androidTestImplementation(\"androidx.test:monitor\") {")
+            appendLine("        version { strictly(\"1.6.1\") }")
+            appendLine("    }")
             appendLine("}")
         }
         if (info.hasPlatform(ProjectPlatform.Jvm)) {

@@ -49,7 +49,7 @@ val ImageLoader = Dependency(
     url = "https://github.com/qdsfdhvh/compose-imageloader",
     group = "io.github.qdsfdhvh",
     id = "image-loader",
-    version = "1.8.1",
+    version = "1.8.2",
     catalogVersionName = "composeImageLoader",
     catalogName = "composeImageLoader",
     platforms = emptySet()
@@ -61,14 +61,14 @@ val Coil = Dependency(
     url = "https://github.com/coil-kt/coil",
     group = "io.coil-kt.coil3",
     id = "coil-compose-core",
-    version = "3.0.0-alpha08",
+    version = "3.0.0-alpha09",
     catalogVersionName = "coil",
     catalogName = "coil",
     platforms = emptySet()
 )
 
 val CoilNetwork = Coil.copy(
-    id = "coil-network-ktor",
+    id = "coil-network-ktor3",
     catalogName = "coil-network-ktor",
 )
 
@@ -114,7 +114,7 @@ val Koin = Dependency(
     url = "https://github.com/InsertKoinIO/koin",
     group = "io.insert-koin",
     id = "koin-core",
-    version = "3.6.0-Beta4",
+    version = "4.0.0-RC1",
     catalogVersionName = "koin",
     catalogName = "koin-core",
     platforms = emptySet()
@@ -122,8 +122,6 @@ val Koin = Dependency(
 
 val KoinCompose = Koin.copy(
     id = "koin-compose",
-    version = "1.2.0-Beta4",
-    catalogVersionName = "koin-compose",
     catalogName = "koin-compose",
 )
 
@@ -169,7 +167,7 @@ val ApolloPlugin = Dependency(
     url = "https://github.com/apollographql/apollo-kotlin/",
     group = "com.apollographql.apollo",
     id = "gradle-plugin",
-    version = "4.0.0-rc.1",
+    version = "4.0.0",
     catalogVersionName = "apollo",
     catalogName = "apollo",
     platforms = emptySet()

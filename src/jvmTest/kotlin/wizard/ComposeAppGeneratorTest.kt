@@ -215,8 +215,10 @@ class ComposeAppGeneratorTest {
                 dependencies {
                     androidTestImplementation(libs.androidx.uitest.junit4)
                     debugImplementation(libs.androidx.uitest.testManifest)
-                    //temporary fix of android UI tests
-                    androidTestImplementation("androidx.test:core:1.6.1")
+                    //temporary fix: https://youtrack.jetbrains.com/issue/CMP-5864
+                    androidTestImplementation("androidx.test:monitor") {
+                        version { strictly("1.6.1") }
+                    }
                 }
 
                 compose.desktop {
@@ -289,7 +291,6 @@ class ComposeAppGeneratorTest {
                 kotlinx-datetime = "${KotlinxDateTime.version}"
                 multiplatformSettings = "${MultiplatformSettings.version}"
                 koin = "${Koin.version}"
-                koin-compose = "${KoinCompose.version}"
                 kstore = "${KStore.version}"
                 composeIcons = "${ComposeIconsFeather.version}"
                 ktor = "${KtorCore.version}"
@@ -310,12 +311,12 @@ class ComposeAppGeneratorTest {
                 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
                 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "composeImageLoader" }
                 coil = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil" }
-                coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil" }
+                coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
                 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
                 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
                 multiplatformSettings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
                 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-                koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin-compose" }
+                koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
                 kstore = { module = "io.github.xxfast:kstore", version.ref = "kstore" }
                 composeIcons-featherIcons = { module = "br.com.devsrsouza.compose.icons:feather", version.ref = "composeIcons" }
                 ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -478,8 +479,10 @@ class ComposeAppGeneratorTest {
                 dependencies {
                     androidTestImplementation(libs.androidx.uitest.junit4)
                     debugImplementation(libs.androidx.uitest.testManifest)
-                    //temporary fix of android UI tests
-                    androidTestImplementation("androidx.test:core:1.6.1")
+                    //temporary fix: https://youtrack.jetbrains.com/issue/CMP-5864
+                    androidTestImplementation("androidx.test:monitor") {
+                        version { strictly("1.6.1") }
+                    }
                 }
 
             """.trimIndent(),
