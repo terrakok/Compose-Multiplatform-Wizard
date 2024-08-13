@@ -42,14 +42,16 @@ class JsMainKt(info: ProjectInfo) : ProjectFile {
     override val path = "${info.moduleName}/src/jsMain/kotlin/main.kt"
     override val content = """
         import androidx.compose.ui.ExperimentalComposeUiApi
-        import androidx.compose.ui.window.CanvasBasedWindow
+        import androidx.compose.ui.window.ComposeViewport
         import ${info.packageId}.App
         import org.jetbrains.skiko.wasm.onWasmReady
+        import kotlinx.browser.document
 
         @OptIn(ExperimentalComposeUiApi::class)
         fun main() {
             onWasmReady {
-                CanvasBasedWindow("${info.name}") {
+                val body = document.body ?: return@onWasmReady
+                ComposeViewport(body) {
                     App()
                 }
             }
@@ -62,12 +64,14 @@ class WasmJsMainKt(info: ProjectInfo) : ProjectFile {
     override val path = "${info.moduleName}/src/wasmJsMain/kotlin/main.kt"
     override val content =  """
         import androidx.compose.ui.ExperimentalComposeUiApi
-        import androidx.compose.ui.window.CanvasBasedWindow
+        import androidx.compose.ui.window.ComposeViewport
         import ${info.packageId}.App
+        import kotlinx.browser.document
 
         @OptIn(ExperimentalComposeUiApi::class)
         fun main() {
-            CanvasBasedWindow("${info.name}") {
+            val body = document.body ?: return
+            ComposeViewport(body) {
                 App()
             }
         }
