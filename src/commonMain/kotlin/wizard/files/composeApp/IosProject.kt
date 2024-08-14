@@ -420,7 +420,7 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
             				ENABLE_PREVIEWS = YES;
             				GENERATE_INFOPLIST_FILE = YES;
-				            INFOPLIST_FILE = iosApp/Info.plist;
+            				INFOPLIST_FILE = iosApp/Info.plist;
             				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
             				LD_RUNPATH_SEARCH_PATHS = (
             					"${'$'}(inherited)",
@@ -445,7 +445,7 @@ class IosPbxproj(info: ProjectInfo) : ProjectFile {
             				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
             				ENABLE_PREVIEWS = YES;
             				GENERATE_INFOPLIST_FILE = YES;
-				            INFOPLIST_FILE = iosApp/Info.plist;
+            				INFOPLIST_FILE = iosApp/Info.plist;
             				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
             				LD_RUNPATH_SEARCH_PATHS = (
             					"${'$'}(inherited)",

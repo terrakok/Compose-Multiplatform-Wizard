@@ -17,7 +17,7 @@ class SettingsGradleKts(info: ProjectInfo, withConventionPlugins: Boolean) : Pro
             |              	includeGroupByRegex("com\\.android.*")
             |              	includeGroupByRegex("com\\.google.*")
             |              	includeGroupByRegex("androidx.*")
-            |                includeGroupByRegex("android.*")
+            |              	includeGroupByRegex("android.*")
             |            }
             |        }
             |        gradlePluginPortal()
@@ -32,12 +32,10 @@ class SettingsGradleKts(info: ProjectInfo, withConventionPlugins: Boolean) : Pro
             |              	includeGroupByRegex("com\\.android.*")
             |              	includeGroupByRegex("com\\.google.*")
             |              	includeGroupByRegex("androidx.*")
-            |                includeGroupByRegex("android.*")
+            |              	includeGroupByRegex("android.*")
             |            }
             |        }
             |        mavenCentral()
-            |        maven("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental")
-            |        maven("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
             |    }
             |}
         """.trimMargin())
