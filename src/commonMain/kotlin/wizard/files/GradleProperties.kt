@@ -15,7 +15,6 @@ class GradleProperties(enableExperimentalCompose: Boolean) : ProjectFile {
 
             #Kotlin
             kotlin.code.style=official
-            kotlin.js.compiler=ir
             kotlin.daemon.jvmargs=-Xmx4G
 
             #Android
