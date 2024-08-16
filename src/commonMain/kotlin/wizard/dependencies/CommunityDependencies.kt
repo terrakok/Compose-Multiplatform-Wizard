@@ -27,7 +27,7 @@ val Decompose = Dependency(
 )
 
 val DecomposeCompose = Decompose.copy(
-    id = "extensions-compose-jetbrains",
+    id = "extensions-compose",
     catalogName = "decompose-compose"
 )
 
