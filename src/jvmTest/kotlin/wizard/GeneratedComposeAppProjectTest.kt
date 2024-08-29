@@ -163,6 +163,18 @@ class GeneratedComposeAppProjectTest {
     fun testAndroidProject() {
         val projectInfo = DefaultComposeAppInfo()
         val dir = projectInfo.writeToDir(workingDir)
+        dir.resolve("composeApp/build.gradle.kts").apply {
+            writeText(
+                readText() + """
+                    |
+                    |android.testOptions.managedDevices.devices.maybeCreate<com.android.build.api.dsl.ManagedVirtualDevice>("pixel5").apply {
+                    |    device = "Pixel 5"
+                    |    apiLevel = 34
+                    |    systemImageSource = "aosp"
+                    |}
+                """.trimMargin()
+            )
+        }
         checkCommand(
             dir = dir,
             command = mutableListOf(

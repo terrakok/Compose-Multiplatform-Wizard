@@ -37,9 +37,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("import org.jetbrains.compose.desktop.application.dsl.TargetFormat")
         }
         if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("import com.android.build.api.dsl.ManagedVirtualDevice")
-            appendLine("import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi")
-            appendLine("import org.jetbrains.kotlin.gradle.dsl.JvmTarget")
             appendLine("import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree")
         }
         appendLine("")
@@ -51,18 +48,9 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("kotlin {")
         if (info.hasPlatform(ProjectPlatform.Android)) {
+            appendLine("    jvmToolchain(11)")
             appendLine("    androidTarget {")
-            appendLine("        compilations.all {")
-            appendLine("            compileTaskProvider {")
-            appendLine("                compilerOptions {")
-            appendLine("                    jvmTarget.set(JvmTarget.JVM_1_8)")
-            appendLine("                    //https://jakewharton.com/gradle-toolchains-are-rarely-a-good-idea/#what-do-i-do")
-            appendLine("                    freeCompilerArgs.add(\"-Xjdk-release=${'$'}{JavaVersion.VERSION_1_8}\")")
-            appendLine("                }")
-            appendLine("            }")
-            appendLine("        }")
             appendLine("        //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html")
-            appendLine("        @OptIn(ExperimentalKotlinGradlePluginApi::class)")
             appendLine("        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)")
             appendLine("    }")
             appendLine("")
@@ -160,15 +148,12 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        }")
             appendLine("")
         }
-        if (info.hasPlatform(ProjectPlatform.Ios)) {
+        val iosDeps = otherDeps.filter { it.platforms.contains(ProjectPlatform.Ios) }
+        if (info.hasPlatform(ProjectPlatform.Ios) && iosDeps.isNotEmpty()) {
             appendLine("        iosMain.dependencies {")
-
-            otherDeps.forEach { dep ->
-                if (dep.platforms.contains(ProjectPlatform.Ios)) {
-                    appendLine("            ${dep.libraryNotation}")
-                }
+            iosDeps.forEach { dep ->
+                appendLine("            ${dep.libraryNotation}")
             }
-
             appendLine("        }")
             appendLine("")
         }
@@ -190,21 +175,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        versionName = \"1.0.0\"")
             appendLine("")
             appendLine("        testInstrumentationRunner = \"androidx.test.runner.AndroidJUnitRunner\"")
-            appendLine("    }")
-            appendLine("    //https://developer.android.com/studio/test/gradle-managed-devices")
-            appendLine("    @Suppress(\"UnstableApiUsage\")")
-            appendLine("    testOptions {")
-            appendLine("        managedDevices.devices {")
-            appendLine("            maybeCreate<ManagedVirtualDevice>(\"pixel5\").apply {")
-            appendLine("                device = \"Pixel 5\"")
-            appendLine("                apiLevel = ${info.androidTargetSdk}")
-            appendLine("                systemImageSource = \"aosp\"")
-            appendLine("            }")
-            appendLine("        }")
-            appendLine("    }")
-            appendLine("    compileOptions {")
-            appendLine("        sourceCompatibility = JavaVersion.VERSION_1_8")
-            appendLine("        targetCompatibility = JavaVersion.VERSION_1_8")
             appendLine("    }")
             appendLine("}")
             appendLine("")

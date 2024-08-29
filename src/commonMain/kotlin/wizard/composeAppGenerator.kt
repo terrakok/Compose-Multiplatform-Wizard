@@ -16,7 +16,7 @@ fun ProjectInfo.generateComposeAppFiles() = buildList {
     add(GradleWrapperJar())
     add(GradleLibsVersion(info))
 
-    add(GradleProperties(true))
+    add(GradleProperties(info.hasPlatform(ProjectPlatform.Js)))
     add(RootBuildGradleKts(info))
     add(SettingsGradleKts(info, false))
 

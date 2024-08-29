@@ -28,7 +28,7 @@ class Readme(info: ProjectInfo) : ProjectFile {
             appendLine("To build the application bundle:")
             appendLine(" - run `./gradlew :${info.moduleName}:assembleDebug`")
             appendLine(" - find `.apk` file in `${info.moduleName}/build/outputs/apk/debug/${info.moduleName}-debug.apk`")
-            appendLine("Run android simulator UI tests: `./gradlew :composeApp:pixel5Check`")
+            appendLine("Run android UI tests on the connected device: `./gradlew :composeApp:connectedDebugAndroidTest`")
             appendLine("")
         }
 

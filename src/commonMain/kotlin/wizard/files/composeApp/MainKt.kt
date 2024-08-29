@@ -6,6 +6,8 @@ import wizard.ProjectInfo
 class DesktopMainKt(info: ProjectInfo) : ProjectFile {
     override val path = "${info.moduleName}/src/jvmMain/kotlin/main.kt"
     override val content = """
+        import androidx.compose.desktop.ui.tooling.preview.Preview
+        import androidx.compose.runtime.Composable
         import androidx.compose.ui.unit.dp
         import androidx.compose.ui.window.Window
         import androidx.compose.ui.window.application
@@ -23,6 +25,10 @@ class DesktopMainKt(info: ProjectInfo) : ProjectFile {
                 App()
             }
         }
+        
+        @Preview
+        @Composable
+        fun AppPreview() { App() }
     """.trimIndent()
 }
 
