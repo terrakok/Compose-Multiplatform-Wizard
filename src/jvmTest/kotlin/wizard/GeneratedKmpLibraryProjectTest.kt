@@ -197,8 +197,8 @@ class GeneratedKmpLibraryProjectTest {
                       "platformType": "androidJvm",
                       "extras": {
                         "android": {
-                          "sourceCompatibility": "17",
-                          "targetCompatibility": "17"
+                          "sourceCompatibility": "11",
+                          "targetCompatibility": "11"
                         }
                       }
                     },
@@ -250,7 +250,7 @@ class GeneratedKmpLibraryProjectTest {
                       "platformType": "jvm",
                       "extras": {
                         "jvm": {
-                          "jvmTarget": "17",
+                          "jvmTarget": "11",
                           "withJavaEnabled": false
                         }
                       }

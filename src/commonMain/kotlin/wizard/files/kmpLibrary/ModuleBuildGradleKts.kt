@@ -29,13 +29,9 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("kotlin {")
         if (info.hasPlatform(ProjectPlatform.Android)) {
+            appendLine("    jvmToolchain(11)")
             appendLine("    androidTarget {")
             appendLine("        publishLibraryVariants(\"release\")")
-            appendLine("        compilations.all {")
-            appendLine("            kotlinOptions {")
-            appendLine("                jvmTarget = \"17\"")
-            appendLine("            }")
-            appendLine("        }")
             appendLine("    }")
             appendLine("")
         }
@@ -213,10 +209,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
             appendLine("    defaultConfig {")
             appendLine("        minSdk = ${info.androidMinSdk}")
-            appendLine("    }")
-            appendLine("    compileOptions {")
-            appendLine("        sourceCompatibility = JavaVersion.VERSION_17")
-            appendLine("        targetCompatibility = JavaVersion.VERSION_17")
             appendLine("    }")
             appendLine("}")
         }

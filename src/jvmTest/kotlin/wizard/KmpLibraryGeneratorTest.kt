@@ -56,13 +56,9 @@ class GeneratorTest {
                 version = "1.0"
 
                 kotlin {
+                    jvmToolchain(11)
                     androidTarget {
                         publishLibraryVariants("release")
-                        compilations.all {
-                            kotlinOptions {
-                                jvmTarget = "17"
-                            }
-                        }
                     }
 
                     jvm()
@@ -178,14 +174,10 @@ class GeneratorTest {
 
                 android {
                     namespace = "my.company.name"
-                    compileSdk = 34
+                    compileSdk = ${info.androidTargetSdk}
 
                     defaultConfig {
-                        minSdk = 26
-                    }
-                    compileOptions {
-                        sourceCompatibility = JavaVersion.VERSION_17
-                        targetCompatibility = JavaVersion.VERSION_17
+                        minSdk = ${info.androidMinSdk}
                     }
                 }
 
@@ -429,13 +421,9 @@ class GeneratorTest {
                 version = "1.0"
                 
                 kotlin {
+                    jvmToolchain(11)
                     androidTarget {
                         publishLibraryVariants("release")
-                        compilations.all {
-                            kotlinOptions {
-                                jvmTarget = "17"
-                            }
-                        }
                     }
                 
                     jvm()
@@ -454,14 +442,10 @@ class GeneratorTest {
                 
                 android {
                     namespace = "my.company"
-                    compileSdk = 34
+                    compileSdk = ${info.androidTargetSdk}
 
                     defaultConfig {
-                        minSdk = 26
-                    }
-                    compileOptions {
-                        sourceCompatibility = JavaVersion.VERSION_17
-                        targetCompatibility = JavaVersion.VERSION_17
+                        minSdk = ${info.androidMinSdk}
                     }
                 }
 
