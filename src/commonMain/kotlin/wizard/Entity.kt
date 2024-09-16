@@ -25,7 +25,7 @@ data class ProjectInfo(
     val name: String,
     val moduleName: String,
     val platforms: Set<ProjectPlatform>,
-    val gradleVersion: String = "8.10.1",
+    val gradleVersion: String = "8.10",
     val androidMinSdk: Int = 21,
     val androidTargetSdk: Int = 35,
     val dependencies: Set<Dependency>
