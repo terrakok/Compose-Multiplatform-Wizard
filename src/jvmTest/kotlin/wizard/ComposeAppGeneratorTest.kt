@@ -49,12 +49,57 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/graphql/schema.graphqls
             ${info.moduleName}/src/commonMain/graphql/HelloQuery.graphql
             ${info.moduleName}/src/androidMain/AndroidManifest.xml
+            ${info.moduleName}/src/androidMain/res/mipmap-anydpi-v26/ic_launcher.xml
+            ${info.moduleName}/src/androidMain/res/mipmap-hdpi/ic_launcher.png
+            ${info.moduleName}/src/androidMain/res/mipmap-hdpi/ic_launcher_background.png
+            ${info.moduleName}/src/androidMain/res/mipmap-hdpi/ic_launcher_foreground.png
+            ${info.moduleName}/src/androidMain/res/mipmap-hdpi/ic_launcher_monochrome.png
+            ${info.moduleName}/src/androidMain/res/mipmap-mdpi/ic_launcher.png
+            ${info.moduleName}/src/androidMain/res/mipmap-mdpi/ic_launcher_background.png
+            ${info.moduleName}/src/androidMain/res/mipmap-mdpi/ic_launcher_foreground.png
+            ${info.moduleName}/src/androidMain/res/mipmap-mdpi/ic_launcher_monochrome.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xhdpi/ic_launcher.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xhdpi/ic_launcher_background.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xhdpi/ic_launcher_foreground.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xhdpi/ic_launcher_monochrome.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xxhdpi/ic_launcher.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xxhdpi/ic_launcher_background.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xxhdpi/ic_launcher_foreground.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xxhdpi/ic_launcher_monochrome.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xxxhdpi/ic_launcher.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xxxhdpi/ic_launcher_background.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xxxhdpi/ic_launcher_foreground.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xxxhdpi/ic_launcher_monochrome.png
             ${info.moduleName}/src/androidMain/kotlin/org/company/app/App.android.kt
             ${info.moduleName}/src/androidMain/kotlin/org/company/app/theme/Theme.android.kt
             ${info.moduleName}/src/jvmMain/kotlin/main.kt
             ${info.moduleName}/src/jvmMain/kotlin/org/company/app/theme/Theme.jvm.kt
+            ${info.moduleName}/desktopAppIcons/LinuxIcon.png
+            ${info.moduleName}/desktopAppIcons/WindowsIcon.ico
+            ${info.moduleName}/desktopAppIcons/MacosIcon.icns
             ${info.moduleName}/src/iosMain/kotlin/main.kt
             ${info.moduleName}/src/iosMain/kotlin/org/company/app/theme/Theme.ios.kt
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon@2x.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon@2x~ipad.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon@3x.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-20@2x.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-20@2x~ipad.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-20@3x.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-20~ipad.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-29.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-29@2x.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-29@2x~ipad.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-29@3x.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-29~ipad.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-40@2x.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-40@2x~ipad.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-40@3x.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-40~ipad.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-60@2x~car.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-60@3x~car.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-83.5@2x~ipad.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon~ios-marketing.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon~ipad.png
             iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/Contents.json
             iosApp/iosApp/Assets.xcassets/AccentColor.colorset/Contents.json
             iosApp/iosApp/Assets.xcassets/Contents.json
@@ -66,6 +111,7 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/wasmJsMain/resources/index.html
             ${info.moduleName}/src/wasmJsMain/kotlin/main.kt
             ${info.moduleName}/src/wasmJsMain/kotlin/org/company/app/theme/Theme.wasmJs.kt
+            ${info.moduleName}/src/wasmJsMain/resources/favicon.ico
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -124,18 +170,20 @@ class ComposeAppGeneratorTest {
                             implementation(libs.apollo.runtime)
                             implementation(libs.voyager.navigator)
                             implementation(libs.composeImageLoader)
+                            implementation(libs.androidx.navigation.composee)
+                            implementation(libs.androidx.lifecycle.runtime.compose)
+                            implementation(libs.androidx.lifecycle.viewmodel)
                             implementation(libs.coil)
                             implementation(libs.coil.network.ktor)
-                            implementation(libs.napier)
+                            implementation(libs.kermit)
                             implementation(libs.kotlinx.datetime)
                             implementation(libs.multiplatformSettings)
                             implementation(libs.koin.core)
                             implementation(libs.koin.compose)
                             implementation(libs.kstore)
                             implementation(libs.composeIcons.featherIcons)
-                            implementation(libs.ktor.core)
+                            implementation(libs.ktor.client.core)
                             implementation(libs.kotlinx.coroutines.core)
-                            implementation(libs.moko.mvvm)
                             implementation(libs.kotlinx.serialization.json)
                             implementation(libs.room.runtime)
                         }
@@ -200,8 +248,19 @@ class ComposeAppGeneratorTest {
 
                         nativeDistributions {
                             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-                            packageName = "org.company.app.desktopApp"
+                            packageName = "Multiplatform App"
                             packageVersion = "1.0.0"
+
+                            linux {
+                                iconFile.set(project.file("desktopAppIcons/LinuxIcon.png"))
+                            }
+                            windows {
+                                iconFile.set(project.file("desktopAppIcons/WindowsIcon.ico"))
+                            }
+                            macOS {
+                                iconFile.set(project.file("desktopAppIcons/MacosIcon.icns"))
+                                bundleID = "org.company.app.desktopApp"
+                            }
                         }
                     }
                 }
@@ -259,8 +318,10 @@ class ComposeAppGeneratorTest {
                 apollo = "${ApolloRuntime.version}"
                 voyager = "${Voyager.version}"
                 composeImageLoader = "${ImageLoader.version}"
+                androidx-navigation = "${AndroidxNavigation.version}"
+                androidx-lifecycle = "${AndroidxLifecycleViewmodel.version}"
                 coil = "${Coil.version}"
-                napier = "${Napier.version}"
+                kermit = "${Kermit.version}"
                 kotlinx-datetime = "${KotlinxDateTime.version}"
                 multiplatformSettings = "${MultiplatformSettings.version}"
                 koin = "${Koin.version}"
@@ -268,7 +329,6 @@ class ComposeAppGeneratorTest {
                 composeIcons = "${ComposeIconsFeather.version}"
                 ktor = "${KtorCore.version}"
                 kotlinx-coroutines = "${KotlinxCoroutinesCore.version}"
-                moko-mvvm = "${MokoMvvm.version}"
                 kotlinx-serialization = "${KotlinxSerializationJson.version}"
                 sqlDelight = "${SQLDelightPlugin.version}"
                 buildConfig = "${BuildConfigPlugin.version}"
@@ -283,22 +343,24 @@ class ComposeAppGeneratorTest {
                 apollo-runtime = { module = "com.apollographql.apollo:apollo-runtime", version.ref = "apollo" }
                 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
                 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "composeImageLoader" }
+                androidx-navigation-composee = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
+                androidx-lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+                androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
                 coil = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil" }
                 coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
-                napier = { module = "io.github.aakira:napier", version.ref = "napier" }
+                kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
                 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
                 multiplatformSettings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
                 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
                 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
                 kstore = { module = "io.github.xxfast:kstore", version.ref = "kstore" }
                 composeIcons-featherIcons = { module = "br.com.devsrsouza.compose.icons:feather", version.ref = "composeIcons" }
-                ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+                ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
                 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
                 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
                 ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }
                 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
                 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
-                moko-mvvm = { module = "dev.icerock.moko:mvvm-compose", version.ref = "moko-mvvm" }
                 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
                 sqlDelight-driver-sqlite = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqlDelight" }
                 sqlDelight-driver-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
@@ -357,6 +419,27 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/composeResources/values/strings.xml
             ${info.moduleName}/src/commonMain/composeResources/font/IndieFlower-Regular.ttf
             ${info.moduleName}/src/androidMain/AndroidManifest.xml
+            ${info.moduleName}/src/androidMain/res/mipmap-anydpi-v26/ic_launcher.xml
+            ${info.moduleName}/src/androidMain/res/mipmap-hdpi/ic_launcher.png
+            ${info.moduleName}/src/androidMain/res/mipmap-hdpi/ic_launcher_background.png
+            ${info.moduleName}/src/androidMain/res/mipmap-hdpi/ic_launcher_foreground.png
+            ${info.moduleName}/src/androidMain/res/mipmap-hdpi/ic_launcher_monochrome.png
+            ${info.moduleName}/src/androidMain/res/mipmap-mdpi/ic_launcher.png
+            ${info.moduleName}/src/androidMain/res/mipmap-mdpi/ic_launcher_background.png
+            ${info.moduleName}/src/androidMain/res/mipmap-mdpi/ic_launcher_foreground.png
+            ${info.moduleName}/src/androidMain/res/mipmap-mdpi/ic_launcher_monochrome.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xhdpi/ic_launcher.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xhdpi/ic_launcher_background.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xhdpi/ic_launcher_foreground.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xhdpi/ic_launcher_monochrome.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xxhdpi/ic_launcher.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xxhdpi/ic_launcher_background.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xxhdpi/ic_launcher_foreground.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xxhdpi/ic_launcher_monochrome.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xxxhdpi/ic_launcher.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xxxhdpi/ic_launcher_background.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xxxhdpi/ic_launcher_foreground.png
+            ${info.moduleName}/src/androidMain/res/mipmap-xxxhdpi/ic_launcher_monochrome.png
             ${info.moduleName}/src/androidMain/kotlin/org/android/app/App.android.kt
             ${info.moduleName}/src/androidMain/kotlin/org/android/app/theme/Theme.android.kt
         """.trimIndent(),
@@ -470,6 +553,27 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/composeResources/font/IndieFlower-Regular.ttf
             ${info.moduleName}/src/iosMain/kotlin/main.kt
             ${info.moduleName}/src/iosMain/kotlin/org/ios/app/theme/Theme.ios.kt
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon@2x.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon@2x~ipad.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon@3x.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-20@2x.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-20@2x~ipad.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-20@3x.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-20~ipad.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-29.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-29@2x.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-29@2x~ipad.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-29@3x.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-29~ipad.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-40@2x.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-40@2x~ipad.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-40@3x.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-40~ipad.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-60@2x~car.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-60@3x~car.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon-83.5@2x~ipad.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon~ios-marketing.png
+            iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/AppIcon~ipad.png
             iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/Contents.json
             iosApp/iosApp/Assets.xcassets/AccentColor.colorset/Contents.json
             iosApp/iosApp/Assets.xcassets/Contents.json
@@ -560,6 +664,9 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/composeResources/font/IndieFlower-Regular.ttf
             ${info.moduleName}/src/jvmMain/kotlin/main.kt
             ${info.moduleName}/src/jvmMain/kotlin/org/desktop/app/theme/Theme.jvm.kt
+            ${info.moduleName}/desktopAppIcons/LinuxIcon.png
+            ${info.moduleName}/desktopAppIcons/WindowsIcon.ico
+            ${info.moduleName}/desktopAppIcons/MacosIcon.icns
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -605,8 +712,19 @@ class ComposeAppGeneratorTest {
 
                         nativeDistributions {
                             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-                            packageName = "org.desktop.app.desktopApp"
+                            packageName = "Multiplatform App"
                             packageVersion = "1.0.0"
+
+                            linux {
+                                iconFile.set(project.file("desktopAppIcons/LinuxIcon.png"))
+                            }
+                            windows {
+                                iconFile.set(project.file("desktopAppIcons/WindowsIcon.ico"))
+                            }
+                            macOS {
+                                iconFile.set(project.file("desktopAppIcons/MacosIcon.icns"))
+                                bundleID = "org.desktop.app.desktopApp"
+                            }
                         }
                     }
                 }
@@ -651,6 +769,7 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/jsMain/resources/index.html
             ${info.moduleName}/src/jsMain/kotlin/main.kt
             ${info.moduleName}/src/jsMain/kotlin/org/js/app/theme/Theme.js.kt
+            ${info.moduleName}/src/jsMain/resources/favicon.ico
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -732,6 +851,7 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/wasmJsMain/resources/index.html
             ${info.moduleName}/src/wasmJsMain/kotlin/main.kt
             ${info.moduleName}/src/wasmJsMain/kotlin/org/wasm/app/theme/Theme.wasmJs.kt
+            ${info.moduleName}/src/wasmJsMain/resources/favicon.ico
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )

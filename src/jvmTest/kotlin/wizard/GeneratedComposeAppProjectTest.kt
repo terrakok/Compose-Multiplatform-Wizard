@@ -20,9 +20,12 @@ internal val extraDependencies = setOf(
     ApolloRuntime,
     Voyager,
     ImageLoader,
+    AndroidxNavigation,
+    AndroidxLifecycleRuntime,
+    AndroidxLifecycleViewmodel,
     Coil,
     CoilNetwork,
-    Napier,
+    Kermit,
     KotlinxDateTime,
     MultiplatformSettings,
     Koin,
@@ -35,7 +38,6 @@ internal val extraDependencies = setOf(
     KtorClientJs,
     KotlinxCoroutinesCore,
     KotlinxCoroutinesAndroid,
-    MokoMvvm,
     KotlinxSerializationPlugin,
     KotlinxSerializationJson,
     SQLDelightPlugin,
@@ -331,9 +333,10 @@ class GeneratedComposeAppProjectTest {
             f.parentFile.mkdirs()
             f.createNewFile()
 
-            if (projectFile is GradleWrapperJar) {
+            if (projectFile is BinaryFile) {
                 f.outputStream().use { out ->
-                    javaClass.getResourceAsStream("/binaries/gradle-wrapper").use { it!!.copyTo(out) }
+                    javaClass.getResourceAsStream("/binaries/${projectFile.resourcePath}")
+                        .use { it!!.copyTo(out) }
                 }
             } else {
                 if (projectFile is Gradlew) f.setExecutable(true)
