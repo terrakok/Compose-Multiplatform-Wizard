@@ -4,7 +4,7 @@ import wizard.dependencies.ApolloPlugin
 import wizard.files.*
 import wizard.files.composeApp.*
 
-fun ProjectInfo.generateComposeAppFiles() = buildList {
+fun ProjectInfo.generateComposeAppFiles(): List<ProjectFile> = buildList {
     val info = this@generateComposeAppFiles
 
     add(Gitignore())
@@ -40,6 +40,7 @@ fun ProjectInfo.generateComposeAppFiles() = buildList {
 
     if (info.hasPlatform(ProjectPlatform.Android)) {
         add(AndroidManifest(info))
+        addAll(AndroidAppIcons(info))
         add(AndroidAppKt(info))
         add(AndroidThemeKt(info))
     }
@@ -47,13 +48,14 @@ fun ProjectInfo.generateComposeAppFiles() = buildList {
     if (info.hasPlatform(ProjectPlatform.Jvm)) {
         add(DesktopMainKt(info))
         add(DesktopThemeKt(info))
+        addAll(DesktopAppIcons(info))
     }
 
     if (info.hasPlatform(ProjectPlatform.Ios)) {
         add(IosMainKt(info))
         add(IosThemeKt(info))
 
-        add(IosAppIcon())
+        addAll(IosAppIcons())
         add(IosAccentColor())
         add(IosAssets())
         add(IosPreviewAssets())
@@ -67,11 +69,13 @@ fun ProjectInfo.generateComposeAppFiles() = buildList {
         add(JsIndexHtml(info))
         add(JsMainKt(info))
         add(JsThemeKt(info))
+        add(JsFavicon(info))
     }
 
     if (info.hasPlatform(ProjectPlatform.Wasm)) {
         add(WasmJsIndexHtml(info))
         add(WasmJsMainKt(info))
         add(WasmJsThemeKt(info))
+        add(WasmJsFavicon(info))
     }
 }

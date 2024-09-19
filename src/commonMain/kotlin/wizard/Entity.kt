@@ -98,3 +98,8 @@ interface ProjectFile {
     val path: String
     val content: String
 }
+
+interface BinaryFile : ProjectFile {
+    override val content get() = error("It is a binary file")
+    val resourcePath: String
+}

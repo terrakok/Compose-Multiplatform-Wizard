@@ -3,26 +3,6 @@ package wizard.files.composeApp
 import wizard.ProjectFile
 import wizard.ProjectInfo
 
-class IosAppIcon : ProjectFile {
-    override val path = "iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/Contents.json"
-    override val content = """
-        {
-          "images" : [
-            {
-              "idiom" : "universal",
-              "platform" : "ios",
-              "size" : "1024x1024"
-            }
-          ],
-          "info" : {
-            "author" : "xcode",
-            "version" : 1
-          }
-        }
-        
-    """.trimIndent()
-}
-
 class IosAccentColor : ProjectFile {
     override val path = "iosApp/iosApp/Assets.xcassets/AccentColor.colorset/Contents.json"
     override val content = """

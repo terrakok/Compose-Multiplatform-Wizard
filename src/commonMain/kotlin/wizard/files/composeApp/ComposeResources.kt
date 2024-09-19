@@ -79,7 +79,7 @@ class StringsXml(info: ProjectInfo) : ProjectFile {
     """.trimIndent()
 }
 
-class IndieFlowerTtf(info: ProjectInfo) : ProjectFile {
+class IndieFlowerTtf(info: ProjectInfo) : BinaryFile {
     override val path = "${info.moduleName}/src/commonMain/composeResources/font/IndieFlower-Regular.ttf"
-    override val content = "/* binary file */"
+    override val resourcePath = "IndieFlower-Regular"
 }

@@ -10,7 +10,7 @@ class AndroidManifest(info: ProjectInfo) : ProjectFile {
         <manifest xmlns:android="http://schemas.android.com/apk/res/android">
         
             <application
-                android:icon="@android:drawable/ic_menu_compass"
+                android:icon="@mipmap/ic_launcher"
                 android:label="${info.name}"
                 android:theme="@android:style/Theme.Material.NoActionBar">
                 <activity

@@ -1,5 +1,6 @@
 package wizard.files
 
+import wizard.BinaryFile
 import wizard.ProjectFile
 import wizard.ProjectInfo
 
@@ -16,7 +17,7 @@ zipStorePath=wrapper/dists
 """.trimStart()
 }
 
-class GradleWrapperJar : ProjectFile {
+class GradleWrapperJar : BinaryFile {
     override val path = "gradle/wrapper/gradle-wrapper.jar"
-    override val content = "/* binary file */"
+    override val resourcePath = "gradle-wrapper"
 }

@@ -128,7 +128,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                     val deps = setOf(
                         DependencyBox(listOf(Voyager, Decompose, PreCompose), false),
                         DependencyBox(listOf(Coil, ImageLoader), false),
-                        DependencyBox(listOf(Napier, Kermit), false),
+                        DependencyBox(listOf(Kermit, Napier), false),
                         DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin), false),
                         DependencyBox(KotlinxCoroutinesCore, false),
                         DependencyBox(MokoMvvm, false),
@@ -216,6 +216,9 @@ internal fun Set<DependencyBox>.getSelectedDependencies() =
             when {
                 it.group == KtorCore.group -> listOfNotNull(
                     KtorCore,
+                    KtorClientContentNegotiation,
+                    KtorClientSerialization,
+                    KtorClientLogging,
                     KtorClientDarwin,
                     KtorClientOkhttp,
                     KtorClientJs,

@@ -10,10 +10,13 @@ import web.dom.document
 import web.html.HTML.div
 import web.html.HTML.link
 import web.html.HTML.script
-import wizard.*
-import wizard.files.GradleWrapperJar
+import wizard.BinaryFile
+import wizard.BuildConfig
+import wizard.ProjectInfo
+import wizard.WizardType
 import wizard.files.Gradlew
-import wizard.files.composeApp.IndieFlowerTtf
+import wizard.generate
+import wizard.safeName
 import kotlin.js.Promise
 
 fun main() {
@@ -51,43 +54,44 @@ fun main() {
 }
 
 private fun generateProject(project: ProjectInfo) {
-    Promise.all(
-        arrayOf(
-            loadBinaryFileBytes("gradle-wrapper"),
-            loadBinaryFileBytes("IndieFlower-Regular"),
-        )
-    ).then { (gradleWrapperBlob, fontBlob) ->
-            val zip = JSZip()
-            project.generate(BuildConfig.wizardType).forEach { file ->
-                when (file) {
-                    is GradleWrapperJar -> zip.file(
-                        file.path,
-                        gradleWrapperBlob
-                    )
-
-                    is IndieFlowerTtf -> zip.file(
-                        file.path,
-                        fontBlob
-                    )
-
-                    is Gradlew -> zip.file(
-                        file.path,
-                        file.content,
-                        js("""{unixPermissions:"774"}""") //execution rights
-                    )
-
-                    else -> zip.file(
-                        file.path,
-                        file.content
-                    )
-                }
-            }
-            //execution rights require UNIX mode
-            zip.generateAsync<Blob>(js("""{type:"blob",platform:"UNIX"}""")).then { blob ->
-                FileSaverJs.saveAs(blob, "${project.safeName}.zip")
+    val files = project.generate(BuildConfig.wizardType)
+    val textFiles = files.filterNot { it is BinaryFile }
+    val binFiles = files.filterIsInstance<BinaryFile>().map { loadBinaryFileBytes(it) }
+    Promise.all(binFiles.toTypedArray()).then { binaries ->
+        val zip = JSZip()
+        textFiles.forEach { file ->
+            if (file is Gradlew) {
+                zip.file(
+                    file.path,
+                    file.content,
+                    js("""{unixPermissions:"774"}""") //execution rights
+                )
+            } else {
+                zip.file(
+                    file.path,
+                    file.content
+                )
             }
         }
+        binaries.forEach { bin ->
+            zip.file(
+                bin.origin.path,
+                bin.content
+            )
+        }
+        //execution rights require UNIX mode
+        zip.generateAsync<Blob>(js("""{type:"blob",platform:"UNIX"}""")).then { blob ->
+            FileSaverJs.saveAs(blob, "${project.safeName}.zip")
+        }
+    }
 }
 
-private fun loadBinaryFileBytes(name: String): Promise<ArrayBuffer> =
-    window.fetch("./binaries/$name").then { response -> response.arrayBuffer() }.then { it }
+private data class BinaryFileContent(
+    val origin: BinaryFile,
+    val content: ArrayBuffer
+)
+
+private fun loadBinaryFileBytes(file: BinaryFile): Promise<BinaryFileContent> =
+    window.fetch("./binaries/${file.resourcePath}")
+        .then { response -> response.arrayBuffer() }
+        .then { BinaryFileContent(file, it) }

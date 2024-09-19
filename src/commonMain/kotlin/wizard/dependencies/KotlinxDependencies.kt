@@ -23,7 +23,25 @@ val KtorCore = Dependency(
     id = "ktor-client-core",
     version = "3.0.0-rc-1",
     catalogVersionName = "ktor",
-    catalogName = "ktor-core",
+    catalogName = "ktor-client-core",
+    platforms = emptySet()
+)
+
+val KtorClientContentNegotiation = KtorCore.copy(
+    id = "ktor-client-content-negotiation",
+    catalogName = "ktor-client-content-negotiation",
+    platforms = emptySet()
+)
+
+val KtorClientLogging = KtorCore.copy(
+    id = "ktor-client-logging",
+    catalogName = "ktor-client-logging",
+    platforms = emptySet()
+)
+
+val KtorClientSerialization = KtorCore.copy(
+    id = "ktor-client-serialization",
+    catalogName = "ktor-client-serialization",
     platforms = emptySet()
 )
 
