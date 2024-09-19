@@ -87,7 +87,7 @@ class ThemeKt(info: ProjectInfo) : ProjectFile {
             content: @Composable () -> Unit
         ) {
             val systemIsDark = isSystemInDarkTheme()
-            val isDarkState = remember { mutableStateOf(systemIsDark) }
+            val isDarkState = remember(systemIsDark) { mutableStateOf(systemIsDark) }
             CompositionLocalProvider(
                 LocalThemeIsDark provides isDarkState
             ) {
