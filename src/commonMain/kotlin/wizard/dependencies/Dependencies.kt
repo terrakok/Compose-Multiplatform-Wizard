@@ -93,3 +93,36 @@ val AndroidxJUnit4 = Dependency(
     platforms = setOf(Android),
     isTestDependency = true
 )
+
+val AndroidxLifecycleRuntime = Dependency(
+    title = "Androidx Lifecycle Runtime",
+    description = "The Lifecycle library offers built-in APIs that let you integrate with Compose Multiplatform.",
+    url = "https://developer.android.com/topic/libraries/architecture/lifecycle",
+    group = "org.jetbrains.androidx.lifecycle",
+    id = "lifecycle-runtime-compose",
+    version = "2.8.2",
+    catalogVersionName = "androidx-lifecycle",
+    catalogName = "androidx-lifecycle-runtime-compose",
+    platforms = emptySet()
+)
+
+val AndroidxLifecycleViewmodel = AndroidxLifecycleRuntime.copy(
+    title = "Androidx Viewmodel",
+    description = "The ViewModel class is a business logic or screen level state holder.",
+    url = "https://developer.android.com/topic/libraries/architecture/viewmodel",
+    id = "lifecycle-viewmodel",
+    catalogName = "androidx-lifecycle-viewmodel",
+    platforms = emptySet()
+)
+
+val AndroidxNavigation = Dependency(
+    title = "Androidx Navigation",
+    description = "Navigation is a framework for navigating between 'destinations' within an Compose multiplatform application",
+    url = "https://developer.android.com/guide/navigation",
+    group = "org.jetbrains.androidx.navigation",
+    id = "navigation-compose",
+    version = "2.8.0-alpha10",
+    catalogVersionName = "androidx-navigation",
+    catalogName = "androidx-navigation-composee",
+    platforms = emptySet()
+)

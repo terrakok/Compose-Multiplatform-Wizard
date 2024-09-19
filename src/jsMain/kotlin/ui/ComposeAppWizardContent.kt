@@ -126,13 +126,20 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                     }
 
                     val deps = setOf(
-                        DependencyBox(listOf(Voyager, Decompose, PreCompose), false),
-                        DependencyBox(listOf(Coil, ImageLoader), false),
                         DependencyBox(listOf(Kermit, Napier), false),
-                        DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin), false),
                         DependencyBox(KotlinxCoroutinesCore, false),
-                        DependencyBox(MokoMvvm, false),
                         DependencyBox(KtorCore, false),
+                        DependencyBox(AndroidxLifecycleViewmodel, false),
+                        DependencyBox(listOf(AndroidxNavigation, Voyager, Decompose, PreCompose), false),
+                        DependencyBox(KotlinxSerializationJson, false),
+                        DependencyBox(listOf(Koin, Kodein), false),
+                        DependencyBox(listOf(Coil, ImageLoader), false),
+                        DependencyBox(MultiplatformSettings, false),
+                        DependencyBox(KotlinxDateTime, false),
+                        DependencyBox(listOf(SQLDelightPlugin, RoomPlugin), false),
+                        DependencyBox(ApolloPlugin, false),
+                        DependencyBox(KStore, false),
+                        DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin), false),
                         DependencyBox(
                             listOf(
                                 ComposeIconsFeather,
@@ -147,13 +154,6 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                                 ComposeIconsCSSGG
                             ), false
                         ),
-                        DependencyBox(KotlinxSerializationJson, false),
-                        DependencyBox(KotlinxDateTime, false),
-                        DependencyBox(MultiplatformSettings, false),
-                        DependencyBox(listOf(Koin, Kodein), false),
-                        DependencyBox(KStore, false),
-                        DependencyBox(listOf(SQLDelightPlugin, RoomPlugin), false),
-                        DependencyBox(ApolloPlugin, false),
                     )
                     Grid {
                         sx {
@@ -213,8 +213,8 @@ internal fun Set<DependencyBox>.getSelectedDependencies() =
         .filter { it.isSelected.component1() }
         .map { it.selectedDep.component1() }
         .flatMap {
-            when {
-                it.group == KtorCore.group -> listOfNotNull(
+            when (it) {
+                KtorCore -> listOfNotNull(
                     KtorCore,
                     KtorClientContentNegotiation,
                     KtorClientSerialization,
@@ -225,36 +225,31 @@ internal fun Set<DependencyBox>.getSelectedDependencies() =
                     KtorClientLinux,
                     KtorClientMingw
                 )
-
-                it.group == SQLDelightPlugin.group -> listOf(
+                SQLDelightPlugin -> listOf(
                     SQLDelightPlugin,
                     SQLDelightDriverJvm,
                     SQLDelightDriverAndroid,
                     SQLDelightDriverNative,
                     SQLDelightDriverJs
                 )
-
-
-                it.group == RoomPlugin.group -> listOf(
+                RoomPlugin -> listOf(
                     RoomPlugin,
                     RoomPluginRuntime,
                     RoomPluginCompiler,
                     DevToolKSP
                 )
-
-                it.group == Koin.group -> listOf(Koin, KoinCompose)
-                it.group == Coil.group -> listOf(Coil, CoilNetwork)
-                it.group == Decompose.group -> listOf(Decompose, DecomposeCompose)
-                it.group == ApolloPlugin.group -> listOf(ApolloPlugin, ApolloRuntime)
-
-                it.id.contains("coroutines") -> listOf(
+                Koin -> listOf(Koin, KoinCompose)
+                Coil -> listOf(Coil, CoilNetwork)
+                Decompose -> listOf(Decompose, DecomposeCompose)
+                ApolloPlugin -> listOf(ApolloPlugin, ApolloRuntime)
+                AndroidxLifecycleViewmodel -> listOf(AndroidxLifecycleViewmodel, AndroidxLifecycleRuntime)
+                KotlinxCoroutinesCore -> listOf(
                     KotlinxCoroutinesCore,
                     KotlinxCoroutinesAndroid,
                     KotlinxCoroutinesJvm,
                     KotlinxCoroutinesTest
                 )
-
-                it.id.contains("serialization") -> listOf(KotlinxSerializationPlugin, KotlinxSerializationJson)
+                KotlinxSerializationJson -> listOf(KotlinxSerializationPlugin, KotlinxSerializationJson)
                 else -> listOf(it)
             }
         }

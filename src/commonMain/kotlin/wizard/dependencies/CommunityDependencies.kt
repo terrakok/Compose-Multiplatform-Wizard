@@ -149,18 +149,6 @@ val KStore = Dependency(
     platforms = emptySet()
 )
 
-val MokoMvvm = Dependency(
-    title = "Moko MVVM",
-    description = "This is a Kotlin Multiplatform library that provides architecture components of Model-View-ViewModel for UI applications.",
-    url = "https://github.com/icerockdev/moko-mvvm",
-    group = "dev.icerock.moko",
-    id = "mvvm-compose",
-    version = "0.16.1",
-    catalogVersionName = "moko-mvvm",
-    catalogName = "moko-mvvm",
-    platforms = emptySet()
-)
-
 val ApolloPlugin = Dependency(
     title = "Apollo Kotlin",
     description = "Generates typesafe Kotlin APIs from your GraphQL queries.",
