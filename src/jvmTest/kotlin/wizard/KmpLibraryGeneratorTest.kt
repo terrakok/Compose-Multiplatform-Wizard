@@ -118,7 +118,7 @@ class GeneratorTest {
                             implementation(libs.koin.core)
                             implementation(libs.kermit)
                             implementation(libs.kstore)
-                            implementation(libs.ktor.core)
+                            implementation(libs.ktor.client.core)
                             implementation(libs.kotlinx.coroutines.core)
                             implementation(libs.kotlinx.serialization.json)
                         }
@@ -223,7 +223,7 @@ class GeneratorTest {
                 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
                 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
                 kstore = { module = "io.github.xxfast:kstore", version.ref = "kstore" }
-                ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+                ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
                 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
                 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
                 ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }
