@@ -1,6 +1,7 @@
 plugins {
-    kotlin("multiplatform").version("2.0.20")
-    id("com.github.gmazzo.buildconfig").version("5.4.0")
+    kotlin("multiplatform").version("2.1.0-Beta1")
+    id("com.github.gmazzo.buildconfig").version("5.5.0")
+    id("com.github.ben-manes.versions").version("0.51.0")
 }
 
 repositories {
@@ -19,7 +20,7 @@ kotlin {
     }
     sourceSets {
         jsMain.dependencies {
-            implementation(dependencies.enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.795"))
+            implementation(dependencies.enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.818"))
             implementation("org.jetbrains.kotlin-wrappers:kotlin-react")
             implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom")
             implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion")
@@ -28,7 +29,7 @@ kotlin {
 
             implementation(npm("file-saver", "2.0.5"))
             implementation(npm("jszip", "3.10.1"))
-            implementation(npm("stream", "0.0.2"))
+            implementation(npm("stream", "0.0.3"))
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
