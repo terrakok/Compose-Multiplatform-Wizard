@@ -22,7 +22,6 @@ private fun getIndexHtml(info: ProjectInfo, withSkiko: Boolean) = buildString {
     appendLine("""        <link rel="icon" href="/favicon.ico" sizes="any">""")
     appendLine("""        <title>${info.name}</title>""")
     if (withSkiko) appendLine("""        <script src="skiko.js"></script>""")
-    appendLine("""        <script src="${info.moduleName}.js"></script>""")
     appendLine("""        <style>""")
     appendLine("""            html,""")
     appendLine("""            body {""")
@@ -35,5 +34,6 @@ private fun getIndexHtml(info: ProjectInfo, withSkiko: Boolean) = buildString {
     appendLine("""        </style>""")
     appendLine("""    </head>""")
     appendLine("""    <body></body>""")
+    appendLine("""    <script src="${info.moduleName}.js"></script>""")
     appendLine("""</html>""")
 }
