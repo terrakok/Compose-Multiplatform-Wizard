@@ -19,6 +19,7 @@ local.properties
 xcuserdata/
 Pods/
 *.jks
+*.gpg
 *yarn.lock
 """
 }

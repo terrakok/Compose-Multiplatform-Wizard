@@ -25,80 +25,39 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("}")
         appendLine("")
         appendLine("group = \"${info.packageId}\"")
-        appendLine("version = \"1.0\"")
+        appendLine("version = \"1.0.0\"")
         appendLine("")
         appendLine("kotlin {")
         if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("    jvmToolchain(11)")
-            appendLine("    androidTarget {")
-            appendLine("        publishLibraryVariants(\"release\")")
-            appendLine("    }")
+            appendLine("    jvmToolchain(17)")
             appendLine("")
+            appendLine("    androidTarget { publishLibraryVariants(\"release\") }")
         }
         if (info.hasPlatform(ProjectPlatform.Jvm)) {
             appendLine("    jvm()")
-            appendLine("")
         }
         if (info.hasPlatform(ProjectPlatform.Js)) {
-            appendLine("    js {")
-            appendLine("        browser {")
-            appendLine("            webpackTask {")
-            appendLine("                mainOutputFileName = \"${info.moduleName}.js\"")
-            appendLine("            }")
-            appendLine("        }")
-            appendLine("        binaries.executable()")
-            appendLine("    }")
-            appendLine("")
+            appendLine("    js { browser() }")
         }
         if (info.hasPlatform(ProjectPlatform.Wasm)) {
-            appendLine("    wasmJs {")
-            appendLine("        browser()")
-            appendLine("        binaries.executable()")
-            appendLine("    }")
-            appendLine("")
+            appendLine("    wasmJs { browser() }")
         }
         if (info.hasPlatform(ProjectPlatform.Ios)) {
-            appendLine("    listOf(")
-            appendLine("        iosX64(),")
-            appendLine("        iosArm64(),")
-            appendLine("        iosSimulatorArm64()")
-            appendLine("    ).forEach {")
-            appendLine("        it.binaries.framework {")
-            appendLine("            baseName = \"${info.moduleName}\"")
-            appendLine("            isStatic = true")
-            appendLine("        }")
-            appendLine("    }")
-            appendLine("")
+            appendLine("    iosX64()")
+            appendLine("    iosArm64()")
+            appendLine("    iosSimulatorArm64()")
         }
         if (info.hasPlatform(ProjectPlatform.Macos)) {
-            appendLine("    listOf(")
-            appendLine("        macosX64(),")
-            appendLine("        macosArm64()")
-            appendLine("    ).forEach {")
-            appendLine("        it.binaries.framework {")
-            appendLine("            baseName = \"${info.moduleName}\"")
-            appendLine("            isStatic = true")
-            appendLine("        }")
-            appendLine("    }")
-            appendLine("")
+            appendLine("    macosX64()")
+            appendLine("    macosArm64()")
         }
         if (info.hasPlatform(ProjectPlatform.Linux)) {
-            appendLine("    linuxX64 {")
-            appendLine("        binaries.staticLib {")
-            appendLine("            baseName = \"${info.moduleName}\"")
-            appendLine("        }")
-            appendLine("    }")
-            appendLine("")
-            appendLine("")
+            appendLine("    linuxX64()")
         }
         if (info.hasPlatform(ProjectPlatform.Mingw)) {
-            appendLine("    mingwX64 {")
-            appendLine("        binaries.staticLib {")
-            appendLine("            baseName = \"${info.moduleName}\"")
-            appendLine("        }")
-            appendLine("    }")
-            appendLine("")
+            appendLine("    mingwX64()")
         }
+        appendLine("")
         appendLine("    sourceSets {")
         appendLine("        commonMain.dependencies {")
         commonDeps.forEach { dep ->
@@ -195,7 +154,11 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         if (info.hasNativePlatforms()) {
             appendLine("    //https://kotlinlang.org/docs/native-objc-interop.html#export-of-kdoc-comments-to-generated-objective-c-headers")
             appendLine("    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {")
-            appendLine("        compilations[\"main\"].compilerOptions.options.freeCompilerArgs.add(\"-Xexport-kdoc\")")
+            appendLine("        compilations[\"main\"].compileTaskProvider.configure {")
+            appendLine("            compilerOptions {")
+            appendLine("                freeCompilerArgs.add(\"-Xexport-kdoc\")")
+            appendLine("            }")
+            appendLine("        }")
             appendLine("    }")
             appendLine("")
         }

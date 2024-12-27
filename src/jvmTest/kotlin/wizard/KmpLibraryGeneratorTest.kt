@@ -53,63 +53,22 @@ class GeneratorTest {
                 }
 
                 group = "my.company.name"
-                version = "1.0"
+                version = "1.0.0"
 
                 kotlin {
-                    jvmToolchain(11)
-                    androidTarget {
-                        publishLibraryVariants("release")
-                    }
+                    jvmToolchain(17)
 
+                    androidTarget { publishLibraryVariants("release") }
                     jvm()
-
-                    js {
-                        browser {
-                            webpackTask {
-                                mainOutputFileName = "shared.js"
-                            }
-                        }
-                        binaries.executable()
-                    }
-
-                    wasmJs {
-                        browser()
-                        binaries.executable()
-                    }
-
-                    listOf(
-                        iosX64(),
-                        iosArm64(),
-                        iosSimulatorArm64()
-                    ).forEach {
-                        it.binaries.framework {
-                            baseName = "shared"
-                            isStatic = true
-                        }
-                    }
-
-                    listOf(
-                        macosX64(),
-                        macosArm64()
-                    ).forEach {
-                        it.binaries.framework {
-                            baseName = "shared"
-                            isStatic = true
-                        }
-                    }
-
-                    linuxX64 {
-                        binaries.staticLib {
-                            baseName = "shared"
-                        }
-                    }
-
-
-                    mingwX64 {
-                        binaries.staticLib {
-                            baseName = "shared"
-                        }
-                    }
+                    js { browser() }
+                    wasmJs { browser() }
+                    iosX64()
+                    iosArm64()
+                    iosSimulatorArm64()
+                    macosX64()
+                    macosArm64()
+                    linuxX64()
+                    mingwX64()
 
                     sourceSets {
                         commonMain.dependencies {
@@ -167,7 +126,11 @@ class GeneratorTest {
 
                     //https://kotlinlang.org/docs/native-objc-interop.html#export-of-kdoc-comments-to-generated-objective-c-headers
                     targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
-                        compilations["main"].compilerOptions.options.freeCompilerArgs.add("-Xexport-kdoc")
+                        compilations["main"].compileTaskProvider.configure {
+                            compilerOptions {
+                                freeCompilerArgs.add("-Xexport-kdoc")
+                            }
+                        }
                     }
 
                 }
@@ -252,6 +215,10 @@ class GeneratorTest {
                 # KMP library
 
                 Kotlin Multiplatform Library
+                
+                ### Publish to MavenLocal
+                1) Run `./gradlew :shared:publishToMavenLocal`
+                2) Open `~/.m2/repository/my/company/name/"}`
 
                 ### Publish to MavenCentral
 
@@ -259,59 +226,23 @@ class GeneratorTest {
                    https://dev.to/kotlin/how-to-build-and-publish-a-kotlin-multiplatform-library-going-public-4a8k
                 2) Add developer id, name, email and the project url to
                    `/convention-plugins/src/main/kotlin/convention.publication.gradle.kts`
-                3) Add the secrets to `local.properties`:
+                3) Generate a GPG key:
+                   https://getstream.io/blog/publishing-libraries-to-mavencentral-2021/#generating-a-gpg-key-pair
+                   ```
+                   gpg --full-gen-key
+                   gpg --keyserver keyserver.ubuntu.com --send-keys XXXXXXXX
+                   gpg --export-secret-key XXXXXXXX > XXXXXXXX.gpg
+                   ```
+                4) Add the secrets to `local.properties`:
+                   ```
+                   signing.keyId=XXXXXXXX
+                   signing.password=[key password]
+                   signing.secretKeyRingFile=../XXXXXXXX.gpg
+                   ossrhUsername=[Sonatype token_user]
+                   ossrhPassword=[Sonatype token_password]
+                   ```
+                5) Run `./gradlew :shared:publishAllPublicationsToSonatypeRepository`
 
-                ```
-                signing.keyId=...
-                signing.password=...
-                signing.secretKeyRingFile=...
-                ossrhUsername=...
-                ossrhPassword=...
-                ```
-
-                4) Run `./gradlew :shared:publishAllPublicationsToSonatypeRepository`
-
-                ### Build platform artifacts
-
-                #### Android aar
-
-                - Run `./gradlew :shared:assembleRelease`
-                - Output: `/shared/build/outputs/aar/shared-release.aar`
-
-                #### JVM jar
-
-                - Run `./gradlew :shared:jvmJar`
-                - Output: `/shared/build/libs/shared-jvm-1.0.jar`
-
-                #### iOS Framework
-
-                - Run `./gradlew :shared:linkReleaseFrameworkIosArm64`
-                - Output: `/shared/build/bin/iosArm64/releaseFramework/shared.framework`
-
-                #### JS file
-
-                - Run `./gradlew :shared:jsBrowserProductionWebpack`
-                - Output: `/shared/build/dist/js/productionExecutable/shared.js`
-
-                #### macOS Framework
-
-                - Run `./gradlew :shared:linkReleaseFrameworkMacosArm64`
-                - Output: `/shared/build/bin/macosArm64/releaseFramework/shared.framework`
-
-                #### Linux static library
-
-                - Run `./gradlew :shared:linkReleaseStaticLinuxX64`
-                - Output: `/shared/build/bin/linuxX64/releaseStatic/libshared.a`
-
-                #### Windows static library
-
-                - Run `./gradlew :shared:linkReleaseStaticMingwX64`
-                - Output: `/shared/build/bin/mingwX64/releaseStatic/libshared.a`
-
-                #### Wasm binary file
-
-                - Run `./gradlew :shared:wasmJsBrowserDistribution`
-                - Output: `/shared/build/dist/wasmJs/productionExecutable/shared-wasm-js.wasm`
 
             """.trimIndent(),
             files.first { it is Readme }.content
@@ -357,7 +288,7 @@ class GeneratorTest {
                 }
 
                 group = "org.desktop.app"
-                version = "1.0"
+                version = "1.0.0"
 
                 kotlin {
                     jvm()
@@ -418,14 +349,12 @@ class GeneratorTest {
                 }
                 
                 group = "my.company"
-                version = "1.0"
+                version = "1.0.0"
                 
                 kotlin {
-                    jvmToolchain(11)
-                    androidTarget {
-                        publishLibraryVariants("release")
-                    }
-                
+                    jvmToolchain(17)
+
+                    androidTarget { publishLibraryVariants("release") }
                     jvm()
 
                     sourceSets {

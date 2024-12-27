@@ -157,9 +157,9 @@ class GeneratedKmpLibraryProjectTest {
         dir.resolve("${projectInfo.moduleName}/build.gradle.kts").apply {
             writeText(
                 readText().replace(
-                    "version = \"1.0\"",
+                    "version = \"1.0.0\"",
                     """
-                        version = "1.0"
+                        version = "1.0.0"
                         publishing {
                             repositories {
                                 maven {
@@ -177,7 +177,7 @@ class GeneratedKmpLibraryProjectTest {
             command = listOf("${dir.path}/gradlew", "publishAllPublicationsToCustomRepository")
         )
 
-        val metadata = dir.resolve("${projectInfo.moduleName}/repo/my/company/name/shared/1.0/shared-1.0-kotlin-tooling-metadata.json").readText()
+        val metadata = dir.resolve("${projectInfo.moduleName}/repo/my/company/name/shared/1.0.0/shared-1.0.0-kotlin-tooling-metadata.json").readText()
         assertEquals(
             """
                 {
@@ -197,8 +197,8 @@ class GeneratedKmpLibraryProjectTest {
                       "platformType": "androidJvm",
                       "extras": {
                         "android": {
-                          "sourceCompatibility": "11",
-                          "targetCompatibility": "11"
+                          "sourceCompatibility": "17",
+                          "targetCompatibility": "17"
                         }
                       }
                     },
@@ -250,7 +250,7 @@ class GeneratedKmpLibraryProjectTest {
                       "platformType": "jvm",
                       "extras": {
                         "jvm": {
-                          "jvmTarget": "11",
+                          "jvmTarget": "17",
                           "withJavaEnabled": false
                         }
                       }
