@@ -5,6 +5,7 @@ import wizard.dependencies.*
 import wizard.files.GradleLibsVersion
 import wizard.files.kmpLibrary.Readme
 import wizard.files.kmpLibrary.ModuleBuildGradleKts
+import wizard.files.kmpLibrary.sample.SampleComposeAppBuildGradleKts
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -38,6 +39,21 @@ class GeneratorTest {
             ${info.moduleName}/build.gradle.kts
             ${info.moduleName}/src/commonMain/kotlin/my/company/name/Fibonacci.kt
             ${info.moduleName}/src/commonTest/kotlin/my/company/name/FibonacciTest.kt
+            sample/composeApp/build.gradle.kts
+            sample/composeApp/src/commonMain/kotlin/sample/app/App.kt
+            sample/composeApp/src/androidMain/kotlin/sample/app/main.kt
+            sample/composeApp/src/androidMain/AndroidManifest.xml
+            sample/composeApp/src/iosMain/kotlin/sample/app/main.kt
+            sample/iosApp/iosApp/Info.plist
+            sample/iosApp/iosApp/iosApp.swift
+            sample/iosApp/iosApp.xcodeproj/project.pbxproj
+            sample/composeApp/src/jvmMain/kotlin/sample/app/main.kt
+            sample/composeApp/src/jsMain/kotlin/sample/app/main.kt
+            sample/composeApp/src/jsMain/resources/index.html
+            sample/composeApp/src/wasmJsMain/kotlin/sample/app/main.kt
+            sample/composeApp/src/wasmJsMain/resources/index.html
+            sample/terminalApp/build.gradle.kts
+            sample/terminalApp/src/commonMain/kotlin/main.kt
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -178,6 +194,9 @@ class GeneratorTest {
                 kotlinx-serialization = "${KotlinxSerializationJson.version}"
                 sqlDelight = "${SQLDelightPlugin.version}"
                 buildConfig = "${BuildConfigPlugin.version}"
+                compose = "${ComposePlugin.version}"
+                agp = "${AndroidLibraryPlugin.version}"
+                androidx-activityCompose = "${AndroidxActivityCompose.version}"
 
                 [libraries]
 
@@ -199,6 +218,7 @@ class GeneratorTest {
                 sqlDelight-driver-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
                 sqlDelight-driver-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
                 sqlDelight-driver-js = { module = "app.cash.sqldelight:web-worker-driver", version.ref = "sqlDelight" }
+                androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 
                 [plugins]
 
@@ -206,6 +226,9 @@ class GeneratorTest {
                 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
                 sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
                 buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }
+                compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+                compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+                android-application = { id = "com.android.application", version.ref = "agp" }
 
             """.trimIndent(),
             files.first { it is GradleLibsVersion }.content
@@ -215,15 +238,25 @@ class GeneratorTest {
                 # KMP library
 
                 Kotlin Multiplatform Library
-                
+
+                ### Run Sample App
+
+                 - Desktop JVM: `./gradlew :sample:composeApp:run`
+                 - Android: `open project in Android Studio and run the sample app`
+                 - iOS: `open 'sample/iosApp/iosApp.xcodeproj' in Xcode and run the sample app`
+                 - JavaScript: `./gradlew :sample:composeApp:jsBrowserRun`
+                 - Wasm: `./gradlew :sample:composeApp:wasmJsBrowserRun`
+                 - Linux/Macos/Windows native: `./gradlew :sample:terminalApp:runDebugExecutable[architecture]`
+
                 ### Publish to MavenLocal
+
                 1) Run `./gradlew :shared:publishToMavenLocal`
                 2) Open `~/.m2/repository/my/company/name/"}`
 
                 ### Publish to MavenCentral
 
-                1) Registering a Sonatype account as described here: 
-                   https://dev.to/kotlin/how-to-build-and-publish-a-kotlin-multiplatform-library-going-public-4a8k
+                1) Create a account and a namespace on Sonatype:
+                   https://central.sonatype.org/register/central-portal/#create-an-account
                 2) Add developer id, name, email and the project url to
                    `/convention-plugins/src/main/kotlin/convention.publication.gradle.kts`
                 3) Generate a GPG key:
@@ -242,7 +275,6 @@ class GeneratorTest {
                    ossrhPassword=[Sonatype token_password]
                    ```
                 5) Run `./gradlew :shared:publishAllPublicationsToSonatypeRepository`
-
 
             """.trimIndent(),
             files.first { it is Readme }.content
@@ -276,6 +308,9 @@ class GeneratorTest {
             ${info.moduleName}/build.gradle.kts
             ${info.moduleName}/src/commonMain/kotlin/org/desktop/app/Fibonacci.kt
             ${info.moduleName}/src/commonTest/kotlin/org/desktop/app/FibonacciTest.kt
+            sample/composeApp/build.gradle.kts
+            sample/composeApp/src/commonMain/kotlin/sample/app/App.kt
+            sample/composeApp/src/jvmMain/kotlin/sample/app/main.kt
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -336,6 +371,11 @@ class GeneratorTest {
             ${info.moduleName}/build.gradle.kts
             ${info.moduleName}/src/commonMain/kotlin/my/company/Fibonacci.kt
             ${info.moduleName}/src/commonTest/kotlin/my/company/FibonacciTest.kt
+            sample/composeApp/build.gradle.kts
+            sample/composeApp/src/commonMain/kotlin/sample/app/App.kt
+            sample/composeApp/src/androidMain/kotlin/sample/app/main.kt
+            sample/composeApp/src/androidMain/AndroidManifest.xml
+            sample/composeApp/src/jvmMain/kotlin/sample/app/main.kt
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -380,6 +420,187 @@ class GeneratorTest {
 
             """.trimIndent(),
             files.first { it is ModuleBuildGradleKts }.content
+        )
+
+        assertEquals(
+            """
+                import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+
+                plugins {
+                    alias(libs.plugins.multiplatform)
+                    alias(libs.plugins.compose.compiler)
+                    alias(libs.plugins.compose)
+                    alias(libs.plugins.android.application)
+                }
+
+                kotlin {
+                    jvmToolchain(17)
+
+                    androidTarget()
+                    jvm()
+
+                    sourceSets {
+                        commonMain.dependencies {
+                            implementation(compose.runtime)
+                            implementation(compose.foundation)
+                            implementation(project(":foo"))
+                        }
+
+                        androidMain.dependencies {
+                            implementation(libs.androidx.activityCompose)
+                        }
+
+                        jvmMain.dependencies {
+                            implementation(compose.desktop.currentOs)
+                        }
+
+                    }
+                }
+
+                android {
+                    namespace = "sample.app"
+                    compileSdk = 35
+
+                    defaultConfig {
+                        minSdk = 21
+                        targetSdk = 35
+
+                        applicationId = "sample.app.androidApp"
+                        versionCode = 1
+                        versionName = "1.0.0"
+                    }
+                }
+
+                compose.desktop {
+                    application {
+                        mainClass = "MainKt"
+
+                        nativeDistributions {
+                            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+                            packageName = "sample"
+                            packageVersion = "1.0.0"
+                        }
+                    }
+                }
+
+            """.trimIndent(),
+            files.first { it is SampleComposeAppBuildGradleKts }.content
+        )
+    }
+
+    @Test
+    fun buildNativeFiles() {
+        val info = DefaultKmpLibraryInfo().copy(
+            packageId = "io.my.com",
+            moduleName = "lamba",
+            platforms = setOf(Ios, Linux)
+        )
+        val files = info.generateKmpLibraryFiles()
+
+        assertEquals(
+            """
+            .gitignore
+            README.MD
+            gradlew.bat
+            gradlew
+            gradle/wrapper/gradle-wrapper.properties
+            gradle/wrapper/gradle-wrapper.jar
+            gradle/libs.versions.toml
+            gradle.properties
+            build.gradle.kts
+            settings.gradle.kts
+            convention-plugins/build.gradle.kts
+            convention-plugins/src/main/kotlin/convention.publication.gradle.kts
+            ${info.moduleName}/build.gradle.kts
+            ${info.moduleName}/src/commonMain/kotlin/io/my/com/Fibonacci.kt
+            ${info.moduleName}/src/commonTest/kotlin/io/my/com/FibonacciTest.kt
+            sample/composeApp/build.gradle.kts
+            sample/composeApp/src/commonMain/kotlin/sample/app/App.kt
+            sample/composeApp/src/iosMain/kotlin/sample/app/main.kt
+            sample/iosApp/iosApp/Info.plist
+            sample/iosApp/iosApp/iosApp.swift
+            sample/iosApp/iosApp.xcodeproj/project.pbxproj
+            sample/terminalApp/build.gradle.kts
+            sample/terminalApp/src/commonMain/kotlin/main.kt
+        """.trimIndent(),
+            files.joinToString("\n") { it.path }
+        )
+
+        assertEquals(
+            """
+                plugins {
+                    alias(libs.plugins.multiplatform)
+                    alias(libs.plugins.android.library)
+                    id("convention.publication")
+                }
+
+                group = "io.my.com"
+                version = "1.0.0"
+
+                kotlin {
+                    iosX64()
+                    iosArm64()
+                    iosSimulatorArm64()
+                    linuxX64()
+
+                    sourceSets {
+                        commonMain.dependencies {
+                        }
+
+                        commonTest.dependencies {
+                            implementation(kotlin("test"))
+                        }
+
+                    }
+
+                    //https://kotlinlang.org/docs/native-objc-interop.html#export-of-kdoc-comments-to-generated-objective-c-headers
+                    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
+                        compilations["main"].compileTaskProvider.configure {
+                            compilerOptions {
+                                freeCompilerArgs.add("-Xexport-kdoc")
+                            }
+                        }
+                    }
+
+                }
+
+            """.trimIndent(),
+            files.first { it is ModuleBuildGradleKts }.content
+        )
+
+        assertEquals(
+            """
+                plugins {
+                    alias(libs.plugins.multiplatform)
+                    alias(libs.plugins.compose.compiler)
+                    alias(libs.plugins.compose)
+                }
+
+                kotlin {
+                    listOf(
+                        iosX64(),
+                        iosArm64(),
+                        iosSimulatorArm64()
+                    ).forEach {
+                        it.binaries.framework {
+                            baseName = "ComposeApp"
+                            isStatic = true
+                        }
+                    }
+
+                    sourceSets {
+                        commonMain.dependencies {
+                            implementation(compose.runtime)
+                            implementation(compose.foundation)
+                            implementation(project(":${info.moduleName}"))
+                        }
+
+                    }
+                }
+
+
+            """.trimIndent(),
+            files.first { it is SampleComposeAppBuildGradleKts }.content
         )
     }
 }

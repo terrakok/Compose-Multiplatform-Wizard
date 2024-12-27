@@ -2,9 +2,13 @@ package wizard.files
 
 import wizard.ProjectFile
 import wizard.ProjectInfo
+import wizard.ProjectPlatform
+import wizard.WizardType
+import wizard.needComposeSample
+import wizard.needTerminalSample
 import wizard.safeName
 
-class SettingsGradleKts(info: ProjectInfo, withConventionPlugins: Boolean) : ProjectFile {
+class SettingsGradleKts(info: ProjectInfo) : ProjectFile {
     override val path = "settings.gradle.kts"
     override val content = buildString {
         appendLine("rootProject.name = \"${info.safeName}\"")
@@ -40,8 +44,10 @@ class SettingsGradleKts(info: ProjectInfo, withConventionPlugins: Boolean) : Pro
             |}
         """.trimMargin())
         appendLine("")
-        if (withConventionPlugins) appendLine("includeBuild(\"convention-plugins\")")
+        if (info.type == WizardType.KmpLibrary) appendLine("includeBuild(\"convention-plugins\")")
         appendLine("include(\":${info.moduleName}\")")
+        if (info.needComposeSample) appendLine("include(\":sample:composeApp\")")
+        if (info.needTerminalSample) appendLine("include(\":sample:terminalApp\")")
         appendLine("")
     }
 }

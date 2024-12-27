@@ -1,8 +1,11 @@
 package wizard.files
 
 import wizard.ProjectFile
+import wizard.ProjectInfo
+import wizard.ProjectPlatform
+import wizard.hasPlatform
 
-class GradleProperties(enableExperimentalCompose: Boolean) : ProjectFile {
+class GradleProperties(info: ProjectInfo) : ProjectFile {
     override val path = "gradle.properties"
     override val content = buildString {
         appendLine("""
@@ -21,7 +24,7 @@ class GradleProperties(enableExperimentalCompose: Boolean) : ProjectFile {
             android.useAndroidX=true
             android.nonTransitiveRClass=true
         """.trimIndent())
-        if (enableExperimentalCompose) {
+        if (info.hasPlatform(ProjectPlatform.Js)) {
             appendLine("""
                 
                 #Compose

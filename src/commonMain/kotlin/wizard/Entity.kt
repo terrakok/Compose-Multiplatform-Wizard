@@ -11,7 +11,12 @@ enum class ProjectPlatform(val title: String) {
     Macos("macOS"),
     Linux("Linux"),
     Mingw("Windows"),
-    Wasm("Wasm"),
+    Wasm("Wasm");
+
+    companion object {
+        val composePlatforms = listOf(Android, Jvm, Js, Wasm, Ios)
+        val binaryPlatforms = listOf(Macos, Linux, Mingw)
+    }
 }
 
 enum class WizardType {
@@ -28,7 +33,8 @@ data class ProjectInfo(
     val gradleVersion: String = "8.11.1",
     val androidMinSdk: Int = 21,
     val androidTargetSdk: Int = 35,
-    val dependencies: Set<Dependency>
+    val dependencies: Set<Dependency>,
+    val type: WizardType
 )
 
 fun ProjectInfo.getResourcesPackage(): String = "$safeName.$moduleName.generated.resources"
@@ -48,7 +54,8 @@ fun DefaultComposeAppInfo() = ProjectInfo(
         AndroidxActivityCompose,
         AndroidxTestManifest,
         AndroidxJUnit4,
-    )
+    ),
+    type = WizardType.ComposeApp
 )
 
 fun DefaultKmpLibraryInfo() = ProjectInfo(
@@ -59,8 +66,15 @@ fun DefaultKmpLibraryInfo() = ProjectInfo(
     dependencies = setOf(
         KotlinPlugin,
         AndroidLibraryPlugin
-    )
+    ),
+    type = WizardType.KmpLibrary
 )
+
+val ProjectInfo.needComposeSample: Boolean
+    get() = type == WizardType.KmpLibrary && platforms.any { it in ProjectPlatform.composePlatforms }
+
+val ProjectInfo.needTerminalSample: Boolean
+    get() = type == WizardType.KmpLibrary && platforms.any { it in ProjectPlatform.binaryPlatforms }
 
 fun ProjectInfo.hasPlatform(platform: ProjectPlatform) = platforms.contains(platform)
 val ProjectInfo.packagePath get() = packageId.replace(".", "/")
