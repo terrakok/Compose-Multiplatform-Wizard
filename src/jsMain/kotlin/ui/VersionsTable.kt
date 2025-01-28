@@ -8,7 +8,7 @@ import mui.material.TableContainer
 import mui.material.TableRow
 import mui.system.PropsWithSx
 import react.FC
-import react.useRequiredContext
+import react.useRequired
 import wizard.*
 import wizard.dependencies.*
 
@@ -17,8 +17,8 @@ external interface VersionsTableProps : PropsWithSx {
 }
 
 val VersionsTable = FC<VersionsTableProps> { props ->
-    val showVersions by useRequiredContext(ShowVersionContext)
-    val wizardType by useRequiredContext(WizardTypeContext)
+    val showVersions by useRequired(ShowVersionContext)
+    val wizardType by useRequired(WizardTypeContext)
     if (showVersions) {
         TableContainer {
             sx = props.sx

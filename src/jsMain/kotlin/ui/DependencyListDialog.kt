@@ -13,7 +13,7 @@ import mui.material.styles.TypographyVariant
 import mui.system.sx
 import react.FC
 import react.Props
-import react.useRequiredContext
+import react.useRequired
 import web.cssom.px
 import web.window.window
 import wizard.libraryNotation
@@ -44,7 +44,7 @@ val DependencyListDialog = FC<DependencyListDialogProps> { props ->
                     key = dep.libraryNotation
                     ListItem {
                         disableGutters = true
-                        val showVersion by useRequiredContext(ShowVersionContext)
+                        val showVersion by useRequired(ShowVersionContext)
                         Stack {
                             Typography {
                                 variant = TypographyVariant.h5

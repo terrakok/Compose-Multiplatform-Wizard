@@ -12,9 +12,9 @@ import web.window.window
 import wizard.WizardType
 
 val TopMenu = FC<Props> {
-    var showVersions by useRequiredContext(ShowVersionContext)
-    var theme by useRequiredContext(ThemeContext)
-    val wizardType by useRequiredContext(WizardTypeContext)
+    var showVersions by useRequired(ShowVersionContext)
+    var theme by useRequired(ThemeContext)
+    val wizardType by useRequired(WizardTypeContext)
     Box {
         sx {
             position = Position.relative

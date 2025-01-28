@@ -8,7 +8,7 @@ import mui.system.sx
 import react.FC
 import react.Props
 import react.create
-import react.useRequiredContext
+import react.useRequired
 import react.useState
 import web.cssom.AlignItems
 import web.cssom.JustifyContent
@@ -24,7 +24,7 @@ external interface DependencyCardProps : Props {
 val DependencyCard = FC<DependencyCardProps> { props ->
     val dep by props.dependency.selectedDep
     var isSelected by props.dependency.isSelected
-    val showVersion by useRequiredContext(ShowVersionContext)
+    val showVersion by useRequired(ShowVersionContext)
     var isDialogOpen by useState(false)
 
     Card {
