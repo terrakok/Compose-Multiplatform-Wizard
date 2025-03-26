@@ -35,7 +35,10 @@ class Readme(info: ProjectInfo) : ProjectFile {
         if (info.hasPlatform(ProjectPlatform.Jvm)) {
             appendLine("### Desktop")
             appendLine("Run the desktop application: `./gradlew :${info.moduleName}:run`")
-            appendLine("Run desktop UI tests: `./gradlew :composeApp:jvmTest`")
+            if (info.enableJvmHotReload) {
+                appendLine("Run the desktop **hot reload** application: `./gradlew :${info.moduleName}:runHot`)")
+            }
+            appendLine("Run desktop UI tests: `./gradlew :${info.moduleName}:jvmTest`")
             appendLine("")
         }
 
@@ -44,21 +47,21 @@ class Readme(info: ProjectInfo) : ProjectFile {
             appendLine("To run the application on iPhone device/simulator:")
             appendLine(" - Open `iosApp/iosApp.xcproject` in Xcode and run standard configuration")
             appendLine(" - Or use [Kotlin Multiplatform Mobile plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile) for Android Studio")
-            appendLine("Run iOS simulator UI tests: `./gradlew :composeApp:iosSimulatorArm64Test`")
+            appendLine("Run iOS simulator UI tests: `./gradlew :${info.moduleName}:iosSimulatorArm64Test`")
             appendLine("")
         }
 
         if (info.hasPlatform(ProjectPlatform.Js)) {
             appendLine("### JS Browser (Experimental)")
             appendLine("Run the browser application: `./gradlew :${info.moduleName}:jsBrowserDevelopmentRun --continue`")
-            appendLine("Run browser UI tests: `./gradlew :composeApp:jsBrowserTest`")
+            appendLine("Run browser UI tests: `./gradlew :${info.moduleName}:jsBrowserTest`")
             appendLine("")
         }
 
         if (info.hasPlatform(ProjectPlatform.Wasm)) {
             appendLine("### Wasm Browser (Alpha)")
             appendLine("Run the browser application: `./gradlew :${info.moduleName}:wasmJsBrowserDevelopmentRun --continue`")
-            appendLine("Run browser UI tests: `./gradlew :composeApp:wasmJsBrowserTest`")
+            appendLine("Run browser UI tests: `./gradlew :${info.moduleName}:wasmJsBrowserTest`")
             appendLine("")
         }
     }

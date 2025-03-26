@@ -56,6 +56,18 @@ val ComposeCompilerPlugin = KotlinPlugin.copy(
     platforms = emptySet()
 )
 
+val ComposeHotReloadPlugin = Dependency(
+    title = "Compose Hot Reload",
+    description = "Compose Hot Reload runs your application on a special desktop JVM, and intelligently reloads your code whenever it is changed.",
+    url = "https://github.com/JetBrains/compose-hot-reload",
+    group = "org.jetbrains.compose.hot-reload",
+    id = "gradle-plugin",
+    version = "1.0.0-alpha03",
+    catalogVersionName = "hotReload",
+    catalogName = "hotReload",
+    platforms = emptySet()
+)
+
 val AndroidxActivityCompose = Dependency(
     title = "Activity Compose",
     description = "Androidx Activity Compose",

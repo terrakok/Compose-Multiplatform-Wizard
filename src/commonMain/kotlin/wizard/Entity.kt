@@ -54,6 +54,7 @@ fun DefaultComposeAppInfo() = ProjectInfo(
         AndroidxActivityCompose,
         AndroidxTestManifest,
         AndroidxJUnit4,
+        ComposeHotReloadPlugin,
     ),
     type = WizardType.ComposeApp
 )
@@ -75,6 +76,9 @@ val ProjectInfo.needComposeSample: Boolean
 
 val ProjectInfo.needTerminalSample: Boolean
     get() = type == WizardType.KmpLibrary && platforms.any { it in ProjectPlatform.binaryPlatforms }
+
+val ProjectInfo.enableJvmHotReload: Boolean
+    get() = dependencies.contains(ComposeHotReloadPlugin) && platforms.contains(Jvm)
 
 fun ProjectInfo.hasPlatform(platform: ProjectPlatform) = platforms.contains(platform)
 val ProjectInfo.packagePath get() = packageId.replace(".", "/")

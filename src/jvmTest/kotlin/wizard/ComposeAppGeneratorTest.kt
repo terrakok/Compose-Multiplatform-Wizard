@@ -3,6 +3,7 @@ package wizard
 import wizard.dependencies.*
 import wizard.files.GradleLibsVersion
 import wizard.files.composeApp.ModuleBuildGradleKts
+import wizard.files.composeApp.Readme
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -381,13 +382,59 @@ class ComposeAppGeneratorTest {
             """.trimIndent(),
             files.first { it is GradleLibsVersion }.content
         )
+
+        assertEquals(
+            """
+                # Compose Multiplatform Application
+
+                ## Before running!
+                 - check your system with [KDoctor](https://github.com/Kotlin/kdoctor)
+                 - install JDK 17 or higher on your machine
+                 - add `local.properties` file to the project root and set a path to Android SDK there
+
+                ### Android
+                To run the application on android device/emulator:  
+                 - open project in Android Studio and run imported android run configuration
+
+                To build the application bundle:
+                 - run `./gradlew :composeApp:assembleDebug`
+                 - find `.apk` file in `composeApp/build/outputs/apk/debug/composeApp-debug.apk`
+                Run android UI tests on the connected device: `./gradlew :composeApp:connectedDebugAndroidTest`
+
+                ### Desktop
+                Run the desktop application: `./gradlew :composeApp:run`
+                Run desktop UI tests: `./gradlew :composeApp:jvmTest`
+
+                ### iOS
+                To run the application on iPhone device/simulator:
+                 - Open `iosApp/iosApp.xcproject` in Xcode and run standard configuration
+                 - Or use [Kotlin Multiplatform Mobile plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile) for Android Studio
+                Run iOS simulator UI tests: `./gradlew :composeApp:iosSimulatorArm64Test`
+
+                ### Wasm Browser (Alpha)
+                Run the browser application: `./gradlew :composeApp:wasmJsBrowserDevelopmentRun --continue`
+                Run browser UI tests: `./gradlew :composeApp:wasmJsBrowserTest`
+
+
+            """.trimIndent(),
+            files.first { it is Readme }.content
+        )
     }
 
     @Test
     fun buildAndroidFiles() {
         val info = DefaultComposeAppInfo().copy(
             packageId = "org.android.app",
-            platforms = setOf(ProjectPlatform.Android)
+            platforms = setOf(ProjectPlatform.Android),
+            dependencies = setOf(
+                KotlinPlugin,
+                ComposeCompilerPlugin,
+                ComposePlugin,
+                AndroidApplicationPlugin,
+                AndroidxActivityCompose,
+                AndroidxTestManifest,
+                AndroidxJUnit4,
+            ),
         )
         val files = info.generateComposeAppFiles()
 
@@ -627,7 +674,7 @@ class ComposeAppGeneratorTest {
         val info = DefaultComposeAppInfo().copy(
             packageId = "org.desktop.app",
             platforms = setOf(ProjectPlatform.Jvm),
-            dependencies = setOf(KotlinPlugin, ComposePlugin)
+            dependencies = setOf(KotlinPlugin, ComposePlugin, ComposeHotReloadPlugin)
         )
         val files = info.generateComposeAppFiles()
 
@@ -667,10 +714,13 @@ class ComposeAppGeneratorTest {
             """
                 import org.jetbrains.compose.ExperimentalComposeLibrary
                 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+                import org.jetbrains.compose.reload.ComposeHotRun
+                import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
 
                 plugins {
                     alias(libs.plugins.multiplatform)
                     alias(libs.plugins.compose)
+                    alias(libs.plugins.hotReload)
                 }
 
                 kotlin {
@@ -719,6 +769,14 @@ class ComposeAppGeneratorTest {
                             }
                         }
                     }
+                }
+                
+                //https://github.com/JetBrains/compose-hot-reload
+                composeCompiler {
+                    featureFlags.add(ComposeFeatureFlag.OptimizeNonSkippingGroups)
+                }
+                tasks.register<ComposeHotRun>("runHot") {
+                    mainClass.set("MainKt")
                 }
 
             """.trimIndent(),
