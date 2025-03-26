@@ -1,6 +1,10 @@
 package wizard.dependencies
 
 import wizard.Dependency
+import wizard.ProjectPlatform.Android
+import wizard.ProjectPlatform.Companion.composePlatforms
+import wizard.ProjectPlatform.Ios
+import wizard.ProjectPlatform.Jvm
 
 val Voyager = Dependency(
     title = "Voyager",
@@ -20,7 +24,7 @@ val Decompose = Dependency(
     url = "https://github.com/arkivanov/Decompose",
     group = "com.arkivanov.decompose",
     id = "decompose",
-    version = "3.1.0",
+    version = "3.3.0",
     catalogVersionName = "decompose",
     catalogName = "decompose",
     platforms = emptySet()
@@ -37,7 +41,7 @@ val PreCompose = Dependency(
     url = "https://github.com/Tlaster/PreCompose",
     group = "moe.tlaster",
     id = "precompose",
-    version = "1.6.1",
+    version = "1.6.2",
     catalogVersionName = "precompose",
     catalogName = "precompose",
     platforms = emptySet()
@@ -108,6 +112,25 @@ val MultiplatformSettings = Dependency(
     platforms = emptySet()
 )
 
+val KotlinInject = Dependency(
+    title = "Kotlin-Inject",
+    description = "A compile-time dependency injection library for kotlin.",
+    url = "https://github.com/evant/kotlin-inject",
+    group = "me.tatarka.inject",
+    id = "kotlin-inject-runtime",
+    version = "0.7.2",
+    catalogVersionName = "kotlinInject",
+    catalogName = "kotlinInject",
+    platforms = emptySet()
+)
+
+val KotlinInjectCompiler = KotlinInject.copy(
+    id = "kotlin-inject-compiler-ksp",
+    catalogName = "kotlinInjectKsp",
+    platforms = composePlatforms.toSet(),
+    isKspDependency = true
+)
+
 val Koin = Dependency(
     title = "Koin",
     description = "A pragmatic lightweight dependency injection framework for Kotlin & Kotlin Multiplatform.",
@@ -131,7 +154,7 @@ val Kodein = Dependency(
     url = "https://github.com/kosi-libs/Kodein",
     group = "org.kodein.di",
     id = "kodein-di",
-    version = "7.22.0",
+    version = "7.25.0",
     catalogVersionName = "kodein",
     catalogName = "kodein",
     platforms = emptySet()

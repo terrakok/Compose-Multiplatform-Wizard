@@ -126,20 +126,20 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                     }
 
                     val deps = setOf(
-                        DependencyBox(listOf(Kermit, Napier), false),
-                        DependencyBox(KotlinxCoroutinesCore, false),
-                        DependencyBox(KtorCore, false),
-                        DependencyBox(AndroidxLifecycleViewmodel, false),
-                        DependencyBox(listOf(AndroidxNavigation, Voyager, Decompose, PreCompose), false),
-                        DependencyBox(KotlinxSerializationJson, false),
-                        DependencyBox(listOf(Koin, Kodein), false),
-                        DependencyBox(listOf(Coil, ImageLoader), false),
-                        DependencyBox(MultiplatformSettings, false),
-                        DependencyBox(KotlinxDateTime, false),
-                        DependencyBox(listOf(SQLDelightPlugin, RoomPlugin), false),
-                        DependencyBox(ApolloPlugin, false),
-                        DependencyBox(KStore, false),
-                        DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin), false),
+                        DependencyBox(listOf(Kermit, Napier)),
+                        DependencyBox(KotlinxCoroutinesCore),
+                        DependencyBox(KtorCore),
+                        DependencyBox(AndroidxLifecycleViewmodel),
+                        DependencyBox(listOf(AndroidxNavigation, Voyager, Decompose, PreCompose)),
+                        DependencyBox(KotlinxSerializationJson),
+                        DependencyBox(listOf(Koin, KotlinInject, Kodein)),
+                        DependencyBox(listOf(Coil, ImageLoader)),
+                        DependencyBox(MultiplatformSettings),
+                        DependencyBox(KotlinxDateTime),
+                        DependencyBox(listOf(RoomPlugin, SQLDelightPlugin)),
+                        DependencyBox(ApolloPlugin),
+                        DependencyBox(KStore),
+                        DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin)),
                         DependencyBox(
                             listOf(
                                 ComposeIconsFeather,
@@ -152,7 +152,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                                 ComposeIconsLineAwesome,
                                 ComposeIconsWeather,
                                 ComposeIconsCSSGG
-                            ), false
+                            )
                         ),
                     )
                     Grid {
@@ -236,6 +236,11 @@ internal fun Set<DependencyBox>.getSelectedDependencies() =
                     RoomPlugin,
                     RoomPluginRuntime,
                     RoomPluginCompiler,
+                    DevToolKSP
+                )
+                KotlinInject -> listOf(
+                    KotlinInject,
+                    KotlinInjectCompiler,
                     DevToolKSP
                 )
                 Koin -> listOf(Koin, KoinCompose)

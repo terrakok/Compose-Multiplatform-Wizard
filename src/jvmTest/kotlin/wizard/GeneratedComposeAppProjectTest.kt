@@ -274,6 +274,11 @@ class GeneratedComposeAppProjectTest {
                 add(ComposePlugin)
                 addAll(extraDependencies)
                 addAll(roomDependencies)
+                add(BuildKonfigPlugin)
+                add(SQLDelightPlugin)
+                add(Kodein)
+                add(PreCompose)
+                add(Decompose)
             }
         )
         val dir = projectInfo.writeToDir(workingDir)

@@ -5,9 +5,9 @@ import wizard.Dependency
 
 class DependencyBox(
     val dependencies: List<Dependency>,
-    isSelected: Boolean
+    isSelected: Boolean = false
 ) {
-    constructor(dependency: Dependency, isSelected: Boolean) : this(listOf(dependency), isSelected)
+    constructor(dependency: Dependency, isSelected: Boolean = false) : this(listOf(dependency), isSelected)
 
     val isMultiSelect get() = dependencies.size > 1
     val selectedDep = useState(dependencies[0])
