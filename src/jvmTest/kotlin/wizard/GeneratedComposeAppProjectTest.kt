@@ -25,6 +25,8 @@ internal val extraDependencies = setOf(
     AndroidxLifecycleViewmodel,
     Coil,
     CoilNetwork,
+    Sketch,
+    SketchHttp,
     Kermit,
     Napier,
     KotlinLogging,

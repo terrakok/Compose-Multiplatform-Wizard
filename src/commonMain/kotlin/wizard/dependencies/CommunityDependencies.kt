@@ -73,6 +73,23 @@ val CoilNetwork = Coil.copy(
     catalogName = "coil-network-ktor",
 )
 
+val Sketch = Dependency(
+    title = "Sketch",
+    description = "Sketch is a powerful and comprehensive image loading library for Compose Multiplatform.",
+    url = "https://github.com/panpf/sketch",
+    group = "io.github.panpf.sketch4",
+    id = "sketch-compose",
+    version = "4.0.5",
+    catalogVersionName = "sketch",
+    catalogName = "sketch",
+    platforms = emptySet()
+)
+
+val SketchHttp = Sketch.copy(
+    id = "sketch-http",
+    catalogName = "sketchHttp"
+)
+
 val Napier = Dependency(
     title = "Napier",
     description = "Napier is a logger library for Kotlin Multiplatform.",

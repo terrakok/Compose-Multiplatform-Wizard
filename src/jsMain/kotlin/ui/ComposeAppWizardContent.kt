@@ -186,7 +186,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         DependencyBox(listOf(AndroidxNavigation, Voyager, Decompose, PreCompose)),
                         DependencyBox(KotlinxSerializationJson),
                         DependencyBox(listOf(KotlinInject, Koin, Kodein)),
-                        DependencyBox(listOf(Coil, ImageLoader)),
+                        DependencyBox(listOf(Coil, Sketch, ImageLoader)),
                         DependencyBox(MultiplatformSettings),
                         DependencyBox(KotlinxDateTime),
                         DependencyBox(listOf(RoomPlugin, SQLDelightPlugin)),
@@ -301,6 +301,7 @@ internal fun Set<DependencyBox>.getSelectedDependencies() =
                 )
                 Koin -> listOf(Koin, KoinCompose)
                 Coil -> listOf(Coil, CoilNetwork)
+                Sketch -> listOf(Sketch, SketchHttp)
                 Decompose -> listOf(Decompose, DecomposeCompose)
                 ApolloPlugin -> listOf(ApolloPlugin, ApolloRuntime)
                 AndroidxLifecycleViewmodel -> listOf(AndroidxLifecycleViewmodel, AndroidxLifecycleRuntime)
