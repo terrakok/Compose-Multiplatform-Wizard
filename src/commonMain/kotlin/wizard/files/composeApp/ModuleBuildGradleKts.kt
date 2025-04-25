@@ -220,7 +220,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("composeCompiler {")
             appendLine("    featureFlags.add(ComposeFeatureFlag.OptimizeNonSkippingGroups)")
             appendLine("}")
-            appendLine("tasks.register<ComposeHotRun>(\"runHot\") {")
+            appendLine("tasks.withType<ComposeHotRun>().configureEach {")
             appendLine("    mainClass.set(\"MainKt\")")
             appendLine("}")
         }

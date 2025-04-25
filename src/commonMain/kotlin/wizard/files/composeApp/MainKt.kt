@@ -9,22 +9,15 @@ class DesktopMainKt(info: ProjectInfo) : ProjectFile {
     override val content = buildString {
         appendLine(
             """
-                import androidx.compose.desktop.ui.tooling.preview.Preview
-                import androidx.compose.runtime.Composable
-                import androidx.compose.ui.unit.dp
-                import androidx.compose.ui.window.Window
-                import androidx.compose.ui.window.application
-                import androidx.compose.ui.window.rememberWindowState
-                import java.awt.Dimension
-                import ${info.packageId}.App
-            """.trimIndent()
-        )
-        if (info.enableJvmHotReload) {
-            appendLine("import org.jetbrains.compose.reload.DevelopmentEntryPoint")
-        }
-        appendLine()
-        appendLine(
-            """
+                |import androidx.compose.desktop.ui.tooling.preview.Preview
+                |import androidx.compose.runtime.Composable
+                |import androidx.compose.ui.unit.dp
+                |import androidx.compose.ui.window.Window
+                |import androidx.compose.ui.window.application
+                |import androidx.compose.ui.window.rememberWindowState
+                |import java.awt.Dimension
+                |import ${info.packageId}.App
+                |
                 |fun main() = application {
                 |    Window(
                 |        title = "${info.name}",
@@ -32,25 +25,7 @@ class DesktopMainKt(info: ProjectInfo) : ProjectFile {
                 |        onCloseRequest = ::exitApplication,
                 |    ) {
                 |        window.minimumSize = Dimension(350, 600)
-            """.trimMargin()
-        )
-        if (info.enableJvmHotReload) {
-            appendLine(
-                """
-                    |        DevelopmentEntryPoint {
-                    |            App()
-                    |        }
-                """.trimMargin()
-            )
-        } else {
-            appendLine(
-                """
-                    |        App()
-                """.trimMargin()
-            )
-        }
-        appendLine(
-            """
+                |        App()
                 |    }
                 |}
                 |
