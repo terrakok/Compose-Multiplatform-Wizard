@@ -35,7 +35,6 @@ internal val extraDependencies = setOf(
     Koin,
     KoinCompose,
     KStore,
-    ComposeIconsFeather,
     KtorCore,
     KtorClientDarwin,
     KtorClientOkhttp,

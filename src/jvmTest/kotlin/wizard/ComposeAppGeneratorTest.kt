@@ -186,7 +186,6 @@ class ComposeAppGeneratorTest {
                             implementation(libs.koin.core)
                             implementation(libs.koin.compose)
                             implementation(libs.kstore)
-                            implementation(libs.composeIcons.featherIcons)
                             implementation(libs.ktor.client.core)
                             implementation(libs.kotlinx.coroutines.core)
                             implementation(libs.kotlinx.serialization.json)
@@ -325,12 +324,11 @@ class ComposeAppGeneratorTest {
                 sketch = "${Sketch.version}"
                 kermit = "${Kermit.version}"
                 napier = "${Napier.version}"
-                kotlinLogging = "${KotlinLogging.version}""
+                kotlinLogging = "${KotlinLogging.version}"
                 kotlinx-datetime = "${KotlinxDateTime.version}"
                 multiplatformSettings = "${MultiplatformSettings.version}"
                 koin = "${Koin.version}"
                 kstore = "${KStore.version}"
-                composeIcons = "${ComposeIconsFeather.version}"
                 ktor = "${KtorCore.version}"
                 kotlinx-coroutines = "${KotlinxCoroutinesCore.version}"
                 kotlinx-serialization = "${KotlinxSerializationJson.version}"
@@ -362,7 +360,6 @@ class ComposeAppGeneratorTest {
                 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
                 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
                 kstore = { module = "io.github.xxfast:kstore", version.ref = "kstore" }
-                composeIcons-featherIcons = { module = "br.com.devsrsouza.compose.icons:feather", version.ref = "composeIcons" }
                 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
                 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
                 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }

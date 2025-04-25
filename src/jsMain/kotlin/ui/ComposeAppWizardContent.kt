@@ -193,20 +193,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         DependencyBox(ApolloPlugin),
                         DependencyBox(KStore),
                         DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin)),
-                        DependencyBox(
-                            listOf(
-                                ComposeIconsFeather,
-                                ComposeIconsFontAwesome,
-                                ComposeIconsSimple,
-                                ComposeIconsTabler,
-                                ComposeIconsEva,
-                                ComposeIconsOcticons,
-                                ComposeIconsLinea,
-                                ComposeIconsLineAwesome,
-                                ComposeIconsWeather,
-                                ComposeIconsCSSGG
-                            )
-                        ),
+                        DependencyBox(listOf()),
                     )
                     Grid {
                         sx {
