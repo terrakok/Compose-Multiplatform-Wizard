@@ -293,7 +293,9 @@ class GeneratedComposeAppProjectTest {
                 ) + """
                     |
                     |tasks.named<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask>("dependencyUpdates") {
-                    |    rejectVersionIf { isNonStable(candidate.version) }
+                    |    rejectVersionIf { 
+                    |       isNonStable(candidate.version) && !isNonStable(currentVersion) 
+                    |    }
                     |}
                     |
                     |fun isNonStable(version: String): Boolean {
