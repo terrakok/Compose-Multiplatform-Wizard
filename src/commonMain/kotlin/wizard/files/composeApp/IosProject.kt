@@ -65,23 +65,25 @@ class IosInfoPlist : ProjectFile {
 class IosAppSwift : ProjectFile {
     override val path = "iosApp/iosApp/iosApp.swift"
     override val content = """
-        import UIKit
+        import SwiftUI
         import ComposeApp
 
         @main
-        class AppDelegate: UIResponder, UIApplicationDelegate {
-            var window: UIWindow?
-
-            func application(
-                _ application: UIApplication,
-                didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-            ) -> Bool {
-                window = UIWindow(frame: UIScreen.main.bounds)
-                if let window = window {
-                    window.rootViewController = MainKt.MainViewController()
-                    window.makeKeyAndVisible()
+        struct ComposeApp: App {
+            var body: some Scene {
+                WindowGroup {
+                    ContentView().ignoresSafeArea(.all)
                 }
-                return true
+            }
+        }
+
+        struct ContentView: UIViewControllerRepresentable {
+            func makeUIViewController(context: Context) -> UIViewController {
+                return MainKt.MainViewController()
+            }
+
+            func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+                // Updates will be handled by Compose
             }
         }
         
