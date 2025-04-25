@@ -48,7 +48,8 @@ internal val extraDependencies = setOf(
     SQLDelightDriverAndroid,
     SQLDelightDriverNative,
     SQLDelightDriverJs,
-    BuildConfigPlugin
+    BuildConfigPlugin,
+    MaterialKolor
 )
 
 internal val roomDependencies = setOf(

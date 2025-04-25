@@ -189,6 +189,7 @@ class ComposeAppGeneratorTest {
                             implementation(libs.ktor.client.core)
                             implementation(libs.kotlinx.coroutines.core)
                             implementation(libs.kotlinx.serialization.json)
+                            implementation(libs.materialKolor)
                             implementation(libs.room.runtime)
                         }
 
@@ -334,6 +335,7 @@ class ComposeAppGeneratorTest {
                 kotlinx-serialization = "${KotlinxSerializationJson.version}"
                 sqlDelight = "${SQLDelightPlugin.version}"
                 buildConfig = "${BuildConfigPlugin.version}"
+                materialKolor = "${MaterialKolor.version}"
                 room = "${RoomPlugin.version}"
                 ksp = "${DevToolKSP.version}"
 
@@ -371,6 +373,7 @@ class ComposeAppGeneratorTest {
                 sqlDelight-driver-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
                 sqlDelight-driver-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
                 sqlDelight-driver-js = { module = "app.cash.sqldelight:web-worker-driver", version.ref = "sqlDelight" }
+                materialKolor = { module = "com.materialkolor:material-kolor", version.ref = "materialKolor" }
                 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
                 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 

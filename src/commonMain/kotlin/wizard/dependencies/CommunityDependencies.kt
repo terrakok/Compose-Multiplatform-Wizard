@@ -239,3 +239,15 @@ val BuildKonfigPlugin = Dependency(
     catalogName = "buildKonfig",
     platforms = emptySet()
 )
+
+val MaterialKolor = Dependency(
+    title = "Material Kolor",
+    description = "Material You dynamic color for Compose Multiplatform",
+    url = "https://github.com/jordond/material-kolor",
+    group = "com.materialkolor",
+    id = "material-kolor",
+    version = "2.1.1",
+    catalogVersionName = "materialKolor",
+    catalogName = "materialKolor",
+    platforms = emptySet()
+)
