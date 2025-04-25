@@ -1,10 +1,7 @@
 package wizard.dependencies
 
 import wizard.Dependency
-import wizard.ProjectPlatform.Android
 import wizard.ProjectPlatform.Companion.composePlatforms
-import wizard.ProjectPlatform.Ios
-import wizard.ProjectPlatform.Jvm
 
 val Voyager = Dependency(
     title = "Voyager",
@@ -97,6 +94,18 @@ val Kermit = Dependency(
     version = "2.0.5",
     catalogVersionName = "kermit",
     catalogName = "kermit",
+    platforms = emptySet()
+)
+
+val KotlinLogging = Dependency(
+    title = "Kotlin-Logging",
+    description = "Kotlin-Logging is a lightweight logging framework for Kotlin.",
+    url = "https://github.com/oshai/kotlin-logging",
+    group = "io.github.oshai",
+    id = "kotlin-logging",
+    version = "7.0.7",
+    catalogVersionName = "kotlinLogging",
+    catalogName = "kotlinLogging",
     platforms = emptySet()
 )
 

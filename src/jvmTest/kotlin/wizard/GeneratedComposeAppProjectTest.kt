@@ -26,6 +26,8 @@ internal val extraDependencies = setOf(
     Coil,
     CoilNetwork,
     Kermit,
+    Napier,
+    KotlinLogging,
     KotlinxDateTime,
     MultiplatformSettings,
     Koin,

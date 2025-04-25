@@ -12,6 +12,7 @@ internal val kmpLibraryExtraDependencies = setOf(
     MultiplatformSettings,
     Koin,
     Kermit,
+    KotlinLogging,
     KStore,
     KtorCore,
     KtorClientDarwin,
@@ -150,6 +151,7 @@ class GeneratedKmpLibraryProjectTest {
                 add(AndroidLibraryPlugin)
                 add(Koin)
                 add(Kermit)
+                add(KotlinLogging)
                 add(KStore)
             }
         )

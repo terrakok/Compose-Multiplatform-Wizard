@@ -160,7 +160,7 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                         DependencyBox(KotlinxCoroutinesCore, false),
                         DependencyBox(KotlinxSerializationJson, false),
                         DependencyBox(KotlinxDateTime, false),
-                        DependencyBox(Kermit, false),
+                        DependencyBox(listOf(KotlinLogging, Kermit), false),
                         DependencyBox(KtorCore, false),
                         DependencyBox(SQLDelightPlugin, false),
                         DependencyBox(MultiplatformSettings, false),

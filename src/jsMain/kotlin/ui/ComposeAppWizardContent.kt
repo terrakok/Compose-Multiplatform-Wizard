@@ -179,13 +179,13 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                     }
 
                     val deps = setOf(
-                        DependencyBox(listOf(Kermit, Napier)),
+                        DependencyBox(listOf(KotlinLogging, Kermit, Napier)),
                         DependencyBox(KotlinxCoroutinesCore),
                         DependencyBox(KtorCore),
                         DependencyBox(AndroidxLifecycleViewmodel),
                         DependencyBox(listOf(AndroidxNavigation, Voyager, Decompose, PreCompose)),
                         DependencyBox(KotlinxSerializationJson),
-                        DependencyBox(listOf(Koin, KotlinInject, Kodein)),
+                        DependencyBox(listOf(KotlinInject, Koin, Kodein)),
                         DependencyBox(listOf(Coil, ImageLoader)),
                         DependencyBox(MultiplatformSettings),
                         DependencyBox(KotlinxDateTime),
