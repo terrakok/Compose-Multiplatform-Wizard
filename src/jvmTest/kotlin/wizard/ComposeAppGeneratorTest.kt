@@ -176,7 +176,11 @@ class ComposeAppGeneratorTest {
                             implementation(libs.androidx.lifecycle.viewmodel)
                             implementation(libs.coil)
                             implementation(libs.coil.network.ktor)
+                            implementation(libs.sketch)
+                            implementation(libs.sketchHttp)
                             implementation(libs.kermit)
+                            implementation(libs.napier)
+                            implementation(libs.kotlinLogging)
                             implementation(libs.kotlinx.datetime)
                             implementation(libs.multiplatformSettings)
                             implementation(libs.koin.core)
@@ -232,7 +236,7 @@ class ComposeAppGeneratorTest {
                         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                     }
                 }
-                
+
                 //https://developer.android.com/develop/ui/compose/testing#setup
                 dependencies {
                     androidTestImplementation(libs.androidx.uitest.junit4)
@@ -276,11 +280,11 @@ class ComposeAppGeneratorTest {
                         }
                     }
                 }
-                
+
                 room {
                     schemaDirectory("${projectDir}/schemas")
                 }
-                
+
                 apollo {
                     service("api") {
                         // GraphQL configuration here.
@@ -288,7 +292,7 @@ class ComposeAppGeneratorTest {
                         packageName.set("org.company.app.graphql")
                     }
                 }
-                
+
                 dependencies {
                     with(libs.room.compiler) {
                         add("kspAndroid", this)
@@ -318,7 +322,10 @@ class ComposeAppGeneratorTest {
                 androidx-navigation = "${AndroidxNavigation.version}"
                 androidx-lifecycle = "${AndroidxLifecycleViewmodel.version}"
                 coil = "${Coil.version}"
+                sketch = "${Sketch.version}"
                 kermit = "${Kermit.version}"
+                napier = "${Napier.version}"
+                kotlinLogging = "${KotlinLogging.version}""
                 kotlinx-datetime = "${KotlinxDateTime.version}"
                 multiplatformSettings = "${MultiplatformSettings.version}"
                 koin = "${Koin.version}"
@@ -345,7 +352,11 @@ class ComposeAppGeneratorTest {
                 androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
                 coil = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil" }
                 coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
+                sketch = { module = "io.github.panpf.sketch4:sketch-compose", version.ref = "sketch" }
+                sketchHttp = { module = "io.github.panpf.sketch4:sketch-http", version.ref = "sketch" }
                 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+                napier = { module = "io.github.aakira:napier", version.ref = "napier" }
+                kotlinLogging = { module = "io.github.oshai:kotlin-logging", version.ref = "kotlinLogging" }
                 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
                 multiplatformSettings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
                 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
@@ -493,7 +504,7 @@ class ComposeAppGeneratorTest {
             """
                 import org.jetbrains.compose.ExperimentalComposeLibrary
                 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
-                
+
                 plugins {
                     alias(libs.plugins.multiplatform)
                     alias(libs.plugins.compose.compiler)
@@ -546,7 +557,7 @@ class ComposeAppGeneratorTest {
                         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                     }
                 }
-                
+
                 //https://developer.android.com/develop/ui/compose/testing#setup
                 dependencies {
                     androidTestImplementation(libs.androidx.uitest.junit4)
@@ -628,7 +639,7 @@ class ComposeAppGeneratorTest {
         assertEquals(
             """
                 import org.jetbrains.compose.ExperimentalComposeLibrary
-                
+
                 plugins {
                     alias(libs.plugins.multiplatform)
                     alias(libs.plugins.compose)
@@ -770,12 +781,12 @@ class ComposeAppGeneratorTest {
                         }
                     }
                 }
-                
+
                 //https://github.com/JetBrains/compose-hot-reload
                 composeCompiler {
                     featureFlags.add(ComposeFeatureFlag.OptimizeNonSkippingGroups)
                 }
-                tasks.register<ComposeHotRun>("runHot") {
+                tasks.withType<ComposeHotRun>().configureEach {
                     mainClass.set("MainKt")
                 }
 
@@ -827,7 +838,7 @@ class ComposeAppGeneratorTest {
         assertEquals(
             """
                 import org.jetbrains.compose.ExperimentalComposeLibrary
-                
+
                 plugins {
                     alias(libs.plugins.multiplatform)
                     alias(libs.plugins.compose)
@@ -909,7 +920,7 @@ class ComposeAppGeneratorTest {
         assertEquals(
             """
                 import org.jetbrains.compose.ExperimentalComposeLibrary
-                
+
                 plugins {
                     alias(libs.plugins.multiplatform)
                     alias(libs.plugins.compose)
@@ -938,7 +949,7 @@ class ComposeAppGeneratorTest {
 
                     }
                 }
-                
+
             """.trimIndent(),
             files.first { it is ModuleBuildGradleKts }.content
         )

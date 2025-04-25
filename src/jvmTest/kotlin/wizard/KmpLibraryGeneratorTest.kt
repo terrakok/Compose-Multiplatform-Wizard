@@ -92,6 +92,7 @@ class GeneratorTest {
                             implementation(libs.multiplatformSettings)
                             implementation(libs.koin.core)
                             implementation(libs.kermit)
+                            implementation(libs.kotlinLogging)
                             implementation(libs.kstore)
                             implementation(libs.ktor.client.core)
                             implementation(libs.kotlinx.coroutines.core)
@@ -188,6 +189,7 @@ class GeneratorTest {
                 multiplatformSettings = "${MultiplatformSettings.version}"
                 koin = "${Koin.version}"
                 kermit = "${Kermit.version}"
+                kotlinLogging = "${KotlinLogging.version}"
                 kstore = "${KStore.version}"
                 ktor = "${KtorCore.version}"
                 kotlinx-coroutines = "${KotlinxCoroutinesCore.version}"
@@ -204,6 +206,7 @@ class GeneratorTest {
                 multiplatformSettings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
                 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
                 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+                kotlinLogging = { module = "io.github.oshai:kotlin-logging", version.ref = "kotlinLogging" }
                 kstore = { module = "io.github.xxfast:kstore", version.ref = "kstore" }
                 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
                 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
