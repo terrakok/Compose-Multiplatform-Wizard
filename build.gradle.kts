@@ -20,12 +20,11 @@ kotlin {
     }
     sourceSets {
         jsMain.dependencies {
-            implementation(dependencies.enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:2025.5.2"))
-            implementation("org.jetbrains.kotlin-wrappers:kotlin-react")
-            implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom")
-            implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion")
-            implementation("org.jetbrains.kotlin-wrappers:kotlin-mui-material")
-            implementation("org.jetbrains.kotlin-wrappers:kotlin-mui-icons-material")
+            implementation(kotlinWrappers.react)
+            implementation(kotlinWrappers.reactDom)
+            implementation(kotlinWrappers.emotion.styled)
+            implementation(kotlinWrappers.mui.material)
+            implementation(kotlinWrappers.mui.iconsMaterial)
 
             implementation(npm("file-saver", "2.0.5"))
             implementation(npm("jszip", "3.10.1"))
