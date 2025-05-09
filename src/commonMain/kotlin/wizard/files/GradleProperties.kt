@@ -19,7 +19,6 @@ class GradleProperties(info: ProjectInfo) : ProjectFile {
             #Kotlin
             kotlin.code.style=official
             kotlin.daemon.jvmargs=-Xmx4G
-            kotlin.incremental.wasm=true
 
             #Android
             android.useAndroidX=true
