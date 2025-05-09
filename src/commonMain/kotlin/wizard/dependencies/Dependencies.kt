@@ -21,7 +21,7 @@ val AndroidApplicationPlugin = Dependency(
     url = "https://developer.android.com/studio/build",
     group = "com.android.application",
     id = "gradle-plugin",
-    version = "8.10.0",
+    version = "8.9.2",
     catalogVersionName = "agp",
     catalogName = "android-application",
     platforms = emptySet()
@@ -62,7 +62,7 @@ val ComposeHotReloadPlugin = Dependency(
     url = "https://github.com/JetBrains/compose-hot-reload",
     group = "org.jetbrains.compose.hot-reload",
     id = "gradle-plugin",
-    version = "1.0.0-alpha08",
+    version = "1.0.0-alpha09",
     catalogVersionName = "hotReload",
     catalogName = "hotReload",
     platforms = emptySet()
@@ -80,30 +80,24 @@ val AndroidxActivityCompose = Dependency(
     platforms = setOf(Android)
 )
 
-val AndroidxTestManifest = Dependency(
-    title = "Androidx Test Manifest",
-    description = "Androidx Test Manifest",
-    url = "https://developer.android.com/reference/kotlin/androidx/compose/ui/test/package-summary",
-    group = "androidx.compose.ui",
-    id = "ui-test-manifest",
-    version = "1.7.8",
-    catalogVersionName = "androidx-uiTest",
-    catalogName = "androidx-uitest-testManifest",
-    platforms = setOf(Android),
-    isTestDependency = true
-)
-
 val AndroidxJUnit4 = Dependency(
     title = "Androidx JUnit4",
     description = "Androidx JUnit4",
-    url = "https://developer.android.com/reference/kotlin/androidx/compose/ui/test/junit4/package-summary",
+    url = "https://developer.android.com/reference/kotlin/androidx/compose/ui/test/package-summary",
     group = "androidx.compose.ui",
     id = "ui-test-junit4",
-    version = "1.7.8",
+    version = "1.8.1",
     catalogVersionName = "androidx-uiTest",
     catalogName = "androidx-uitest-junit4",
     platforms = setOf(Android),
     isTestDependency = true
+)
+
+val AndroidxTestManifest = AndroidxJUnit4.copy(
+    title = "Androidx Test Manifest",
+    description = "Androidx Test Manifest",
+    id = "ui-test-manifest",
+    catalogName = "androidx-uitest-testManifest",
 )
 
 val AndroidxLifecycleRuntime = Dependency(
@@ -114,7 +108,7 @@ val AndroidxLifecycleRuntime = Dependency(
     id = "lifecycle-runtime-compose",
     version = "2.9.0-beta01",
     catalogVersionName = "androidx-lifecycle",
-    catalogName = "androidx-lifecycle-runtime-compose",
+    catalogName = "androidx-lifecycle-runtime",
     platforms = emptySet()
 )
 
@@ -122,7 +116,7 @@ val AndroidxLifecycleViewmodel = AndroidxLifecycleRuntime.copy(
     title = "Androidx Viewmodel",
     description = "The ViewModel class is a business logic or screen level state holder.",
     url = "https://developer.android.com/topic/libraries/architecture/viewmodel",
-    id = "lifecycle-viewmodel",
+    id = "lifecycle-viewmodel-compose",
     catalogName = "androidx-lifecycle-viewmodel",
     platforms = emptySet()
 )
@@ -135,6 +129,6 @@ val AndroidxNavigation = Dependency(
     id = "navigation-compose",
     version = "2.9.0-beta01",
     catalogVersionName = "androidx-navigation",
-    catalogName = "androidx-navigation-composee",
+    catalogName = "androidx-navigation-compose",
     platforms = emptySet()
 )

@@ -1,6 +1,8 @@
 package wizard.dependencies
 
 import wizard.Dependency
+import wizard.ProjectPlatform
+import wizard.ProjectPlatform.*
 import wizard.ProjectPlatform.Companion.composePlatforms
 
 val Voyager = Dependency(
@@ -196,6 +198,18 @@ val KStore = Dependency(
     catalogVersionName = "kstore",
     catalogName = "kstore",
     platforms = emptySet()
+)
+
+val KStoreFile = KStore.copy(
+    id = "kstore-file",
+    catalogName = "kstore-file",
+    platforms = setOf(Android, Jvm, Ios)
+)
+
+val KStoreStorage = KStore.copy(
+    id = "kstore-storage",
+    catalogName = "kstore-storage",
+    platforms = setOf(Wasm, Js)
 )
 
 val ApolloPlugin = Dependency(

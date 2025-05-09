@@ -286,6 +286,11 @@ internal fun Set<DependencyBox>.getSelectedDependencies() =
                     KotlinInjectCompiler,
                     DevToolKSP
                 )
+                KStore -> listOf(
+                    KStore,
+                    KStoreFile,
+                    KStoreStorage
+                )
                 Koin -> listOf(Koin, KoinCompose)
                 Coil -> listOf(Coil, CoilNetwork)
                 Sketch -> listOf(Sketch, SketchHttp)

@@ -171,8 +171,8 @@ class ComposeAppGeneratorTest {
                             implementation(libs.apollo.runtime)
                             implementation(libs.voyager.navigator)
                             implementation(libs.composeImageLoader)
-                            implementation(libs.androidx.navigation.composee)
-                            implementation(libs.androidx.lifecycle.runtime.compose)
+                            implementation(libs.androidx.navigation.compose)
+                            implementation(libs.androidx.lifecycle.runtime)
                             implementation(libs.androidx.lifecycle.viewmodel)
                             implementation(libs.coil)
                             implementation(libs.coil.network.ktor)
@@ -347,9 +347,9 @@ class ComposeAppGeneratorTest {
                 apollo-runtime = { module = "com.apollographql.apollo:apollo-runtime", version.ref = "apollo" }
                 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
                 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "composeImageLoader" }
-                androidx-navigation-composee = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
-                androidx-lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
-                androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
+                androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
+                androidx-lifecycle-runtime = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+                androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
                 coil = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil" }
                 coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
                 sketch = { module = "io.github.panpf.sketch4:sketch-compose", version.ref = "sketch" }
