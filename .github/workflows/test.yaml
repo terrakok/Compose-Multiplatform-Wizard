@@ -25,12 +25,7 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
+      - uses: gradle/actions/setup-gradle@v4
 
       - uses: actions/setup-java@v4
         with:
@@ -44,6 +39,6 @@ jobs:
       - name: Upload Reports
         uses: actions/upload-artifact@v4
         with:
-          name: Test-Reports
+          name: Test-Reports-${{ matrix.os }}
           path: build/reports
         if: always()
