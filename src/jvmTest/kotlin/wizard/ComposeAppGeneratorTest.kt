@@ -143,7 +143,6 @@ class ComposeAppGeneratorTest {
                 }
 
                 kotlin {
-                    jvmToolchain(11)
                     androidTarget {
                         //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
                         instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
@@ -519,7 +518,6 @@ class ComposeAppGeneratorTest {
                 }
 
                 kotlin {
-                    jvmToolchain(11)
                     androidTarget {
                         //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
                         instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
@@ -875,10 +873,6 @@ class ComposeAppGeneratorTest {
                             implementation(kotlin("test"))
                             @OptIn(ExperimentalComposeLibrary::class)
                             implementation(compose.uiTest)
-                        }
-
-                        jsMain.dependencies {
-                            implementation(compose.html.core)
                         }
 
                     }

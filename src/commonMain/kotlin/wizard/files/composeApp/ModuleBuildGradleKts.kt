@@ -52,7 +52,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("kotlin {")
         if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("    jvmToolchain(11)")
             appendLine("    androidTarget {")
             appendLine("        //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html")
             appendLine("        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)")
@@ -139,16 +138,12 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        }")
             appendLine("")
         }
-        if (info.hasPlatform(ProjectPlatform.Js)) {
+        val jsDeps = otherDeps.filter { it.platforms.contains(ProjectPlatform.Js) }
+        if (info.hasPlatform(ProjectPlatform.Js) && jsDeps.isNotEmpty()) {
             appendLine("        jsMain.dependencies {")
-            appendLine("            implementation(compose.html.core)")
-
-            otherDeps.forEach { dep ->
-                if (dep.platforms.contains(ProjectPlatform.Js)) {
-                    appendLine("            ${dep.libraryNotation}")
-                }
+            jsDeps.forEach { dep ->
+                appendLine("            ${dep.libraryNotation}")
             }
-
             appendLine("        }")
             appendLine("")
         }
