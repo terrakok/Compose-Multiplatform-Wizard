@@ -19,14 +19,32 @@ fun DesktopAppIcons(info: ProjectInfo): List<BinaryFile> = listOf(
     }
 )
 
-class WasmJsFavicon(info: ProjectInfo) : BinaryFile {
-    override val path = "${info.moduleName}/src/wasmJsMain/resources/favicon.ico"
-    override val resourcePath = "web-app-icons/favicon.ico"
+fun WasmJsFavIcons(info: ProjectInfo): List<BinaryFile> = listOf(
+    getWasmJsFavicon(info, "android-chrome-192x192.png"),
+    getWasmJsFavicon(info, "android-chrome-512x512.png"),
+    getWasmJsFavicon(info, "apple-touch-icon.png"),
+    getWasmJsFavicon(info, "favicon.ico"),
+    getWasmJsFavicon(info, "favicon-16x16.png"),
+    getWasmJsFavicon(info, "favicon-32x32.png"),
+)
+
+private fun getWasmJsFavicon(info: ProjectInfo, fileName: String) = object : BinaryFile {
+    override val path = "${info.moduleName}/src/wasmJsMain/resources/$fileName"
+    override val resourcePath = "web-app-icons/$fileName"
 }
 
-class JsFavicon(info: ProjectInfo) : BinaryFile {
-    override val path = "${info.moduleName}/src/jsMain/resources/favicon.ico"
-    override val resourcePath = "web-app-icons/favicon.ico"
+fun JsFavIcons(info: ProjectInfo): List<BinaryFile> = listOf(
+    getJsFavicon(info, "android-chrome-192x192.png"),
+    getJsFavicon(info, "android-chrome-512x512.png"),
+    getJsFavicon(info, "apple-touch-icon.png"),
+    getJsFavicon(info, "favicon.ico"),
+    getJsFavicon(info, "favicon-16x16.png"),
+    getJsFavicon(info, "favicon-32x32.png"),
+)
+
+private fun getJsFavicon(info: ProjectInfo, fileName: String) = object : BinaryFile {
+    override val path = "${info.moduleName}/src/jsMain/resources/$fileName"
+    override val resourcePath = "web-app-icons/$fileName"
 }
 
 fun AndroidAppIcons(info: ProjectInfo): List<ProjectFile> = listOf(

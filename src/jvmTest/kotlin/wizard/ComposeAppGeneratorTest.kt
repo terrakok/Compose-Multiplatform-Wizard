@@ -110,9 +110,15 @@ class ComposeAppGeneratorTest {
             iosApp/iosApp.xcodeproj/project.pbxproj
             iosApp/iosApp/Info.plist
             ${info.moduleName}/src/wasmJsMain/resources/index.html
+            ${info.moduleName}/src/wasmJsMain/resources/manifest.json
             ${info.moduleName}/src/wasmJsMain/kotlin/main.kt
             ${info.moduleName}/src/wasmJsMain/kotlin/org/company/app/theme/Theme.wasmJs.kt
+            ${info.moduleName}/src/wasmJsMain/resources/android-chrome-192x192.png
+            ${info.moduleName}/src/wasmJsMain/resources/android-chrome-512x512.png
+            ${info.moduleName}/src/wasmJsMain/resources/apple-touch-icon.png
             ${info.moduleName}/src/wasmJsMain/resources/favicon.ico
+            ${info.moduleName}/src/wasmJsMain/resources/favicon-16x16.png
+            ${info.moduleName}/src/wasmJsMain/resources/favicon-32x32.png
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -828,9 +834,15 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/composeResources/values/strings.xml
             ${info.moduleName}/src/commonMain/composeResources/font/IndieFlower-Regular.ttf
             ${info.moduleName}/src/jsMain/resources/index.html
+            ${info.moduleName}/src/jsMain/resources/manifest.json
             ${info.moduleName}/src/jsMain/kotlin/main.kt
             ${info.moduleName}/src/jsMain/kotlin/org/js/app/theme/Theme.js.kt
+            ${info.moduleName}/src/jsMain/resources/android-chrome-192x192.png
+            ${info.moduleName}/src/jsMain/resources/android-chrome-512x512.png
+            ${info.moduleName}/src/jsMain/resources/apple-touch-icon.png
             ${info.moduleName}/src/jsMain/resources/favicon.ico
+            ${info.moduleName}/src/jsMain/resources/favicon-16x16.png
+            ${info.moduleName}/src/jsMain/resources/favicon-32x32.png
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
@@ -910,9 +922,15 @@ class ComposeAppGeneratorTest {
             ${info.moduleName}/src/commonMain/composeResources/values/strings.xml
             ${info.moduleName}/src/commonMain/composeResources/font/IndieFlower-Regular.ttf
             ${info.moduleName}/src/wasmJsMain/resources/index.html
+            ${info.moduleName}/src/wasmJsMain/resources/manifest.json
             ${info.moduleName}/src/wasmJsMain/kotlin/main.kt
             ${info.moduleName}/src/wasmJsMain/kotlin/org/wasm/app/theme/Theme.wasmJs.kt
+            ${info.moduleName}/src/wasmJsMain/resources/android-chrome-192x192.png
+            ${info.moduleName}/src/wasmJsMain/resources/android-chrome-512x512.png
+            ${info.moduleName}/src/wasmJsMain/resources/apple-touch-icon.png
             ${info.moduleName}/src/wasmJsMain/resources/favicon.ico
+            ${info.moduleName}/src/wasmJsMain/resources/favicon-16x16.png
+            ${info.moduleName}/src/wasmJsMain/resources/favicon-32x32.png
         """.trimIndent(),
             files.joinToString("\n") { it.path }
         )
