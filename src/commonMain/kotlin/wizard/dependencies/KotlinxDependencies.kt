@@ -45,6 +45,12 @@ val KtorClientSerialization = KtorCore.copy(
     platforms = emptySet()
 )
 
+val KtorSerializationJson = KtorCore.copy(
+    id = "ktor-serialization-kotlinx-json",
+    catalogName = "ktor-serialization-json",
+    platforms = emptySet()
+)
+
 val KtorClientDarwin = KtorCore.copy(
     id = "ktor-client-darwin",
     catalogName = "ktor-client-darwin",

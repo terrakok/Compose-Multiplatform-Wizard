@@ -261,6 +261,7 @@ internal fun Set<DependencyBox>.getSelectedDependencies() =
                     KtorCore,
                     KtorClientContentNegotiation,
                     KtorClientSerialization,
+                    KtorSerializationJson,
                     KtorClientLogging,
                     KtorClientDarwin,
                     KtorClientOkhttp,

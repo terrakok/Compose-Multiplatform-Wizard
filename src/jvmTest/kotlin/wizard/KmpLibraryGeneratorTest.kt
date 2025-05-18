@@ -201,7 +201,7 @@ class GeneratorTest {
                 [libraries]
 
                 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
-                multiplatformSettings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
+                multiplatformSettings = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
                 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
                 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
                 kstore = { module = "io.github.xxfast:kstore", version.ref = "kstore" }
