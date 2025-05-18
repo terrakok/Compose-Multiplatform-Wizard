@@ -179,7 +179,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                     }
 
                     val deps = setOf(
-                        DependencyBox(listOf(KotlinLogging, Kermit, Napier)),
+                        DependencyBox(listOf(Kermit, Napier)),
                         DependencyBox(KotlinxCoroutinesCore),
                         DependencyBox(KtorCore),
                         DependencyBox(AndroidxLifecycleViewmodel),

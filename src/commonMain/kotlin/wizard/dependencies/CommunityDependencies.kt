@@ -116,18 +116,6 @@ val Kermit = Dependency(
     platforms = emptySet()
 )
 
-val KotlinLogging = Dependency(
-    title = "Kotlin-Logging",
-    description = "Kotlin-Logging is a lightweight logging framework for Kotlin.",
-    url = "https://github.com/oshai/kotlin-logging",
-    group = "io.github.oshai",
-    id = "kotlin-logging",
-    version = "7.0.7",
-    catalogVersionName = "kotlinLogging",
-    catalogName = "kotlinLogging",
-    platforms = emptySet()
-)
-
 val MultiplatformSettings = Dependency(
     title = "Multiplatform Settings",
     description = "A Kotlin Multiplatform library for saving simple key-value data.",

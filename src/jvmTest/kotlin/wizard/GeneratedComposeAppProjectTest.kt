@@ -29,7 +29,6 @@ internal val extraDependencies = setOf(
     SketchHttp,
     Kermit,
     Napier,
-    KotlinLogging,
     KotlinxDateTime,
     MultiplatformSettings,
     Koin,

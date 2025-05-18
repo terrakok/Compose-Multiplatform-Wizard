@@ -185,7 +185,6 @@ class ComposeAppGeneratorTest {
                             implementation(libs.sketchHttp)
                             implementation(libs.kermit)
                             implementation(libs.napier)
-                            implementation(libs.kotlinLogging)
                             implementation(libs.kotlinx.datetime)
                             implementation(libs.multiplatformSettings)
                             implementation(libs.koin.core)
@@ -330,7 +329,6 @@ class ComposeAppGeneratorTest {
                 sketch = "${Sketch.version}"
                 kermit = "${Kermit.version}"
                 napier = "${Napier.version}"
-                kotlinLogging = "${KotlinLogging.version}"
                 kotlinx-datetime = "${KotlinxDateTime.version}"
                 multiplatformSettings = "${MultiplatformSettings.version}"
                 koin = "${Koin.version}"
@@ -361,7 +359,6 @@ class ComposeAppGeneratorTest {
                 sketchHttp = { module = "io.github.panpf.sketch4:sketch-http", version.ref = "sketch" }
                 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
                 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
-                kotlinLogging = { module = "io.github.oshai:kotlin-logging", version.ref = "kotlinLogging" }
                 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
                 multiplatformSettings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
                 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
