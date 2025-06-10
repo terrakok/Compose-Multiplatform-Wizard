@@ -66,7 +66,8 @@ fun DefaultKmpLibraryInfo() = ProjectInfo(
     platforms = setOf(Android, Ios, Jvm, Js),
     dependencies = setOf(
         KotlinPlugin,
-        AndroidLibraryPlugin
+        AndroidLibraryPlugin,
+        MavenPublishPlugin,
     ),
     type = WizardType.KmpLibrary
 )

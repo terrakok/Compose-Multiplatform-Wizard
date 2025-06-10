@@ -206,6 +206,7 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                                     if (platforms.contains(Android)) {
                                         add(AndroidLibraryPlugin)
                                     }
+                                    add(MavenPublishPlugin)
                                     addAll(deps.getSelectedDependencies())
                                 }
                             )

@@ -1,6 +1,7 @@
 [versions]
 
 kotlin = "2.1.21"
+maven-publish = "0.32.0"
 kotlinx-datetime = "0.6.2"
 multiplatformSettings = "1.3.0"
 koin = "4.0.4"
@@ -40,6 +41,7 @@ androidx-activityCompose = { module = "androidx.activity:activity-compose", vers
 [plugins]
 
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
 buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }

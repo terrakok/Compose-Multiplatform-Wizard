@@ -56,6 +56,18 @@ val ComposeCompilerPlugin = KotlinPlugin.copy(
     platforms = emptySet()
 )
 
+val MavenPublishPlugin = Dependency(
+    title = " Gradle Maven Publish Plugin",
+    description = " Gradle Maven Publish Plugin.",
+    url = "https://github.com/vanniktech/gradle-maven-publish-plugin",
+    group = "com.vanniktech.maven.publish",
+    id = "gradle-plugin",
+    version = "0.32.0",
+    catalogVersionName = "maven-publish",
+    catalogName = "maven-publish",
+    platforms = emptySet()
+)
+
 val ComposeHotReloadPlugin = Dependency(
     title = "Compose Hot Reload",
     description = "Compose Hot Reload runs your application on a special desktop JVM, and intelligently reloads your code whenever it is changed.",

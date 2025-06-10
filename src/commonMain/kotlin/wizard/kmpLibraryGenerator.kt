@@ -1,9 +1,18 @@
 package wizard
 
-import wizard.files.*
-import wizard.files.kmpLibrary.*
-import wizard.files.kmpLibrary.convention.ConventionPluginsBuildGradleKts
-import wizard.files.kmpLibrary.convention.ConventionPublicationGradleKts
+import wizard.files.Gitignore
+import wizard.files.GradleBat
+import wizard.files.GradleLibsVersion
+import wizard.files.GradleProperties
+import wizard.files.GradleWrapperJar
+import wizard.files.GradleWrapperProperties
+import wizard.files.Gradlew
+import wizard.files.RootBuildGradleKts
+import wizard.files.SettingsGradleKts
+import wizard.files.kmpLibrary.FibonacciKt
+import wizard.files.kmpLibrary.FibonacciTestKt
+import wizard.files.kmpLibrary.ModuleBuildGradleKts
+import wizard.files.kmpLibrary.Readme
 import wizard.files.kmpLibrary.sample.AndroidMainKt
 import wizard.files.kmpLibrary.sample.AndroidManifestXml
 import wizard.files.kmpLibrary.sample.ComposeAppKt
@@ -16,8 +25,8 @@ import wizard.files.kmpLibrary.sample.SampleIosXcodeIosAppSwift
 import wizard.files.kmpLibrary.sample.SampleIosXcodePbxproj
 import wizard.files.kmpLibrary.sample.TerminalAppBuildGradleKts
 import wizard.files.kmpLibrary.sample.TerminalAppMainKt
-import wizard.files.kmpLibrary.sample.WebMainKt
 import wizard.files.kmpLibrary.sample.WasmIndexHtml
+import wizard.files.kmpLibrary.sample.WebMainKt
 
 fun ProjectInfo.generateKmpLibraryFiles() = buildList {
     val info = this@generateKmpLibraryFiles
@@ -33,9 +42,6 @@ fun ProjectInfo.generateKmpLibraryFiles() = buildList {
     add(GradleProperties(info))
     add(RootBuildGradleKts(info))
     add(SettingsGradleKts(info))
-
-    add(ConventionPluginsBuildGradleKts(info))
-    add(ConventionPublicationGradleKts(info))
 
     add(ModuleBuildGradleKts(info))
 

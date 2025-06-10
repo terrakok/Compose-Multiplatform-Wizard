@@ -56,6 +56,7 @@ class GeneratedKmpLibraryProjectTest {
                 platforms = setOf(ProjectPlatform.Jvm, ProjectPlatform.Linux),
                 dependencies = buildSet {
                     add(KotlinPlugin)
+                    add(MavenPublishPlugin)
                 }
             )
         )
@@ -70,6 +71,7 @@ class GeneratedKmpLibraryProjectTest {
                 platforms = setOf(ProjectPlatform.Jvm),
                 dependencies = buildSet {
                     add(KotlinPlugin)
+                    add(MavenPublishPlugin)
                     addAll(kmpLibraryExtraDependencies)
                 }
             )
@@ -85,6 +87,7 @@ class GeneratedKmpLibraryProjectTest {
                 platforms = setOf(ProjectPlatform.Linux),
                 dependencies = setOf(
                     KotlinPlugin,
+                    MavenPublishPlugin,
                     KotlinxDateTime,
                 )
             )
@@ -100,6 +103,7 @@ class GeneratedKmpLibraryProjectTest {
                 platforms = setOf(ProjectPlatform.Android),
                 dependencies = setOf(
                     KotlinPlugin,
+                    MavenPublishPlugin,
                     AndroidLibraryPlugin,
                 )
             )
@@ -112,6 +116,7 @@ class GeneratedKmpLibraryProjectTest {
             platforms = setOf(ProjectPlatform.Jvm),
             dependencies = buildSet {
                 add(KotlinPlugin)
+                add(MavenPublishPlugin)
                 addAll(kmpLibraryExtraDependencies)
             }
         )
@@ -147,6 +152,7 @@ class GeneratedKmpLibraryProjectTest {
             ),
             dependencies = buildSet {
                 add(KotlinPlugin)
+                add(MavenPublishPlugin)
                 add(AndroidLibraryPlugin)
                 add(Koin)
                 add(Kermit)
@@ -156,9 +162,7 @@ class GeneratedKmpLibraryProjectTest {
         val dir = projectInfo.writeToDir(workingDir)
         dir.resolve("${projectInfo.moduleName}/build.gradle.kts").apply {
             writeText(
-                readText().replace(
-                    "version = \"1.0.0\"",
-                    """
+                readText() + """
                         version = "1.0.0"
                         publishing {
                             repositories {
@@ -169,7 +173,6 @@ class GeneratedKmpLibraryProjectTest {
                             }
                         }
                     """.trimIndent()
-                )
             )
         }
         checkCommand(

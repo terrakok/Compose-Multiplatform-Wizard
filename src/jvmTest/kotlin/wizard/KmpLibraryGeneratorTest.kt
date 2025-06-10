@@ -18,6 +18,7 @@ class GeneratorTest {
             platforms = setOf(Android, Ios, Jvm, Js, Macos, Linux, Mingw, Wasm),
             dependencies =  buildSet {
                 add(KotlinPlugin)
+                add(MavenPublishPlugin)
                 addAll(kmpLibraryExtraDependencies)
             }
         )
@@ -50,7 +51,7 @@ class GeneratorTest {
             packageId = "org.desktop.app",
             moduleName = "awesome",
             platforms = setOf(Jvm),
-            dependencies = setOf(KotlinPlugin)
+            dependencies = setOf(KotlinPlugin, MavenPublishPlugin)
         )
         val files = info.generateKmpLibraryFiles()
 

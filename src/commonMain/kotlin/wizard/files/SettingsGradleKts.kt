@@ -56,7 +56,6 @@ class SettingsGradleKts(info: ProjectInfo) : ProjectFile {
         }
 
         appendLine("")
-        if (info.type == WizardType.KmpLibrary) appendLine("includeBuild(\"convention-plugins\")")
         appendLine("include(\":${info.moduleName}\")")
         if (info.needComposeSample) appendLine("include(\":sample:composeApp\")")
         if (info.needTerminalSample) appendLine("include(\":sample:terminalApp\")")

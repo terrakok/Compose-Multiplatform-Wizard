@@ -8,8 +8,6 @@ gradle/libs.versions.toml
 gradle.properties
 build.gradle.kts
 settings.gradle.kts
-convention-plugins/build.gradle.kts
-convention-plugins/src/main/kotlin/convention.publication.gradle.kts
 shared/build.gradle.kts
 shared/src/commonMain/kotlin/my/company/name/Fibonacci.kt
 shared/src/commonTest/kotlin/my/company/name/FibonacciTest.kt

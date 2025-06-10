@@ -17,15 +17,13 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             }
         }
 
+        appendLine("import com.vanniktech.maven.publish.SonatypeHost")
+        appendLine("")
         appendLine("plugins {")
         plugins.forEach { dep ->
             appendLine("    ${dep.pluginNotation}")
         }
-        appendLine("    id(\"convention.publication\")")
         appendLine("}")
-        appendLine("")
-        appendLine("group = \"${info.packageId}\"")
-        appendLine("version = \"1.0.0\"")
         appendLine("")
         appendLine("kotlin {")
         if (info.hasPlatform(ProjectPlatform.Android)) {
@@ -175,6 +173,40 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    }")
             appendLine("}")
         }
+
+        appendLine("")
+        appendLine("//Publishing your Kotlin Multiplatform library to Maven Central")
+        appendLine("//https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html")
+        appendLine("mavenPublishing {")
+        appendLine("    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)")
+        appendLine("    coordinates(\"${info.packageId}\", \"${info.moduleName}\", \"1.0.0\")")
+        appendLine("")
+        appendLine("    pom {")
+        appendLine("        name = \"${info.name}\"")
+        appendLine("        description = \"Kotlin Multiplatform library\"")
+        appendLine("        url = \"github url\" //todo")
+        appendLine("")
+        appendLine("        licenses {")
+        appendLine("            license {")
+        appendLine("                name = \"MIT\"")
+        appendLine("                url = \"https://opensource.org/licenses/MIT\"")
+        appendLine("            }")
+        appendLine("        }")
+        appendLine("")
+        appendLine("        developers {")
+        appendLine("            developer {")
+        appendLine("                id = \"\" //todo")
+        appendLine("                name = \"\" //todo")
+        appendLine("                email = \"\" //todo")
+        appendLine("            }")
+        appendLine("        }")
+        appendLine("")
+        appendLine("        scm {")
+        appendLine("            url = \"github url\" //todo")
+        appendLine("        }")
+        appendLine("    }")
+        appendLine("    if (project.hasProperty(\"signing.keyId\")) signAllPublications()")
+        appendLine("}")
 
         if (plugins.contains(BuildConfigPlugin)) {
             appendLine("")

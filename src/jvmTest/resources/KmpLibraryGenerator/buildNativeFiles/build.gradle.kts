@@ -1,11 +1,10 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.android.library)
-    id("convention.publication")
+    alias(libs.plugins.maven.publish)
 }
-
-group = "io.my.com"
-version = "1.0.0"
 
 kotlin {
     iosX64()
@@ -32,4 +31,37 @@ kotlin {
         }
     }
 
+}
+
+//Publishing your Kotlin Multiplatform library to Maven Central
+//https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    coordinates("io.my.com", "lamba", "1.0.0")
+
+    pom {
+        name = "KMP library"
+        description = "Kotlin Multiplatform library"
+        url = "github url" //todo
+
+        licenses {
+            license {
+                name = "MIT"
+                url = "https://opensource.org/licenses/MIT"
+            }
+        }
+
+        developers {
+            developer {
+                id = "" //todo
+                name = "" //todo
+                email = "" //todo
+            }
+        }
+
+        scm {
+            url = "github url" //todo
+        }
+    }
+    if (project.hasProperty("signing.keyId")) signAllPublications()
 }
