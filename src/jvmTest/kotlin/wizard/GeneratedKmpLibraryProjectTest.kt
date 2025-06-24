@@ -180,6 +180,7 @@ class GeneratedKmpLibraryProjectTest {
             command = listOf("${dir.path}/gradlew", "publishAllPublicationsToCustomRepository")
         )
 
+        val konanAbiVersion = KotlinPlugin.version
         val metadata = dir.resolve("${projectInfo.moduleName}/repo/my/company/name/shared/1.0.0/shared-1.0.0-kotlin-tooling-metadata.json").readText()
         assertEquals(
             """
@@ -212,7 +213,7 @@ class GeneratedKmpLibraryProjectTest {
                         "native": {
                           "konanTarget": "ios_arm64",
                           "konanVersion": "${KotlinPlugin.version}",
-                          "konanAbiVersion": "1.201.0"
+                          "konanAbiVersion": "$konanAbiVersion"
                         }
                       }
                     },
@@ -223,7 +224,7 @@ class GeneratedKmpLibraryProjectTest {
                         "native": {
                           "konanTarget": "ios_simulator_arm64",
                           "konanVersion": "${KotlinPlugin.version}",
-                          "konanAbiVersion": "1.201.0"
+                          "konanAbiVersion": "$konanAbiVersion"
                         }
                       }
                     },
@@ -234,7 +235,7 @@ class GeneratedKmpLibraryProjectTest {
                         "native": {
                           "konanTarget": "ios_x64",
                           "konanVersion": "${KotlinPlugin.version}",
-                          "konanAbiVersion": "1.201.0"
+                          "konanAbiVersion": "$konanAbiVersion"
                         }
                       }
                     },
@@ -265,7 +266,7 @@ class GeneratedKmpLibraryProjectTest {
                         "native": {
                           "konanTarget": "linux_x64",
                           "konanVersion": "${KotlinPlugin.version}",
-                          "konanAbiVersion": "1.201.0"
+                          "konanAbiVersion": "$konanAbiVersion"
                         }
                       }
                     },
@@ -276,7 +277,7 @@ class GeneratedKmpLibraryProjectTest {
                         "native": {
                           "konanTarget": "macos_arm64",
                           "konanVersion": "${KotlinPlugin.version}",
-                          "konanAbiVersion": "1.201.0"
+                          "konanAbiVersion": "$konanAbiVersion"
                         }
                       }
                     },
@@ -287,7 +288,7 @@ class GeneratedKmpLibraryProjectTest {
                         "native": {
                           "konanTarget": "macos_x64",
                           "konanVersion": "${KotlinPlugin.version}",
-                          "konanAbiVersion": "1.201.0"
+                          "konanAbiVersion": "$konanAbiVersion"
                         }
                       }
                     },
@@ -302,7 +303,7 @@ class GeneratedKmpLibraryProjectTest {
                         "native": {
                           "konanTarget": "mingw_x64",
                           "konanVersion": "${KotlinPlugin.version}",
-                          "konanAbiVersion": "1.201.0"
+                          "konanAbiVersion": "$konanAbiVersion"
                         }
                       }
                     }
