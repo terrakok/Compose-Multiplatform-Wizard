@@ -9,11 +9,11 @@ kermit = "2.0.6"
 kstore = "1.0.0"
 ktor = "3.2.0"
 kotlinx-coroutines = "1.10.2"
-kotlinx-serialization = "1.8.1"
+kotlinx-serialization = "1.9.0"
 sqlDelight = "2.1.0"
 buildConfig = "5.6.5"
 compose = "1.8.2"
-agp = "8.9.3"
+agp = "8.10.0"
 androidx-activityCompose = "1.10.1"
 
 [libraries]
