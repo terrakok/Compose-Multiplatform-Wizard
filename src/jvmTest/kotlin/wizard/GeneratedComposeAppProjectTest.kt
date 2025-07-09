@@ -184,7 +184,8 @@ class GeneratedComposeAppProjectTest {
             dir = dir,
             command = mutableListOf(
                 "${dir.path}/gradlew",
-                ":${projectInfo.moduleName}:assembleDebug"
+                ":${projectInfo.moduleName}:assembleDebug",
+                ":${projectInfo.moduleName}:check"
             ).also {
                 if (!(System.getProperty("os.name").contains(other = "mac", ignoreCase = true) &&
                         "true".equals(other = System.getenv("CI"), ignoreCase = true))
