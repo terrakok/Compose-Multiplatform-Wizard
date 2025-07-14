@@ -37,8 +37,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("import org.jetbrains.compose.desktop.application.dsl.TargetFormat")
         }
         if (info.enableJvmHotReload) {
-            appendLine("import org.jetbrains.compose.reload.ComposeHotRun")
-            appendLine("import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag")
+            appendLine("import org.jetbrains.compose.reload.gradle.ComposeHotRun")
         }
         if (info.hasPlatform(ProjectPlatform.Android)) {
             appendLine("import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree")
@@ -211,12 +210,8 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
 
         if (info.enableJvmHotReload) {
             appendLine("")
-            appendLine("//https://github.com/JetBrains/compose-hot-reload")
-            appendLine("composeCompiler {")
-            appendLine("    featureFlags.add(ComposeFeatureFlag.OptimizeNonSkippingGroups)")
-            appendLine("}")
             appendLine("tasks.withType<ComposeHotRun>().configureEach {")
-            appendLine("    mainClass.set(\"MainKt\")")
+            appendLine("    mainClass = \"MainKt\"")
             appendLine("}")
         }
 

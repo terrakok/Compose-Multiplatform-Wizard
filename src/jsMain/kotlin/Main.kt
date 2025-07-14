@@ -7,9 +7,9 @@ import react.create
 import react.dom.client.createRoot
 import ui.App
 import web.dom.document
-import web.html.HTML.div
-import web.html.HTML.link
-import web.html.HTML.script
+import web.html.HtmlTagName.div
+import web.html.HtmlTagName.link
+import web.html.HtmlTagName.script
 import wizard.BinaryFile
 import wizard.BuildConfig
 import wizard.ProjectInfo

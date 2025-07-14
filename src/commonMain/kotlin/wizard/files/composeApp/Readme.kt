@@ -37,7 +37,7 @@ class Readme(info: ProjectInfo) : ProjectFile {
             appendLine("### Desktop")
             appendLine("Run the desktop application: `./gradlew :${info.moduleName}:run`  ")
             if (info.enableJvmHotReload) {
-                appendLine("Run the desktop **hot reload** application: `./gradlew :${info.moduleName}:jvmRunHot`  ")
+                appendLine("Run the desktop **hot reload** application: `./gradlew :${info.moduleName}:hotRunJvm`  ")
             }
             appendLine("Run desktop UI tests: `./gradlew :${info.moduleName}:jvmTest`  ")
             appendLine("")

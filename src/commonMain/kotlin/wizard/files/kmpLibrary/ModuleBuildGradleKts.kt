@@ -17,8 +17,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             }
         }
 
-        appendLine("import com.vanniktech.maven.publish.SonatypeHost")
-        appendLine("")
         appendLine("plugins {")
         plugins.forEach { dep ->
             appendLine("    ${dep.pluginNotation}")
@@ -178,7 +176,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("//Publishing your Kotlin Multiplatform library to Maven Central")
         appendLine("//https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html")
         appendLine("mavenPublishing {")
-        appendLine("    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)")
+        appendLine("    publishToMavenCentral()")
         appendLine("    coordinates(\"${info.packageId}\", \"${info.moduleName}\", \"1.0.0\")")
         appendLine("")
         appendLine("    pom {")

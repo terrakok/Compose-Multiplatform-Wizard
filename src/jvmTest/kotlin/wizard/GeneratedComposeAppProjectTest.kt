@@ -85,6 +85,7 @@ class GeneratedComposeAppProjectTest {
                     KotlinPlugin,
                     ComposeCompilerPlugin,
                     ComposePlugin,
+                    ComposeHotReloadPlugin,
                     Voyager,
                     Napier,
                     KotlinxDateTime,
@@ -275,6 +276,7 @@ class GeneratedComposeAppProjectTest {
                 add(KotlinPlugin)
                 add(ComposeCompilerPlugin)
                 add(ComposePlugin)
+                add(ComposeHotReloadPlugin)
                 addAll(extraDependencies)
                 addAll(roomDependencies)
                 add(BuildKonfigPlugin)
