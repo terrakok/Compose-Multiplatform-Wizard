@@ -165,8 +165,6 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                         DependencyBox(SQLDelightPlugin),
                         DependencyBox(MultiplatformSettings),
                         DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin)),
-                        DependencyBox(listOf(Koin, Kodein)),
-                        DependencyBox(KStore),
                     )
                     Grid {
                         sx {
