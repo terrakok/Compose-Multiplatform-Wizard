@@ -35,8 +35,8 @@ val AndroidLibraryPlugin = AndroidApplicationPlugin.copy(
 )
 
 val ComposePlugin = Dependency(
-    title = "Compose Multiplatform Plugin",
-    description = "Compose gradle plugin.",
+    title = "Compose Multiplatform",
+    description = "An open-source, declarative framework for sharing stunning UIs across multiple platforms.",
     url = "https://www.jetbrains.com/lp/compose-multiplatform/",
     group = "org.jetbrains.compose",
     id = "gradle-plugin",

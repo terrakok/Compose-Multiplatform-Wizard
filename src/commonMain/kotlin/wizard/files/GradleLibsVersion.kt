@@ -16,7 +16,7 @@ import wizard.needComposeSample
 class GradleLibsVersion(info: ProjectInfo) : ProjectFile {
     override val path = "gradle/libs.versions.toml"
     override val content = buildString {
-        val dependencies = buildList {
+        val dependencies = buildSet {
             addAll(info.dependencies)
             if (info.needComposeSample) {
                 add(ComposePlugin)

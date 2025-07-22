@@ -26,12 +26,17 @@ class GradleProperties(info: ProjectInfo) : ProjectFile {
             android.useAndroidX=true
             android.nonTransitiveRClass=true
         """.trimIndent())
-        if (info.hasPlatform(ProjectPlatform.Js)) {
+        if (info.hasPlatform(ProjectPlatform.Js) || info.hasPlatform(ProjectPlatform.Macos)) {
             appendLine("""
                 
                 #Compose
-                org.jetbrains.compose.experimental.jscanvas.enabled=true
             """.trimIndent())
+            if (info.hasPlatform(ProjectPlatform.Js)) {
+                appendLine("                org.jetbrains.compose.experimental.jscanvas.enabled=true")
+            }
+            if (info.hasPlatform(ProjectPlatform.Macos)) {
+                appendLine("                org.jetbrains.compose.experimental.macos.enabled=true")
+            }
         }
     }
 }

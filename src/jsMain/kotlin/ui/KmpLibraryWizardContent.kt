@@ -84,7 +84,7 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                         }
                     }
 
-                    var platforms by useState(setOf(Android, Ios, Jvm, Js))
+                    var platforms by useState(setOf(Android, Ios, Jvm, Wasm))
                     fun switch(platform: ProjectPlatform) {
                         platforms = if (platforms.contains(platform)) {
                             platforms - platform
@@ -114,14 +114,20 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                             icon = Apple
                         }
                         TargetButton {
+                            title = Wasm.title
+                            isSelected = platforms.contains(Wasm)
+                            onClick = { switch(Wasm) }
+                            icon = Preview
+                        }
+                    }
+                    ButtonGroup {
+                        disableElevation = true
+                        TargetButton {
                             title = Js.title
                             isSelected = platforms.contains(Js)
                             onClick = { switch(Js) }
                             icon = Language
                         }
-                    }
-                    ButtonGroup {
-                        disableElevation = true
                         TargetButton {
                             title = Macos.title
                             isSelected = platforms.contains(Macos)
@@ -140,13 +146,6 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                             onClick = { switch(Mingw) }
                             icon = Window
                         }
-                        TargetButton {
-                            title = Wasm.title
-                            isSelected = platforms.contains(Wasm)
-                            onClick = { switch(Wasm) }
-                            icon = Preview
-                            status = "Experimental"
-                        }
                     }
 
                     VersionsTable {
@@ -157,16 +156,17 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                     }
 
                     val deps: Set<DependencyBox> = setOf(
-                        DependencyBox(KotlinxCoroutinesCore, false),
-                        DependencyBox(KotlinxSerializationJson, false),
-                        DependencyBox(KotlinxDateTime, false),
-                        DependencyBox(Kermit),
-                        DependencyBox(KtorCore, false),
-                        DependencyBox(SQLDelightPlugin, false),
-                        DependencyBox(MultiplatformSettings, false),
-                        DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin), false),
-                        DependencyBox(listOf(Koin, Kodein), false),
-                        DependencyBox(KStore, false),
+                        DependencyBox(ComposePlugin),
+                        DependencyBox(KotlinxCoroutinesCore),
+                        DependencyBox(KotlinxSerializationJson),
+                        DependencyBox(KotlinxDateTime),
+                        DependencyBox(listOf(Kermit, Napier)),
+                        DependencyBox(KtorCore),
+                        DependencyBox(SQLDelightPlugin),
+                        DependencyBox(MultiplatformSettings),
+                        DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin)),
+                        DependencyBox(listOf(Koin, Kodein)),
+                        DependencyBox(KStore),
                     )
                     Grid {
                         sx {

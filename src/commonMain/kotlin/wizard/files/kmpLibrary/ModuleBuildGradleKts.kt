@@ -56,6 +56,10 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("    sourceSets {")
         appendLine("        commonMain.dependencies {")
+        if (plugins.contains(ComposePlugin)) {
+            appendLine("            implementation(compose.runtime)")
+            appendLine("            implementation(compose.foundation)")
+        }
         commonDeps.forEach { dep ->
             appendLine("            ${dep.libraryNotation}")
         }
@@ -96,7 +100,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         if (info.hasDependenciesFor(ProjectPlatform.Wasm)) {
-            appendLine("        getByName(\"wasmJsMain\").dependencies {")
+            appendLine("        wasmJsMain.dependencies {")
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ProjectPlatform.Wasm)) {
                     appendLine("            ${dep.libraryNotation}")

@@ -257,6 +257,10 @@ internal fun Set<DependencyBox>.getSelectedDependencies() =
         .map { it.selectedDep.component1() }
         .flatMap {
             when (it) {
+                ComposePlugin -> listOf(
+                    ComposePlugin,
+                    ComposeCompilerPlugin
+                )
                 KtorCore -> listOfNotNull(
                     KtorCore,
                     KtorClientContentNegotiation,
