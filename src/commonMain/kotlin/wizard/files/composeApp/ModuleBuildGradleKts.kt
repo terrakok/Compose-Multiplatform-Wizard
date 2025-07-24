@@ -91,6 +91,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("    sourceSets {")
         appendLine("        commonMain.dependencies {")
         appendLine("            implementation(compose.runtime)")
+        appendLine("            implementation(compose.ui)")
         appendLine("            implementation(compose.foundation)")
         appendLine("            implementation(compose.material3)")
         appendLine("            implementation(compose.components.resources)")

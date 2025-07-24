@@ -59,6 +59,7 @@ class SampleComposeAppBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("    sourceSets {")
         appendLine("        commonMain.dependencies {")
         appendLine("            implementation(compose.runtime)")
+        appendLine("            implementation(compose.ui)")
         appendLine("            implementation(compose.foundation)")
         appendLine("            implementation(project(\":${info.moduleName}\"))")
         appendLine("        }")

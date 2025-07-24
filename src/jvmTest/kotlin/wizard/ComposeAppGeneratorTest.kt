@@ -4,7 +4,6 @@ import wizard.dependencies.*
 import wizard.files.GradleLibsVersion
 import wizard.files.composeApp.ModuleBuildGradleKts
 import wizard.files.composeApp.Readme
-import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

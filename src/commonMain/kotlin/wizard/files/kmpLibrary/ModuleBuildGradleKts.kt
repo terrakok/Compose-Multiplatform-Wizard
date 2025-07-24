@@ -58,6 +58,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("        commonMain.dependencies {")
         if (plugins.contains(ComposePlugin)) {
             appendLine("            implementation(compose.runtime)")
+            appendLine("            implementation(compose.ui)")
             appendLine("            implementation(compose.foundation)")
         }
         commonDeps.forEach { dep ->
