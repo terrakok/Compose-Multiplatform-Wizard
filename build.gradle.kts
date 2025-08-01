@@ -50,7 +50,7 @@ buildConfig {
     }
 }
 
-task<Copy>("fixMissingJvmResources") {
+tasks.register<Copy>("fixMissingJvmResources") {
     dependsOn("jvmProcessResources")
     tasks.findByPath("jvmTest")?.dependsOn(this)
     
