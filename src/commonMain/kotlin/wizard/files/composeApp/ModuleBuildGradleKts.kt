@@ -138,10 +138,10 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        }")
             appendLine("")
         }
-        val jsDeps = otherDeps.filter { it.platforms.contains(ProjectPlatform.Js) }
-        if (info.hasPlatform(ProjectPlatform.Js) && jsDeps.isNotEmpty()) {
-            appendLine("        jsMain.dependencies {")
-            jsDeps.forEach { dep ->
+        val webDeps = otherDeps.filter { it.isWeb() }
+        if (info.hasWebPlatform() && webDeps.isNotEmpty()) {
+            appendLine("        webMain.dependencies {")
+            webDeps.forEach { dep ->
                 appendLine("            ${dep.libraryNotation}")
             }
             appendLine("        }")

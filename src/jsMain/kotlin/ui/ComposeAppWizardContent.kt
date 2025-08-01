@@ -76,7 +76,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         }
                     }
 
-                    var platforms by useState(setOf(Android, Ios, Jvm, Wasm))
+                    var platforms by useState(default.platforms)
                     fun switch(platform: ProjectPlatform) {
                         platforms = if (platforms.contains(platform)) {
                             platforms - platform
@@ -106,18 +106,10 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                             icon = Laptop
                         }
                         TargetButton {
-                            title = "Browser (Wasm)"
+                            title = "Web"
                             isSelected = platforms.contains(Wasm)
                             onClick = { switch(Wasm) }
                             icon = Language
-                            status = "Alpha (some libraries don't support it yet)"
-                        }
-                        TargetButton {
-                            title = "Browser (JS)"
-                            isSelected = platforms.contains(Js)
-                            onClick = { switch(Js) }
-                            icon = Language
-                            status = "Experimental"
                         }
                     }
 
@@ -225,7 +217,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                             val info = default.copy(
                                 packageId = projectId,
                                 name = projectName,
-                                platforms = platforms,
+                                platforms = getActualPlatforms(platforms),
                                 dependencies = buildSet {
                                     add(KotlinPlugin)
                                     add(ComposeCompilerPlugin)
@@ -250,6 +242,9 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
         }
     }
 }
+
+private fun getActualPlatforms(platforms: Set<ProjectPlatform>): Set<ProjectPlatform> =
+    if (platforms.contains(Wasm)) platforms + Js else platforms
 
 internal fun Set<DependencyBox>.getSelectedDependencies() =
     this

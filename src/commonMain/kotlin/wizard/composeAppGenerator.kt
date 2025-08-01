@@ -65,19 +65,11 @@ fun ProjectInfo.generateComposeAppFiles(): List<ProjectFile> = buildList {
         add(IosInfoPlist())
     }
 
-    if (info.hasPlatform(ProjectPlatform.Js)) {
-        add(JsIndexHtml(info))
-        add(JsWebManifestJson(info))
-        add(JsMainKt(info))
-        add(JsThemeKt(info))
-        addAll(JsFavIcons(info))
-    }
-
-    if (info.hasPlatform(ProjectPlatform.Wasm)) {
-        add(WasmJsIndexHtml(info))
-        add(WasmWebManifestJson(info))
-        add(WasmJsMainKt(info))
-        add(WasmJsThemeKt(info))
-        addAll(WasmJsFavIcons(info))
+    if (info.hasWebPlatform()) {
+        add(WebIndexHtml(info))
+        add(WebManifestJson(info))
+        add(WebMainKt(info))
+        add(WebThemeKt(info))
+        addAll(WebFavIcons(info))
     }
 }

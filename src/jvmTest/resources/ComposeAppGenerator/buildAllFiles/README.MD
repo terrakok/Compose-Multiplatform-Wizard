@@ -26,7 +26,11 @@ To run the application on iPhone device/simulator:
 
 Run iOS simulator UI tests: `./gradlew :composeApp:iosSimulatorArm64Test`  
 
-### Wasm Browser (Alpha)
+### Web Distribution
+Build web distribution: `./gradlew :composeApp:composeCompatibilityBrowserDistribution`  
+Deploy a dir `composeApp/build/dist/composeWebCompatibility/productionExecutable` to a web server  
+
+### Wasm Browser
 Run the browser application: `./gradlew :composeApp:wasmJsBrowserDevelopmentRun --continue`  
 Run browser UI tests: `./gradlew :composeApp:wasmJsBrowserTest`  
 

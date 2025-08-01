@@ -45,8 +45,8 @@ class IosMainKt(info: ProjectInfo) : ProjectFile {
     """.trimIndent()
 }
 
-class JsMainKt(info: ProjectInfo) : ProjectFile {
-    override val path = "${info.moduleName}/src/jsMain/kotlin/main.kt"
+class WebMainKt(info: ProjectInfo) : ProjectFile {
+    override val path = "${info.moduleName}/src/webMain/kotlin/main.kt"
     override val content = """
         import androidx.compose.ui.ExperimentalComposeUiApi
         import androidx.compose.ui.window.ComposeViewport
@@ -61,25 +61,6 @@ class JsMainKt(info: ProjectInfo) : ProjectFile {
                 ComposeViewport(body) {
                     App()
                 }
-            }
-        }
-
-    """.trimIndent()
-}
-
-class WasmJsMainKt(info: ProjectInfo) : ProjectFile {
-    override val path = "${info.moduleName}/src/wasmJsMain/kotlin/main.kt"
-    override val content = """
-        import androidx.compose.ui.ExperimentalComposeUiApi
-        import androidx.compose.ui.window.ComposeViewport
-        import ${info.packageId}.App
-        import kotlinx.browser.document
-
-        @OptIn(ExperimentalComposeUiApi::class)
-        fun main() {
-            val body = document.body ?: return
-            ComposeViewport(body) {
-                App()
             }
         }
 

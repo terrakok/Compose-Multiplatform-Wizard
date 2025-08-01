@@ -1,6 +1,6 @@
 [versions]
 
-kotlin = "2.2.0"
+kotlin = "2.2.20-Beta2"
 compose = "1.8.2"
 agp = "8.10.0"
 androidx-activityCompose = "1.10.1"
@@ -25,7 +25,7 @@ sqlDelight = "2.1.0"
 buildConfig = "5.6.5"
 materialKolor = "3.0.0"
 room = "2.7.2"
-ksp = "2.2.0-2.0.2"
+ksp = "2.2.20-Beta2-2.0.2"
 
 [libraries]
 

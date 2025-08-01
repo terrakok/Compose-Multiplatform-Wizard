@@ -82,6 +82,7 @@ val ProjectInfo.enableJvmHotReload: Boolean
     get() = dependencies.contains(ComposeHotReloadPlugin) && platforms.contains(Jvm)
 
 fun ProjectInfo.hasPlatform(platform: ProjectPlatform) = platforms.contains(platform)
+fun ProjectInfo.hasWebPlatform() = platforms.contains(Js) || platforms.contains(Wasm)
 val ProjectInfo.packagePath get() = packageId.replace(".", "/")
 val ProjectInfo.safeName get() = name.replace(" ", "-")
 
@@ -105,6 +106,7 @@ data class Dependency(
 )
 
 fun Dependency.hasPlatform(platform: ProjectPlatform) = platforms.contains(platform)
+fun Dependency.isWeb() = platforms.contains(Js) && platforms.contains(Wasm)
 fun Dependency.isPlugin() = id == "gradle-plugin"
 fun Dependency.isKSP() = isKspDependency
 fun Dependency.isCommon() = platforms.isEmpty()

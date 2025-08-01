@@ -53,15 +53,22 @@ class Readme(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
 
+        if (info.hasWebPlatform()) {
+            appendLine("### Web Distribution")
+            appendLine("Build web distribution: `./gradlew :${info.moduleName}:composeCompatibilityBrowserDistribution`  ")
+            appendLine("Deploy a dir `${info.moduleName}/build/dist/composeWebCompatibility/productionExecutable` to a web server  ")
+            appendLine("")
+        }
+
         if (info.hasPlatform(ProjectPlatform.Js)) {
-            appendLine("### JS Browser (Experimental)")
+            appendLine("### JS Browser")
             appendLine("Run the browser application: `./gradlew :${info.moduleName}:jsBrowserDevelopmentRun --continue`  ")
             appendLine("Run browser UI tests: `./gradlew :${info.moduleName}:jsBrowserTest`  ")
             appendLine("")
         }
 
         if (info.hasPlatform(ProjectPlatform.Wasm)) {
-            appendLine("### Wasm Browser (Alpha)")
+            appendLine("### Wasm Browser")
             appendLine("Run the browser application: `./gradlew :${info.moduleName}:wasmJsBrowserDevelopmentRun --continue`  ")
             appendLine("Run browser UI tests: `./gradlew :${info.moduleName}:wasmJsBrowserTest`  ")
             appendLine("")
