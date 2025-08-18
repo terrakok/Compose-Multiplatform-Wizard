@@ -17,7 +17,6 @@ import wizard.files.kmpLibrary.sample.AndroidMainKt
 import wizard.files.kmpLibrary.sample.AndroidManifestXml
 import wizard.files.kmpLibrary.sample.ComposeAppKt
 import wizard.files.kmpLibrary.sample.IosMainKt
-import wizard.files.kmpLibrary.sample.JsIndexHtml
 import wizard.files.kmpLibrary.sample.JvmMainKt
 import wizard.files.kmpLibrary.sample.SampleComposeAppBuildGradleKts
 import wizard.files.kmpLibrary.sample.SampleIosXcodeInfoPlist
@@ -25,7 +24,7 @@ import wizard.files.kmpLibrary.sample.SampleIosXcodeIosAppSwift
 import wizard.files.kmpLibrary.sample.SampleIosXcodePbxproj
 import wizard.files.kmpLibrary.sample.TerminalAppBuildGradleKts
 import wizard.files.kmpLibrary.sample.TerminalAppMainKt
-import wizard.files.kmpLibrary.sample.WasmIndexHtml
+import wizard.files.kmpLibrary.sample.WebIndexHtml
 import wizard.files.kmpLibrary.sample.WebMainKt
 
 fun ProjectInfo.generateKmpLibraryFiles() = buildList {
@@ -64,13 +63,9 @@ fun ProjectInfo.generateKmpLibraryFiles() = buildList {
         if (hasPlatform(ProjectPlatform.Jvm)) {
             add(JvmMainKt())
         }
-        if (hasPlatform(ProjectPlatform.Js)) {
-            add(WebMainKt(false))
-            add(JsIndexHtml())
-        }
-        if (hasPlatform(ProjectPlatform.Wasm)) {
-            add(WebMainKt(true))
-            add(WasmIndexHtml())
+        if (hasWebPlatform()) {
+            add(WebMainKt())
+            add(WebIndexHtml())
         }
     }
 

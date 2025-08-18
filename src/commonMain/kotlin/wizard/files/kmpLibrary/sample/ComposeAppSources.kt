@@ -111,53 +111,21 @@ class JvmMainKt() : ProjectFile {
     """.trimIndent()
 }
 
-class WebMainKt(wasm: Boolean) : ProjectFile {
-    override val path = "sample/composeApp/src/${if (wasm) "wasmJs" else "js" }Main/kotlin/sample/app/main.kt"
+class WebMainKt() : ProjectFile {
+    override val path = "sample/composeApp/src/webMain/kotlin/sample/app/main.kt"
     override val content = """
         import androidx.compose.ui.ExperimentalComposeUiApi
         import androidx.compose.ui.window.ComposeViewport
-        import kotlinx.browser.document
         import sample.app.App
 
         @OptIn(ExperimentalComposeUiApi::class)
-        fun main() {
-            val body = document.body ?: return
-            ComposeViewport(body) {
-                App()
-            }
-        }
+        fun main() = ComposeViewport { App() }
+        
     """.trimIndent()
 }
 
-class JsIndexHtml() : ProjectFile {
-    override val path = "sample/composeApp/src/jsMain/resources/index.html"
-    override val content = """
-        <!doctype html>
-        <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>sample</title>
-                <script src="skiko.js"></script>
-                <style>
-                    html,
-                    body {
-                        width: 100%;
-                        height: 100%;
-                        margin: 0;
-                        padding: 0;
-                        overflow: hidden;
-                    }
-                </style>
-            </head>
-            <body></body>
-            <script src="sampleApp.js"></script>
-        </html>
-    """.trimIndent()
-}
-
-class WasmIndexHtml() : ProjectFile {
-    override val path = "sample/composeApp/src/wasmJsMain/resources/index.html"
+class WebIndexHtml() : ProjectFile {
+    override val path = "sample/composeApp/src/webMain/resources/index.html"
     override val content = """
         <!doctype html>
         <html lang="en">

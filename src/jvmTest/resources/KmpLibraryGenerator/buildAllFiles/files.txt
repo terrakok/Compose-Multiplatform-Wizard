@@ -20,9 +20,7 @@ sample/iosApp/iosApp/Info.plist
 sample/iosApp/iosApp/iosApp.swift
 sample/iosApp/iosApp.xcodeproj/project.pbxproj
 sample/composeApp/src/jvmMain/kotlin/sample/app/main.kt
-sample/composeApp/src/jsMain/kotlin/sample/app/main.kt
-sample/composeApp/src/jsMain/resources/index.html
-sample/composeApp/src/wasmJsMain/kotlin/sample/app/main.kt
-sample/composeApp/src/wasmJsMain/resources/index.html
+sample/composeApp/src/webMain/kotlin/sample/app/main.kt
+sample/composeApp/src/webMain/resources/index.html
 sample/terminalApp/build.gradle.kts
 sample/terminalApp/src/commonMain/kotlin/main.kt
