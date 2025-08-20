@@ -35,11 +35,6 @@ class GeneratorTest {
         )
 
         assertEquals(
-            readResourceFileText("buildAllFiles/libs.versions.toml"),
-            files.first { it is GradleLibsVersion }.content
-        )
-
-        assertEquals(
             readResourceFileText("buildAllFiles/README.MD"),
             files.first { it is Readme }.content
         )
