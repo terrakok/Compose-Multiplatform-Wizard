@@ -293,7 +293,7 @@ class GeneratedComposeAppProjectTest {
                     "plugins {",
                     """
                         plugins {
-                            id("com.github.ben-manes.versions").version("0.52.0")
+                            id("com.github.ben-manes.versions").version("0.53.0")
                     """.trimIndent()
                 ) + """
                     |
@@ -314,7 +314,7 @@ class GeneratedComposeAppProjectTest {
         }
         checkCommand(
             dir = dir,
-            command = listOf("${dir.path}/gradlew", "dependencyUpdates")
+            command = listOf("${dir.path}/gradlew", "dependencyUpdates", "--no-parallel")
         )
     }
 
