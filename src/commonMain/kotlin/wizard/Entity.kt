@@ -44,16 +44,17 @@ fun DefaultComposeAppInfo() = ProjectInfo(
     packageId = "org.company.app",
     //Shouldn't be "ComposeApp" because it breaks ios build. The reason is kotlin framework name is "ComposeApp"
     name = "Multiplatform App",
-    moduleName = "composeApp",
+    moduleName = "shared",
     platforms = setOf(Android, Ios, Jvm, Wasm),
     dependencies = setOf(
-        KotlinPlugin,
+        KotlinMultiplatformPlugin,
+        KotlinAndroidPlugin,
+        AndroidKmpLibraryPlugin,
+        KotlinJvmPlugin,
         ComposeCompilerPlugin,
-        ComposePlugin,
+        ComposeMultiplatformPlugin,
         AndroidApplicationPlugin,
         AndroidxActivityCompose,
-        AndroidxTestManifest,
-        AndroidxJUnit4,
         ComposeHotReloadPlugin,
     ),
     type = WizardType.ComposeApp
@@ -65,8 +66,8 @@ fun DefaultKmpLibraryInfo() = ProjectInfo(
     moduleName = "shared",
     platforms = setOf(Android, Ios, Jvm, Js),
     dependencies = setOf(
-        KotlinPlugin,
-        AndroidLibraryPlugin,
+        KotlinMultiplatformPlugin,
+        AndroidKmpLibraryPlugin,
         MavenPublishPlugin,
     ),
     type = WizardType.KmpLibrary
@@ -91,6 +92,8 @@ fun ProjectInfo.generate(type: WizardType) = when (type) {
     WizardType.KmpLibrary -> generateKmpLibraryFiles()
 }
 
+enum class GradleModule { SHARED, ANDROID, DESKTOP, WEB }
+
 data class Dependency(
     val title: String,
     val description: String,
@@ -102,7 +105,8 @@ data class Dependency(
     val catalogName: String,
     val platforms: Set<ProjectPlatform>,
     val isTestDependency: Boolean = false,
-    val isKspDependency: Boolean = false
+    val isKspDependency: Boolean = false,
+    val modules: Set<GradleModule> = setOf(GradleModule.SHARED)
 )
 
 fun Dependency.hasPlatform(platform: ProjectPlatform) = platforms.contains(platform)

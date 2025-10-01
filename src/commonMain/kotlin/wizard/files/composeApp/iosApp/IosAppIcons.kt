@@ -1,66 +1,7 @@
-package wizard.files.composeApp
+package wizard.files.composeApp.iosApp
 
 import wizard.BinaryFile
 import wizard.ProjectFile
-import wizard.ProjectInfo
-
-fun DesktopAppIcons(info: ProjectInfo): List<BinaryFile> = listOf(
-    object : BinaryFile {
-        override val path = "${info.moduleName}/desktopAppIcons/LinuxIcon.png"
-        override val resourcePath = "desktop-app-icons/LinuxIcon.png"
-    },
-    object : BinaryFile {
-        override val path = "${info.moduleName}/desktopAppIcons/WindowsIcon.ico"
-        override val resourcePath = "desktop-app-icons/WindowsIcon.ico"
-    },
-    object : BinaryFile {
-        override val path = "${info.moduleName}/desktopAppIcons/MacosIcon.icns"
-        override val resourcePath = "desktop-app-icons/MacosIcon.icns"
-    }
-)
-
-fun WebFavIcons(info: ProjectInfo): List<BinaryFile> = listOf(
-    getWebFavicon(info, "android-chrome-192x192.png"),
-    getWebFavicon(info, "android-chrome-512x512.png"),
-    getWebFavicon(info, "apple-touch-icon.png"),
-    getWebFavicon(info, "favicon.ico"),
-    getWebFavicon(info, "favicon-16x16.png"),
-    getWebFavicon(info, "favicon-32x32.png"),
-)
-
-private fun getWebFavicon(info: ProjectInfo, fileName: String) = object : BinaryFile {
-    override val path = "${info.moduleName}/src/webMain/resources/$fileName"
-    override val resourcePath = "web-app-icons/$fileName"
-}
-
-fun AndroidAppIcons(info: ProjectInfo): List<ProjectFile> = listOf(
-    getAndroidAppIcon(info.moduleName, "mipmap-anydpi-v26/ic_launcher.xml"),
-    getAndroidAppIcon(info.moduleName, "mipmap-hdpi/ic_launcher.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-hdpi/ic_launcher_background.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-hdpi/ic_launcher_foreground.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-hdpi/ic_launcher_monochrome.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-mdpi/ic_launcher.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-mdpi/ic_launcher_background.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-mdpi/ic_launcher_foreground.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-mdpi/ic_launcher_monochrome.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-xhdpi/ic_launcher.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-xhdpi/ic_launcher_background.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-xhdpi/ic_launcher_foreground.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-xhdpi/ic_launcher_monochrome.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-xxhdpi/ic_launcher.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-xxhdpi/ic_launcher_background.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-xxhdpi/ic_launcher_foreground.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-xxhdpi/ic_launcher_monochrome.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-xxxhdpi/ic_launcher.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-xxxhdpi/ic_launcher_background.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-xxxhdpi/ic_launcher_foreground.png"),
-    getAndroidAppIcon(info.moduleName, "mipmap-xxxhdpi/ic_launcher_monochrome.png"),
-)
-
-private fun getAndroidAppIcon(moduleName: String, name: String) = object : BinaryFile {
-    override val path = "$moduleName/src/androidMain/res/$name"
-    override val resourcePath = "android-app-icons/$name"
-}
 
 fun IosAppIcons(): List<ProjectFile> = listOf(
     getIosAppIcon("AppIcon@2x.png"),

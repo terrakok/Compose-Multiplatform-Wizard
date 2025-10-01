@@ -1,4 +1,4 @@
-package wizard.files.composeApp
+package wizard.files.composeApp.shared
 
 import wizard.*
 
@@ -30,7 +30,9 @@ class AppKt(info: ProjectInfo) : ProjectFile {
 
         @Preview
         @Composable
-        internal fun App() = AppTheme {
+        fun App(
+            onThemeChanged: @Composable (isDark: Boolean) -> Unit = {}
+        ) = AppTheme(onThemeChanged) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -105,27 +107,6 @@ class AppKt(info: ProjectInfo) : ProjectFile {
                 ) {
                     Text(stringResource(Res.string.open_github))
                 }
-            }
-        }
-        
-    """.trimIndent()
-}
-
-class AndroidAppKt(info: ProjectInfo) : ProjectFile {
-    override val path = "${info.moduleName}/src/androidMain/kotlin/${info.packagePath}/App.android.kt"
-    override val content = """
-        package ${info.packageId}
-
-        import android.os.Bundle
-        import androidx.activity.ComponentActivity
-        import androidx.activity.compose.setContent
-        import androidx.activity.enableEdgeToEdge
-        
-        class AppActivity : ComponentActivity() {
-            override fun onCreate(savedInstanceState: Bundle?) {
-                super.onCreate(savedInstanceState)
-                enableEdgeToEdge()
-                setContent { App() }
             }
         }
         

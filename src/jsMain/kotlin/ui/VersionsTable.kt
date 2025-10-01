@@ -27,7 +27,7 @@ val VersionsTable = FC<VersionsTableProps> { props ->
                 TableBody {
                     TableRow {
                         TableCell { +"Kotlin" }
-                        TableCell { +KotlinPlugin.version }
+                        TableCell { +KotlinMultiplatformPlugin.version }
                     }
                     TableRow {
                         TableCell { +"Android Gradle Plugin" }
@@ -36,7 +36,7 @@ val VersionsTable = FC<VersionsTableProps> { props ->
                     if (wizardType == WizardType.ComposeApp) {
                         TableRow {
                             TableCell { +"Compose" }
-                            TableCell { +ComposePlugin.version }
+                            TableCell { +ComposeMultiplatformPlugin.version }
                         }
                     }
                     TableRow {

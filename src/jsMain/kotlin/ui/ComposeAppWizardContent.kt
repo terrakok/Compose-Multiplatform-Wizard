@@ -219,17 +219,20 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                                 name = projectName,
                                 platforms = getActualPlatforms(platforms),
                                 dependencies = buildSet {
-                                    add(KotlinPlugin)
+                                    add(KotlinMultiplatformPlugin)
                                     add(ComposeCompilerPlugin)
-                                    add(ComposePlugin)
+                                    add(ComposeMultiplatformPlugin)
                                     if (platforms.contains(Android)) {
+                                        add(KotlinAndroidPlugin)
                                         add(AndroidApplicationPlugin)
+                                        add(AndroidKmpLibraryPlugin)
                                         add(AndroidxActivityCompose)
-                                        add(AndroidxTestManifest)
-                                        add(AndroidxJUnit4)
                                     }
-                                    if (enableJvmHotReload && platforms.contains(Jvm)) {
-                                        add(ComposeHotReloadPlugin)
+                                    if (platforms.contains(Jvm)) {
+                                        add(KotlinJvmPlugin)
+                                        if (enableJvmHotReload) {
+                                            add(ComposeHotReloadPlugin)
+                                        }
                                     }
                                     addAll(deps.getSelectedDependencies())
                                 }
@@ -252,8 +255,8 @@ internal fun Set<DependencyBox>.getSelectedDependencies() =
         .map { it.selectedDep.component1() }
         .flatMap {
             when (it) {
-                ComposePlugin -> listOf(
-                    ComposePlugin,
+                ComposeMultiplatformPlugin -> listOf(
+                    ComposeMultiplatformPlugin,
                     ComposeCompilerPlugin
                 )
                 KtorCore -> listOfNotNull(

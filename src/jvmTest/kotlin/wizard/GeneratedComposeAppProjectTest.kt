@@ -82,9 +82,9 @@ class GeneratedComposeAppProjectTest {
             DefaultComposeAppInfo().copy(
                 platforms = setOf(ProjectPlatform.Jvm, ProjectPlatform.Wasm),
                 dependencies = setOf(
-                    KotlinPlugin,
+                    KotlinMultiplatformPlugin,
                     ComposeCompilerPlugin,
-                    ComposePlugin,
+                    ComposeMultiplatformPlugin,
                     ComposeHotReloadPlugin,
                     Voyager,
                     Napier,
@@ -111,9 +111,9 @@ class GeneratedComposeAppProjectTest {
                 name = "DesktopApp",
                 platforms = setOf(ProjectPlatform.Jvm),
                 dependencies = buildSet {
-                    add(KotlinPlugin)
+                    add(KotlinMultiplatformPlugin)
                     add(ComposeCompilerPlugin)
-                    add(ComposePlugin)
+                    add(ComposeMultiplatformPlugin)
                     addAll(extraDependencies)
                     addAll(roomDependencies)
                 }
@@ -129,9 +129,9 @@ class GeneratedComposeAppProjectTest {
                 name = "test js compose app",
                 platforms = setOf(ProjectPlatform.Js),
                 dependencies = setOf(
-                    KotlinPlugin,
+                    KotlinMultiplatformPlugin,
                     ComposeCompilerPlugin,
-                    ComposePlugin,
+                    ComposeMultiplatformPlugin,
                     Napier,
                     KotlinxDateTime,
                     MultiplatformSettings,
@@ -151,9 +151,9 @@ class GeneratedComposeAppProjectTest {
                 name = "test wasm compose app",
                 platforms = setOf(ProjectPlatform.Wasm),
                 dependencies = setOf(
-                    KotlinPlugin,
+                    KotlinMultiplatformPlugin,
                     ComposeCompilerPlugin,
-                    ComposePlugin,
+                    ComposeMultiplatformPlugin,
                     Napier,
                     KotlinxDateTime,
                     MultiplatformSettings,
@@ -208,9 +208,9 @@ class GeneratedComposeAppProjectTest {
         val projectInfo = DefaultComposeAppInfo().copy(
             platforms = setOf(ProjectPlatform.Ios),
             dependencies = buildSet {
-                add(KotlinPlugin)
+                add(KotlinMultiplatformPlugin)
                 add(ComposeCompilerPlugin)
-                add(ComposePlugin)
+                add(ComposeMultiplatformPlugin)
                 addAll(extraDependencies)
                 addAll(roomDependencies)
             }
@@ -273,9 +273,9 @@ class GeneratedComposeAppProjectTest {
         val projectInfo = DefaultComposeAppInfo().copy(
             platforms = setOf(ProjectPlatform.Jvm),
             dependencies = buildSet {
-                add(KotlinPlugin)
+                add(KotlinMultiplatformPlugin)
                 add(ComposeCompilerPlugin)
-                add(ComposePlugin)
+                add(ComposeMultiplatformPlugin)
                 add(ComposeHotReloadPlugin)
                 addAll(extraDependencies)
                 addAll(roomDependencies)

@@ -1,9 +1,26 @@
-package wizard.files.composeApp
+package wizard.files.composeApp.shared
 
-import wizard.*
-import wizard.dependencies.*
+import wizard.Dependency
+import wizard.GradleModule
+import wizard.ProjectFile
+import wizard.ProjectInfo
+import wizard.ProjectPlatform
+import wizard.catalogAccessor
+import wizard.dependencies.ApolloPlugin
+import wizard.dependencies.BuildConfigPlugin
+import wizard.dependencies.BuildKonfigPlugin
+import wizard.dependencies.RoomPlugin
+import wizard.dependencies.SQLDelightPlugin
+import wizard.hasPlatform
+import wizard.hasWebPlatform
+import wizard.isCommon
+import wizard.isKSP
+import wizard.isPlugin
+import wizard.isWeb
+import wizard.libraryNotation
+import wizard.pluginNotation
 
-class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
+class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
     override val path = "${info.moduleName}/build.gradle.kts"
     override val content = buildString {
         val plugins = mutableSetOf<Dependency>()
@@ -12,13 +29,11 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         val commonTestDeps = mutableSetOf<Dependency>()
         val otherTestDeps = mutableSetOf<Dependency>()
         val kspDeps = mutableSetOf<Dependency>()
-        info.dependencies.forEach { dep ->
+        info.dependencies.filter { it.modules.contains(GradleModule.SHARED) }.forEach { dep ->
             when {
                 dep.isPlugin() -> plugins.add(dep)
 
-                dep.isKSP() -> {
-                    kspDeps.add(dep)
-                }
+                dep.isKSP() -> kspDeps.add(dep)
 
                 dep.isCommon() -> {
                     if (!dep.isTestDependency) commonDeps.add(dep)
@@ -31,16 +46,10 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
                 }
             }
         }
-
         appendLine("import org.jetbrains.compose.ExperimentalComposeLibrary")
-        if (info.hasPlatform(ProjectPlatform.Jvm)) {
-            appendLine("import org.jetbrains.compose.desktop.application.dsl.TargetFormat")
-        }
-        if (info.enableJvmHotReload) {
-            appendLine("import org.jetbrains.compose.reload.gradle.ComposeHotRun")
-        }
-        if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree")
+        if (info.hasPlatform(ProjectPlatform.Ios)) {
+            appendLine("import org.gradle.kotlin.dsl.withType")
+            appendLine("import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget")
         }
         appendLine("")
         appendLine("plugins {")
@@ -51,9 +60,11 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("kotlin {")
         if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("    androidTarget {")
-            appendLine("        //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html")
-            appendLine("        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)")
+            appendLine("    android {")
+            appendLine("        namespace = \"${info.packageId}\"")
+            appendLine("        compileSdk = ${info.androidTargetSdk}")
+            appendLine("        minSdk = ${info.androidMinSdk}")
+            appendLine("        androidResources.enable = true")
             appendLine("    }")
             appendLine("")
         }
@@ -62,30 +73,16 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         if (info.hasPlatform(ProjectPlatform.Js)) {
-            appendLine("    js {")
-            appendLine("        browser()")
-            appendLine("        binaries.executable()")
-            appendLine("    }")
-            appendLine("")
+            appendLine("    js { browser() }")
         }
         if (info.hasPlatform(ProjectPlatform.Wasm)) {
-            appendLine("    wasmJs {")
-            appendLine("        browser()")
-            appendLine("        binaries.executable()")
-            appendLine("    }")
+            appendLine("    wasmJs { browser() }")
             appendLine("")
         }
         if (info.hasPlatform(ProjectPlatform.Ios)) {
-            appendLine("    listOf(")
-            appendLine("        iosX64(),")
-            appendLine("        iosArm64(),")
-            appendLine("        iosSimulatorArm64()")
-            appendLine("    ).forEach {")
-            appendLine("        it.binaries.framework {")
-            appendLine("            baseName = \"ComposeApp\"")
-            appendLine("            isStatic = true")
-            appendLine("        }")
-            appendLine("    }")
+            appendLine("    iosX64()")
+            appendLine("    iosArm64()")
+            appendLine("    iosSimulatorArm64()")
             appendLine("")
         }
         appendLine("    sourceSets {")
@@ -157,64 +154,16 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         appendLine("    }")
-        appendLine("}")
-
-        if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("")
-            appendLine("android {")
-            appendLine("    namespace = \"${info.packageId}\"")
-            appendLine("    compileSdk = ${info.androidTargetSdk}")
-            appendLine("")
-            appendLine("    defaultConfig {")
-            appendLine("        minSdk = ${info.androidMinSdk}")
-            appendLine("        targetSdk = ${info.androidTargetSdk}")
-            appendLine("")
-            appendLine("        applicationId = \"${info.packageId}.androidApp\"")
-            appendLine("        versionCode = 1")
-            appendLine("        versionName = \"1.0.0\"")
-            appendLine("")
-            appendLine("        testInstrumentationRunner = \"androidx.test.runner.AndroidJUnitRunner\"")
-            appendLine("    }")
-            appendLine("}")
-            appendLine("")
-            appendLine("//https://developer.android.com/develop/ui/compose/testing#setup")
-            appendLine("dependencies {")
-            appendLine("    androidTestImplementation(libs.androidx.uitest.junit4)")
-            appendLine("    debugImplementation(libs.androidx.uitest.testManifest)")
-            appendLine("}")
-        }
-        if (info.hasPlatform(ProjectPlatform.Jvm)) {
-            appendLine("")
-            appendLine("compose.desktop {")
-            appendLine("    application {")
-            appendLine("        mainClass = \"MainKt\"")
-            appendLine("")
-            appendLine("        nativeDistributions {")
-            appendLine("            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)")
-            appendLine("            packageName = \"${info.name}\"")
-            appendLine("            packageVersion = \"1.0.0\"")
-            appendLine("")
-            appendLine("            linux {")
-            appendLine("                iconFile.set(project.file(\"desktopAppIcons/LinuxIcon.png\"))")
-            appendLine("            }")
-            appendLine("            windows {")
-            appendLine("                iconFile.set(project.file(\"desktopAppIcons/WindowsIcon.ico\"))")
-            appendLine("            }")
-            appendLine("            macOS {")
-            appendLine("                iconFile.set(project.file(\"desktopAppIcons/MacosIcon.icns\"))")
-            appendLine("                bundleID = \"${info.packageId}.desktopApp\"")
-            appendLine("            }")
+        appendLine("")
+        if (info.hasPlatform(ProjectPlatform.Ios)) {
+            appendLine("    targets")
+            appendLine("        .withType<KotlinNativeTarget>()")
+            appendLine("        .matching { it.konanTarget.family.isAppleFamily }")
+            appendLine("        .configureEach {")
+            appendLine("            binaries { framework { baseName = \"${info.moduleName}\" } }")
             appendLine("        }")
-            appendLine("    }")
-            appendLine("}")
         }
-
-        if (info.enableJvmHotReload) {
-            appendLine("")
-            appendLine("tasks.withType<ComposeHotRun>().configureEach {")
-            appendLine("    mainClass = \"MainKt\"")
-            appendLine("}")
-        }
+        appendLine("}")
 
         if (plugins.contains(BuildConfigPlugin)) {
             appendLine("")

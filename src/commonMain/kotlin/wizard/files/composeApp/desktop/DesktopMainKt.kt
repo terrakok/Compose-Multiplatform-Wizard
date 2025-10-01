@@ -1,11 +1,10 @@
-package wizard.files.composeApp
+package wizard.files.composeApp.desktop
 
 import wizard.ProjectFile
 import wizard.ProjectInfo
-import wizard.enableJvmHotReload
 
 class DesktopMainKt(info: ProjectInfo) : ProjectFile {
-    override val path = "${info.moduleName}/src/jvmMain/kotlin/main.kt"
+    override val path = "desktopApp/src/main/kotlin/main.kt"
     override val content = buildString {
         appendLine(
             """
@@ -29,31 +28,5 @@ class DesktopMainKt(info: ProjectInfo) : ProjectFile {
                 |
             """.trimMargin()
         )
-
     }
-}
-
-class IosMainKt(info: ProjectInfo) : ProjectFile {
-    override val path = "${info.moduleName}/src/iosMain/kotlin/main.kt"
-    override val content = """
-        import androidx.compose.ui.window.ComposeUIViewController
-        import ${info.packageId}.App
-        import platform.UIKit.UIViewController
-
-        fun MainViewController(): UIViewController = ComposeUIViewController { App() }
-        
-    """.trimIndent()
-}
-
-class WebMainKt(info: ProjectInfo) : ProjectFile {
-    override val path = "${info.moduleName}/src/webMain/kotlin/main.kt"
-    override val content = """
-        import androidx.compose.ui.ExperimentalComposeUiApi
-        import androidx.compose.ui.window.ComposeViewport
-        import ${info.packageId}.App
-
-        @OptIn(ExperimentalComposeUiApi::class)
-        fun main() = ComposeViewport { App() }
-
-    """.trimIndent()
 }

@@ -1,10 +1,10 @@
-package wizard.files.composeApp
+package wizard.files.composeApp.webApp
 
 import wizard.ProjectFile
 import wizard.ProjectInfo
 
 class WebIndexHtml(info: ProjectInfo) : ProjectFile {
-    override val path = "${info.moduleName}/src/webMain/resources/index.html"
+    override val path = "webApp/src/commonMain/resources/index.html"
     override val content = buildString {
         appendLine("""<!doctype html>""")
         appendLine("""<html lang="en">""")
@@ -28,13 +28,13 @@ class WebIndexHtml(info: ProjectInfo) : ProjectFile {
         appendLine("""        </style>""")
         appendLine("""    </head>""")
         appendLine("""    <body></body>""")
-        appendLine("""    <script src="${info.moduleName}.js"></script>""")
+        appendLine("""    <script src="webApp.js"></script>""")
         appendLine("""</html>""")
     }
 }
 
 class WebManifestJson(info: ProjectInfo) : ProjectFile {
-    override val path = "${info.moduleName}/src/webMain/resources/manifest.json"
+    override val path = "webApp/src/commonMain/resources/manifest.json"
     override val content = """
         {
           "name": "${info.name}",

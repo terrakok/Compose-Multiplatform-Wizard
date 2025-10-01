@@ -156,7 +156,7 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                     }
 
                     val deps: Set<DependencyBox> = setOf(
-                        DependencyBox(ComposePlugin),
+                        DependencyBox(ComposeMultiplatformPlugin),
                         DependencyBox(KotlinxCoroutinesCore),
                         DependencyBox(KotlinxSerializationJson),
                         DependencyBox(KotlinxDateTime),
@@ -200,9 +200,9 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                                 moduleName = moduleName,
                                 platforms = platforms,
                                 dependencies = buildSet {
-                                    add(KotlinPlugin)
+                                    add(KotlinMultiplatformPlugin)
                                     if (platforms.contains(Android)) {
-                                        add(AndroidLibraryPlugin)
+                                        add(AndroidKmpLibraryPlugin)
                                     }
                                     add(MavenPublishPlugin)
                                     addAll(deps.getSelectedDependencies())

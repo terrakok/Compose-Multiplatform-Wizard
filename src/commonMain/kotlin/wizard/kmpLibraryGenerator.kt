@@ -8,7 +8,7 @@ import wizard.files.GradleWrapperJar
 import wizard.files.GradleWrapperProperties
 import wizard.files.Gradlew
 import wizard.files.RootBuildGradleKts
-import wizard.files.SettingsGradleKts
+import wizard.files.composeApp.SettingsGradleKts
 import wizard.files.kmpLibrary.FibonacciKt
 import wizard.files.kmpLibrary.FibonacciTestKt
 import wizard.files.kmpLibrary.ModuleBuildGradleKts

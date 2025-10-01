@@ -2,11 +2,9 @@ package wizard
 
 import wizard.ProjectPlatform.*
 import wizard.dependencies.*
-import wizard.files.GradleLibsVersion
 import wizard.files.kmpLibrary.Readme
 import wizard.files.kmpLibrary.ModuleBuildGradleKts
 import wizard.files.kmpLibrary.sample.SampleComposeAppBuildGradleKts
-import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -17,7 +15,7 @@ class GeneratorTest {
         val info = DefaultKmpLibraryInfo().copy(
             platforms = setOf(Android, Ios, Jvm, Js, Macos, Linux, Mingw, Wasm),
             dependencies =  buildSet {
-                add(KotlinPlugin)
+                add(KotlinMultiplatformPlugin)
                 add(MavenPublishPlugin)
                 addAll(kmpLibraryExtraDependencies)
             }
@@ -46,7 +44,7 @@ class GeneratorTest {
             packageId = "org.desktop.app",
             moduleName = "awesome",
             platforms = setOf(Jvm),
-            dependencies = setOf(KotlinPlugin, MavenPublishPlugin)
+            dependencies = setOf(KotlinMultiplatformPlugin, MavenPublishPlugin)
         )
         val files = info.generateKmpLibraryFiles()
 

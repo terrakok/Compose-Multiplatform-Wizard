@@ -1,4 +1,4 @@
-package wizard.files.composeApp
+package wizard.files.composeApp.iosApp
 
 import wizard.ProjectFile
 import wizard.ProjectInfo
@@ -62,11 +62,11 @@ class IosInfoPlist : ProjectFile {
     """.trimIndent()
 }
 
-class IosAppSwift : ProjectFile {
+class IosAppSwift(info: ProjectInfo) : ProjectFile {
     override val path = "iosApp/iosApp/iosApp.swift"
     override val content = """
         import SwiftUI
-        import ComposeApp
+        import ${info.moduleName}
 
         @main
         struct ComposeApp: App {

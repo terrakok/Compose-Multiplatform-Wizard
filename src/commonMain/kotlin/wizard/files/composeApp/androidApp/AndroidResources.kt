@@ -1,10 +1,10 @@
-package wizard.files.composeApp
+package wizard.files.composeApp.androidApp
 
 import wizard.ProjectFile
 import wizard.ProjectInfo
 
 class AndroidManifest(info: ProjectInfo) : ProjectFile {
-    override val path = "${info.moduleName}/src/androidMain/AndroidManifest.xml"
+    override val path = "androidApp/src/main/AndroidManifest.xml"
     override val content = """
         <?xml version="1.0" encoding="utf-8"?>
         <manifest xmlns:android="http://schemas.android.com/apk/res/android">

@@ -55,7 +55,7 @@ class GeneratedKmpLibraryProjectTest {
             DefaultKmpLibraryInfo().copy(
                 platforms = setOf(ProjectPlatform.Jvm, ProjectPlatform.Linux),
                 dependencies = buildSet {
-                    add(KotlinPlugin)
+                    add(KotlinMultiplatformPlugin)
                     add(MavenPublishPlugin)
                 }
             )
@@ -70,7 +70,7 @@ class GeneratedKmpLibraryProjectTest {
                 name = "DesktopApp",
                 platforms = setOf(ProjectPlatform.Jvm),
                 dependencies = buildSet {
-                    add(KotlinPlugin)
+                    add(KotlinMultiplatformPlugin)
                     add(MavenPublishPlugin)
                     addAll(kmpLibraryExtraDependencies)
                 }
@@ -86,7 +86,7 @@ class GeneratedKmpLibraryProjectTest {
                 name = "test linux",
                 platforms = setOf(ProjectPlatform.Linux),
                 dependencies = setOf(
-                    KotlinPlugin,
+                    KotlinMultiplatformPlugin,
                     MavenPublishPlugin,
                     KotlinxDateTime,
                 )
@@ -102,7 +102,7 @@ class GeneratedKmpLibraryProjectTest {
                 name = "test js compose app",
                 platforms = setOf(ProjectPlatform.Android),
                 dependencies = setOf(
-                    KotlinPlugin,
+                    KotlinMultiplatformPlugin,
                     MavenPublishPlugin,
                     AndroidLibraryPlugin,
                 )
@@ -115,7 +115,7 @@ class GeneratedKmpLibraryProjectTest {
         val projectInfo = DefaultKmpLibraryInfo().copy(
             platforms = setOf(ProjectPlatform.Jvm),
             dependencies = buildSet {
-                add(KotlinPlugin)
+                add(KotlinMultiplatformPlugin)
                 add(MavenPublishPlugin)
                 addAll(kmpLibraryExtraDependencies)
             }
@@ -151,7 +151,7 @@ class GeneratedKmpLibraryProjectTest {
                 ProjectPlatform.Mingw
             ),
             dependencies = buildSet {
-                add(KotlinPlugin)
+                add(KotlinMultiplatformPlugin)
                 add(MavenPublishPlugin)
                 add(AndroidLibraryPlugin)
                 add(Koin)
@@ -189,7 +189,7 @@ class GeneratedKmpLibraryProjectTest {
                   "buildSystem": "Gradle",
                   "buildSystemVersion": "${projectInfo.gradleVersion}",
                   "buildPlugin": "org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper",
-                  "buildPluginVersion": "${KotlinPlugin.version}",
+                  "buildPluginVersion": "${KotlinMultiplatformPlugin.version}",
                   "projectSettings": {
                     "isHmppEnabled": true,
                     "isCompatibilityMetadataVariantEnabled": false,
@@ -212,7 +212,7 @@ class GeneratedKmpLibraryProjectTest {
                       "extras": {
                         "native": {
                           "konanTarget": "ios_arm64",
-                          "konanVersion": "${KotlinPlugin.version}",
+                          "konanVersion": "${KotlinMultiplatformPlugin.version}",
                           "konanAbiVersion": "$konanAbiVersion"
                         }
                       }
@@ -223,7 +223,7 @@ class GeneratedKmpLibraryProjectTest {
                       "extras": {
                         "native": {
                           "konanTarget": "ios_simulator_arm64",
-                          "konanVersion": "${KotlinPlugin.version}",
+                          "konanVersion": "${KotlinMultiplatformPlugin.version}",
                           "konanAbiVersion": "$konanAbiVersion"
                         }
                       }
@@ -234,7 +234,7 @@ class GeneratedKmpLibraryProjectTest {
                       "extras": {
                         "native": {
                           "konanTarget": "ios_x64",
-                          "konanVersion": "${KotlinPlugin.version}",
+                          "konanVersion": "${KotlinMultiplatformPlugin.version}",
                           "konanAbiVersion": "$konanAbiVersion"
                         }
                       }
@@ -265,7 +265,7 @@ class GeneratedKmpLibraryProjectTest {
                       "extras": {
                         "native": {
                           "konanTarget": "linux_x64",
-                          "konanVersion": "${KotlinPlugin.version}",
+                          "konanVersion": "${KotlinMultiplatformPlugin.version}",
                           "konanAbiVersion": "$konanAbiVersion"
                         }
                       }
@@ -276,7 +276,7 @@ class GeneratedKmpLibraryProjectTest {
                       "extras": {
                         "native": {
                           "konanTarget": "macos_arm64",
-                          "konanVersion": "${KotlinPlugin.version}",
+                          "konanVersion": "${KotlinMultiplatformPlugin.version}",
                           "konanAbiVersion": "$konanAbiVersion"
                         }
                       }
@@ -287,7 +287,7 @@ class GeneratedKmpLibraryProjectTest {
                       "extras": {
                         "native": {
                           "konanTarget": "macos_x64",
-                          "konanVersion": "${KotlinPlugin.version}",
+                          "konanVersion": "${KotlinMultiplatformPlugin.version}",
                           "konanAbiVersion": "$konanAbiVersion"
                         }
                       }
@@ -302,7 +302,7 @@ class GeneratedKmpLibraryProjectTest {
                       "extras": {
                         "native": {
                           "konanTarget": "mingw_x64",
-                          "konanVersion": "${KotlinPlugin.version}",
+                          "konanVersion": "${KotlinMultiplatformPlugin.version}",
                           "konanAbiVersion": "$konanAbiVersion"
                         }
                       }

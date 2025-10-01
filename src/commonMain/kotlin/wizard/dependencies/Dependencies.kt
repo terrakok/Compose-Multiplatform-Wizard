@@ -1,9 +1,10 @@
 package wizard.dependencies
 
 import wizard.Dependency
+import wizard.GradleModule
 import wizard.ProjectPlatform.*
 
-val KotlinPlugin = Dependency(
+val KotlinMultiplatformPlugin = Dependency(
     title = "Kotlin Multiplatform Plugin",
     description = "Kotlin gradle plugin.",
     url = "https://github.com/JetBrains/kotlin/",
@@ -11,8 +12,25 @@ val KotlinPlugin = Dependency(
     id = "gradle-plugin",
     version = "2.2.20",
     catalogVersionName = "kotlin",
-    catalogName = "multiplatform",
-    platforms = emptySet()
+    catalogName = "kotlin-multiplatform",
+    platforms = emptySet(),
+    modules = setOf(GradleModule.SHARED, GradleModule.WEB)
+)
+
+val KotlinJvmPlugin = KotlinMultiplatformPlugin.copy(
+    group = "org.jetbrains.kotlin.jvm",
+    catalogVersionName = "kotlin",
+    catalogName = "kotlin-jvm",
+    platforms = setOf(Jvm),
+    modules = setOf(GradleModule.DESKTOP)
+)
+
+val KotlinAndroidPlugin = KotlinMultiplatformPlugin.copy(
+    group = "org.jetbrains.kotlin.android",
+    catalogVersionName = "kotlin",
+    catalogName = "kotlin-android",
+    platforms = setOf(Android),
+    modules = setOf(GradleModule.ANDROID)
 )
 
 val AndroidApplicationPlugin = Dependency(
@@ -21,39 +39,42 @@ val AndroidApplicationPlugin = Dependency(
     url = "https://developer.android.com/studio/build",
     group = "com.android.application",
     id = "gradle-plugin",
-    version = "8.10.0",
+    version = "8.12.3",
     catalogVersionName = "agp",
     catalogName = "android-application",
-    platforms = emptySet()
+    platforms = setOf(Android),
+    modules = setOf(GradleModule.ANDROID)
 )
 
-val AndroidLibraryPlugin = AndroidApplicationPlugin.copy(
-    title = "Android Library Plugin",
-    group = "com.android.library",
-    catalogName = "android-library",
-    platforms = emptySet()
+val AndroidKmpLibraryPlugin = AndroidApplicationPlugin.copy(
+    group = "com.android.kotlin.multiplatform.library",
+    catalogName = "android-kmp-library",
+    platforms = emptySet(),
+    modules = setOf(GradleModule.SHARED)
 )
 
-val ComposePlugin = Dependency(
+val ComposeMultiplatformPlugin = Dependency(
     title = "Compose Multiplatform",
     description = "An open-source, declarative framework for sharing stunning UIs across multiple platforms.",
     url = "https://www.jetbrains.com/lp/compose-multiplatform/",
     group = "org.jetbrains.compose",
     id = "gradle-plugin",
     version = "1.9.0",
-    catalogVersionName = "compose",
-    catalogName = "compose",
-    platforms = emptySet()
+    catalogVersionName = "compose-multiplatform",
+    catalogName = "compose-multiplatform",
+    platforms = emptySet(),
+    modules = setOf(GradleModule.SHARED, GradleModule.WEB, GradleModule.DESKTOP)
 )
 
-val ComposeCompilerPlugin = KotlinPlugin.copy(
+val ComposeCompilerPlugin = KotlinMultiplatformPlugin.copy(
     title = "Compose Compiler Plugin",
     description = "Compose compiler plugin.",
     url = "https://plugins.gradle.org/plugin/org.jetbrains.kotlin.plugin.compose",
     group = "org.jetbrains.kotlin.plugin.compose",
     id = "gradle-plugin",
     catalogName = "compose-compiler",
-    platforms = emptySet()
+    platforms = emptySet(),
+    modules = setOf(GradleModule.SHARED, GradleModule.WEB, GradleModule.ANDROID, GradleModule.DESKTOP)
 )
 
 val MavenPublishPlugin = Dependency(
@@ -75,9 +96,10 @@ val ComposeHotReloadPlugin = Dependency(
     group = "org.jetbrains.compose.hot-reload",
     id = "gradle-plugin",
     version = "1.0.0-beta09",
-    catalogVersionName = "hotReload",
-    catalogName = "hotReload",
-    platforms = emptySet()
+    catalogVersionName = "compose-hot-reload",
+    catalogName = "compose-hot-reload",
+    platforms = emptySet(),
+    modules = setOf(GradleModule.SHARED, GradleModule.DESKTOP)
 )
 
 val AndroidxActivityCompose = Dependency(
@@ -89,7 +111,8 @@ val AndroidxActivityCompose = Dependency(
     version = "1.10.1",
     catalogVersionName = "androidx-activityCompose",
     catalogName = "androidx-activityCompose",
-    platforms = setOf(Android)
+    platforms = setOf(Android),
+    modules = setOf(GradleModule.ANDROID)
 )
 
 val AndroidxJUnit4 = Dependency(

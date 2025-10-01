@@ -56,7 +56,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("    sourceSets {")
         appendLine("        commonMain.dependencies {")
-        if (plugins.contains(ComposePlugin)) {
+        if (plugins.contains(ComposeMultiplatformPlugin)) {
             appendLine("            implementation(compose.runtime)")
             appendLine("            implementation(compose.ui)")
             appendLine("            implementation(compose.foundation)")

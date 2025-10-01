@@ -4,11 +4,10 @@ import wizard.dependencies.KotlinxSerializationPlugin
 import wizard.ProjectFile
 import wizard.ProjectInfo
 import wizard.ProjectPlatform
-import wizard.WizardType
 import wizard.dependencies.AndroidApplicationPlugin
 import wizard.dependencies.AndroidxActivityCompose
 import wizard.dependencies.ComposeCompilerPlugin
-import wizard.dependencies.ComposePlugin
+import wizard.dependencies.ComposeMultiplatformPlugin
 import wizard.hasPlatform
 import wizard.isPlugin
 import wizard.needComposeSample
@@ -19,7 +18,7 @@ class GradleLibsVersion(info: ProjectInfo) : ProjectFile {
         val dependencies = buildSet {
             addAll(info.dependencies)
             if (info.needComposeSample) {
-                add(ComposePlugin)
+                add(ComposeMultiplatformPlugin)
                 add(ComposeCompilerPlugin)
                 if (info.hasPlatform(ProjectPlatform.Android)) {
                     add(AndroidApplicationPlugin)
