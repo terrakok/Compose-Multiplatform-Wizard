@@ -1,15 +1,12 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
 
 plugins {
-    alias(libs.plugins.multiplatform)
-    alias(libs.plugins.compose)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.compose.multiplatform)
 }
 
 kotlin {
-    wasmJs {
-        browser()
-        binaries.executable()
-    }
+    wasmJs { browser() }
 
     sourceSets {
         commonMain.dependencies {
@@ -28,4 +25,5 @@ kotlin {
         }
 
     }
+
 }

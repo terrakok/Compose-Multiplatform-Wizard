@@ -2,6 +2,7 @@ package wizard.files.composeApp.iosApp
 
 import wizard.ProjectFile
 import wizard.ProjectInfo
+import wizard.frameworkName
 
 class IosAccentColor : ProjectFile {
     override val path = "iosApp/iosApp/Assets.xcassets/AccentColor.colorset/Contents.json"
@@ -66,7 +67,7 @@ class IosAppSwift(info: ProjectInfo) : ProjectFile {
     override val path = "iosApp/iosApp/iosApp.swift"
     override val content = """
         import SwiftUI
-        import ${info.moduleName}
+        import ${info.frameworkName}
 
         @main
         struct ComposeApp: App {

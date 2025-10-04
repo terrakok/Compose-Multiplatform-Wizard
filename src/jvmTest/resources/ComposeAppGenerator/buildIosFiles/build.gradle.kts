@@ -1,21 +1,16 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
-    alias(libs.plugins.multiplatform)
-    alias(libs.plugins.compose)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.compose.multiplatform)
 }
 
 kotlin {
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "ComposeApp"
-            isStatic = true
-        }
-    }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets {
         commonMain.dependencies {
@@ -34,4 +29,11 @@ kotlin {
         }
 
     }
+
+    targets
+        .withType<KotlinNativeTarget>()
+        .matching { it.konanTarget.family.isAppleFamily }
+        .configureEach {
+            binaries { framework { baseName = "SharedUI" } }
+        }
 }

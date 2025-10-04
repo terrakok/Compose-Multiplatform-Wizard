@@ -1,8 +1,8 @@
 package wizard
 
 import wizard.dependencies.*
-import wizard.files.composeApp.ModuleBuildGradleKts
 import wizard.files.composeApp.Readme
+import wizard.files.composeApp.shared.SharedBuildGradleKts
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -29,7 +29,7 @@ class ComposeAppGeneratorTest {
 
         assertEquals(
             readResourceFileText("buildAllFiles/build.gradle.kts"),
-            files.first { it is ModuleBuildGradleKts }.content
+            files.first { it is SharedBuildGradleKts }.content
         )
 
         assertEquals(
@@ -62,7 +62,7 @@ class ComposeAppGeneratorTest {
 
         assertEquals(
             readResourceFileText("buildAndroidFiles/build.gradle.kts"),
-            files.first { it is ModuleBuildGradleKts }.content
+            files.first { it is SharedBuildGradleKts }.content
         )
     }
 
@@ -82,7 +82,7 @@ class ComposeAppGeneratorTest {
 
         assertEquals(
             readResourceFileText("buildIosFiles/build.gradle.kts"),
-            files.first { it is ModuleBuildGradleKts }.content
+            files.first { it is SharedBuildGradleKts }.content
         )
     }
 
@@ -101,7 +101,7 @@ class ComposeAppGeneratorTest {
         )
         assertEquals(
             readResourceFileText("buildDesktopFiles/build.gradle.kts"),
-            files.first { it is ModuleBuildGradleKts }.content
+            files.first { it is SharedBuildGradleKts }.content
         )
     }
 
@@ -121,7 +121,7 @@ class ComposeAppGeneratorTest {
 
         assertEquals(
             readResourceFileText("buildBrowserJsFiles/build.gradle.kts"),
-            files.first { it is ModuleBuildGradleKts }.content
+            files.first { it is SharedBuildGradleKts }.content
         )
     }
 
@@ -141,7 +141,7 @@ class ComposeAppGeneratorTest {
 
         assertEquals(
             readResourceFileText("buildBrowserWasmFiles/build.gradle.kts"),
-            files.first { it is ModuleBuildGradleKts }.content
+            files.first { it is SharedBuildGradleKts }.content
         )
     }
 

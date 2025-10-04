@@ -44,7 +44,7 @@ fun DefaultComposeAppInfo() = ProjectInfo(
     packageId = "org.company.app",
     //Shouldn't be "ComposeApp" because it breaks ios build. The reason is kotlin framework name is "ComposeApp"
     name = "Multiplatform App",
-    moduleName = "shared",
+    moduleName = "sharedUI",
     platforms = setOf(Android, Ios, Jvm, Wasm),
     dependencies = setOf(
         KotlinMultiplatformPlugin,
@@ -86,6 +86,9 @@ fun ProjectInfo.hasPlatform(platform: ProjectPlatform) = platforms.contains(plat
 fun ProjectInfo.hasWebPlatform() = platforms.contains(Js) || platforms.contains(Wasm)
 val ProjectInfo.packagePath get() = packageId.replace(".", "/")
 val ProjectInfo.safeName get() = name.replace(" ", "-")
+val ProjectInfo.frameworkName get() = moduleName.replaceFirstChar {
+    if (it.isLowerCase()) it.titlecase() else it.toString()
+}
 
 fun ProjectInfo.generate(type: WizardType) = when (type) {
     WizardType.ComposeApp -> generateComposeAppFiles()

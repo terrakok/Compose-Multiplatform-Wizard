@@ -1,12 +1,11 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
-    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.compose)
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.apollo)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.sqlDelight)
@@ -16,28 +15,20 @@ plugins {
 }
 
 kotlin {
-    androidTarget {
-        //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
-        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
+    android {
+        namespace = "org.company.app"
+        compileSdk = 36
+        minSdk = 23
+        androidResources.enable = true
     }
 
     jvm()
 
-    wasmJs {
-        browser()
-        binaries.executable()
-    }
+    wasmJs { browser() }
 
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "ComposeApp"
-            isStatic = true
-        }
-    }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets {
         commonMain.dependencies {
@@ -79,7 +70,6 @@ kotlin {
 
         androidMain.dependencies {
             implementation(compose.uiTooling)
-            implementation(libs.androidx.activityCompose)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.sqlDelight.driver.android)
@@ -97,51 +87,13 @@ kotlin {
         }
 
     }
-}
 
-android {
-    namespace = "org.company.app"
-    compileSdk = 36
-
-    defaultConfig {
-        minSdk = 23
-        targetSdk = 36
-
-        applicationId = "org.company.app.androidApp"
-        versionCode = 1
-        versionName = "1.0.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-}
-
-//https://developer.android.com/develop/ui/compose/testing#setup
-dependencies {
-    androidTestImplementation(libs.androidx.uitest.junit4)
-    debugImplementation(libs.androidx.uitest.testManifest)
-}
-
-compose.desktop {
-    application {
-        mainClass = "MainKt"
-
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "Multiplatform App"
-            packageVersion = "1.0.0"
-
-            linux {
-                iconFile.set(project.file("desktopAppIcons/LinuxIcon.png"))
-            }
-            windows {
-                iconFile.set(project.file("desktopAppIcons/WindowsIcon.ico"))
-            }
-            macOS {
-                iconFile.set(project.file("desktopAppIcons/MacosIcon.icns"))
-                bundleID = "org.company.app.desktopApp"
-            }
+    targets
+        .withType<KotlinNativeTarget>()
+        .matching { it.konanTarget.family.isAppleFamily }
+        .configureEach {
+            binaries { framework { baseName = "SharedUI" } }
         }
-    }
 }
 
 buildConfig {

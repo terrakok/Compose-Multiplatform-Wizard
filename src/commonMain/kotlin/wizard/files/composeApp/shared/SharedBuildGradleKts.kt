@@ -11,6 +11,7 @@ import wizard.dependencies.BuildConfigPlugin
 import wizard.dependencies.BuildKonfigPlugin
 import wizard.dependencies.RoomPlugin
 import wizard.dependencies.SQLDelightPlugin
+import wizard.frameworkName
 import wizard.hasPlatform
 import wizard.hasWebPlatform
 import wizard.isCommon
@@ -160,7 +161,7 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        .withType<KotlinNativeTarget>()")
             appendLine("        .matching { it.konanTarget.family.isAppleFamily }")
             appendLine("        .configureEach {")
-            appendLine("            binaries { framework { baseName = \"${info.moduleName}\" } }")
+            appendLine("            binaries { framework { baseName = \"${info.frameworkName}\" } }")
             appendLine("        }")
         }
         appendLine("}")

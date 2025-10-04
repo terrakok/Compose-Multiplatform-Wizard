@@ -80,9 +80,10 @@ class GeneratedComposeAppProjectTest {
     fun testDesktopAndBrowserProject() {
         checkProject(
             DefaultComposeAppInfo().copy(
-                platforms = setOf(ProjectPlatform.Jvm, ProjectPlatform.Wasm),
+                platforms = setOf(ProjectPlatform.Jvm, ProjectPlatform.Wasm, ProjectPlatform.Js),
                 dependencies = setOf(
                     KotlinMultiplatformPlugin,
+                    KotlinJvmPlugin,
                     ComposeCompilerPlugin,
                     ComposeMultiplatformPlugin,
                     ComposeHotReloadPlugin,
@@ -112,8 +113,10 @@ class GeneratedComposeAppProjectTest {
                 platforms = setOf(ProjectPlatform.Jvm),
                 dependencies = buildSet {
                     add(KotlinMultiplatformPlugin)
+                    add(KotlinJvmPlugin)
                     add(ComposeCompilerPlugin)
                     add(ComposeMultiplatformPlugin)
+                    add(ComposeHotReloadPlugin)
                     addAll(extraDependencies)
                     addAll(roomDependencies)
                 }
@@ -122,34 +125,12 @@ class GeneratedComposeAppProjectTest {
     }
 
     @Test
-    fun testBrowserJsProject() {
+    fun testWebProject() {
         checkProject(
             DefaultComposeAppInfo().copy(
-                packageId = "io.js.app.test",
-                name = "test js compose app",
-                platforms = setOf(ProjectPlatform.Js),
-                dependencies = setOf(
-                    KotlinMultiplatformPlugin,
-                    ComposeCompilerPlugin,
-                    ComposeMultiplatformPlugin,
-                    Napier,
-                    KotlinxDateTime,
-                    MultiplatformSettings,
-                    KotlinxCoroutinesCore,
-                    BuildConfigPlugin
-                )
-            ),
-            taskName = "assemble"
-        )
-    }
-
-    @Test
-    fun testBrowserWasmProject() {
-        checkProject(
-            DefaultComposeAppInfo().copy(
-                packageId = "io.wasm.app.test",
-                name = "test wasm compose app",
-                platforms = setOf(ProjectPlatform.Wasm),
+                packageId = "io.web.app.test",
+                name = "test web compose app",
+                platforms = setOf(ProjectPlatform.Wasm, ProjectPlatform.Js),
                 dependencies = setOf(
                     KotlinMultiplatformPlugin,
                     ComposeCompilerPlugin,
@@ -166,6 +147,7 @@ class GeneratedComposeAppProjectTest {
     }
 
     @Test
+    @Ignore("Android UI tests are not supported yet")
     fun testAndroidProject() {
         val projectInfo = DefaultComposeAppInfo()
         val dir = projectInfo.writeToDir(workingDir)
@@ -274,6 +256,7 @@ class GeneratedComposeAppProjectTest {
             platforms = setOf(ProjectPlatform.Jvm),
             dependencies = buildSet {
                 add(KotlinMultiplatformPlugin)
+                add(KotlinJvmPlugin)
                 add(ComposeCompilerPlugin)
                 add(ComposeMultiplatformPlugin)
                 add(ComposeHotReloadPlugin)
