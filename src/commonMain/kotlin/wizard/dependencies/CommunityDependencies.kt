@@ -128,6 +128,18 @@ val MultiplatformSettings = Dependency(
     platforms = emptySet()
 )
 
+val Metro = Dependency(
+    title = "Metro",
+    description = "A multiplatform dependency injection framework for Kotlin.",
+    url = "https://github.com/ZacSweers/metro",
+    group = "dev.zacsweers.metro",
+    id = "gradle-plugin",
+    version = "0.6.8",
+    catalogVersionName = "metro",
+    catalogName = "metro",
+    platforms = emptySet()
+)
+
 val KotlinInject = Dependency(
     title = "Kotlin-Inject",
     description = "A compile-time dependency injection library for kotlin.",

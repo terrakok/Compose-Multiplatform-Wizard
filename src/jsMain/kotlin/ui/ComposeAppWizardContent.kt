@@ -177,7 +177,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         DependencyBox(AndroidxLifecycleViewmodel),
                         DependencyBox(listOf(AndroidxNavigation, Voyager, Decompose, PreCompose)),
                         DependencyBox(KotlinxSerializationJson),
-                        DependencyBox(listOf(KotlinInject, Koin, Kodein)),
+                        DependencyBox(listOf(Metro, KotlinInject, Koin, Kodein)),
                         DependencyBox(listOf(Coil, Sketch, ImageLoader)),
                         DependencyBox(MultiplatformSettings),
                         DependencyBox(KotlinxDateTime),
