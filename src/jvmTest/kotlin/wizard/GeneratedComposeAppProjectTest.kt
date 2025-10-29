@@ -345,10 +345,9 @@ class GeneratedComposeAppProjectTest {
                     javaClass.getResourceAsStream("/binaries/${projectFile.resourcePath}")
                         .use { it!!.copyTo(out) }
                 }
-            } else {
                 if (projectFile is Gradlew) f.setExecutable(true)
-                if (projectFile is GradleBat) f.setExecutable(true)
-
+                if (projectFile is GradlewBat) f.setExecutable(true)
+            } else {
                 f.writeText(projectFile.content)
             }
         }

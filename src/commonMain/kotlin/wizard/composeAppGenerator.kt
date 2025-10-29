@@ -2,12 +2,12 @@ package wizard
 
 import wizard.dependencies.ApolloPlugin
 import wizard.files.Gitignore
-import wizard.files.GradleBat
 import wizard.files.GradleLibsVersion
 import wizard.files.GradleProperties
 import wizard.files.GradleWrapperJar
 import wizard.files.GradleWrapperProperties
 import wizard.files.Gradlew
+import wizard.files.GradlewBat
 import wizard.files.LocalProperties
 import wizard.files.RootBuildGradleKts
 import wizard.files.composeApp.GraphQLQuery
@@ -53,7 +53,7 @@ fun ProjectInfo.generateComposeAppFiles(): List<ProjectFile> = buildList {
     add(Gitignore())
     add(Readme(info))
 
-    add(GradleBat())
+    add(GradlewBat())
     add(Gradlew())
     add(GradleWrapperProperties(info))
     add(GradleWrapperJar())

@@ -21,3 +21,13 @@ class GradleWrapperJar : BinaryFile {
     override val path = "gradle/wrapper/gradle-wrapper.jar"
     override val resourcePath = "gradle-wrapper"
 }
+
+class Gradlew : BinaryFile {
+    override val path = "gradlew"
+    override val resourcePath = "gradlew"
+}
+
+class GradlewBat : BinaryFile {
+    override val path = "gradlew.bat"
+    override val resourcePath = "gradlew.bat"
+}

@@ -1,12 +1,16 @@
+import js.typedarrays.Uint8Array
 import kotlinx.browser.window
 import npm.FileSaverJs
 import npm.JSZip
 import org.khronos.webgl.ArrayBuffer
+import org.khronos.webgl.Uint16Array
+import org.khronos.webgl.get
 import org.w3c.files.Blob
 import react.create
 import react.dom.client.createRoot
 import ui.App
 import web.dom.document
+import web.encoding.TextDecoder
 import web.html.HtmlTagName.div
 import web.html.HtmlTagName.link
 import web.html.HtmlTagName.script
@@ -17,7 +21,9 @@ import wizard.WizardType
 import wizard.files.Gradlew
 import wizard.generate
 import wizard.safeName
+import kotlin.UByteArray
 import kotlin.js.Promise
+import kotlin.js.unsafeCast
 
 fun main() {
     //title
@@ -60,24 +66,26 @@ private fun generateProject(project: ProjectInfo) {
     Promise.all(binFiles.toTypedArray()).then { binaries ->
         val zip = JSZip()
         textFiles.forEach { file ->
-            if (file is Gradlew) {
-                zip.file(
-                    file.path,
-                    file.content,
-                    js("""{unixPermissions:"774"}""") //execution rights
-                )
-            } else {
                 zip.file(
                     file.path,
                     file.content
                 )
-            }
         }
         binaries.forEach { bin ->
-            zip.file(
-                bin.origin.path,
-                bin.content
-            )
+            if (bin.origin.path.endsWith("gradlew")) {
+                val uint8Array = Uint8Array(bin.content.unsafeCast<js.buffer.ArrayBuffer>())
+                val string = uint8Array.unsafeCast<ByteArray>().decodeToString()
+                zip.file(
+                    bin.origin.path,
+                    string,
+                    js("""{unixPermissions:"774"}""") //execution rights
+                )
+            } else {
+                zip.file(
+                    bin.origin.path,
+                    bin.content
+                )
+            }
         }
         //execution rights require UNIX mode
         zip.generateAsync<Blob>(js("""{type:"blob",platform:"UNIX"}""")).then { blob ->

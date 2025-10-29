@@ -27,6 +27,7 @@ class GradleProperties(info: ProjectInfo) : ProjectFile {
             android.nonTransitiveRClass=true
         """.trimIndent())
         if (info.hasPlatform(ProjectPlatform.Js) || info.hasPlatform(ProjectPlatform.Macos)) {
+            appendLine("")
             appendLine("#Compose")
             if (info.hasPlatform(ProjectPlatform.Js)) {
                 appendLine("org.jetbrains.compose.experimental.jscanvas.enabled=true")

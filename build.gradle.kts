@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform").version("2.2.20")
+    kotlin("multiplatform").version("2.2.21")
     id("com.github.gmazzo.buildconfig").version("5.7.0")
     id("com.github.ben-manes.versions").version("0.53.0")
 }

@@ -12,9 +12,6 @@ class DesktopBuildGradleKts(info: ProjectInfo) : ProjectFile {
     override val path = "desktopApp/build.gradle.kts"
     override val content = buildString {
         appendLine("import org.jetbrains.compose.desktop.application.dsl.TargetFormat")
-        if (info.enableJvmHotReload) {
-            appendLine("import org.jetbrains.compose.reload.gradle.ComposeHotRun")
-        }
         appendLine("")
         val plugins = info.dependencies.filter { it.modules.contains(GradleModule.DESKTOP) && it.isPlugin() }
         val libs = info.dependencies.filter { it.modules.contains(GradleModule.DESKTOP) && !it.isPlugin() }
@@ -50,12 +47,5 @@ class DesktopBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("        }")
         appendLine("    }")
         appendLine("}")
-
-        if (info.enableJvmHotReload) {
-            appendLine("")
-            appendLine("tasks.withType<ComposeHotRun>().configureEach {")
-            appendLine("    mainClass = \"MainKt\"")
-            appendLine("}")
-        }
     }
 }

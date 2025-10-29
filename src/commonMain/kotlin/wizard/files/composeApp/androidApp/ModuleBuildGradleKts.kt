@@ -31,12 +31,6 @@ class AndroidAppBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("}")
         appendLine("")
 
-
-        appendLine("kotlin {")
-        appendLine("    jvmToolchain(17)")
-        appendLine("}")
-        appendLine("")
-
         appendLine("dependencies {")
         appendLine("    implementation(project(\":${info.moduleName}\"))")
         libs.forEach { dep -> appendLine("    ${dep.libraryNotation}") }
