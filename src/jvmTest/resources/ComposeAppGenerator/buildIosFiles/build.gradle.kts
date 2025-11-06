@@ -34,6 +34,11 @@ kotlin {
         .withType<KotlinNativeTarget>()
         .matching { it.konanTarget.family.isAppleFamily }
         .configureEach {
-            binaries { framework { baseName = "SharedUI" } }
+            binaries {
+                framework {
+                    baseName = "SharedUI"
+                    isStatic = true
+                }
+            }
         }
 }

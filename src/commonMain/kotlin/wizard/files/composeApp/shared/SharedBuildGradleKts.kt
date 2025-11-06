@@ -48,6 +48,9 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
             }
         }
         appendLine("import org.jetbrains.compose.ExperimentalComposeLibrary")
+        if (info.hasPlatform(ProjectPlatform.Android)) {
+            appendLine("import org.jetbrains.kotlin.gradle.dsl.JvmTarget")
+        }
         if (info.hasPlatform(ProjectPlatform.Ios)) {
             appendLine("import org.gradle.kotlin.dsl.withType")
             appendLine("import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget")
@@ -66,6 +69,7 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        compileSdk = ${info.androidTargetSdk}")
             appendLine("        minSdk = ${info.androidMinSdk}")
             appendLine("        androidResources.enable = true")
+            appendLine("        compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }")
             appendLine("    }")
             appendLine("")
         }
@@ -161,7 +165,12 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        .withType<KotlinNativeTarget>()")
             appendLine("        .matching { it.konanTarget.family.isAppleFamily }")
             appendLine("        .configureEach {")
-            appendLine("            binaries { framework { baseName = \"${info.frameworkName}\" } }")
+            appendLine("            binaries {")
+            appendLine("                framework {")
+            appendLine("                    baseName = \"${info.frameworkName}\"")
+            appendLine("                    isStatic = true")
+            appendLine("                }")
+            appendLine("            }")
             appendLine("        }")
         }
         appendLine("}")
