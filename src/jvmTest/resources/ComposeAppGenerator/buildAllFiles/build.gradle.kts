@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.apollo)
+    alias(libs.plugins.metro)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.sqlDelight)
     alias(libs.plugins.buildConfig)
@@ -54,6 +55,7 @@ kotlin {
             implementation(libs.napier)
             implementation(libs.kotlinx.datetime)
             implementation(libs.multiplatformSettings)
+            implementation(libs.kotlinInject)
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.kstore)
@@ -131,6 +133,14 @@ apollo {
 }
 
 dependencies {
+    with(libs.kotlinInjectKsp) {
+        add("kspAndroid", this)
+        add("kspJvm", this)
+        add("kspWasmJs", this)
+        add("kspIosX64", this)
+        add("kspIosArm64", this)
+        add("kspIosSimulatorArm64", this)
+    }
     with(libs.room.compiler) {
         add("kspAndroid", this)
         add("kspJvm", this)
