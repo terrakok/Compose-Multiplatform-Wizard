@@ -21,6 +21,7 @@ internal val extraDependencies = setOf(
     Voyager,
     ImageLoader,
     AndroidxNavigation,
+    AndroidxNavigation3,
     AndroidxLifecycleRuntime,
     AndroidxLifecycleViewmodel,
     Coil,

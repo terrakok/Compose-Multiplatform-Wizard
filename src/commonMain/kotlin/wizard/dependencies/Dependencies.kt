@@ -71,7 +71,7 @@ val AndroidxActivityCompose = Dependency(
     url = "https://developer.android.com/reference/kotlin/androidx/activity/compose/package-summary",
     group = "androidx.activity",
     id = "activity-compose",
-    version = "1.11.0",
+    version = "1.12.0",
     catalogVersionName = "androidx-activityCompose",
     catalogName = "androidx-activityCompose",
     platforms = setOf(Android),
@@ -111,7 +111,7 @@ val AndroidxLifecycleRuntime = Dependency(
 )
 
 val AndroidxLifecycleViewmodel = AndroidxLifecycleRuntime.copy(
-    title = "Androidx Viewmodel",
+    title = "Androidx ViewModel",
     description = "The ViewModel class is a business logic or screen level state holder.",
     url = "https://developer.android.com/topic/libraries/architecture/viewmodel",
     id = "lifecycle-viewmodel-compose",
@@ -128,5 +128,17 @@ val AndroidxNavigation = Dependency(
     version = "2.9.1",
     catalogVersionName = "androidx-navigation",
     catalogName = "androidx-navigation-compose",
+    platforms = emptySet()
+)
+
+val AndroidxNavigation3 = Dependency(
+    title = "Androidx Navigation3",
+    description = "Navigation 3 is a new navigation library designed to work with Compose. With Navigation 3, you have full control over your back stack, and navigating to and from destinations is as simple as adding and removing items from a list.",
+    url = "https://developer.android.com/guide/navigation/navigation-3",
+    group = "org.jetbrains.androidx.navigation3",
+    id = "navigation3-ui",
+    version = "1.0.0-alpha05",
+    catalogVersionName = "androidx-nav3",
+    catalogName = "compose-nav3",
     platforms = emptySet()
 )
