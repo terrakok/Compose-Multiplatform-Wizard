@@ -67,7 +67,9 @@ fun ProjectInfo.generateComposeAppFiles(): List<ProjectFile> = buildList {
     add(ColorKt(info))
     add(ThemeKt(info))
     add(AppKt(info))
-    add(ComposeTestKt(info))
+    if (info.addTests) {
+        add(ComposeTestKt(info))
+    }
 
     add(IcCycloneXml(info))
     add(IcDarkModeXml(info))

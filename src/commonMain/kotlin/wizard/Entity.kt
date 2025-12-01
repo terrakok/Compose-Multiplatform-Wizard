@@ -36,6 +36,7 @@ data class ProjectInfo(
     val androidMinSdk: Int = 23,
     val androidTargetSdk: Int = 36,
     val dependencies: Set<Dependency>,
+    val addTests: Boolean = true,
     val type: WizardType
 )
 

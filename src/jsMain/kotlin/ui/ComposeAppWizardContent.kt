@@ -4,6 +4,7 @@ import mui.icons.material.*
 import mui.material.*
 import mui.material.Size
 import mui.material.Stack
+import mui.material.styles.TypographyVariant
 import mui.system.Container
 import mui.system.responsive
 import mui.system.sx
@@ -11,6 +12,7 @@ import react.*
 import react.dom.onChange
 import web.cssom.*
 import web.html.HTMLInputElement
+import web.window.window
 import wizard.DefaultComposeAppInfo
 import wizard.ProjectPlatform
 import wizard.ProjectPlatform.*
@@ -110,6 +112,43 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         }
                     }
 
+                    var addSampleTests by useState(false)
+                    Card {
+                        sx {
+                            width = textFieldWidth
+                        }
+                        onClick = {
+                            addSampleTests = !addSampleTests
+                        }
+                        CardActionArea {
+                            Stack {
+                                sx {
+                                    height = 60.px
+                                    marginRight = 8.px
+                                    marginLeft = 16.px
+                                    alignItems = AlignItems.center
+                                    justifyContent = JustifyContent.spaceBetween
+                                }
+                                direction = responsive(StackDirection.row)
+                                spacing = responsive(1)
+
+                                Stack {
+                                    direction = responsive(StackDirection.row)
+
+                                    Typography {
+                                        variant = TypographyVariant.subtitle1
+                                        +"Add sample tests"
+                                    }
+                                }
+                                Checkbox {
+                                    icon = RadioButtonUncheckedRounded.create()
+                                    checkedIcon = CheckCircleRounded.create()
+                                    checked = addSampleTests
+                                }
+                            }
+                        }
+                    }
+
                     VersionsTable {
                         sx {
                             width = textFieldWidth
@@ -165,6 +204,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                                 packageId = projectId,
                                 name = projectName,
                                 platforms = getActualPlatforms(platforms),
+                                addTests = addSampleTests,
                                 dependencies = buildSet {
                                     add(KotlinMultiplatformPlugin)
                                     add(ComposeCompilerPlugin)
@@ -204,6 +244,7 @@ internal fun Set<DependencyBox>.getSelectedDependencies() =
                     ComposeMultiplatformPlugin,
                     ComposeCompilerPlugin
                 )
+
                 KtorCore -> listOfNotNull(
                     KtorCore,
                     KtorClientContentNegotiation,
@@ -216,6 +257,7 @@ internal fun Set<DependencyBox>.getSelectedDependencies() =
                     KtorClientLinux,
                     KtorClientMingw
                 )
+
                 SQLDelightPlugin -> listOf(
                     SQLDelightPlugin,
                     SQLDelightDriverJvm,
@@ -223,22 +265,26 @@ internal fun Set<DependencyBox>.getSelectedDependencies() =
                     SQLDelightDriverNative,
                     SQLDelightDriverJs
                 )
+
                 RoomPlugin -> listOf(
                     RoomPlugin,
                     RoomPluginRuntime,
                     RoomPluginCompiler,
                     DevToolKSP
                 )
+
                 KotlinInject -> listOf(
                     KotlinInject,
                     KotlinInjectCompiler,
                     DevToolKSP
                 )
+
                 KStore -> listOf(
                     KStore,
                     KStoreFile,
                     KStoreStorage
                 )
+
                 Koin -> listOf(Koin, KoinCompose)
                 Coil -> listOf(Coil, CoilNetwork)
                 Sketch -> listOf(Sketch, SketchHttp)
@@ -251,6 +297,7 @@ internal fun Set<DependencyBox>.getSelectedDependencies() =
                     KotlinxCoroutinesJvm,
                     KotlinxCoroutinesTest
                 )
+
                 KotlinxSerializationJson -> listOf(KotlinxSerializationPlugin, KotlinxSerializationJson)
                 else -> listOf(it)
             }
