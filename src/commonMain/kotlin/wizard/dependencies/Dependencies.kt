@@ -53,30 +53,6 @@ val AndroidKmpLibraryPlugin = AndroidApplicationPlugin.copy(
     modules = setOf(GradleModule.SHARED)
 )
 
-val ComposeMultiplatformPlugin = Dependency(
-    title = "Compose Multiplatform",
-    description = "An open-source, declarative framework for sharing stunning UIs across multiple platforms.",
-    url = "https://www.jetbrains.com/lp/compose-multiplatform/",
-    group = "org.jetbrains.compose",
-    id = "gradle-plugin",
-    version = "1.9.3",
-    catalogVersionName = "compose-multiplatform",
-    catalogName = "compose-multiplatform",
-    platforms = emptySet(),
-    modules = setOf(GradleModule.SHARED, GradleModule.WEB, GradleModule.DESKTOP)
-)
-
-val ComposeCompilerPlugin = KotlinMultiplatformPlugin.copy(
-    title = "Compose Compiler Plugin",
-    description = "Compose compiler plugin.",
-    url = "https://plugins.gradle.org/plugin/org.jetbrains.kotlin.plugin.compose",
-    group = "org.jetbrains.kotlin.plugin.compose",
-    id = "gradle-plugin",
-    catalogName = "compose-compiler",
-    platforms = emptySet(),
-    modules = setOf(GradleModule.SHARED, GradleModule.WEB, GradleModule.ANDROID, GradleModule.DESKTOP)
-)
-
 val MavenPublishPlugin = Dependency(
     title = " Gradle Maven Publish Plugin",
     description = " Gradle Maven Publish Plugin.",
@@ -87,19 +63,6 @@ val MavenPublishPlugin = Dependency(
     catalogVersionName = "maven-publish",
     catalogName = "maven-publish",
     platforms = emptySet()
-)
-
-val ComposeHotReloadPlugin = Dependency(
-    title = "Compose Hot Reload",
-    description = "Compose Hot Reload runs your application on a special desktop JVM, and intelligently reloads your code whenever it is changed.",
-    url = "https://github.com/JetBrains/compose-hot-reload",
-    group = "org.jetbrains.compose.hot-reload",
-    id = "gradle-plugin",
-    version = "1.0.0-rc04",
-    catalogVersionName = "compose-hot-reload",
-    catalogName = "compose-hot-reload",
-    platforms = emptySet(),
-    modules = setOf(GradleModule.SHARED, GradleModule.DESKTOP)
 )
 
 val AndroidxActivityCompose = Dependency(

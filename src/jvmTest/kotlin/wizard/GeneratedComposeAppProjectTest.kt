@@ -89,7 +89,14 @@ class GeneratedComposeAppProjectTest {
                     KotlinJvmPlugin,
                     ComposeCompilerPlugin,
                     ComposeMultiplatformPlugin,
-                    ComposeHotReloadPlugin,
+                    ComposeRuntime,
+                    ComposeUi,
+                    ComposeFoundation,
+                    ComposeResources,
+                    ComposeUiToolingPreview,
+                    ComposeUiTooling,
+                    ComposeUiTest,
+                    ComposeMaterial3,
                     Voyager,
                     Napier,
                     KotlinxDateTime,
@@ -119,7 +126,7 @@ class GeneratedComposeAppProjectTest {
                     add(KotlinJvmPlugin)
                     add(ComposeCompilerPlugin)
                     add(ComposeMultiplatformPlugin)
-                    add(ComposeHotReloadPlugin)
+                    addAll(DefaultComposeLibraries)
                     addAll(extraDependencies)
                     addAll(roomDependencies)
                 }
@@ -138,6 +145,14 @@ class GeneratedComposeAppProjectTest {
                     KotlinMultiplatformPlugin,
                     ComposeCompilerPlugin,
                     ComposeMultiplatformPlugin,
+                    ComposeRuntime,
+                    ComposeUi,
+                    ComposeFoundation,
+                    ComposeResources,
+                    ComposeUiToolingPreview,
+                    ComposeUiTooling,
+                    ComposeUiTest,
+                    ComposeMaterial3,
                     Napier,
                     KotlinxDateTime,
                     MultiplatformSettings,
@@ -196,6 +211,7 @@ class GeneratedComposeAppProjectTest {
                 add(KotlinMultiplatformPlugin)
                 add(ComposeCompilerPlugin)
                 add(ComposeMultiplatformPlugin)
+                addAll(DefaultComposeLibraries)
                 addAll(extraDependencies)
                 addAll(roomDependencies)
             }
@@ -262,7 +278,7 @@ class GeneratedComposeAppProjectTest {
                 add(KotlinJvmPlugin)
                 add(ComposeCompilerPlugin)
                 add(ComposeMultiplatformPlugin)
-                add(ComposeHotReloadPlugin)
+                addAll(DefaultComposeLibraries)
                 addAll(extraDependencies)
                 addAll(roomDependencies)
                 add(BuildKonfigPlugin)

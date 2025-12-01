@@ -15,6 +15,7 @@ class ComposeAppGeneratorTest {
                 add(KotlinMultiplatformPlugin)
                 add(ComposeCompilerPlugin)
                 add(ComposeMultiplatformPlugin)
+                addAll(DefaultComposeLibraries)
                 addAll(androidDependencies)
                 addAll(extraDependencies)
                 addAll(roomDependencies)
@@ -47,6 +48,14 @@ class ComposeAppGeneratorTest {
                 KotlinMultiplatformPlugin,
                 ComposeCompilerPlugin,
                 ComposeMultiplatformPlugin,
+                ComposeRuntime,
+                ComposeUi,
+                ComposeFoundation,
+                ComposeResources,
+                ComposeUiToolingPreview,
+                ComposeUiTooling,
+                ComposeUiTest,
+                ComposeMaterial3,
                 AndroidApplicationPlugin,
                 AndroidxActivityCompose,
                 AndroidxTestManifest,
@@ -71,7 +80,18 @@ class ComposeAppGeneratorTest {
         val info = DefaultComposeAppInfo().copy(
             packageId = "org.ios.app",
             platforms = setOf(ProjectPlatform.Ios),
-            dependencies = setOf(KotlinMultiplatformPlugin, ComposeMultiplatformPlugin)
+            dependencies = setOf(
+                KotlinMultiplatformPlugin,
+                ComposeMultiplatformPlugin,
+                ComposeRuntime,
+                ComposeUi,
+                ComposeFoundation,
+                ComposeResources,
+                ComposeUiToolingPreview,
+                ComposeUiTooling,
+                ComposeUiTest,
+                ComposeMaterial3,
+            )
         )
         val files = info.generateComposeAppFiles()
 
@@ -91,7 +111,18 @@ class ComposeAppGeneratorTest {
         val info = DefaultComposeAppInfo().copy(
             packageId = "org.desktop.app",
             platforms = setOf(ProjectPlatform.Jvm),
-            dependencies = setOf(KotlinMultiplatformPlugin, ComposeMultiplatformPlugin, ComposeHotReloadPlugin)
+            dependencies = setOf(
+                KotlinMultiplatformPlugin,
+                ComposeMultiplatformPlugin,
+                ComposeRuntime,
+                ComposeUi,
+                ComposeFoundation,
+                ComposeResources,
+                ComposeUiToolingPreview,
+                ComposeUiTooling,
+                ComposeUiTest,
+                ComposeMaterial3,
+            )
         )
         val files = info.generateComposeAppFiles()
 
@@ -110,7 +141,18 @@ class ComposeAppGeneratorTest {
         val info = DefaultComposeAppInfo().copy(
             packageId = "org.js.app",
             platforms = setOf(ProjectPlatform.Js),
-            dependencies = setOf(KotlinMultiplatformPlugin, ComposeMultiplatformPlugin)
+            dependencies = setOf(
+                KotlinMultiplatformPlugin,
+                ComposeMultiplatformPlugin,
+                ComposeRuntime,
+                ComposeUi,
+                ComposeFoundation,
+                ComposeResources,
+                ComposeUiToolingPreview,
+                ComposeUiTooling,
+                ComposeUiTest,
+                ComposeMaterial3,
+            )
         )
         val files = info.generateComposeAppFiles()
 
@@ -130,7 +172,18 @@ class ComposeAppGeneratorTest {
         val info = DefaultComposeAppInfo().copy(
             packageId = "org.wasm.app",
             platforms = setOf(ProjectPlatform.Wasm),
-            dependencies = setOf(KotlinMultiplatformPlugin, ComposeMultiplatformPlugin)
+            dependencies = setOf(
+                KotlinMultiplatformPlugin,
+                ComposeMultiplatformPlugin,
+                ComposeRuntime,
+                ComposeUi,
+                ComposeFoundation,
+                ComposeResources,
+                ComposeUiToolingPreview,
+                ComposeUiTooling,
+                ComposeUiTest,
+                ComposeMaterial3,
+            )
         )
         val files = info.generateComposeAppFiles()
 

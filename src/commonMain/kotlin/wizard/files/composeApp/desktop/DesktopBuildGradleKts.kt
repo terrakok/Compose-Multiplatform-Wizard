@@ -3,7 +3,6 @@ package wizard.files.composeApp.desktop
 import wizard.GradleModule
 import wizard.ProjectFile
 import wizard.ProjectInfo
-import wizard.enableJvmHotReload
 import wizard.isPlugin
 import wizard.libraryNotation
 import wizard.pluginNotation
@@ -21,7 +20,6 @@ class DesktopBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("dependencies {")
         appendLine("    implementation(project(\":${info.moduleName}\"))")
-        appendLine("    implementation(compose.ui)")
         libs.forEach { dep -> appendLine("    ${dep.libraryNotation}") }
         appendLine("}")
         appendLine("")

@@ -18,6 +18,7 @@ class AppKt(info: ProjectInfo) : ProjectFile {
         import androidx.compose.ui.graphics.ColorFilter
         import androidx.compose.ui.platform.LocalUriHandler
         import androidx.compose.ui.text.font.FontFamily
+        import androidx.compose.ui.tooling.preview.Preview
         import androidx.compose.ui.unit.dp
         import ${info.getResourcesPackage()}.*
         import ${info.packageId}.theme.AppTheme
@@ -26,7 +27,6 @@ class AppKt(info: ProjectInfo) : ProjectFile {
         import org.jetbrains.compose.resources.Font
         import org.jetbrains.compose.resources.stringResource
         import org.jetbrains.compose.resources.vectorResource
-        import org.jetbrains.compose.ui.tooling.preview.Preview
 
         @Preview
         @Composable

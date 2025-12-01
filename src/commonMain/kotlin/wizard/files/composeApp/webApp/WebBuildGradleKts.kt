@@ -30,8 +30,7 @@ class WebBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("    sourceSets {")
         appendLine("        commonMain.dependencies {")
         appendLine("            implementation(project(\":${info.moduleName}\"))")
-        appendLine("            implementation(compose.ui)")
-        libs.forEach { dep -> appendLine("    ${dep.libraryNotation}") }
+        libs.forEach { dep -> appendLine("            ${dep.libraryNotation}") }
         appendLine("        }")
         appendLine("    }")
         appendLine("}")

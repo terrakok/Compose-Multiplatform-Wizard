@@ -4,7 +4,6 @@ import mui.icons.material.*
 import mui.material.*
 import mui.material.Size
 import mui.material.Stack
-import mui.material.styles.TypographyVariant
 import mui.system.Container
 import mui.system.responsive
 import mui.system.sx
@@ -12,12 +11,10 @@ import react.*
 import react.dom.onChange
 import web.cssom.*
 import web.html.HTMLInputElement
-import web.window.window
 import wizard.DefaultComposeAppInfo
 import wizard.ProjectPlatform
 import wizard.ProjectPlatform.*
 import wizard.dependencies.*
-import wizard.enableJvmHotReload
 import mui.icons.material.Android as AndroidIcon
 
 val ComposeAppWizardContent = FC<AppProps> { props ->
@@ -113,56 +110,6 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         }
                     }
 
-                    var enableJvmHotReload by useState(default.enableJvmHotReload)
-                    if (platforms.contains(Jvm)) {
-                        Card {
-                            sx {
-                                width = textFieldWidth
-                            }
-                            onClick = {
-                                enableJvmHotReload = !enableJvmHotReload
-                            }
-                            CardActionArea {
-                                Stack {
-                                    sx {
-                                        height = 60.px
-                                        marginRight = 8.px
-                                        marginLeft = 16.px
-                                        alignItems = AlignItems.center
-                                        justifyContent = JustifyContent.spaceBetween
-                                    }
-                                    direction = responsive(StackDirection.row)
-                                    spacing = responsive(1)
-
-                                    Stack {
-                                        direction = responsive(StackDirection.row)
-
-                                        Typography {
-                                            variant = TypographyVariant.subtitle1
-                                            +"\uD83D\uDD25 Desktop App Hot Reload"
-                                        }
-                                        Button {
-                                            sx {
-                                                marginLeft = 8.px
-                                            }
-                                            size = Size.small
-                                            onClick = {
-                                                it.stopPropagation()
-                                                window.open("https://github.com/JetBrains/compose-hot-reload")
-                                            }
-                                            +"info"
-                                        }
-                                    }
-                                    Checkbox {
-                                        icon = RadioButtonUncheckedRounded.create()
-                                        checkedIcon = CheckCircleRounded.create()
-                                        checked = enableJvmHotReload
-                                    }
-                                }
-                            }
-                        }
-                    }
-
                     VersionsTable {
                         sx {
                             width = textFieldWidth
@@ -222,6 +169,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                                     add(KotlinMultiplatformPlugin)
                                     add(ComposeCompilerPlugin)
                                     add(ComposeMultiplatformPlugin)
+                                    addAll(DefaultComposeLibraries)
                                     if (platforms.contains(Android)) {
                                         add(KotlinAndroidPlugin)
                                         add(AndroidApplicationPlugin)
@@ -230,9 +178,6 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                                     }
                                     if (platforms.contains(Jvm)) {
                                         add(KotlinJvmPlugin)
-                                        if (enableJvmHotReload) {
-                                            add(ComposeHotReloadPlugin)
-                                        }
                                     }
                                     addAll(deps.getSelectedDependencies())
                                 }

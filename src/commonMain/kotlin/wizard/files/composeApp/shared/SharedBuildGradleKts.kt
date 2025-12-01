@@ -47,7 +47,6 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
                 }
             }
         }
-        appendLine("import org.jetbrains.compose.ExperimentalComposeLibrary")
         if (info.hasPlatform(ProjectPlatform.Android)) {
             appendLine("import org.jetbrains.kotlin.gradle.dsl.JvmTarget")
         }
@@ -55,7 +54,7 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("import org.gradle.kotlin.dsl.withType")
             appendLine("import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget")
         }
-        appendLine("")
+        if (isNotEmpty()) appendLine("")
         appendLine("plugins {")
         plugins.forEach { dep ->
             appendLine("    ${dep.pluginNotation}")
@@ -92,13 +91,6 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
         appendLine("    sourceSets {")
         appendLine("        commonMain.dependencies {")
-        appendLine("            implementation(compose.runtime)")
-        appendLine("            implementation(compose.ui)")
-        appendLine("            implementation(compose.foundation)")
-        appendLine("            implementation(compose.material3)")
-        appendLine("            implementation(compose.components.resources)")
-        appendLine("            implementation(compose.components.uiToolingPreview)")
-
         commonDeps.forEach { dep ->
             appendLine("            ${dep.libraryNotation}")
         }
@@ -107,9 +99,6 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("        commonTest.dependencies {")
         appendLine("            implementation(kotlin(\"test\"))")
-        appendLine("            @OptIn(ExperimentalComposeLibrary::class)")
-        appendLine("            implementation(compose.uiTest)")
-
         commonTestDeps.forEach { dep ->
             appendLine("            ${dep.libraryNotation}")
         }
@@ -118,7 +107,6 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         if (info.hasPlatform(ProjectPlatform.Android)) {
             appendLine("        androidMain.dependencies {")
-            appendLine("            implementation(compose.uiTooling)")
             otherDeps.forEach { dep ->
                 if (dep.platforms.contains(ProjectPlatform.Android)) {
                     appendLine("            ${dep.libraryNotation}")

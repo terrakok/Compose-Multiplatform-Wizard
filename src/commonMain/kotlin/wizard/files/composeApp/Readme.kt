@@ -23,9 +23,7 @@ class Readme(info: ProjectInfo) : ProjectFile {
         if (info.hasPlatform(ProjectPlatform.Jvm)) {
             appendLine("### Desktop")
             appendLine("Run the desktop application: `./gradlew :desktopApp:run`  ")
-            if (info.enableJvmHotReload) {
-                appendLine("Run the desktop **hot reload** application: `./gradlew :desktopApp:hotRun --auto`  ")
-            }
+            appendLine("Run the desktop **hot reload** application: `./gradlew :desktopApp:hotRun --auto`  ")
             appendLine("")
         }
 

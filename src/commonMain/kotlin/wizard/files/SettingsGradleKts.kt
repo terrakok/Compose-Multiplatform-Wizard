@@ -2,9 +2,6 @@ package wizard.files
 
 import wizard.ProjectFile
 import wizard.ProjectInfo
-import wizard.ProjectPlatform
-import wizard.WizardType
-import wizard.enableJvmHotReload
 import wizard.needComposeSample
 import wizard.needTerminalSample
 import wizard.safeName
@@ -44,16 +41,6 @@ class SettingsGradleKts(info: ProjectInfo) : ProjectFile {
             |    }
             |}
         """.trimMargin())
-
-        if (info.enableJvmHotReload) {
-            appendLine("")
-            appendLine("""
-                |plugins {
-                |    //https://github.com/JetBrains/compose-hot-reload?tab=readme-ov-file#set-up-automatic-provisioning-of-the-jetbrains-runtime-jbr-via-gradle
-                |    id("org.gradle.toolchains.foojay-resolver-convention").version("1.0.0")
-                |}
-            """.trimMargin())
-        }
 
         appendLine("")
         appendLine("include(\":${info.moduleName}\")")

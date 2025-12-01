@@ -55,9 +55,16 @@ fun DefaultComposeAppInfo() = ProjectInfo(
         KotlinJvmPlugin,
         ComposeCompilerPlugin,
         ComposeMultiplatformPlugin,
+        ComposeRuntime,
+        ComposeUi,
+        ComposeFoundation,
+        ComposeResources,
+        ComposeUiToolingPreview,
+        ComposeUiTooling,
+        ComposeUiTest,
+        ComposeMaterial3,
         AndroidApplicationPlugin,
         AndroidxActivityCompose,
-        ComposeHotReloadPlugin,
     ),
     type = WizardType.ComposeApp
 )
@@ -81,16 +88,14 @@ val ProjectInfo.needComposeSample: Boolean
 val ProjectInfo.needTerminalSample: Boolean
     get() = type == WizardType.KmpLibrary && platforms.any { it in ProjectPlatform.binaryPlatforms }
 
-val ProjectInfo.enableJvmHotReload: Boolean
-    get() = dependencies.contains(ComposeHotReloadPlugin) && platforms.contains(Jvm)
-
 fun ProjectInfo.hasPlatform(platform: ProjectPlatform) = platforms.contains(platform)
 fun ProjectInfo.hasWebPlatform() = platforms.contains(Js) || platforms.contains(Wasm)
 val ProjectInfo.packagePath get() = packageId.replace(".", "/")
 val ProjectInfo.safeName get() = name.replace(" ", "-")
-val ProjectInfo.frameworkName get() = moduleName.replaceFirstChar {
-    if (it.isLowerCase()) it.titlecase() else it.toString()
-}
+val ProjectInfo.frameworkName
+    get() = moduleName.replaceFirstChar {
+        if (it.isLowerCase()) it.titlecase() else it.toString()
+    }
 
 fun ProjectInfo.generate(type: WizardType) = when (type) {
     WizardType.ComposeApp -> generateComposeAppFiles()
