@@ -24,7 +24,7 @@ class GradleProperties(info: ProjectInfo) : ProjectFile {
             #Android
             android.useAndroidX=true
         """.trimIndent())
-        if (info.hasPlatform(ProjectPlatform.Js) || info.hasPlatform(ProjectPlatform.Macos)) {
+        if (info.hasPlatform(ProjectPlatform.Macos)) {
             appendLine("")
             appendLine("#Compose")
             if (info.hasPlatform(ProjectPlatform.Macos)) {
