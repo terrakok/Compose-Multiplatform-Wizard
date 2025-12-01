@@ -133,7 +133,7 @@ val AndroidxNavigation = Dependency(
 
 val AndroidxNavigation3 = Dependency(
     title = "Androidx Navigation3",
-    description = "Navigation 3 is a new navigation library designed to work with Compose. With Navigation 3, you have full control over your back stack, and navigating to and from destinations is as simple as adding and removing items from a list.",
+    description = "Navigation 3 is a new navigation library designed to work with Compose.",
     url = "https://developer.android.com/guide/navigation/navigation-3",
     group = "org.jetbrains.androidx.navigation3",
     id = "navigation3-ui",
