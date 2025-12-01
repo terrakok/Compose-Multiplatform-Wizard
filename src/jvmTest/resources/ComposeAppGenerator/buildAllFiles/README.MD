@@ -10,6 +10,7 @@ To build the application bundle:
 
 ### Desktop
 Run the desktop application: `./gradlew :desktopApp:run`  
+Run the desktop **hot reload** application: `./gradlew :desktopApp:hotRun --auto`  
 
 ### iOS
 To run the application on iPhone device/simulator:  

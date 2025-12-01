@@ -44,6 +44,7 @@ kotlin {
             implementation(libs.voyager.navigator)
             implementation(libs.composeImageLoader)
             implementation(libs.androidx.navigation.compose)
+            implementation(libs.compose.nav3)
             implementation(libs.androidx.lifecycle.runtime)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.coil)
