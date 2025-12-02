@@ -145,7 +145,7 @@ class WebIndexHtml() : ProjectFile {
                 </style>
             </head>
             <body></body>
-            <script src="sampleApp.js"></script>
+            <script src="composeApp.js"></script>
         </html>
     """.trimIndent()
 }

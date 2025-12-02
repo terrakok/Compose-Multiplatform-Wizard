@@ -1,4 +1,4 @@
-package wizard.files
+package wizard.files.kmpLibrary
 
 import wizard.ProjectFile
 import wizard.ProjectInfo

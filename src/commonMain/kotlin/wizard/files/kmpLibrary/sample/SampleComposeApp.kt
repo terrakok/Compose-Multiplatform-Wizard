@@ -13,21 +13,13 @@ class SampleComposeAppBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         appendLine("plugins {")
-        appendLine("    alias(libs.plugins.multiplatform)")
+        appendLine("    alias(libs.plugins.kotlin.multiplatform)")
+        appendLine("    alias(libs.plugins.compose.multiplatform)")
         appendLine("    alias(libs.plugins.compose.compiler)")
-        appendLine("    alias(libs.plugins.compose)")
-        if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("    alias(libs.plugins.android.application)")
-        }
         appendLine("}")
         appendLine("")
         appendLine("kotlin {")
 
-        if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("    jvmToolchain(17)")
-            appendLine("")
-            appendLine("    androidTarget()")
-        }
         if (info.hasPlatform(ProjectPlatform.Jvm)) {
             appendLine("    jvm()")
         }
@@ -58,18 +50,13 @@ class SampleComposeAppBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("    sourceSets {")
         appendLine("        commonMain.dependencies {")
-        appendLine("            implementation(compose.runtime)")
-        appendLine("            implementation(compose.ui)")
-        appendLine("            implementation(compose.foundation)")
+        appendLine("            implementation(libs.compose.runtime)")
+        appendLine("            implementation(libs.compose.ui)")
+        appendLine("            implementation(libs.compose.foundation)")
         appendLine("            implementation(project(\":${info.moduleName}\"))")
         appendLine("        }")
         appendLine("")
-        if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("        androidMain.dependencies {")
-            appendLine("            implementation(libs.androidx.activityCompose)")
-            appendLine("        }")
-            appendLine("")
-        }
+
         if (info.hasPlatform(ProjectPlatform.Jvm)) {
             appendLine("        jvmMain.dependencies {")
             appendLine("            implementation(compose.desktop.currentOs)")
@@ -79,22 +66,6 @@ class SampleComposeAppBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("    }")
         appendLine("}")
         appendLine("")
-        if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("android {")
-            appendLine("    namespace = \"sample.app\"")
-            appendLine("    compileSdk = ${info.androidTargetSdk}")
-            appendLine("")
-            appendLine("    defaultConfig {")
-            appendLine("        minSdk = ${info.androidMinSdk}")
-            appendLine("        targetSdk = ${info.androidTargetSdk}")
-            appendLine("")
-            appendLine("        applicationId = \"sample.app.androidApp\"")
-            appendLine("        versionCode = 1")
-            appendLine("        versionName = \"1.0.0\"")
-            appendLine("    }")
-            appendLine("}")
-            appendLine("")
-        }
         if (info.hasPlatform(ProjectPlatform.Jvm)) {
             appendLine("compose.desktop {")
             appendLine("    application {")

@@ -4,6 +4,7 @@ import mui.icons.material.*
 import mui.material.*
 import mui.material.Size
 import mui.material.Stack
+import mui.material.styles.TypographyVariant
 import mui.system.Container
 import mui.system.responsive
 import mui.system.sx
@@ -148,6 +149,80 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                         }
                     }
 
+                    var addSampleApp by useState(false)
+                    Card {
+                        sx {
+                            width = textFieldWidth
+                        }
+                        onClick = {
+                            addSampleApp = !addSampleApp
+                        }
+                        CardActionArea {
+                            Stack {
+                                sx {
+                                    height = 60.px
+                                    marginRight = 8.px
+                                    marginLeft = 16.px
+                                    alignItems = AlignItems.center
+                                    justifyContent = JustifyContent.spaceBetween
+                                }
+                                direction = responsive(StackDirection.row)
+                                spacing = responsive(1)
+
+                                Stack {
+                                    direction = responsive(StackDirection.row)
+
+                                    Typography {
+                                        variant = TypographyVariant.subtitle1
+                                        +"Add sample app"
+                                    }
+                                }
+                                Checkbox {
+                                    icon = RadioButtonUncheckedRounded.create()
+                                    checkedIcon = CheckCircleRounded.create()
+                                    checked = addSampleApp
+                                }
+                            }
+                        }
+                    }
+
+                    var addSampleTests by useState(false)
+                    Card {
+                        sx {
+                            width = textFieldWidth
+                        }
+                        onClick = {
+                            addSampleTests = !addSampleTests
+                        }
+                        CardActionArea {
+                            Stack {
+                                sx {
+                                    height = 60.px
+                                    marginRight = 8.px
+                                    marginLeft = 16.px
+                                    alignItems = AlignItems.center
+                                    justifyContent = JustifyContent.spaceBetween
+                                }
+                                direction = responsive(StackDirection.row)
+                                spacing = responsive(1)
+
+                                Stack {
+                                    direction = responsive(StackDirection.row)
+
+                                    Typography {
+                                        variant = TypographyVariant.subtitle1
+                                        +"Add sample tests"
+                                    }
+                                }
+                                Checkbox {
+                                    icon = RadioButtonUncheckedRounded.create()
+                                    checkedIcon = CheckCircleRounded.create()
+                                    checked = addSampleTests
+                                }
+                            }
+                        }
+                    }
+
                     VersionsTable {
                         sx {
                             width = textFieldWidth
@@ -199,6 +274,8 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                                 name = projectName,
                                 moduleName = moduleName,
                                 platforms = platforms,
+                                addSampleApp = addSampleApp,
+                                addTests = addSampleTests,
                                 dependencies = buildSet {
                                     add(KotlinMultiplatformPlugin)
                                     if (platforms.contains(Android)) {

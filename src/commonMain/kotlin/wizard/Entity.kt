@@ -37,6 +37,7 @@ data class ProjectInfo(
     val androidTargetSdk: Int = 36,
     val dependencies: Set<Dependency>,
     val addTests: Boolean = true,
+    val addSampleApp: Boolean = false,
     val type: WizardType
 )
 
@@ -84,10 +85,10 @@ fun DefaultKmpLibraryInfo() = ProjectInfo(
 )
 
 val ProjectInfo.needComposeSample: Boolean
-    get() = type == WizardType.KmpLibrary && platforms.any { it in ProjectPlatform.composePlatforms }
+    get() = addSampleApp && type == WizardType.KmpLibrary && platforms.any { it in listOf(Jvm, Js, Wasm, Ios) }
 
 val ProjectInfo.needTerminalSample: Boolean
-    get() = type == WizardType.KmpLibrary && platforms.any { it in ProjectPlatform.binaryPlatforms }
+    get() = addSampleApp && type == WizardType.KmpLibrary && platforms.any { it in ProjectPlatform.binaryPlatforms }
 
 fun ProjectInfo.hasPlatform(platform: ProjectPlatform) = platforms.contains(platform)
 fun ProjectInfo.hasWebPlatform() = platforms.contains(Js) || platforms.contains(Wasm)

@@ -242,7 +242,11 @@ internal fun Set<DependencyBox>.getSelectedDependencies() =
             when (it) {
                 ComposeMultiplatformPlugin -> listOf(
                     ComposeMultiplatformPlugin,
-                    ComposeCompilerPlugin
+                    ComposeCompilerPlugin,
+                    ComposeRuntime,
+                    ComposeUi,
+                    ComposeFoundation,
+                    ComposeResources,
                 )
 
                 KtorCore -> listOfNotNull(

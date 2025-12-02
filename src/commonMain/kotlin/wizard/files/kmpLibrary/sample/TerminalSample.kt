@@ -9,7 +9,7 @@ class TerminalAppBuildGradleKts(info: ProjectInfo) : ProjectFile {
     override val path = "sample/terminalApp/build.gradle.kts"
     override val content = buildString {
         appendLine("plugins {")
-        appendLine("    alias(libs.plugins.multiplatform)")
+        appendLine("    alias(libs.plugins.kotlin.multiplatform)")
         appendLine("}")
         appendLine("")
         appendLine("kotlin {")

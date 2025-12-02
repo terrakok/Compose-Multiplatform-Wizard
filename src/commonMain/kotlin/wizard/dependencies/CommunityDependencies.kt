@@ -155,7 +155,7 @@ val KotlinInject = Dependency(
 val KotlinInjectCompiler = KotlinInject.copy(
     id = "kotlin-inject-compiler-ksp",
     catalogName = "kotlinInjectKsp",
-    platforms = composePlatforms.toSet(),
+    platforms = setOf(Android, Jvm, Js, Wasm, Ios),
     isKspDependency = true
 )
 

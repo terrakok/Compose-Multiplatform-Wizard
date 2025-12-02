@@ -7,7 +7,10 @@ import wizard.ProjectPlatform
 import wizard.dependencies.AndroidApplicationPlugin
 import wizard.dependencies.AndroidxActivityCompose
 import wizard.dependencies.ComposeCompilerPlugin
+import wizard.dependencies.ComposeFoundation
 import wizard.dependencies.ComposeMultiplatformPlugin
+import wizard.dependencies.ComposeRuntime
+import wizard.dependencies.ComposeUi
 import wizard.hasPlatform
 import wizard.isPlugin
 import wizard.needComposeSample
@@ -20,10 +23,9 @@ class GradleLibsVersion(info: ProjectInfo) : ProjectFile {
             if (info.needComposeSample) {
                 add(ComposeMultiplatformPlugin)
                 add(ComposeCompilerPlugin)
-                if (info.hasPlatform(ProjectPlatform.Android)) {
-                    add(AndroidApplicationPlugin)
-                    add(AndroidxActivityCompose)
-                }
+                add(ComposeRuntime)
+                add(ComposeUi)
+                add(ComposeFoundation)
             }
         }
 

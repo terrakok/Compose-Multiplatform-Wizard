@@ -8,7 +8,7 @@ import wizard.files.GradleWrapperProperties
 import wizard.files.Gradlew
 import wizard.files.GradlewBat
 import wizard.files.RootBuildGradleKts
-import wizard.files.composeApp.SettingsGradleKts
+import wizard.files.kmpLibrary.SettingsGradleKts
 import wizard.files.kmpLibrary.FibonacciKt
 import wizard.files.kmpLibrary.FibonacciTestKt
 import wizard.files.kmpLibrary.ModuleBuildGradleKts
@@ -45,7 +45,9 @@ fun ProjectInfo.generateKmpLibraryFiles() = buildList {
     add(ModuleBuildGradleKts(info))
 
     add(FibonacciKt(info))
-    add(FibonacciTestKt(info))
+    if (info.addTests) {
+        add(FibonacciTestKt(info))
+    }
 
     if (needComposeSample) {
         add(SampleComposeAppBuildGradleKts(info))

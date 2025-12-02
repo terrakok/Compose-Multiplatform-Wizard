@@ -24,10 +24,10 @@ class Readme(info: ProjectInfo) : ProjectFile {
             appendLine(" - iOS: `open 'sample/iosApp/iosApp.xcodeproj' in Xcode and run the sample app`")
         }
         if (info.hasPlatform(ProjectPlatform.Js)) {
-            appendLine(" - JavaScript: `./gradlew :sample:composeApp:jsBrowserRun`")
+            appendLine(" - JavaScript: `./gradlew :sample:composeApp:jsBrowserDevelopmentRun`")
         }
         if (info.hasPlatform(ProjectPlatform.Wasm)) {
-            appendLine(" - Wasm: `./gradlew :sample:composeApp:wasmJsBrowserRun`")
+            appendLine(" - Wasm: `./gradlew :sample:composeApp:wasmJsBrowserDevelopmentRun`")
         }
         if (info.platforms.any { it in ProjectPlatform.binaryPlatforms }) {
             appendLine(" - Linux/Macos/Windows native: `./gradlew :sample:terminalApp:runDebugExecutable[architecture]`")

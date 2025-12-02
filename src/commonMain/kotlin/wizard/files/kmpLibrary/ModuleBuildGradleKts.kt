@@ -9,12 +9,29 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         val plugins = mutableSetOf<Dependency>()
         val commonDeps = mutableSetOf<Dependency>()
         val otherDeps = mutableSetOf<Dependency>()
-        info.dependencies.forEach { dep ->
+        val commonTestDeps = mutableSetOf<Dependency>()
+        val otherTestDeps = mutableSetOf<Dependency>()
+        val kspDeps = mutableSetOf<Dependency>()
+        info.dependencies.filter { it.modules.contains(GradleModule.SHARED) }.forEach { dep ->
             when {
                 dep.isPlugin() -> plugins.add(dep)
-                dep.isCommon() -> commonDeps.add(dep)
-                else -> otherDeps.add(dep)
+
+                dep.isKSP() -> kspDeps.add(dep)
+
+                dep.isCommon() -> {
+                    if (!dep.isTestDependency) commonDeps.add(dep)
+                    else commonTestDeps.add(dep)
+                }
+
+                else -> {
+                    if (!dep.isTestDependency) otherDeps.add(dep)
+                    else otherTestDeps.add(dep)
+                }
             }
+        }
+        if (info.hasPlatform(ProjectPlatform.Android)) {
+            appendLine("import org.jetbrains.kotlin.gradle.dsl.JvmTarget")
+            appendLine("")
         }
 
         appendLine("plugins {")
@@ -25,9 +42,14 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("kotlin {")
         if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("    jvmToolchain(17)")
+            appendLine("    android {")
+            appendLine("        namespace = \"${info.packageId}\"")
+            appendLine("        compileSdk = ${info.androidTargetSdk}")
+            appendLine("        minSdk = ${info.androidMinSdk}")
+            appendLine("        androidResources.enable = true")
+            appendLine("        compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }")
+            appendLine("    }")
             appendLine("")
-            appendLine("    androidTarget { publishLibraryVariants(\"release\") }")
         }
         if (info.hasPlatform(ProjectPlatform.Jvm)) {
             appendLine("    jvm()")
@@ -56,11 +78,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("    sourceSets {")
         appendLine("        commonMain.dependencies {")
-        if (plugins.contains(ComposeMultiplatformPlugin)) {
-            appendLine("            implementation(compose.runtime)")
-            appendLine("            implementation(compose.ui)")
-            appendLine("            implementation(compose.foundation)")
-        }
         commonDeps.forEach { dep ->
             appendLine("            ${dep.libraryNotation}")
         }
@@ -68,6 +85,9 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("        commonTest.dependencies {")
         appendLine("            implementation(kotlin(\"test\"))")
+        commonTestDeps.forEach { dep ->
+            appendLine("            ${dep.libraryNotation}")
+        }
         appendLine("        }")
         appendLine("")
         if (info.hasDependenciesFor(ProjectPlatform.Android)) {
@@ -165,18 +185,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
         appendLine("}")
 
-        if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("")
-            appendLine("android {")
-            appendLine("    namespace = \"${info.packageId}\"")
-            appendLine("    compileSdk = ${info.androidTargetSdk}")
-            appendLine("")
-            appendLine("    defaultConfig {")
-            appendLine("        minSdk = ${info.androidMinSdk}")
-            appendLine("    }")
-            appendLine("}")
-        }
-
         appendLine("")
         appendLine("//Publishing your Kotlin Multiplatform library to Maven Central")
         appendLine("//https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html")
@@ -198,9 +206,9 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("        developers {")
         appendLine("            developer {")
-        appendLine("                id = \"\" //todo")
-        appendLine("                name = \"\" //todo")
-        appendLine("                email = \"\" //todo")
+        appendLine("                id = \"\" //todo github nickname")
+        appendLine("                name = \"\" //todo full name")
+        appendLine("                email = \"\" //todo email")
         appendLine("            }")
         appendLine("        }")
         appendLine("")
