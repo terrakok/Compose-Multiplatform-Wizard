@@ -19,7 +19,7 @@ class AndroidAppBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("}")
         appendLine("")
         appendLine("android {")
-        appendLine("    namespace = \"${info.packageId}\"")
+        appendLine("    namespace = \"${info.packageId}.androidApp\"")
         appendLine("    compileSdk = ${info.androidTargetSdk}")
         appendLine("")
         appendLine("    defaultConfig {")

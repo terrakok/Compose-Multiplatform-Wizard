@@ -3,9 +3,9 @@ package wizard.files.composeApp.androidApp
 import wizard.*
 
 class AndroidAppActivityKt(info: ProjectInfo) : ProjectFile {
-    override val path = "androidApp/src/main/kotlin/${info.packagePath}/AppActivity.kt"
+    override val path = "androidApp/src/main/kotlin/${info.packagePath}/androidApp/AppActivity.kt"
     override val content = """
-        package ${info.packageId}
+        package ${info.packageId}.androidApp
 
         import android.app.Activity
         import android.os.Bundle
@@ -16,6 +16,7 @@ class AndroidAppActivityKt(info: ProjectInfo) : ProjectFile {
         import androidx.compose.runtime.LaunchedEffect
         import androidx.compose.ui.platform.LocalView
         import androidx.core.view.WindowInsetsControllerCompat
+        import ${info.packageId}.App
         
         class AppActivity : ComponentActivity() {
             override fun onCreate(savedInstanceState: Bundle?) {
