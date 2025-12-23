@@ -1,25 +1,7 @@
 package wizard.files.composeApp.shared
 
-import wizard.Dependency
-import wizard.GradleModule
-import wizard.ProjectFile
-import wizard.ProjectInfo
-import wizard.ProjectPlatform
-import wizard.catalogAccessor
-import wizard.dependencies.ApolloPlugin
-import wizard.dependencies.BuildConfigPlugin
-import wizard.dependencies.BuildKonfigPlugin
-import wizard.dependencies.RoomPlugin
-import wizard.dependencies.SQLDelightPlugin
-import wizard.frameworkName
-import wizard.hasPlatform
-import wizard.hasWebPlatform
-import wizard.isCommon
-import wizard.isKSP
-import wizard.isPlugin
-import wizard.isWeb
-import wizard.libraryNotation
-import wizard.pluginNotation
+import wizard.*
+import wizard.dependencies.*
 
 class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
     override val path = "${info.moduleName}/build.gradle.kts"
@@ -92,7 +74,7 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("    sourceSets {")
         appendLine("        commonMain.dependencies {")
         commonDeps.forEach { dep ->
-            appendLine("            ${dep.libraryNotation}")
+            appendLine("            ${dep.useApiInsteadOfImplementationForComposeDeps()}")
         }
 
         appendLine("        }")
@@ -108,7 +90,7 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
         if (info.hasPlatform(ProjectPlatform.Android)) {
             appendLine("        androidMain.dependencies {")
             otherDeps.forEach { dep ->
-                if (dep.platforms.contains(ProjectPlatform.Android)) {
+                if (dep.platforms.contains(ProjectPlatform.Android) && dep != ComposeUiTooling) {
                     appendLine("            ${dep.libraryNotation}")
                 }
             }
@@ -162,6 +144,13 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("        }")
         }
         appendLine("}")
+
+        if (info.hasPlatform(ProjectPlatform.Android) && info.dependencies.contains(ComposeUiTooling)) {
+            appendLine("")
+            appendLine("dependencies {")
+            appendLine("    androidRuntimeClasspath(libs.${ComposeUiTooling.catalogAccessor})")
+            appendLine("}")
+        }
 
         if (plugins.contains(BuildConfigPlugin)) {
             appendLine("")
@@ -278,4 +267,8 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
         appendLine("$addDepth}")
     }
+
+    private fun Dependency.useApiInsteadOfImplementationForComposeDeps() =
+        if (this in DefaultComposeLibraries) "api(libs.$catalogAccessor)"
+        else libraryNotation
 }

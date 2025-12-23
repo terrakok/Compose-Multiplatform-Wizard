@@ -34,12 +34,12 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.compose.runtime)
-            implementation(libs.compose.ui)
-            implementation(libs.compose.foundation)
-            implementation(libs.compose.resources)
-            implementation(libs.compose.ui.tooling.preview)
-            implementation(libs.compose.material3)
+            api(libs.compose.runtime)
+            api(libs.compose.ui)
+            api(libs.compose.foundation)
+            api(libs.compose.resources)
+            api(libs.compose.ui.tooling.preview)
+            api(libs.compose.material3)
             implementation(libs.apollo.runtime)
             implementation(libs.voyager.navigator)
             implementation(libs.composeImageLoader)
@@ -72,7 +72,6 @@ kotlin {
         }
 
         androidMain.dependencies {
-            implementation(libs.compose.ui.tooling)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.sqlDelight.driver.android)
@@ -102,6 +101,10 @@ kotlin {
                 }
             }
         }
+}
+
+dependencies {
+    androidRuntimeClasspath(libs.compose.ui.tooling)
 }
 
 buildConfig {

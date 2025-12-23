@@ -11,7 +11,7 @@ val ComposeMultiplatformPlugin = Dependency(
     url = "https://www.jetbrains.com/lp/compose-multiplatform/",
     group = "org.jetbrains.compose",
     id = "gradle-plugin",
-    version = "1.10.0-rc01",
+    version = "1.10.0-rc02",
     catalogVersionName = "compose-multiplatform",
     catalogName = "compose-multiplatform",
     platforms = emptySet(),
@@ -52,7 +52,7 @@ val ComposeUi = Dependency(
     catalogVersionName = ComposeMultiplatformPlugin.catalogVersionName,
     catalogName = "compose-ui",
     platforms = emptySet(),
-    modules = setOf(GradleModule.SHARED, GradleModule.WEB, GradleModule.DESKTOP)
+    modules = setOf(GradleModule.SHARED)
 )
 
 val ComposeFoundation = Dependency(
