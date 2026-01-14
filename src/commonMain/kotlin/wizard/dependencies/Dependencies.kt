@@ -47,7 +47,7 @@ val AndroidApplicationPlugin = Dependency(
 )
 
 val AndroidKmpLibraryPlugin = AndroidApplicationPlugin.copy(
-    group = "com.android.kotlin.multiplatform.library",
+    group = "com.android.library",
     catalogName = "android-kmp-library",
     platforms = emptySet(),
     modules = setOf(GradleModule.SHARED)

@@ -45,13 +45,7 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("kotlin {")
         if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("    android {")
-            appendLine("        namespace = \"${info.packageId}\"")
-            appendLine("        compileSdk = ${info.androidTargetSdk}")
-            appendLine("        minSdk = ${info.androidMinSdk}")
-            appendLine("        androidResources.enable = true")
-            appendLine("        compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }")
-            appendLine("    }")
+            appendLine("    androidTarget() //We need the deprecated target to have working previews")
             appendLine("")
         }
         if (info.hasPlatform(ProjectPlatform.Jvm)) {
@@ -145,10 +139,23 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
         appendLine("}")
 
-        if (info.hasPlatform(ProjectPlatform.Android) && info.dependencies.contains(ComposeUiTooling)) {
+        if (info.hasPlatform(ProjectPlatform.Android)) {
             appendLine("")
-            appendLine("dependencies {")
-            appendLine("    androidRuntimeClasspath(libs.${ComposeUiTooling.catalogAccessor})")
+            if (info.dependencies.contains(ComposeUiTooling)) {
+                appendLine("dependencies {")
+                appendLine("    debugImplementation(libs.${ComposeUiTooling.catalogAccessor})")
+                appendLine("}")
+            }
+            appendLine("android {")
+            appendLine("    namespace = \"${info.packageId}\"")
+            appendLine("    compileSdk = ${info.androidTargetSdk}")
+            appendLine("    defaultConfig {")
+            appendLine("        minSdk = ${info.androidMinSdk}")
+            appendLine("    }")
+            appendLine("    compileOptions {")
+            appendLine("        sourceCompatibility = JavaVersion.VERSION_17")
+            appendLine("        targetCompatibility = JavaVersion.VERSION_17")
+            appendLine("    }")
             appendLine("}")
         }
 
