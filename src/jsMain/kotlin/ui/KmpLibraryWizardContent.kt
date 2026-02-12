@@ -235,6 +235,7 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                         DependencyBox(KotlinxCoroutinesCore),
                         DependencyBox(KotlinxSerializationJson),
                         DependencyBox(KotlinxDateTime),
+                        DependencyBox(KotlinxCollectionsImmutable),
                         DependencyBox(listOf(Kermit, Napier)),
                         DependencyBox(KtorCore),
                         DependencyBox(SQLDelightPlugin),
