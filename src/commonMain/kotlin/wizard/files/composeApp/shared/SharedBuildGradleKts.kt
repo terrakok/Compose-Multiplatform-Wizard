@@ -60,7 +60,6 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         if (info.hasPlatform(ProjectPlatform.Ios)) {
-            appendLine("    iosX64()")
             appendLine("    iosArm64()")
             appendLine("    iosSimulatorArm64()")
             appendLine("")
@@ -212,7 +211,7 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
         if (kspDeps.isNotEmpty()) {
             appendLine("")
             // FIXME: Added a hack to resolve below issue:
-            // Cannot change attributes of configuration ':composeApp:debugFrameworkIosX64' after it has been locked for mutation
+            // Cannot change attributes of configuration ':composeApp:debugFrameworkIosArm64' after it has been locked for mutation
             // KSP is Not Work on IOS Only Project, Same For IosArm64, IosSimulatorArm64
             // To pass the testIosProject, put "ksp" related statements into "afterEvaluate".
             // However, it is not common to use only ios.
@@ -256,7 +255,6 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
                 appendLine("$addDepth        add(\"kspWasmJs\", this)")
             }
             if (info.hasPlatform(ProjectPlatform.Ios) && dep.hasPlatform(ProjectPlatform.Ios)) {
-                appendLine("$addDepth        add(\"kspIosX64\", this)")
                 appendLine("$addDepth        add(\"kspIosArm64\", this)")
                 appendLine("$addDepth        add(\"kspIosSimulatorArm64\", this)")
             }

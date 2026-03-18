@@ -61,7 +61,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    wasmJs { browser() }")
         }
         if (info.hasPlatform(ProjectPlatform.Ios)) {
-            appendLine("    iosX64()")
             appendLine("    iosArm64()")
             appendLine("    iosSimulatorArm64()")
         }

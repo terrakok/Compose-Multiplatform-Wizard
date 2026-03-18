@@ -22,7 +22,6 @@ kotlin {
 
     wasmJs { browser() }
 
-    iosX64()
     iosArm64()
     iosSimulatorArm64()
 
@@ -144,14 +143,12 @@ dependencies {
         add("kspAndroid", this)
         add("kspJvm", this)
         add("kspWasmJs", this)
-        add("kspIosX64", this)
         add("kspIosArm64", this)
         add("kspIosSimulatorArm64", this)
     }
     with(libs.room.compiler) {
         add("kspAndroid", this)
         add("kspJvm", this)
-        add("kspIosX64", this)
         add("kspIosArm64", this)
         add("kspIosSimulatorArm64", this)
     }

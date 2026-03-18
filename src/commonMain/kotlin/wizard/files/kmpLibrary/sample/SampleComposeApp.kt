@@ -37,7 +37,6 @@ class SampleComposeAppBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
         if (info.hasPlatform(ProjectPlatform.Ios)) {
             appendLine("    listOf(")
-            appendLine("        iosX64(),")
             appendLine("        iosArm64(),")
             appendLine("        iosSimulatorArm64()")
             appendLine("    ).forEach {")
