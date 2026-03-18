@@ -4,7 +4,7 @@ import wizard.ProjectFile
 import wizard.ProjectInfo
 
 class ComposeAppKt(info: ProjectInfo) : ProjectFile {
-    override val path = "sample/composeApp/src/commonMain/kotlin/sample/app/App.kt"
+    override val path = "sample/sharedUI/src/commonMain/kotlin/sample/app/App.kt"
     override val content = """
         package sample.app
 
@@ -31,7 +31,7 @@ class ComposeAppKt(info: ProjectInfo) : ProjectFile {
 }
 
 class AndroidMainKt() : ProjectFile {
-    override val path = "sample/composeApp/src/androidMain/kotlin/sample/app/main.kt"
+    override val path = "sample/androidApp/src/main/kotlin/sample/app/AppActivity.kt"
     override val content = """
         package sample.app
 
@@ -51,7 +51,7 @@ class AndroidMainKt() : ProjectFile {
 }
 
 class AndroidManifestXml() : ProjectFile {
-    override val path = "sample/composeApp/src/androidMain/AndroidManifest.xml"
+    override val path = "sample/androidApp/src/main/AndroidManifest.xml"
     override val content = """
         <?xml version="1.0" encoding="utf-8"?>
         <manifest xmlns:android="http://schemas.android.com/apk/res/android">
@@ -61,7 +61,7 @@ class AndroidManifestXml() : ProjectFile {
                     android:label="sample"
                     android:theme="@android:style/Theme.Material.NoActionBar">
                 <activity
-                    android:name=".AppActivity"
+                    android:name="sample.app.AppActivity"
                     android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
                     android:launchMode="singleInstance"
                     android:windowSoftInputMode="adjustPan"
@@ -78,7 +78,7 @@ class AndroidManifestXml() : ProjectFile {
 }
 
 class IosMainKt() : ProjectFile {
-    override val path = "sample/composeApp/src/iosMain/kotlin/sample/app/main.kt"
+    override val path = "sample/sharedUI/src/iosMain/kotlin/main.kt"
     override val content = """
         import androidx.compose.ui.window.ComposeUIViewController
         import platform.UIKit.UIViewController
@@ -89,7 +89,7 @@ class IosMainKt() : ProjectFile {
 }
 
 class JvmMainKt() : ProjectFile {
-    override val path = "sample/composeApp/src/jvmMain/kotlin/sample/app/main.kt"
+    override val path = "sample/desktopApp/src/main/kotlin/main.kt"
     override val content = """
         import androidx.compose.ui.unit.dp
         import androidx.compose.ui.window.Window
@@ -112,7 +112,7 @@ class JvmMainKt() : ProjectFile {
 }
 
 class WebMainKt() : ProjectFile {
-    override val path = "sample/composeApp/src/webMain/kotlin/sample/app/main.kt"
+    override val path = "sample/webApp/src/commonMain/kotlin/main.kt"
     override val content = """
         import androidx.compose.ui.ExperimentalComposeUiApi
         import androidx.compose.ui.window.ComposeViewport
@@ -125,7 +125,7 @@ class WebMainKt() : ProjectFile {
 }
 
 class WebIndexHtml() : ProjectFile {
-    override val path = "sample/composeApp/src/webMain/resources/index.html"
+    override val path = "sample/webApp/src/commonMain/resources/index.html"
     override val content = """
         <!doctype html>
         <html lang="en">
@@ -145,7 +145,7 @@ class WebIndexHtml() : ProjectFile {
                 </style>
             </head>
             <body></body>
-            <script src="composeApp.js"></script>
+            <script src="webApp.js"></script>
         </html>
     """.trimIndent()
 }

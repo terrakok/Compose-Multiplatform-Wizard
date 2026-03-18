@@ -18,10 +18,13 @@ import wizard.files.kmpLibrary.sample.AndroidManifestXml
 import wizard.files.kmpLibrary.sample.ComposeAppKt
 import wizard.files.kmpLibrary.sample.IosMainKt
 import wizard.files.kmpLibrary.sample.JvmMainKt
-import wizard.files.kmpLibrary.sample.SampleComposeAppBuildGradleKts
+import wizard.files.kmpLibrary.sample.SampleAndroidAppBuildGradleKts
+import wizard.files.kmpLibrary.sample.SampleDesktopAppBuildGradleKts
 import wizard.files.kmpLibrary.sample.SampleIosXcodeInfoPlist
 import wizard.files.kmpLibrary.sample.SampleIosXcodeIosAppSwift
 import wizard.files.kmpLibrary.sample.SampleIosXcodePbxproj
+import wizard.files.kmpLibrary.sample.SampleSharedUIBuildGradleKts
+import wizard.files.kmpLibrary.sample.SampleWebAppBuildGradleKts
 import wizard.files.kmpLibrary.sample.TerminalAppBuildGradleKts
 import wizard.files.kmpLibrary.sample.TerminalAppMainKt
 import wizard.files.kmpLibrary.sample.WebIndexHtml
@@ -50,9 +53,10 @@ fun ProjectInfo.generateKmpLibraryFiles() = buildList {
     }
 
     if (needComposeSample) {
-        add(SampleComposeAppBuildGradleKts(info))
+        add(SampleSharedUIBuildGradleKts(info))
         add(ComposeAppKt(info))
         if (hasPlatform(ProjectPlatform.Android)) {
+            add(SampleAndroidAppBuildGradleKts(info))
             add(AndroidMainKt())
             add(AndroidManifestXml())
         }
@@ -63,9 +67,11 @@ fun ProjectInfo.generateKmpLibraryFiles() = buildList {
             add(SampleIosXcodePbxproj())
         }
         if (hasPlatform(ProjectPlatform.Jvm)) {
+            add(SampleDesktopAppBuildGradleKts(info))
             add(JvmMainKt())
         }
         if (hasWebPlatform()) {
+            add(SampleWebAppBuildGradleKts(info))
             add(WebMainKt())
             add(WebIndexHtml())
         }

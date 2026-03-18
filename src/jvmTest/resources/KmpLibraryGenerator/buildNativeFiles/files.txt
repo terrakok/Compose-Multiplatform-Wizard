@@ -11,9 +11,9 @@ settings.gradle.kts
 lamba/build.gradle.kts
 lamba/src/commonMain/kotlin/io/my/com/Fibonacci.kt
 lamba/src/commonTest/kotlin/io/my/com/FibonacciTest.kt
-sample/composeApp/build.gradle.kts
-sample/composeApp/src/commonMain/kotlin/sample/app/App.kt
-sample/composeApp/src/iosMain/kotlin/sample/app/main.kt
+sample/sharedUI/build.gradle.kts
+sample/sharedUI/src/commonMain/kotlin/sample/app/App.kt
+sample/sharedUI/src/iosMain/kotlin/main.kt
 sample/iosApp/iosApp/Info.plist
 sample/iosApp/iosApp/iosApp.swift
 sample/iosApp/iosApp.xcodeproj/project.pbxproj

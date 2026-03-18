@@ -1,5 +1,7 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
-    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.maven.publish)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.sqlDelight)
@@ -7,9 +9,14 @@ plugins {
 }
 
 kotlin {
-    jvmToolchain(17)
+    android {
+        namespace = "my.company.name"
+        compileSdk = 36
+        minSdk = 23
+        androidResources.enable = true
+        compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
+    }
 
-    androidTarget { publishLibraryVariants("release") }
     jvm()
     js { browser() }
     wasmJs { browser() }
@@ -85,15 +92,6 @@ kotlin {
 
 }
 
-android {
-    namespace = "my.company.name"
-    compileSdk = 36
-
-    defaultConfig {
-        minSdk = 23
-    }
-}
-
 //Publishing your Kotlin Multiplatform library to Maven Central
 //https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html
 mavenPublishing {
@@ -114,9 +112,9 @@ mavenPublishing {
 
         developers {
             developer {
-                id = "" //todo
-                name = "" //todo
-                email = "" //todo
+                id = "" //todo github nickname
+                name = "" //todo full name
+                email = "" //todo email
             }
         }
 

@@ -174,7 +174,7 @@ class SampleIosXcodePbxproj() : ProjectFile {
         			);
         			runOnlyForDeploymentPostprocessing = 0;
         			shellPath = /bin/sh;
-        			shellScript = "cd \"${'$'}SRCROOT/..\"\n./../gradlew :sample:composeApp:embedAndSignAppleFrameworkForXcode\n";
+        			shellScript = "cd \"${'$'}SRCROOT/..\"\n./../gradlew :sample:sharedUI:embedAndSignAppleFrameworkForXcode\n";
         		};
         /* End PBXShellScriptBuildPhase section */
 

@@ -11,8 +11,10 @@ settings.gradle.kts
 foo/build.gradle.kts
 foo/src/commonMain/kotlin/my/company/Fibonacci.kt
 foo/src/commonTest/kotlin/my/company/FibonacciTest.kt
-sample/composeApp/build.gradle.kts
-sample/composeApp/src/commonMain/kotlin/sample/app/App.kt
-sample/composeApp/src/androidMain/kotlin/sample/app/main.kt
-sample/composeApp/src/androidMain/AndroidManifest.xml
-sample/composeApp/src/jvmMain/kotlin/sample/app/main.kt
+sample/sharedUI/build.gradle.kts
+sample/sharedUI/src/commonMain/kotlin/sample/app/App.kt
+sample/androidApp/build.gradle.kts
+sample/androidApp/src/main/kotlin/sample/app/AppActivity.kt
+sample/androidApp/src/main/AndroidManifest.xml
+sample/desktopApp/build.gradle.kts
+sample/desktopApp/src/main/kotlin/main.kt

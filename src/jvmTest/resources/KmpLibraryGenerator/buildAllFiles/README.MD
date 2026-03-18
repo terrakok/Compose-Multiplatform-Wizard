@@ -7,8 +7,8 @@ Kotlin Multiplatform Library
  - Desktop JVM: `./gradlew :sample:composeApp:run`
  - Android: `open project in Android Studio and run the sample app`
  - iOS: `open 'sample/iosApp/iosApp.xcodeproj' in Xcode and run the sample app`
- - JavaScript: `./gradlew :sample:composeApp:jsBrowserRun`
- - Wasm: `./gradlew :sample:composeApp:wasmJsBrowserRun`
+ - JavaScript: `./gradlew :sample:composeApp:jsBrowserDevelopmentRun`
+ - Wasm: `./gradlew :sample:composeApp:wasmJsBrowserDevelopmentRun`
  - Linux/Macos/Windows native: `./gradlew :sample:terminalApp:runDebugExecutable[architecture]`
 
 ### Publish to MavenLocal

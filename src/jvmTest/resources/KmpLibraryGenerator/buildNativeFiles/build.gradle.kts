@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.multiplatform)
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.android.kmp.library)
     alias(libs.plugins.maven.publish)
 }
 
@@ -50,9 +50,9 @@ mavenPublishing {
 
         developers {
             developer {
-                id = "" //todo
-                name = "" //todo
-                email = "" //todo
+                id = "" //todo github nickname
+                name = "" //todo full name
+                email = "" //todo email
             }
         }
 
