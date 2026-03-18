@@ -20,6 +20,10 @@ class GradleProperties(info: ProjectInfo) : ProjectFile {
             kotlin.daemon.jvmargs=-Xmx4G
             kotlin.native.binary.gc=cms
             kotlin.incremental.wasm=true
+            
+            #https://youtrack.jetbrains.com/issue/KT-82395
+            kotlin.incremental.js=false
+            kotlin.incremental.js.klib=false
 
             #Android
             android.useAndroidX=true
