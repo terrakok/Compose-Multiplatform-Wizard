@@ -12,6 +12,7 @@ import mui.material.Typography
 import mui.material.styles.TypographyVariant
 import mui.system.sx
 import react.FC
+import react.Key
 import react.Props
 import react.useRequired
 import web.cssom.px
@@ -41,7 +42,7 @@ val DependencyListDialog = FC<DependencyListDialogProps> { props ->
                     onClick = {
                         onClose(i)
                     }
-                    key = dep.libraryNotation
+                    key = Key(dep.libraryNotation)
                     ListItem {
                         disableGutters = true
                         val showVersion by useRequired(ShowVersionContext)
