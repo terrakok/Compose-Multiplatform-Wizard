@@ -8,7 +8,7 @@ import wizard.files.kmpLibrary.sample.SampleSharedUIBuildGradleKts
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-internal val kmpLibraryExtraDependencies = setOf(
+private val kmpLibraryExtraDependencies = setOf(
     KotlinxDateTime,
     MultiplatformSettings,
     Koin,
