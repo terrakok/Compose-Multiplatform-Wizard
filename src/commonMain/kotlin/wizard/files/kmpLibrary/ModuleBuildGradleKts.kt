@@ -29,10 +29,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
                 }
             }
         }
-        if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("import org.jetbrains.kotlin.gradle.dsl.JvmTarget")
-            appendLine("")
-        }
 
         appendLine("plugins {")
         plugins.forEach { dep ->
@@ -42,13 +38,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("kotlin {")
         if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("    android {")
-            appendLine("        namespace = \"${info.packageId}\"")
-            appendLine("        compileSdk = ${info.androidTargetSdk}")
-            appendLine("        minSdk = ${info.androidMinSdk}")
-            appendLine("        androidResources.enable = true")
-            appendLine("        compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }")
-            appendLine("    }")
+            appendLine("    androidTarget()")
             appendLine("")
         }
         if (info.hasPlatform(ProjectPlatform.Jvm)) {
@@ -65,7 +55,6 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    iosSimulatorArm64()")
         }
         if (info.hasPlatform(ProjectPlatform.Macos)) {
-            appendLine("    macosX64()")
             appendLine("    macosArm64()")
         }
         if (info.hasPlatform(ProjectPlatform.Linux)) {
@@ -183,8 +172,21 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         appendLine("}")
-
         appendLine("")
+        if (info.hasPlatform(ProjectPlatform.Android)) {
+            appendLine("android {")
+            appendLine("    namespace = \"${info.packageId}\"")
+            appendLine("    compileSdk = ${info.androidTargetSdk}")
+            appendLine("    defaultConfig {")
+            appendLine("        minSdk = ${info.androidMinSdk}")
+            appendLine("    }")
+            appendLine("    compileOptions {")
+            appendLine("        sourceCompatibility = JavaVersion.VERSION_17")
+            appendLine("        targetCompatibility = JavaVersion.VERSION_17")
+            appendLine("    }")
+            appendLine("}")
+            appendLine("")
+        }
         appendLine("//Publishing your Kotlin Multiplatform library to Maven Central")
         appendLine("//https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html")
         appendLine("mavenPublishing {")

@@ -15,7 +15,6 @@ class TerminalAppBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("kotlin {")
         appendLine("    listOf(")
         if (info.hasPlatform(ProjectPlatform.Macos)) {
-            appendLine("        macosX64(),")
             appendLine("        macosArm64(),")
         }
         if (info.hasPlatform(ProjectPlatform.Linux)) {

@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.maven.publish)
@@ -9,20 +7,13 @@ plugins {
 }
 
 kotlin {
-    android {
-        namespace = "my.company.name"
-        compileSdk = 36
-        minSdk = 23
-        androidResources.enable = true
-        compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
-    }
+    androidTarget()
 
     jvm()
     js { browser() }
     wasmJs { browser() }
     iosArm64()
     iosSimulatorArm64()
-    macosX64()
     macosArm64()
     linuxX64()
     mingwX64()
@@ -90,6 +81,18 @@ kotlin {
         }
     }
 
+}
+
+android {
+    namespace = "my.company.name"
+    compileSdk = 36
+    defaultConfig {
+        minSdk = 23
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
 }
 
 //Publishing your Kotlin Multiplatform library to Maven Central

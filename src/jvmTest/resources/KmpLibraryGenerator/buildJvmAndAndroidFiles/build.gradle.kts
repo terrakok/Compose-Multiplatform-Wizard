@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.kmp.library)
@@ -7,13 +5,7 @@ plugins {
 }
 
 kotlin {
-    android {
-        namespace = "my.company"
-        compileSdk = 36
-        minSdk = 23
-        androidResources.enable = true
-        compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
-    }
+    androidTarget()
 
     jvm()
 
@@ -27,6 +19,18 @@ kotlin {
 
     }
 
+}
+
+android {
+    namespace = "my.company"
+    compileSdk = 36
+    defaultConfig {
+        minSdk = 23
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
 }
 
 //Publishing your Kotlin Multiplatform library to Maven Central
