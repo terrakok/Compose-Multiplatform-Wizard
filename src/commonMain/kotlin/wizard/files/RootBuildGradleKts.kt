@@ -17,7 +17,9 @@ class RootBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    alias(libs.plugins.${dep.catalogAccessor}).apply(false)")
         }
         if (info.needComposeSample) {
-            appendLine("    alias(libs.plugins.kotlin.jvm).apply(false)")
+            if (info.hasPlatform(ProjectPlatform.Jvm)) {
+                appendLine("    alias(libs.plugins.kotlin.jvm).apply(false)")
+            }
             if (info.hasPlatform(ProjectPlatform.Android)) {
                 appendLine("    alias(libs.plugins.kotlin.android).apply(false)")
                 appendLine("    alias(libs.plugins.android.application).apply(false)")
