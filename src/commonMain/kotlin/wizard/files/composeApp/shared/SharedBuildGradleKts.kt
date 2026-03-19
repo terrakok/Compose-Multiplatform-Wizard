@@ -29,7 +29,7 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
                 }
             }
         }
-        if (info.hasPlatform(ProjectPlatform.Android)) {
+        if (info.hasPlatform(ProjectPlatform.Android) || info.hasPlatform(ProjectPlatform.Jvm)) {
             appendLine("import org.jetbrains.kotlin.gradle.dsl.JvmTarget")
         }
         if (info.hasPlatform(ProjectPlatform.Ios)) {
@@ -45,11 +45,15 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("kotlin {")
         if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("    androidTarget() //We need the deprecated target to have working previews")
+            appendLine("    androidTarget { //We need the deprecated target to have working previews")
+            appendLine("        compilerOptions { jvmTarget = JvmTarget.JVM_17 }")
+            appendLine("    }")
             appendLine("")
         }
         if (info.hasPlatform(ProjectPlatform.Jvm)) {
-            appendLine("    jvm()")
+            appendLine("    jvm {")
+            appendLine("        compilerOptions { jvmTarget = JvmTarget.JVM_17 }")
+            appendLine("    }")
             appendLine("")
         }
         if (info.hasPlatform(ProjectPlatform.Js)) {

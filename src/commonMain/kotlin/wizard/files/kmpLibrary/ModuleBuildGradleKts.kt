@@ -30,6 +30,11 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             }
         }
 
+        if (info.hasPlatform(ProjectPlatform.Android) || info.hasPlatform(ProjectPlatform.Jvm)) {
+            appendLine("import org.jetbrains.kotlin.gradle.dsl.JvmTarget")
+            appendLine("")
+        }
+
         appendLine("plugins {")
         plugins.forEach { dep ->
             appendLine("    ${dep.pluginNotation}")
@@ -38,11 +43,15 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("kotlin {")
         if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("    androidTarget()")
+            appendLine("    androidTarget {")
+            appendLine("        compilerOptions { jvmTarget = JvmTarget.JVM_17 }")
+            appendLine("    }")
             appendLine("")
         }
         if (info.hasPlatform(ProjectPlatform.Jvm)) {
-            appendLine("    jvm()")
+            appendLine("    jvm {")
+            appendLine("        compilerOptions { jvmTarget = JvmTarget.JVM_17 }")
+            appendLine("    }")
         }
         if (info.hasPlatform(ProjectPlatform.Js)) {
             appendLine("    js { browser() }")

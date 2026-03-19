@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.maven.publish)
@@ -7,9 +9,13 @@ plugins {
 }
 
 kotlin {
-    androidTarget()
+    androidTarget {
+        compilerOptions { jvmTarget = JvmTarget.JVM_17 }
+    }
 
-    jvm()
+    jvm {
+        compilerOptions { jvmTarget = JvmTarget.JVM_17 }
+    }
     js { browser() }
     wasmJs { browser() }
     iosArm64()

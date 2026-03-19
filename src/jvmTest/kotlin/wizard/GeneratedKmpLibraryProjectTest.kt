@@ -270,7 +270,7 @@ class GeneratedKmpLibraryProjectTest {
                       "platformType": "jvm",
                       "extras": {
                         "jvm": {
-                          "jvmTarget": "25",
+                          "jvmTarget": "17",
                           "withJavaEnabled": false
                         }
                       }

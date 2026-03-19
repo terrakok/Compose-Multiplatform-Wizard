@@ -16,9 +16,13 @@ plugins {
 }
 
 kotlin {
-    androidTarget() //We need the deprecated target to have working previews
+    androidTarget { //We need the deprecated target to have working previews
+        compilerOptions { jvmTarget = JvmTarget.JVM_17 }
+    }
 
-    jvm()
+    jvm {
+        compilerOptions { jvmTarget = JvmTarget.JVM_17 }
+    }
 
     wasmJs { browser() }
 

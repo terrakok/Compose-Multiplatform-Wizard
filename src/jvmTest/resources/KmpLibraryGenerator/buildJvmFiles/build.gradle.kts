@@ -1,10 +1,14 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.maven.publish)
 }
 
 kotlin {
-    jvm()
+    jvm {
+        compilerOptions { jvmTarget = JvmTarget.JVM_17 }
+    }
 
     sourceSets {
         commonMain.dependencies {
