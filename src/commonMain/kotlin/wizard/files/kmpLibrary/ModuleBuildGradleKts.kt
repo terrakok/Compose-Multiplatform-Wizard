@@ -256,7 +256,7 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
 
 private fun ProjectInfo.hasDependenciesFor(platform: ProjectPlatform) =
     hasPlatform(platform) && dependencies.any { dep ->
-        dep.platforms.contains(platform)
+        !dep.isPlugin() && dep.platforms.contains(platform)
     }
 
 private fun ProjectInfo.hasNativePlatforms() =

@@ -3,8 +3,8 @@ package wizard.files
 import wizard.ProjectFile
 import wizard.ProjectInfo
 import wizard.ProjectPlatform
-import wizard.WizardType
 import wizard.catalogAccessor
+import wizard.dependencies.ComposeMultiplatformPlugin
 import wizard.hasPlatform
 import wizard.isPlugin
 import wizard.needComposeSample
@@ -17,6 +17,11 @@ class RootBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    alias(libs.plugins.${dep.catalogAccessor}).apply(false)")
         }
         if (info.needComposeSample) {
+            //compose is not required for the kmp library but for the sample app
+            if (!info.dependencies.contains(ComposeMultiplatformPlugin)) {
+                appendLine("    alias(libs.plugins.compose.multiplatform).apply(false)")
+                appendLine("    alias(libs.plugins.compose.compiler).apply(false)")
+            }
             if (info.hasPlatform(ProjectPlatform.Jvm)) {
                 appendLine("    alias(libs.plugins.kotlin.jvm).apply(false)")
             }

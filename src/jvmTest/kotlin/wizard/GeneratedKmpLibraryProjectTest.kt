@@ -107,6 +107,39 @@ class GeneratedKmpLibraryProjectTest {
     }
 
     @Test
+    fun testProjectWithSample() {
+        checkProject(
+            DefaultKmpLibraryInfo().copy(
+                platforms = setOf(ProjectPlatform.Jvm, ProjectPlatform.Android, ProjectPlatform.Js, ProjectPlatform.Wasm),
+                addSampleApp = true,
+                dependencies = buildSet {
+                    add(KotlinMultiplatformPlugin)
+                    add(MavenPublishPlugin)
+                    add(AndroidKmpLibraryPlugin)
+                    addAll(kmpLibraryExtraDependencies)
+                }
+            ),
+            taskName = "assemble"
+        )
+    }
+
+    @Test
+    fun testProjectWithTerminalSample() {
+        checkProject(
+            DefaultKmpLibraryInfo().copy(
+                platforms = setOf(ProjectPlatform.Macos, ProjectPlatform.Linux, ProjectPlatform.Mingw),
+                addSampleApp = true,
+                dependencies = buildSet {
+                    add(KotlinMultiplatformPlugin)
+                    add(MavenPublishPlugin)
+                    addAll(kmpLibraryExtraDependencies)
+                }
+            ),
+            taskName = "assemble"
+        )
+    }
+
+    @Test
     fun checkDependencyUpdates() {
         val projectInfo = DefaultKmpLibraryInfo().copy(
             platforms = setOf(ProjectPlatform.Jvm),
@@ -286,11 +319,11 @@ class GeneratedKmpLibraryProjectTest {
         )
     }
 
-    private fun checkProject(projectInfo: ProjectInfo) {
+    private fun checkProject(projectInfo: ProjectInfo, taskName: String = "build") {
         val dir = projectInfo.writeToDir(workingDir)
         checkCommand(
             dir = dir,
-            command = listOf("${dir.path}/gradlew", "build", "--info")
+            command = listOf("${dir.path}/gradlew", taskName, "--info")
         )
     }
 
