@@ -113,6 +113,8 @@ class SampleAndroidAppBuildGradleKts(info: ProjectInfo) : ProjectFile {
 class SampleDesktopAppBuildGradleKts(info: ProjectInfo) : ProjectFile {
     override val path = "sample/desktopApp/build.gradle.kts"
     override val content = buildString {
+        appendLine("import org.jetbrains.compose.desktop.application.dsl.TargetFormat")
+        appendLine("")
         appendLine("plugins {")
         appendLine("    alias(libs.plugins.kotlin.jvm)")
         appendLine("    alias(libs.plugins.compose.multiplatform)")

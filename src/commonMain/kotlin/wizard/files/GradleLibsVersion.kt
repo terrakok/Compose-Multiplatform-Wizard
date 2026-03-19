@@ -12,6 +12,7 @@ import wizard.dependencies.ComposeMultiplatformPlugin
 import wizard.dependencies.ComposeRuntime
 import wizard.dependencies.ComposeUi
 import wizard.dependencies.KotlinAndroidPlugin
+import wizard.dependencies.KotlinJvmPlugin
 import wizard.hasPlatform
 import wizard.isPlugin
 import wizard.needComposeSample
@@ -27,6 +28,9 @@ class GradleLibsVersion(info: ProjectInfo) : ProjectFile {
                 add(ComposeRuntime)
                 add(ComposeUi)
                 add(ComposeFoundation)
+                if (info.hasPlatform(ProjectPlatform.Jvm)) {
+                    add(KotlinJvmPlugin)
+                }
                 if (info.hasPlatform(ProjectPlatform.Android)) {
                     add(AndroidApplicationPlugin)
                     add(KotlinAndroidPlugin)
