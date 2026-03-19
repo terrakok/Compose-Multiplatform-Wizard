@@ -12,27 +12,29 @@ class Readme(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("Kotlin Multiplatform Library")
         appendLine("")
-        appendLine("### Run Sample App")
-        appendLine("")
-        if (info.hasPlatform(ProjectPlatform.Jvm)) {
-            appendLine(" - Desktop JVM: `./gradlew :sample:composeApp:run`")
+        if (info.addSampleApp) {
+            appendLine("### Run Sample App")
+            appendLine("")
+            if (info.hasPlatform(ProjectPlatform.Jvm)) {
+                appendLine(" - Desktop JVM: `./gradlew :sample:composeApp:run`")
+            }
+            if (info.hasPlatform(ProjectPlatform.Android)) {
+                appendLine(" - Android: `open project in Android Studio and run the sample app`")
+            }
+            if (info.hasPlatform(ProjectPlatform.Ios)) {
+                appendLine(" - iOS: `open 'sample/iosApp/iosApp.xcodeproj' in Xcode and run the sample app`")
+            }
+            if (info.hasPlatform(ProjectPlatform.Js)) {
+                appendLine(" - JavaScript: `./gradlew :sample:composeApp:jsBrowserDevelopmentRun`")
+            }
+            if (info.hasPlatform(ProjectPlatform.Wasm)) {
+                appendLine(" - Wasm: `./gradlew :sample:composeApp:wasmJsBrowserDevelopmentRun`")
+            }
+            if (info.platforms.any { it in ProjectPlatform.binaryPlatforms }) {
+                appendLine(" - Linux/Macos/Windows native: `./gradlew :sample:terminalApp:runDebugExecutable[architecture]`")
+            }
+            appendLine("")
         }
-        if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine(" - Android: `open project in Android Studio and run the sample app`")
-        }
-        if (info.hasPlatform(ProjectPlatform.Ios)) {
-            appendLine(" - iOS: `open 'sample/iosApp/iosApp.xcodeproj' in Xcode and run the sample app`")
-        }
-        if (info.hasPlatform(ProjectPlatform.Js)) {
-            appendLine(" - JavaScript: `./gradlew :sample:composeApp:jsBrowserDevelopmentRun`")
-        }
-        if (info.hasPlatform(ProjectPlatform.Wasm)) {
-            appendLine(" - Wasm: `./gradlew :sample:composeApp:wasmJsBrowserDevelopmentRun`")
-        }
-        if (info.platforms.any { it in ProjectPlatform.binaryPlatforms }) {
-            appendLine(" - Linux/Macos/Windows native: `./gradlew :sample:terminalApp:runDebugExecutable[architecture]`")
-        }
-        appendLine("")
         appendLine("### Publish to MavenLocal")
         appendLine("")
         appendLine("1) Run `./gradlew :${info.moduleName}:publishToMavenLocal`")
