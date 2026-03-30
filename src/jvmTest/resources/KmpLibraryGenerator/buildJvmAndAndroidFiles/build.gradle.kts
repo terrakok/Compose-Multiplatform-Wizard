@@ -24,11 +24,10 @@ kotlin {
         }
 
     }
-
 }
 
 android {
-    namespace = "my.company"
+    namespace = "my.company.foo"
     compileSdk = 36
     defaultConfig {
         minSdk = 23

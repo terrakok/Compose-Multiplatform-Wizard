@@ -168,23 +168,11 @@ class ModuleBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         appendLine("    }")
-        appendLine("")
-        if (info.hasNativePlatforms()) {
-            appendLine("    //https://kotlinlang.org/docs/native-objc-interop.html#export-of-kdoc-comments-to-generated-objective-c-headers")
-            appendLine("    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {")
-            appendLine("        compilations[\"main\"].compileTaskProvider.configure {")
-            appendLine("            compilerOptions {")
-            appendLine("                freeCompilerArgs.add(\"-Xexport-kdoc\")")
-            appendLine("            }")
-            appendLine("        }")
-            appendLine("    }")
-            appendLine("")
-        }
         appendLine("}")
         appendLine("")
         if (info.hasPlatform(ProjectPlatform.Android)) {
             appendLine("android {")
-            appendLine("    namespace = \"${info.packageId}\"")
+            appendLine("    namespace = \"${info.packageId}.${info.moduleName}\"")
             appendLine("    compileSdk = ${info.androidTargetSdk}")
             appendLine("    defaultConfig {")
             appendLine("        minSdk = ${info.androidMinSdk}")
