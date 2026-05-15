@@ -224,14 +224,8 @@ class GeneratedKmpLibraryProjectTest {
                   },
                   "projectTargets": [
                     {
-                      "target": "org.jetbrains.kotlin.gradle.plugin.mpp.KotlinAndroidTarget",
-                      "platformType": "androidJvm",
-                      "extras": {
-                        "android": {
-                          "sourceCompatibility": "17",
-                          "targetCompatibility": "17"
-                        }
-                      }
+                      "target": "com.android.build.api.variant.impl.KotlinMultiplatformAndroidLibraryTargetImpl",
+                      "platformType": "androidJvm"
                     },
                     {
                       "target": "org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget",

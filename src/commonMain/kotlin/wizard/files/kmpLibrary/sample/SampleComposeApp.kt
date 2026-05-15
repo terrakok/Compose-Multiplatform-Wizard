@@ -23,7 +23,11 @@ class SampleSharedUIBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("kotlin {")
         if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("    androidTarget {")
+            appendLine("    android {")
+            appendLine("        namespace = \"${info.packageId}.sharedUI\"")
+            appendLine("        compileSdk = ${info.androidTargetSdk}")
+            appendLine("        minSdk = ${info.androidMinSdk}")
+            appendLine("        androidResources.enable = true")
             appendLine("        compilerOptions { jvmTarget = JvmTarget.JVM_17 }")
             appendLine("    }")
         }
@@ -61,19 +65,6 @@ class SampleSharedUIBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    }")
         }
         appendLine("}")
-        if (info.hasPlatform(ProjectPlatform.Android)) {
-            appendLine("android {")
-            appendLine("    namespace = \"${info.packageId}.sharedUI\"")
-            appendLine("    compileSdk = ${info.androidTargetSdk}")
-            appendLine("    defaultConfig {")
-            appendLine("        minSdk = ${info.androidMinSdk}")
-            appendLine("    }")
-            appendLine("    compileOptions {")
-            appendLine("        sourceCompatibility = JavaVersion.VERSION_17")
-            appendLine("        targetCompatibility = JavaVersion.VERSION_17")
-            appendLine("    }")
-            appendLine("}")
-        }
     }
 }
 
@@ -85,7 +76,6 @@ class SampleAndroidAppBuildGradleKts(info: ProjectInfo) : ProjectFile {
         appendLine("plugins {")
         appendLine("    alias(libs.plugins.compose.compiler)")
         appendLine("    alias(libs.plugins.android.application)")
-        appendLine("    alias(libs.plugins.kotlin.android)")
         appendLine("}")
         appendLine("")
         appendLine("android {")
