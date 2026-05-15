@@ -9,7 +9,11 @@ plugins {
 }
 
 kotlin {
-    androidTarget {
+    android {
+        namespace = "my.company.name.shared"
+        compileSdk = 36
+        minSdk = 23
+        androidResources.enable = true
         compilerOptions { jvmTarget = JvmTarget.JVM_17 }
     }
 
@@ -76,18 +80,6 @@ kotlin {
             implementation(libs.sqlDelight.driver.native)
         }
 
-    }
-}
-
-android {
-    namespace = "my.company.name.shared"
-    compileSdk = 36
-    defaultConfig {
-        minSdk = 23
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 

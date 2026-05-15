@@ -8,7 +8,11 @@ plugins {
 }
 
 kotlin {
-    androidTarget {
+    android {
+        namespace = "my.company.sharedUI"
+        compileSdk = 36
+        minSdk = 23
+        androidResources.enable = true
         compilerOptions { jvmTarget = JvmTarget.JVM_17 }
     }
     jvm {
@@ -24,15 +28,4 @@ kotlin {
         }
     }
 
-}
-android {
-    namespace = "my.company.sharedUI"
-    compileSdk = 36
-    defaultConfig {
-        minSdk = 23
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
 }
