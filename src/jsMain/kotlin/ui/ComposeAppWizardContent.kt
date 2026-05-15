@@ -211,7 +211,6 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                                     add(ComposeMultiplatformPlugin)
                                     addAll(DefaultComposeLibraries)
                                     if (platforms.contains(Android)) {
-                                        add(KotlinAndroidPlugin)
                                         add(AndroidApplicationPlugin)
                                         add(AndroidKmpLibraryPlugin)
                                         add(AndroidxActivityCompose)

@@ -25,21 +25,13 @@ val KotlinJvmPlugin = KotlinMultiplatformPlugin.copy(
     modules = setOf(GradleModule.DESKTOP)
 )
 
-val KotlinAndroidPlugin = KotlinMultiplatformPlugin.copy(
-    group = "org.jetbrains.kotlin.android",
-    catalogVersionName = "kotlin",
-    catalogName = "kotlin-android",
-    platforms = setOf(Android),
-    modules = setOf(GradleModule.ANDROID)
-)
-
 val AndroidApplicationPlugin = Dependency(
     title = "Android Application Plugin",
     description = "Android gradle plugin.",
     url = "https://developer.android.com/studio/build",
     group = "com.android.application",
     id = "gradle-plugin",
-    version = "8.12.3",
+    version = "9.0.0",
     catalogVersionName = "agp",
     catalogName = "android-application",
     platforms = setOf(Android),
@@ -47,7 +39,7 @@ val AndroidApplicationPlugin = Dependency(
 )
 
 val AndroidKmpLibraryPlugin = AndroidApplicationPlugin.copy(
-    group = "com.android.library",
+    group = "com.android.kotlin.multiplatform.library",
     catalogName = "android-kmp-library",
     platforms = emptySet(),
     modules = setOf(GradleModule.SHARED)

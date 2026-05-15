@@ -11,7 +11,6 @@ import wizard.dependencies.ComposeFoundation
 import wizard.dependencies.ComposeMultiplatformPlugin
 import wizard.dependencies.ComposeRuntime
 import wizard.dependencies.ComposeUi
-import wizard.dependencies.KotlinAndroidPlugin
 import wizard.dependencies.KotlinJvmPlugin
 import wizard.hasPlatform
 import wizard.isPlugin
@@ -33,7 +32,6 @@ class GradleLibsVersion(info: ProjectInfo) : ProjectFile {
                 }
                 if (info.hasPlatform(ProjectPlatform.Android)) {
                     add(AndroidApplicationPlugin)
-                    add(KotlinAndroidPlugin)
                     add(AndroidxActivityCompose)
                 }
             }
