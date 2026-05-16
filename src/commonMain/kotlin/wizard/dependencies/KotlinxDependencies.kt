@@ -15,6 +15,18 @@ val KotlinxDateTime = Dependency(
     platforms = emptySet()
 )
 
+val KotlinxCollectionsImmutable = Dependency(
+    title = "Kotlinx Collections Immutable",
+    description = "A multiplatform Kotlin library for working with immutable collections.",
+    url = "https://github.com/Kotlin/kotlinx.collections.immutable",
+    group = "org.jetbrains.kotlinx",
+    id = "kotlinx-collections-immutable",
+    version = "0.4.0",
+    catalogVersionName = "kotlinx-collections-immutable",
+    catalogName = "kotlinx-collections-immutable",
+    platforms = emptySet()
+)
+
 val KtorCore = Dependency(
     title = "Ktor client",
     description = "A multiplatform asynchronous HTTP client, which allows you to make requests and handle responses.",
