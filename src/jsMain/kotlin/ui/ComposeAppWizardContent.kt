@@ -168,6 +168,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         DependencyBox(listOf(Coil, Sketch, ImageLoader)),
                         DependencyBox(MultiplatformSettings),
                         DependencyBox(KotlinxDateTime),
+                        DependencyBox(KotlinxCollectionsImmutable),
                         DependencyBox(listOf(RoomPlugin, SQLDelightPlugin)),
                         DependencyBox(ApolloPlugin),
                         DependencyBox(KStore),
