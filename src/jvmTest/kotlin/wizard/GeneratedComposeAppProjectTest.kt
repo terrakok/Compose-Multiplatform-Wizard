@@ -168,17 +168,16 @@ class GeneratedComposeAppProjectTest {
     }
 
     @Test
-    @Ignore("Android UI tests are not supported yet")
     fun testAndroidProject() {
         val projectInfo = DefaultComposeAppInfo()
         val dir = projectInfo.writeToDir(workingDir)
-        dir.resolve("composeApp/build.gradle.kts").apply {
+        dir.resolve("androidApp/build.gradle.kts").apply {
             writeText(
                 readText() + """
                     |
-                    |android.testOptions.managedDevices.devices.maybeCreate<com.android.build.api.dsl.ManagedVirtualDevice>("pixel5").apply {
+                    |android.testOptions.managedDevices.localDevices.maybeCreate("pixel5").apply {
                     |    device = "Pixel 5"
-                    |    apiLevel = 34
+                    |    apiLevel = 36
                     |    systemImageSource = "aosp"
                     |}
                 """.trimMargin()
@@ -188,13 +187,11 @@ class GeneratedComposeAppProjectTest {
             dir = dir,
             command = mutableListOf(
                 "${dir.path}/gradlew",
-                ":${projectInfo.moduleName}:assembleDebug"
+                ":androidApp:assembleDebug"
             ).also {
-                if (!(System.getProperty("os.name").contains(other = "mac", ignoreCase = true) &&
-                        "true".equals(other = System.getenv("CI"), ignoreCase = true))
-                ) {
+                if (!(System.getProperty("os.name").contains(other = "mac", ignoreCase = true))) {
                     // Run Android native test on Ubuntu build agent only
-                    it.add(":${projectInfo.moduleName}:pixel5Check")
+                    it.add(":androidApp:pixel5Check")
                 }
                 it.add("--stacktrace")
             }

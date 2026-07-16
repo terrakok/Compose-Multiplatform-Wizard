@@ -34,7 +34,7 @@ data class ProjectInfo(
     //https://gradle.org/release-checksums/
     val gradleVersionSha: String = "9c0f7faeeb306cb14e4279a3e084ca6b596894089a0638e68a07c945a32c9e14",
     val androidMinSdk: Int = 23,
-    val androidTargetSdk: Int = 36,
+    val androidTargetSdk: Int = 37,
     val dependencies: Set<Dependency>,
     val addTests: Boolean = true,
     val addSampleApp: Boolean = false,
