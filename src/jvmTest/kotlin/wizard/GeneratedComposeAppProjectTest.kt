@@ -275,9 +275,10 @@ class GeneratedComposeAppProjectTest {
     @Test
     fun checkDependencyUpdates() {
         val projectInfo = DefaultComposeAppInfo().copy(
-            platforms = setOf(ProjectPlatform.Jvm),
+            platforms = setOf(ProjectPlatform.Jvm, ProjectPlatform.Android),
             dependencies = buildSet {
                 add(KotlinMultiplatformPlugin)
+                add(AndroidKmpLibraryPlugin)
                 add(KotlinJvmPlugin)
                 add(ComposeCompilerPlugin)
                 add(ComposeMultiplatformPlugin)
@@ -289,6 +290,7 @@ class GeneratedComposeAppProjectTest {
                 add(Kodein)
                 add(PreCompose)
                 add(Decompose)
+                addAll(androidDependencies)
             }
         )
         val dir = projectInfo.writeToDir(workingDir)

@@ -30,9 +30,9 @@ data class ProjectInfo(
     val name: String,
     val moduleName: String,
     val platforms: Set<ProjectPlatform>,
-    val gradleVersion: String = "9.5.1",
+    val gradleVersion: String = "9.6.1",
     //https://gradle.org/release-checksums/
-    val gradleVersionSha: String = "bafc141b619ad6350fd975fc903156dd5c151998cc8b058e8c1044ab5f7b031f",
+    val gradleVersionSha: String = "9c0f7faeeb306cb14e4279a3e084ca6b596894089a0638e68a07c945a32c9e14",
     val androidMinSdk: Int = 23,
     val androidTargetSdk: Int = 36,
     val dependencies: Set<Dependency>,
