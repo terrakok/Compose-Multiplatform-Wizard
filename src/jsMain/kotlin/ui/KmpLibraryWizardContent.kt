@@ -249,7 +249,6 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                         container = true
                         deps.forEach { dep ->
                             Grid {
-                                item = true
                                 DependencyCard {
                                     dependency = dep
                                 }

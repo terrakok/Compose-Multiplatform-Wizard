@@ -2,7 +2,6 @@ package ui
 
 import mui.material.CssBaseline
 import mui.material.styles.Theme
-import mui.material.styles.ThemeProvider
 import react.*
 import wizard.*
 
