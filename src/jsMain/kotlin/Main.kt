@@ -15,7 +15,9 @@ import web.html.HtmlTagName.div
 import web.html.HtmlTagName.link
 import web.html.HtmlTagName.script
 import wizard.BinaryFile
+import wizard.RawFile
 import wizard.BuildConfig
+import wizard.ProjectFile
 import wizard.ProjectInfo
 import wizard.WizardType
 import wizard.files.Gradlew
@@ -61,45 +63,57 @@ fun main() {
 
 private fun generateProject(project: ProjectInfo) {
     val files = project.generate(BuildConfig.wizardType)
-    val textFiles = files.filterNot { it is BinaryFile }
+    val textFiles = files.filter { it !is BinaryFile && it !is RawFile }
     val binFiles = files.filterIsInstance<BinaryFile>().map { loadBinaryFileBytes(it) }
+    val rawFiles = files.filterIsInstance<RawFile>().map { loadRawFileBytes(it) }
     Promise.all(binFiles.toTypedArray()).then { binaries ->
-        val zip = JSZip()
-        textFiles.forEach { file ->
+        Promise.all(rawFiles.toTypedArray()).then { raws ->
+            val zip = JSZip()
+            textFiles.forEach { file ->
                 zip.file(
                     file.path,
                     file.content
                 )
-        }
-        binaries.forEach { bin ->
-            if (bin.origin.path.endsWith("gradlew")) {
-                val uint8Array = Uint8Array(bin.content.unsafeCast<js.buffer.ArrayBuffer>())
-                val string = uint8Array.unsafeCast<ByteArray>().decodeToString()
+            }
+            binaries.forEach { bin ->
+                if (bin.origin.path.endsWith("gradlew")) {
+                    val uint8Array = Uint8Array(bin.content.unsafeCast<js.buffer.ArrayBuffer>())
+                    val string = uint8Array.unsafeCast<ByteArray>().decodeToString()
+                    zip.file(
+                        bin.origin.path,
+                        string,
+                        js("""{unixPermissions:"774"}""") //execution rights
+                    )
+                } else {
+                    zip.file(
+                        bin.origin.path,
+                        bin.content
+                    )
+                }
+            }
+            raws.forEach { raw ->
                 zip.file(
-                    bin.origin.path,
-                    string,
-                    js("""{unixPermissions:"774"}""") //execution rights
-                )
-            } else {
-                zip.file(
-                    bin.origin.path,
-                    bin.content
+                    raw.origin.path,
+                    raw.content
                 )
             }
-        }
-        //execution rights require UNIX mode
-        zip.generateAsync<Blob>(js("""{type:"blob",platform:"UNIX"}""")).then { blob ->
-            FileSaverJs.saveAs(blob, "${project.safeName}.zip")
+            //execution rights require UNIX mode
+            zip.generateAsync<Blob>(js("""{type:"blob",platform:"UNIX"}""")).then { blob ->
+                FileSaverJs.saveAs(blob, "${project.safeName}.zip")
+            }
         }
     }
 }
 
-private data class BinaryFileContent(
-    val origin: BinaryFile,
+private data class FileContent(
+    val origin: ProjectFile,
     val content: ArrayBuffer
 )
 
-private fun loadBinaryFileBytes(file: BinaryFile): Promise<BinaryFileContent> =
+private fun loadBinaryFileBytes(file: BinaryFile): Promise<FileContent> =
     window.fetch("./binaries/${file.resourcePath}")
         .then { response -> response.arrayBuffer() }
-        .then { BinaryFileContent(file, it) }
+        .then { FileContent(file, it) }
+
+private fun loadRawFileBytes(file: RawFile): Promise<FileContent> =
+    file.arrayBuffer.then { FileContent(file, it) }
