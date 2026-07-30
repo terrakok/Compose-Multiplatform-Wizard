@@ -100,7 +100,7 @@ fun ProjectInfo.generateComposeAppFiles(): List<ProjectFile> = buildList {
     if (info.hasPlatform(ProjectPlatform.Ios)) {
         add(IosMainKt(info))
 
-        addAll(IosAppIcons())
+        addAll(IosAppIcons(info))
         add(IosAccentColor())
         add(IosAssets())
         add(IosPreviewAssets())
