@@ -47,7 +47,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         title = "Compose Multiplatform Wizard"
                     }
 
-                    val default = DefaultComposeAppInfo()
+                    val default = props.restored ?: DefaultComposeAppInfo()
                     val textFieldWidth = 565.px
 
                     var projectName by useState(default.name)
@@ -227,6 +227,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                                     addAll(deps.getSelectedDependencies())
                                 }
                             )
+                            props.save(info)
                             props.generate(info)
                         }
                     }

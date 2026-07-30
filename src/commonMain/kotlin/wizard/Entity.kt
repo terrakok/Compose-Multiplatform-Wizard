@@ -1,5 +1,6 @@
 package wizard
 
+import kotlinx.serialization.Serializable
 import wizard.ProjectPlatform.*
 import wizard.dependencies.*
 
@@ -33,6 +34,7 @@ val DefaultAppIcon = AppIcon(
     cornerRadiusPercent = 22,
 )
 
+@Serializable
 data class ProjectInfo(
     val packageId: String,
     //Shouldn't be "ComposeApp" because it breaks ios build. The reason is kotlin framework name is "ComposeApp"
@@ -115,6 +117,7 @@ fun ProjectInfo.generate(type: WizardType) = when (type) {
 
 enum class GradleModule { SHARED, ANDROID, DESKTOP, WEB }
 
+@Serializable
 data class Dependency(
     val title: String,
     val description: String,

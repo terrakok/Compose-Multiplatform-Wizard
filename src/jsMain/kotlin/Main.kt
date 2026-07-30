@@ -1,16 +1,15 @@
 import js.typedarrays.Uint8Array
+import kotlinx.browser.localStorage
 import kotlinx.browser.window
+import kotlinx.serialization.json.Json
 import npm.FileSaverJs
 import npm.JSZip
 import org.khronos.webgl.ArrayBuffer
-import org.khronos.webgl.Uint16Array
-import org.khronos.webgl.get
 import org.w3c.files.Blob
 import react.create
 import react.dom.client.createRoot
 import ui.App
 import web.dom.document
-import web.encoding.TextDecoder
 import web.html.HtmlTagName.div
 import web.html.HtmlTagName.link
 import web.html.HtmlTagName.script
@@ -20,10 +19,8 @@ import wizard.BuildConfig
 import wizard.ProjectFile
 import wizard.ProjectInfo
 import wizard.WizardType
-import wizard.files.Gradlew
 import wizard.generate
 import wizard.safeName
-import kotlin.UByteArray
 import kotlin.js.Promise
 import kotlin.js.unsafeCast
 
@@ -56,10 +53,22 @@ fun main() {
     //react app
     val root = document.createElement(div).also { document.body.appendChild(it) }
     createRoot(root).render(App.create {
+        restored = previousGeneratedProject
+        save = { previousGeneratedProject = it }
         generate = ::generateProject
         wizardType = BuildConfig.wizardType
     })
 }
+
+private val PREVIOUS_GENERATED_PROJECT_KEY = "previousGeneratedProject_" + BuildConfig.wizardType.name
+private var previousGeneratedProject: ProjectInfo?
+    get() = localStorage.getItem(PREVIOUS_GENERATED_PROJECT_KEY)?.let { json ->
+        Json.decodeFromString<ProjectInfo>(json)
+    }
+    set(value) {
+        val json = Json.encodeToString(value)
+        localStorage.setItem(PREVIOUS_GENERATED_PROJECT_KEY, json)
+    }
 
 private fun generateProject(project: ProjectInfo) {
     val files = project.generate(BuildConfig.wizardType)

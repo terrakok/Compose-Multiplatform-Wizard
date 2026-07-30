@@ -1,5 +1,8 @@
 package wizard
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class AppIcon(
     val background: AppIconBackground,
     val symbolColor: String,
@@ -16,8 +19,11 @@ enum class AppIconSymbolStyle {
     Outlined,
 }
 
+@Serializable
 sealed interface AppIconBackground {
+    @Serializable
     data class Solid(val color: String) : AppIconBackground
+    @Serializable
     data class Gradient(
         val from: String,
         val to: String,

@@ -6,6 +6,8 @@ import react.*
 import wizard.*
 
 external interface AppProps : Props {
+    var restored: ProjectInfo?
+    var save: (ProjectInfo) -> Unit
     var generate: (ProjectInfo) -> Unit
     var wizardType: WizardType
 }
@@ -32,10 +34,14 @@ val App = FC<AppProps> { props ->
 
                 when (wizardType.component1()) {
                     WizardType.ComposeApp -> ComposeAppWizardContent {
+                        restored = props.restored
+                        save = props.save
                         generate = props.generate
                     }
 
                     WizardType.KmpLibrary -> KmpLibraryWizardContent {
+                        restored = props.restored
+                        save = props.save
                         generate = props.generate
                     }
                 }
