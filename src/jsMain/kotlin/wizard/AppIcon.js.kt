@@ -1,8 +1,16 @@
 package wizard
 
+import npm.CanvgModule
+import npm.ICO
 import npm.SVG
 import npm.Svg
+import org.khronos.webgl.ArrayBuffer
+import org.w3c.dom.CanvasRenderingContext2D
 import ui.materialSymbolOrNull
+import web.dom.document
+import web.html.HTMLCanvasElement
+import web.html.HtmlTagName
+import kotlin.js.Promise
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -57,3 +65,37 @@ private fun Svg.drawAppIconSymbol(icon: AppIcon, size: Double) {
 
     add(nestedSvg)
 }
+
+fun AppIcon.toPng(size: Int): Promise<ArrayBuffer> {
+    val svgString = this.toSvg(size.toDouble())
+
+    val canvas: HTMLCanvasElement = document.createElement(HtmlTagName.canvas).apply {
+        width = size
+        height = size
+    }
+    val ctx: CanvasRenderingContext2D = js("""canvas.getContext("2d");""")
+
+    return Promise { resolve, reject ->
+        CanvgModule.Canvg.from(ctx, svgString)
+            .then { canvg ->
+                canvg.render().then {
+                    canvas.toBlobWithCallback(callback = { blob ->
+                        if (blob == null) {
+                            reject(Throwable("Failed to create blob from canvas"))
+                        } else {
+                            blob.arrayBufferAsync().then { buf ->
+                                resolve(buf.unsafeCast<ArrayBuffer>())
+                            }
+                        }
+                    }, type = "image/png")
+                }.catch { err -> reject(err) }
+            }.catch { err -> reject(err) }
+    }.finally { canvas.remove() }
+}
+
+fun AppIcon.toIco(sizes: List<Int>): Promise<ArrayBuffer> =
+     js.promise.Promise.all(
+        sizes.map { toPng(it).unsafeCast<js.promise.Promise<ArrayBuffer>>() }.toTypedArray()
+    ).flatThen { pngs ->
+        ICO.encodeIco(pngs.map { buffer -> js("{buffer}") }.toTypedArray())
+    }.unsafeCast<Promise<ArrayBuffer>>()

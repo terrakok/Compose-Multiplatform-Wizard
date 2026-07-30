@@ -31,6 +31,7 @@ kotlin {
             implementation(npm("stream", "0.0.3"))
             implementation(npm("@svgdotjs/svg.js", "3.2.6"))
             implementation(npm("canvg", "4.0.3"))
+            implementation(npm("icojs", "1.0.0"))
         }
         commonTest.dependencies {
             implementation(kotlin("test"))

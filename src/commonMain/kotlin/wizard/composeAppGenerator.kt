@@ -1,15 +1,7 @@
 package wizard
 
 import wizard.dependencies.ApolloPlugin
-import wizard.files.Gitignore
-import wizard.files.GradleLibsVersion
-import wizard.files.GradleProperties
-import wizard.files.GradleWrapperJar
-import wizard.files.GradleWrapperProperties
-import wizard.files.Gradlew
-import wizard.files.GradlewBat
-import wizard.files.LocalProperties
-import wizard.files.RootBuildGradleKts
+import wizard.files.*
 import wizard.files.composeApp.GraphQLQuery
 import wizard.files.composeApp.GraphQLSchema
 import wizard.files.composeApp.Readme
@@ -21,31 +13,14 @@ import wizard.files.composeApp.androidApp.AndroidManifest
 import wizard.files.composeApp.desktop.DesktopAppIcons
 import wizard.files.composeApp.desktop.DesktopBuildGradleKts
 import wizard.files.composeApp.desktop.DesktopMainKt
-import wizard.files.composeApp.iosApp.IosAccentColor
-import wizard.files.composeApp.iosApp.IosAppIcons
-import wizard.files.composeApp.iosApp.IosAppSwift
-import wizard.files.composeApp.iosApp.IosAssets
-import wizard.files.composeApp.iosApp.IosInfoPlist
-import wizard.files.composeApp.iosApp.IosPbxproj
-import wizard.files.composeApp.iosApp.IosPreviewAssets
-import wizard.files.composeApp.iosApp.IosXcworkspace
-import wizard.files.composeApp.shared.AppKt
-import wizard.files.composeApp.shared.ColorKt
-import wizard.files.composeApp.shared.ComposeTestKt
-import wizard.files.composeApp.shared.IcCycloneXml
-import wizard.files.composeApp.shared.IcDarkModeXml
-import wizard.files.composeApp.shared.IcLightModeXml
-import wizard.files.composeApp.shared.IcRotateRightXml
-import wizard.files.composeApp.shared.IndieFlowerTtf
-import wizard.files.composeApp.shared.IosMainKt
-import wizard.files.composeApp.shared.SharedBuildGradleKts
-import wizard.files.composeApp.shared.StringsXml
-import wizard.files.composeApp.shared.ThemeKt
+import wizard.files.composeApp.iosApp.*
+import wizard.files.composeApp.shared.*
 import wizard.files.composeApp.webApp.WebBuildGradleKts
-import wizard.files.composeApp.webApp.WebFavIcons
 import wizard.files.composeApp.webApp.WebIndexHtml
 import wizard.files.composeApp.webApp.WebMainKt
 import wizard.files.composeApp.webApp.WebManifestJson
+import wizard.icon.IosAppIconRenderer
+import wizard.icon.WebAppIconRenderer
 
 fun ProjectInfo.generateComposeAppFiles(): List<ProjectFile> = buildList {
     val info = this@generateComposeAppFiles
@@ -100,7 +75,7 @@ fun ProjectInfo.generateComposeAppFiles(): List<ProjectFile> = buildList {
     if (info.hasPlatform(ProjectPlatform.Ios)) {
         add(IosMainKt(info))
 
-        addAll(IosAppIcons(info))
+        addAll(IosAppIconRenderer.render(info.appIcon))
         add(IosAccentColor())
         add(IosAssets())
         add(IosPreviewAssets())
@@ -115,6 +90,6 @@ fun ProjectInfo.generateComposeAppFiles(): List<ProjectFile> = buildList {
         add(WebIndexHtml(info))
         add(WebManifestJson(info))
         add(WebMainKt(info))
-        addAll(WebFavIcons(info))
+        addAll(WebAppIconRenderer.render(info.appIcon))
     }
 }
