@@ -10,8 +10,6 @@ import kotlin.js.Promise
 
 actual fun createWebIcon(spec: WebIconSpec, icon: AppIcon): ProjectFile = object : RawFile {
     override val path = "webApp/src/commonMain/resources/${spec.filename}"
-    override val arrayBuffer: Promise<ArrayBuffer>
-        get() {
-            return if (spec.isPng) icon.toPng(spec.size) else icon.toIco(WebIconSpec.icoSizes)
-        }
+    override val arrayBuffer: Promise<ArrayBuffer> get() =
+        if (spec.isPng) icon.toPng(spec.size) else icon.toIco(WebIconSpec.icoSizes)
 }

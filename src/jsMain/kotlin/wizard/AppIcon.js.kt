@@ -99,3 +99,71 @@ fun AppIcon.toIco(sizes: List<Int>): Promise<ArrayBuffer> =
     ).flatThen { pngs ->
         ICO.encodeIco(pngs.map { buffer -> js("{buffer}") }.toTypedArray())
     }.unsafeCast<Promise<ArrayBuffer>>()
+
+fun AppIcon.toIcns(sizes: List<Int>): Promise<ArrayBuffer> =
+    js.promise.Promise.all(
+        sizes.map { size ->
+            toPng(size).then { png ->
+                js("{size: size, buffer: png}") }.unsafeCast<js.promise.Promise<dynamic>>()
+        }.toTypedArray()
+    ).flatThen { pngs ->
+        createIcns(pngs)
+    }.unsafeCast<Promise<ArrayBuffer>>()
+
+//language=js
+private fun createIcns(pngItems: Array<dynamic>): js.promise.Promise<ArrayBuffer> = js("""
+    new Promise((resolve, reject) => {
+        const typeMap = {
+          16: 'icp4',
+          32: 'icp5',
+          64: 'icp6',
+          128: 'ic07',
+          256: 'ic08',
+          512: 'ic09',
+          1024: 'ic10'
+        };
+
+        const validChunks = [];
+        let totalSize = 8;
+
+        for (const item of pngItems) {
+          const typeCode = typeMap[item.size];
+          const dataBytes = new Uint8Array(item.buffer);
+          const chunkSize = 8 + dataBytes.length;
+
+          validChunks.push({
+            typeCode,
+            chunkSize,
+            dataBytes
+          });
+
+          totalSize += chunkSize;
+        }
+
+        const finalBuffer = new ArrayBuffer(totalSize);
+        const view = new DataView(finalBuffer);
+
+        view.setUint8(0, 0x69); // 'i'
+        view.setUint8(1, 0x63); // 'c'
+        view.setUint8(2, 0x6e); // 'n'
+        view.setUint8(3, 0x73); // 's'
+        view.setUint32(4, totalSize, false);
+
+        const finalArray = new Uint8Array(finalBuffer);
+        let offset = 8;
+
+        for (const chunk of validChunks) {
+          for (let i = 0; i < 4; i++) {
+            view.setUint8(offset + i, chunk.typeCode.charCodeAt(i));
+          }
+          
+          view.setUint32(offset + 4, chunk.chunkSize, false);
+          offset += 8;
+
+          finalArray.set(chunk.dataBytes, offset);
+          offset += chunk.dataBytes.length;
+        }
+
+        resolve(finalBuffer);
+      });
+""")

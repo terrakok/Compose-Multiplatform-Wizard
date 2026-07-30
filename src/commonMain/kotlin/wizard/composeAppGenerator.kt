@@ -10,7 +10,6 @@ import wizard.files.composeApp.androidApp.AndroidAppActivityKt
 import wizard.files.composeApp.androidApp.AndroidAppBuildGradleKts
 import wizard.files.composeApp.androidApp.AndroidAppIcons
 import wizard.files.composeApp.androidApp.AndroidManifest
-import wizard.files.composeApp.desktop.DesktopAppIcons
 import wizard.files.composeApp.desktop.DesktopBuildGradleKts
 import wizard.files.composeApp.desktop.DesktopMainKt
 import wizard.files.composeApp.iosApp.*
@@ -19,6 +18,7 @@ import wizard.files.composeApp.webApp.WebBuildGradleKts
 import wizard.files.composeApp.webApp.WebIndexHtml
 import wizard.files.composeApp.webApp.WebMainKt
 import wizard.files.composeApp.webApp.WebManifestJson
+import wizard.icon.DesktopAppIconRenderer
 import wizard.icon.IosAppIconRenderer
 import wizard.icon.WebAppIconRenderer
 
@@ -69,7 +69,7 @@ fun ProjectInfo.generateComposeAppFiles(): List<ProjectFile> = buildList {
     if (info.hasPlatform(ProjectPlatform.Jvm)) {
         add(DesktopBuildGradleKts(info))
         add(DesktopMainKt(info))
-        addAll(DesktopAppIcons(info))
+        addAll(DesktopAppIconRenderer.render(info.appIcon))
     }
 
     if (info.hasPlatform(ProjectPlatform.Ios)) {
