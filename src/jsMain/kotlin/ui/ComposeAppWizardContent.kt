@@ -13,9 +13,7 @@ import react.dom.onChange
 import web.cssom.*
 import web.html.HTMLInputElement
 import web.window.window
-import wizard.DefaultComposeAppInfo
-import wizard.Dependency
-import wizard.ProjectPlatform
+import wizard.*
 import wizard.ProjectPlatform.*
 import wizard.dependencies.*
 import mui.icons.material.Android as AndroidIcon
@@ -113,6 +111,13 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         }
                     }
 
+                    var appIcon by useState(default.appIcon)
+
+                    AppIconPreview {
+                        iconSpec = appIcon
+                        onIconSpecChange = { appIcon = it }
+                    }
+
                     var addSampleTests by useState(false)
                     Card {
                         sx {
@@ -205,6 +210,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                                 name = projectName,
                                 platforms = getActualPlatforms(platforms),
                                 addTests = addSampleTests,
+                                appIcon = appIcon,
                                 dependencies = buildSet {
                                     add(KotlinMultiplatformPlugin)
                                     add(ComposeCompilerPlugin)
