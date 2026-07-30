@@ -10,7 +10,7 @@ plugins {
 kotlin {
     android {
         namespace = "my.company.sharedUI"
-        compileSdk = 36
+        compileSdk = 37
         minSdk = 23
         androidResources.enable = true
         compilerOptions { jvmTarget = JvmTarget.JVM_17 }
