@@ -41,7 +41,7 @@ private fun Svg.drawAppIconBackground(icon: AppIcon, size: Double) {
         .fill(backgroundFill)
 }
 
-private fun Svg.addBackgroundGradient(background: AppIconBackground.Gradient): String {
+fun Svg.addBackgroundGradient(background: AppIconBackground.Gradient): String {
     val angle = background.angleDegrees * PI / 180
     return gradient("linear") { add ->
         add.stop(0.0, background.from)
@@ -52,7 +52,7 @@ private fun Svg.addBackgroundGradient(background: AppIconBackground.Gradient): S
         .url()
 }
 
-private fun Svg.drawAppIconSymbol(icon: AppIcon, size: Double) {
+fun Svg.drawAppIconSymbol(icon: AppIcon, size: Double) {
     val symbol = materialSymbolOrNull(icon.symbolName) ?: return
     val symbolSize = size * icon.symbolScale
     val x = (size - symbolSize) / 2
@@ -68,7 +68,10 @@ private fun Svg.drawAppIconSymbol(icon: AppIcon, size: Double) {
 
 fun AppIcon.toPng(size: Int): Promise<ArrayBuffer> {
     val svgString = this.toSvg(size.toDouble())
+    return renderSvgAsPng(svgString, size)
+}
 
+fun renderSvgAsPng(svg: String, size: Int): Promise<ArrayBuffer> {
     val canvas: HTMLCanvasElement = document.createElement(HtmlTagName.canvas).apply {
         width = size
         height = size
@@ -76,7 +79,7 @@ fun AppIcon.toPng(size: Int): Promise<ArrayBuffer> {
     val ctx: CanvasRenderingContext2D = js("""canvas.getContext("2d");""")
 
     return Promise { resolve, reject ->
-        CanvgModule.Canvg.from(ctx, svgString)
+        CanvgModule.Canvg.from(ctx, svg)
             .then { canvg ->
                 canvg.render().then {
                     canvas.toBlobWithCallback(callback = { blob ->

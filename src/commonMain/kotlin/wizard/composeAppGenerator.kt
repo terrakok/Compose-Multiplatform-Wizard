@@ -8,7 +8,6 @@ import wizard.files.composeApp.Readme
 import wizard.files.composeApp.SettingsGradleKts
 import wizard.files.composeApp.androidApp.AndroidAppActivityKt
 import wizard.files.composeApp.androidApp.AndroidAppBuildGradleKts
-import wizard.files.composeApp.androidApp.AndroidAppIcons
 import wizard.files.composeApp.androidApp.AndroidManifest
 import wizard.files.composeApp.desktop.DesktopBuildGradleKts
 import wizard.files.composeApp.desktop.DesktopMainKt
@@ -18,6 +17,7 @@ import wizard.files.composeApp.webApp.WebBuildGradleKts
 import wizard.files.composeApp.webApp.WebIndexHtml
 import wizard.files.composeApp.webApp.WebMainKt
 import wizard.files.composeApp.webApp.WebManifestJson
+import wizard.icon.AndroidAppIconRenderer
 import wizard.icon.DesktopAppIconRenderer
 import wizard.icon.IosAppIconRenderer
 import wizard.icon.WebAppIconRenderer
@@ -62,7 +62,7 @@ fun ProjectInfo.generateComposeAppFiles(): List<ProjectFile> = buildList {
         add(LocalProperties())
         add(AndroidAppBuildGradleKts(info))
         add(AndroidManifest(info))
-        addAll(AndroidAppIcons(info))
+        addAll(AndroidAppIconRenderer.render(info.appIcon))
         add(AndroidAppActivityKt(info))
     }
 
