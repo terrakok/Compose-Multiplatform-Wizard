@@ -11,6 +11,7 @@ class ComposeAppGeneratorTest {
     @Test
     fun buildAllFiles() {
         val info = DefaultComposeAppInfo().copy(
+            addTests = true,
             dependencies =  buildSet {
                 add(KotlinMultiplatformPlugin)
                 add(ComposeCompilerPlugin)
@@ -44,6 +45,7 @@ class ComposeAppGeneratorTest {
         val info = DefaultComposeAppInfo().copy(
             packageId = "org.android.app",
             platforms = setOf(ProjectPlatform.Android),
+            addTests = true,
             dependencies = setOf(
                 KotlinMultiplatformPlugin,
                 ComposeCompilerPlugin,
@@ -80,6 +82,7 @@ class ComposeAppGeneratorTest {
         val info = DefaultComposeAppInfo().copy(
             packageId = "org.ios.app",
             platforms = setOf(ProjectPlatform.Ios),
+            addTests = true,
             dependencies = setOf(
                 KotlinMultiplatformPlugin,
                 ComposeMultiplatformPlugin,
@@ -111,6 +114,7 @@ class ComposeAppGeneratorTest {
         val info = DefaultComposeAppInfo().copy(
             packageId = "org.desktop.app",
             platforms = setOf(ProjectPlatform.Jvm),
+            addTests = true,
             dependencies = setOf(
                 KotlinMultiplatformPlugin,
                 ComposeMultiplatformPlugin,
@@ -141,6 +145,7 @@ class ComposeAppGeneratorTest {
         val info = DefaultComposeAppInfo().copy(
             packageId = "org.js.app",
             platforms = setOf(ProjectPlatform.Js),
+            addTests = true,
             dependencies = setOf(
                 KotlinMultiplatformPlugin,
                 ComposeMultiplatformPlugin,
@@ -172,6 +177,7 @@ class ComposeAppGeneratorTest {
         val info = DefaultComposeAppInfo().copy(
             packageId = "org.wasm.app",
             platforms = setOf(ProjectPlatform.Wasm),
+            addTests = true,
             dependencies = setOf(
                 KotlinMultiplatformPlugin,
                 ComposeMultiplatformPlugin,
