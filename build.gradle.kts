@@ -29,6 +29,8 @@ kotlin {
             implementation(npm("file-saver", "2.0.5"))
             implementation(npm("jszip", "3.10.1"))
             implementation(npm("stream", "0.0.3"))
+            implementation(npm("@svgdotjs/svg.js", "3.2.6"))
+            implementation(npm("canvg", "4.0.3"))
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
