@@ -6,5 +6,5 @@ import wizard.ProjectFile
 
 actual fun createWebIcon(spec: WebIconSpec, icon: AppIcon): ProjectFile = object : BinaryFile {
     override val path = "webApp/src/commonMain/resources/${spec.filename}"
-    override val resourcePath = "web-app-icons/$${spec.filename}"
+    override val resourcePath = "web-app-icons/${spec.filename}"
 }
