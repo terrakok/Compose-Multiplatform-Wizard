@@ -2,6 +2,7 @@ package wizard
 
 import wizard.dependencies.ApolloPlugin
 import wizard.files.*
+import wizard.files.composeApp.AgentsMd
 import wizard.files.composeApp.GraphQLQuery
 import wizard.files.composeApp.GraphQLSchema
 import wizard.files.composeApp.Readme
@@ -27,6 +28,9 @@ fun ProjectInfo.generateComposeAppFiles(): List<ProjectFile> = buildList {
 
     add(Gitignore())
     add(Readme(info))
+    if (info.addAgentsMd) {
+        add(AgentsMd(info))
+    }
 
     add(GradlewBat())
     add(Gradlew())

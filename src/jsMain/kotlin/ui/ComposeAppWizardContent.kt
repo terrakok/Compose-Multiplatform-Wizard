@@ -11,6 +11,7 @@ import mui.system.sx
 import react.*
 import react.dom.onChange
 import web.cssom.*
+import web.cssom.atrule.orientation
 import web.html.HTMLInputElement
 import web.window.window
 import wizard.*
@@ -39,6 +40,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                 var platforms by useState(default.platforms)
                 var appIcon by useState(default.appIcon)
                 var addSampleTests by useState(default.addTests)
+                var addAgentsMd by useState(default.addAgentsMd)
                 val deps = setOf(
                     DependencyBox(default, listOf(Kermit, Napier)),
                     DependencyBox(default, KotlinxCoroutinesCore),
@@ -65,6 +67,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         platforms = default.platforms
                         appIcon = default.appIcon
                         addSampleTests = default.addTests
+                        addAgentsMd = default.addAgentsMd
                         deps.applySelectedFrom(default)
                         props.save(null)
                     }
@@ -147,41 +150,87 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         onIconSpecChange = { appIcon = it }
                     }
 
-                    Card {
+                    Stack {
                         sx {
                             width = textFieldWidth
+                            alignItems = AlignItems.center
                         }
-                        onClick = {
-                            addSampleTests = !addSampleTests
-                        }
-                        CardActionArea {
-                            Stack {
-                                sx {
-                                    height = 60.px
-                                    marginRight = 8.px
-                                    marginLeft = 16.px
-                                    alignItems = AlignItems.center
-                                    justifyContent = JustifyContent.spaceBetween
-                                }
-                                direction = responsive(StackDirection.row)
-                                spacing = responsive(1)
+                        direction = responsive(StackDirection.row)
+                        spacing = responsive(2)
 
+                        Card {
+                            sx {
+                                flex = Flex.maxContent
+                            }
+                            onClick = {
+                                addSampleTests = !addSampleTests
+                            }
+                            CardActionArea {
                                 Stack {
+                                    sx {
+                                        height = 60.px
+                                        marginRight = 8.px
+                                        marginLeft = 16.px
+                                        alignItems = AlignItems.center
+                                        justifyContent = JustifyContent.spaceBetween
+                                    }
                                     direction = responsive(StackDirection.row)
+                                    spacing = responsive(1)
 
-                                    Typography {
-                                        variant = TypographyVariant.subtitle1
-                                        +"Add sample tests"
+                                    Stack {
+                                        direction = responsive(StackDirection.row)
+
+                                        Typography {
+                                            variant = TypographyVariant.subtitle1
+                                            +"Add sample tests"
+                                        }
+                                    }
+                                    Checkbox {
+                                        icon = RadioButtonUncheckedRounded.create()
+                                        checkedIcon = CheckCircleRounded.create()
+                                        checked = addSampleTests
                                     }
                                 }
-                                Checkbox {
-                                    icon = RadioButtonUncheckedRounded.create()
-                                    checkedIcon = CheckCircleRounded.create()
-                                    checked = addSampleTests
+                            }
+                        }
+
+                        Card {
+                            sx {
+                                flex = Flex.maxContent
+                            }
+                            onClick = {
+                                addAgentsMd = !addAgentsMd
+                            }
+                            CardActionArea {
+                                Stack {
+                                    sx {
+                                        height = 60.px
+                                        marginRight = 8.px
+                                        marginLeft = 16.px
+                                        alignItems = AlignItems.center
+                                        justifyContent = JustifyContent.spaceBetween
+                                    }
+                                    direction = responsive(StackDirection.row)
+                                    spacing = responsive(1)
+
+                                    Stack {
+                                        direction = responsive(StackDirection.row)
+
+                                        Typography {
+                                            variant = TypographyVariant.subtitle1
+                                            +"Add AGENTS.MD"
+                                        }
+                                    }
+                                    Checkbox {
+                                        icon = RadioButtonUncheckedRounded.create()
+                                        checkedIcon = CheckCircleRounded.create()
+                                        checked = addAgentsMd
+                                    }
                                 }
                             }
                         }
                     }
+
 
                     VersionsTable {
                         sx {
@@ -220,6 +269,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                                 name = projectName,
                                 platforms = getActualPlatforms(platforms),
                                 addTests = addSampleTests,
+                                addAgentsMd = addAgentsMd,
                                 appIcon = appIcon,
                                 dependencies = buildSet {
                                     add(KotlinMultiplatformPlugin)

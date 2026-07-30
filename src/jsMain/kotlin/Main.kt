@@ -61,15 +61,20 @@ fun main() {
 }
 
 private val PREVIOUS_GENERATED_PROJECT_KEY = "previousGeneratedProject_" + BuildConfig.wizardType.name
+private val jsonParser = Json {
+    ignoreUnknownKeys = true
+    isLenient = true
+}
+
 private var previousGeneratedProject: ProjectInfo?
     get() = localStorage.getItem(PREVIOUS_GENERATED_PROJECT_KEY)?.let { json ->
-        Json.decodeFromString<ProjectInfo>(json)
+        jsonParser.decodeFromString<ProjectInfo>(json)
     }
     set(value) {
         if (value == null) {
             localStorage.removeItem(PREVIOUS_GENERATED_PROJECT_KEY)
         } else {
-            val json = Json.encodeToString(value)
+            val json = jsonParser.encodeToString(value)
             localStorage.setItem(PREVIOUS_GENERATED_PROJECT_KEY, json)
         }
     }

@@ -51,6 +51,7 @@ data class ProjectInfo(
     val dependencies: Set<Dependency>,
     val addTests: Boolean = true,
     val addSampleApp: Boolean = false,
+    val addAgentsMd: Boolean = false,
     val type: WizardType,
     val appIcon: AppIcon = DefaultAppIcon,
 )
@@ -81,6 +82,7 @@ fun DefaultComposeAppInfo() = ProjectInfo(
         AndroidApplicationPlugin,
         AndroidxActivityCompose,
     ),
+    addTests = false,
     type = WizardType.ComposeApp
 )
 
