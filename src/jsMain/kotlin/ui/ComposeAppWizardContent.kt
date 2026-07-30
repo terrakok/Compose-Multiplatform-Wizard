@@ -33,7 +33,42 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                     padding = Padding(24.px, 24.px)
                 }
 
-                TopMenu()
+                var default = props.restored ?: DefaultComposeAppInfo()
+                var projectName by useState(default.name)
+                var projectId by useState(default.packageId)
+                var platforms by useState(default.platforms)
+                var appIcon by useState(default.appIcon)
+                var addSampleTests by useState(default.addTests)
+                val deps = setOf(
+                    DependencyBox(default, listOf(Kermit, Napier)),
+                    DependencyBox(default, KotlinxCoroutinesCore),
+                    DependencyBox(default, KtorCore),
+                    DependencyBox(default, AndroidxLifecycleViewmodel),
+                    DependencyBox(default, listOf(AndroidxNavigation3, AndroidxNavigation, Voyager, Decompose, PreCompose)),
+                    DependencyBox(default, KotlinxSerializationJson),
+                    DependencyBox(default, listOf(Metro, KotlinInject, Koin, Kodein)),
+                    DependencyBox(default, listOf(Coil, Sketch, ImageLoader)),
+                    DependencyBox(default, MultiplatformSettings),
+                    DependencyBox(default, KotlinxDateTime),
+                    DependencyBox(default, listOf(RoomPlugin, SQLDelightPlugin)),
+                    DependencyBox(default, ApolloPlugin),
+                    DependencyBox(default, KStore),
+                    DependencyBox(default, listOf(BuildConfigPlugin, BuildKonfigPlugin)),
+                    DependencyBox(default, MaterialKolor),
+                )
+
+                TopMenu {
+                    resetProject = {
+                        default = DefaultComposeAppInfo()
+                        projectName = default.name
+                        projectId = default.packageId
+                        platforms = default.platforms
+                        appIcon = default.appIcon
+                        addSampleTests = default.addTests
+                        deps.applySelectedFrom(default)
+                        props.save(null)
+                    }
+                }
 
                 Stack {
                     direction = responsive(StackDirection.column)
@@ -47,10 +82,8 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         title = "Compose Multiplatform Wizard"
                     }
 
-                    val default = props.restored ?: DefaultComposeAppInfo()
                     val textFieldWidth = 565.px
 
-                    var projectName by useState(default.name)
                     TextField {
                         label = ReactNode("Project name")
                         sx {
@@ -62,7 +95,6 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         }
                     }
 
-                    var projectId by useState(default.packageId)
                     TextField {
                         label = ReactNode("Project ID")
                         sx {
@@ -74,7 +106,6 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         }
                     }
 
-                    var platforms by useState(default.platforms)
                     fun switch(platform: ProjectPlatform) {
                         platforms = if (platforms.contains(platform)) {
                             platforms - platform
@@ -111,14 +142,11 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         }
                     }
 
-                    var appIcon by useState(default.appIcon)
-
                     AppIconPreview {
                         iconSpec = appIcon
                         onIconSpecChange = { appIcon = it }
                     }
 
-                    var addSampleTests by useState(false)
                     Card {
                         sx {
                             width = textFieldWidth
@@ -159,26 +187,8 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                         sx {
                             width = textFieldWidth
                         }
-                        info = default
                     }
 
-                    val deps = setOf(
-                        DependencyBox(listOf(Kermit, Napier)),
-                        DependencyBox(KotlinxCoroutinesCore),
-                        DependencyBox(KtorCore),
-                        DependencyBox(AndroidxLifecycleViewmodel),
-                        DependencyBox(listOf(AndroidxNavigation3, AndroidxNavigation, Voyager, Decompose, PreCompose)),
-                        DependencyBox(KotlinxSerializationJson),
-                        DependencyBox(listOf(Metro, KotlinInject, Koin, Kodein)),
-                        DependencyBox(listOf(Coil, Sketch, ImageLoader)),
-                        DependencyBox(MultiplatformSettings),
-                        DependencyBox(KotlinxDateTime),
-                        DependencyBox(listOf(RoomPlugin, SQLDelightPlugin)),
-                        DependencyBox(ApolloPlugin),
-                        DependencyBox(KStore),
-                        DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin)),
-                        DependencyBox(MaterialKolor),
-                    )
                     Grid {
                         sx {
                             justifyContent = JustifyContent.spaceAround
@@ -205,7 +215,7 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                                 || platforms.isEmpty()
 
                         onClick = {
-                            val info = default.copy(
+                            val info = DefaultComposeAppInfo().copy(
                                 packageId = projectId,
                                 name = projectName,
                                 platforms = getActualPlatforms(platforms),
@@ -238,7 +248,21 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
 }
 
 private fun getActualPlatforms(platforms: Set<ProjectPlatform>): Set<ProjectPlatform> =
-    if (platforms.contains(Wasm)) platforms + Js else platforms
+    if (platforms.contains(Wasm)) platforms + Js else platforms - Js
+
+internal fun Set<DependencyBox>.applySelectedFrom(info: ProjectInfo) {
+    this.forEach { box ->
+        val i = box.dependencies.indexOfFirst { d -> info.dependencies.contains(d) }
+        val (_, setIsSelected) = box.isSelected
+        if (i != -1) {
+            setIsSelected(true)
+            box.selectIndex(i)
+        } else {
+            setIsSelected(false)
+            box.selectIndex(0)
+        }
+    }
+}
 
 internal fun Set<DependencyBox>.getSelectedDependencies(): Set<Dependency> {
     val selectedDeps = this

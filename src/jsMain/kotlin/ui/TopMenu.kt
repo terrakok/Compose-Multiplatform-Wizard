@@ -9,9 +9,15 @@ import react.dom.html.ReactHTML
 import web.cssom.Position
 import web.cssom.px
 import web.window.window
+import wizard.AppIcon
+import wizard.ProjectInfo
 import wizard.WizardType
 
-val TopMenu = FC<Props> {
+external interface TopMenuProps : Props {
+    var resetProject: () -> Unit
+}
+
+val TopMenu = FC<TopMenuProps> { props ->
     var showVersions by useRequired(ShowVersionContext)
     var theme by useRequired(ThemeContext)
     val wizardType by useRequired(WizardTypeContext)
@@ -25,6 +31,12 @@ val TopMenu = FC<Props> {
                 position = Position.absolute
                 right = 0.px
                 top = 0.px
+            }
+
+            IconButton {
+                onClick = { props.resetProject() }
+                title = "Reset project"
+                Delete()
             }
 
             IconButton {

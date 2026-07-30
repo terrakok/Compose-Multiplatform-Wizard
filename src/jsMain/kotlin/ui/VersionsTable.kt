@@ -12,11 +12,7 @@ import react.useRequired
 import wizard.*
 import wizard.dependencies.*
 
-external interface VersionsTableProps : PropsWithSx {
-    var info: ProjectInfo
-}
-
-val VersionsTable = FC<VersionsTableProps> { props ->
+val VersionsTable = FC<PropsWithSx> { props ->
     val showVersions by useRequired(ShowVersionContext)
     val wizardType by useRequired(WizardTypeContext)
     if (showVersions) {
@@ -41,7 +37,7 @@ val VersionsTable = FC<VersionsTableProps> { props ->
                     }
                     TableRow {
                         TableCell { +"Gradle" }
-                        TableCell { +props.info.gradleVersion }
+                        TableCell { +GRADLE_VERSION }
                     }
                 }
             }

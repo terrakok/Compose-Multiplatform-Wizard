@@ -1,20 +1,25 @@
 package ui
 
+import react.StateInstance
 import react.useState
 import wizard.Dependency
+import wizard.ProjectInfo
 
 class DependencyBox(
-    val dependencies: List<Dependency>,
-    isSelected: Boolean = false
+    default: ProjectInfo,
+    val dependencies: List<Dependency>
 ) {
-    constructor(dependency: Dependency, isSelected: Boolean = false) : this(listOf(dependency), isSelected)
+    constructor(default: ProjectInfo, dependency: Dependency) : this(default, listOf(dependency))
 
     val isMultiSelect get() = dependencies.size > 1
-    val selectedDep = useState(dependencies[0])
-    val isSelected = useState(isSelected)
+    val selectedDep: StateInstance<Dependency>
+    val isSelected: StateInstance<Boolean>
 
     init {
         require(dependencies.isNotEmpty())
+        val i = dependencies.indexOfFirst { d -> default.dependencies.contains(d) }
+        selectedDep = useState(dependencies[maxOf(i, 0)])
+        isSelected = useState(i != -1)
     }
 
     fun selectIndex(i: Int) {

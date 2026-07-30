@@ -32,7 +32,38 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                     padding = Padding(24.px, 24.px)
                 }
 
-                TopMenu()
+                var default = DefaultKmpLibraryInfo()
+                var projectName by useState(default.name)
+                var projectId by useState(default.packageId)
+                var moduleName by useState(default.moduleName)
+                var platforms by useState(default.platforms)
+                var addSampleApp by useState(default.addSampleApp)
+                var addSampleTests by useState(default.addTests)
+                val deps: Set<DependencyBox> = setOf(
+                    DependencyBox(default, ComposeMultiplatformPlugin),
+                    DependencyBox(default, KotlinxCoroutinesCore),
+                    DependencyBox(default, KotlinxSerializationJson),
+                    DependencyBox(default, KotlinxDateTime),
+                    DependencyBox(default, listOf(Kermit, Napier)),
+                    DependencyBox(default, KtorCore),
+                    DependencyBox(default, SQLDelightPlugin),
+                    DependencyBox(default, MultiplatformSettings),
+                    DependencyBox(default, listOf(BuildConfigPlugin, BuildKonfigPlugin)),
+                )
+
+                TopMenu {
+                    resetProject = {
+                        default = DefaultKmpLibraryInfo()
+                        projectName = default.name
+                        projectId = default.packageId
+                        moduleName = default.moduleName
+                        platforms = default.platforms
+                        addSampleApp = default.addSampleApp
+                        addSampleTests = default.addTests
+                        deps.applySelectedFrom(default)
+                        props.save(null)
+                    }
+                }
 
                 Stack {
                     direction = responsive(StackDirection.column)
@@ -46,10 +77,8 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                         title = "KMP Library Wizard"
                     }
 
-                    val default = DefaultKmpLibraryInfo()
                     val textFieldWidth = 565.px
 
-                    var projectName by useState(default.name)
                     TextField {
                         label = ReactNode("Project name")
                         sx {
@@ -61,7 +90,6 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                         }
                     }
 
-                    var projectId by useState(default.packageId)
                     TextField {
                         label = ReactNode("Project ID")
                         sx {
@@ -73,7 +101,6 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                         }
                     }
 
-                    var moduleName by useState(default.moduleName)
                     TextField {
                         label = ReactNode("Library name")
                         sx {
@@ -85,7 +112,6 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                         }
                     }
 
-                    var platforms by useState(setOf(Android, Ios, Jvm, Wasm))
                     fun switch(platform: ProjectPlatform) {
                         platforms = if (platforms.contains(platform)) {
                             platforms - platform
@@ -149,7 +175,6 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                         }
                     }
 
-                    var addSampleApp by useState(false)
                     Card {
                         sx {
                             width = textFieldWidth
@@ -186,7 +211,6 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                         }
                     }
 
-                    var addSampleTests by useState(false)
                     Card {
                         sx {
                             width = textFieldWidth
@@ -227,20 +251,8 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                         sx {
                             width = textFieldWidth
                         }
-                        info = default
                     }
 
-                    val deps: Set<DependencyBox> = setOf(
-                        DependencyBox(ComposeMultiplatformPlugin),
-                        DependencyBox(KotlinxCoroutinesCore),
-                        DependencyBox(KotlinxSerializationJson),
-                        DependencyBox(KotlinxDateTime),
-                        DependencyBox(listOf(Kermit, Napier)),
-                        DependencyBox(KtorCore),
-                        DependencyBox(SQLDelightPlugin),
-                        DependencyBox(MultiplatformSettings),
-                        DependencyBox(listOf(BuildConfigPlugin, BuildKonfigPlugin)),
-                    )
                     Grid {
                         sx {
                             justifyContent = JustifyContent.spaceAround
@@ -268,7 +280,7 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                                 || platforms.isEmpty()
 
                         onClick = {
-                            val info = default.copy(
+                            val info = DefaultKmpLibraryInfo().copy(
                                 packageId = projectId,
                                 name = projectName,
                                 moduleName = moduleName,
@@ -285,6 +297,7 @@ val KmpLibraryWizardContent = FC<AppProps> { props ->
                                 }
                             )
                             props.generate(info)
+                            props.save(info)
                         }
                     }
                 }

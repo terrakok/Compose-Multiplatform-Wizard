@@ -7,7 +7,7 @@ import wizard.*
 
 external interface AppProps : Props {
     var restored: ProjectInfo?
-    var save: (ProjectInfo) -> Unit
+    var save: (ProjectInfo?) -> Unit
     var generate: (ProjectInfo) -> Unit
     var wizardType: WizardType
 }

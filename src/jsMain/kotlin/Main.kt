@@ -66,8 +66,12 @@ private var previousGeneratedProject: ProjectInfo?
         Json.decodeFromString<ProjectInfo>(json)
     }
     set(value) {
-        val json = Json.encodeToString(value)
-        localStorage.setItem(PREVIOUS_GENERATED_PROJECT_KEY, json)
+        if (value == null) {
+            localStorage.removeItem(PREVIOUS_GENERATED_PROJECT_KEY)
+        } else {
+            val json = Json.encodeToString(value)
+            localStorage.setItem(PREVIOUS_GENERATED_PROJECT_KEY, json)
+        }
     }
 
 private fun generateProject(project: ProjectInfo) {

@@ -34,6 +34,8 @@ val DefaultAppIcon = AppIcon(
     cornerRadiusPercent = 22,
 )
 
+const val GRADLE_VERSION = "9.6.1"
+
 @Serializable
 data class ProjectInfo(
     val packageId: String,
@@ -41,7 +43,7 @@ data class ProjectInfo(
     val name: String,
     val moduleName: String,
     val platforms: Set<ProjectPlatform>,
-    val gradleVersion: String = "9.6.1",
+    val gradleVersion: String = GRADLE_VERSION,
     //https://gradle.org/release-checksums/
     val gradleVersionSha: String = "9c0f7faeeb306cb14e4279a3e084ca6b596894089a0638e68a07c945a32c9e14",
     val androidMinSdk: Int = 23,
