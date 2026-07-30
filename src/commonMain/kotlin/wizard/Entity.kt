@@ -24,6 +24,15 @@ enum class WizardType {
     KmpLibrary
 }
 
+val DefaultAppIcon = AppIcon(
+    background = AppIconBackground.Solid("#3B82F6"),
+    symbolColor = "#FFFFFF",
+    symbolName = "RocketLaunch",
+    symbolStyle = AppIconSymbolStyle.Filled,
+    symbolScale = 0.6f,
+    cornerRadiusPercent = 22,
+)
+
 data class ProjectInfo(
     val packageId: String,
     //Shouldn't be "ComposeApp" because it breaks ios build. The reason is kotlin framework name is "ComposeApp"
@@ -38,7 +47,8 @@ data class ProjectInfo(
     val dependencies: Set<Dependency>,
     val addTests: Boolean = true,
     val addSampleApp: Boolean = false,
-    val type: WizardType
+    val type: WizardType,
+    val appIcon: AppIcon = DefaultAppIcon,
 )
 
 fun ProjectInfo.getResourcesPackage(): String = "$safeName.$moduleName.generated.resources"
