@@ -57,7 +57,7 @@ actual fun createAndroidForegroundIcon(path: String, icon: AppIcon, size: Int): 
 }
 
 actual fun createAndroidMonochromeIcon(path: String, icon: AppIcon, size: Int): ProjectFile {
-    val monochromeIcon = icon.copy(symbolColor = "#000000")
+    val monochromeIcon = icon.copy(symbolColor = "#000000", symbolScale = icon.symbolScale * 0.65f)
     val s = size.toDouble()
     val svg = SVG()
         .size(s, s)
