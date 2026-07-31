@@ -40,13 +40,14 @@ actual fun createAndroidBackgroundIcon(path: String, icon: AppIcon, size: Int): 
 }
 
 actual fun createAndroidForegroundIcon(path: String, icon: AppIcon, size: Int): ProjectFile {
+    val foregroundIcon = icon.copy(symbolScale = icon.symbolScale * 0.65f)
     val s = size.toDouble()
     val svg = SVG()
         .size(s, s)
         .viewbox(0.0, 0.0, s, s)
         .apply {
             clear()
-            drawAppIconSymbol(icon, s)
+            drawAppIconSymbol(foregroundIcon, s)
         }.svg()
 
     return object : RawFile {
