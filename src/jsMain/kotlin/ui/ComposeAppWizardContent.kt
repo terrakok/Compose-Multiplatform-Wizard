@@ -42,20 +42,20 @@ val ComposeAppWizardContent = FC<AppProps> { props ->
                 var addSampleTests by useState(default.addTests)
                 var addAgentsMd by useState(default.addAgentsMd)
                 val deps = setOf(
-                    DependencyBox(default, listOf(Kermit, Napier)),
+                    DependencyBox(default, listOf(Kermit, Napier), "logger"),
                     DependencyBox(default, KotlinxCoroutinesCore),
                     DependencyBox(default, KtorCore),
                     DependencyBox(default, AndroidxLifecycleViewmodel),
-                    DependencyBox(default, listOf(AndroidxNavigation3, AndroidxNavigation, Voyager, Decompose, PreCompose)),
+                    DependencyBox(default, listOf(AndroidxNavigation3, AndroidxNavigation, Voyager, Decompose, PreCompose), "navigation"),
                     DependencyBox(default, KotlinxSerializationJson),
-                    DependencyBox(default, listOf(Metro, KotlinInject, Koin, Kodein)),
-                    DependencyBox(default, listOf(Coil, Sketch, ImageLoader)),
+                    DependencyBox(default, listOf(Metro, KotlinInject, Koin, Kodein), "DI"),
+                    DependencyBox(default, listOf(Coil, Sketch, ImageLoader), "image loading"),
                     DependencyBox(default, MultiplatformSettings),
                     DependencyBox(default, KotlinxDateTime),
-                    DependencyBox(default, listOf(RoomPlugin, SQLDelightPlugin)),
+                    DependencyBox(default, listOf(RoomPlugin, SQLDelightPlugin), "database"),
                     DependencyBox(default, ApolloPlugin),
                     DependencyBox(default, KStore),
-                    DependencyBox(default, listOf(BuildConfigPlugin, BuildKonfigPlugin)),
+                    DependencyBox(default, listOf(BuildConfigPlugin, BuildKonfigPlugin), "build config"),
                     DependencyBox(default, MaterialKolor),
                 )
 

@@ -2,6 +2,7 @@ package ui
 
 import mui.icons.material.*
 import mui.material.*
+import mui.material.styles.Color
 import mui.material.styles.TypographyVariant
 import mui.system.responsive
 import mui.system.sx
@@ -15,6 +16,7 @@ import web.cssom.JustifyContent
 import web.cssom.Position
 import web.cssom.px
 import web.cssom.unaryMinus
+import web.html.ButtonType
 import web.window.window
 
 external interface DependencyCardProps : Props {
@@ -89,6 +91,8 @@ val DependencyCard = FC<DependencyCardProps> { props ->
                                     minWidth = 20.px
                                 }
                                 size = Size.small
+                                color = ButtonColor.success
+                                variant = ButtonVariant.outlined
                                 onClick = {
                                     it.stopPropagation()
                                     isDialogOpen = !isDialogOpen
@@ -101,7 +105,7 @@ val DependencyCard = FC<DependencyCardProps> { props ->
                                         isDialogOpen = !isDialogOpen
                                     }
                                 }
-                                +"other"
+                                +"other ${props.dependency.dependencyKind}"
                             }
                         }
                         Button {

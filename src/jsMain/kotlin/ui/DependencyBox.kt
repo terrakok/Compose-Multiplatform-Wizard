@@ -7,7 +7,8 @@ import wizard.ProjectInfo
 
 class DependencyBox(
     default: ProjectInfo,
-    val dependencies: List<Dependency>
+    val dependencies: List<Dependency>,
+    val dependencyKind: String = ""
 ) {
     constructor(default: ProjectInfo, dependency: Dependency) : this(default, listOf(dependency))
 
