@@ -156,14 +156,14 @@ class GeneratedKmpLibraryProjectTest {
                     "plugins {",
                     """
                         plugins {
-                            id("com.github.ben-manes.versions").version("0.54.0")
+                            id("io.github.ben-manes.versions").version("0.60.0")
                     """.trimIndent()
                 )
             )
         }
         checkCommand(
             dir = dir,
-            command = listOf("${dir.path}/gradlew", "dependencyUpdates", "--no-parallel")
+            command = listOf("${dir.path}/gradlew", "dependencyUpdates")
         )
     }
 
