@@ -9,7 +9,7 @@ Kotlin Multiplatform Library
  - iOS: `open 'sample/iosApp/iosApp.xcodeproj' in Xcode and run the sample app`
  - JavaScript: `./gradlew :sample:composeApp:jsBrowserDevelopmentRun`
  - Wasm: `./gradlew :sample:composeApp:wasmJsBrowserDevelopmentRun`
- - Linux/Macos/Windows native: `./gradlew :sample:terminalApp:runDebugExecutable[architecture]`
+ - Linux/macOS/Windows native: `./gradlew :sample:terminalApp:runDebugExecutable[architecture]`
 
 ### Publish to MavenLocal
 
@@ -20,7 +20,7 @@ Kotlin Multiplatform Library
 
 1) Create an account and a namespace on Sonatype:  
    https://central.sonatype.org/register/central-portal/#create-an-account
-2) Add developer id, name, email and the project url to  
+2) Add the developer ID, name, email, and project URL to  
    `./shared/build.gradle.kts`
 3) Generate a GPG key:  
    https://getstream.io/blog/publishing-libraries-to-mavencentral-2021/#generating-a-gpg-key-pair

@@ -31,7 +31,7 @@ class Readme(info: ProjectInfo) : ProjectFile {
                 appendLine(" - Wasm: `./gradlew :sample:composeApp:wasmJsBrowserDevelopmentRun`")
             }
             if (info.platforms.any { it in ProjectPlatform.binaryPlatforms }) {
-                appendLine(" - Linux/Macos/Windows native: `./gradlew :sample:terminalApp:runDebugExecutable[architecture]`")
+                appendLine(" - Linux/macOS/Windows native: `./gradlew :sample:terminalApp:runDebugExecutable[architecture]`")
             }
             appendLine("")
         }
@@ -44,7 +44,7 @@ class Readme(info: ProjectInfo) : ProjectFile {
         appendLine("")
         appendLine("1) Create an account and a namespace on Sonatype:  ")
         appendLine("   https://central.sonatype.org/register/central-portal/#create-an-account")
-        appendLine("2) Add developer id, name, email and the project url to  ")
+        appendLine("2) Add the developer ID, name, email, and project URL to  ")
         appendLine("   `./${info.moduleName}/build.gradle.kts`")
         appendLine("3) Generate a GPG key:  ")
         appendLine("   https://getstream.io/blog/publishing-libraries-to-mavencentral-2021/#generating-a-gpg-key-pair")
