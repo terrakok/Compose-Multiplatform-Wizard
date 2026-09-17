@@ -20,7 +20,7 @@ class ComposeTestKt(info: ProjectInfo) : ProjectFile {
         import androidx.compose.ui.test.assertTextEquals
         import androidx.compose.ui.test.onNodeWithTag
         import androidx.compose.ui.test.performClick
-        import androidx.compose.ui.test.runComposeUiTest
+        import androidx.compose.ui.test.v2.runComposeUiTest
         import kotlin.test.Test
 
         @OptIn(ExperimentalTestApi::class)
