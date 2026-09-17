@@ -31,7 +31,7 @@ class Readme(info: ProjectInfo) : ProjectFile {
             appendLine("### iOS")
             appendLine("To run the application on an iPhone or simulator:  ")
             appendLine(" - Open `iosApp/iosApp.xcodeproj` in Xcode and run standard configuration  ")
-            appendLine(" - or use the [Kotlin Multiplatform Mobile plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile) for Android Studio  ")
+            appendLine(" - or use the [Kotlin Multiplatform plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) for IDEA  ")
             appendLine("")
         }
 

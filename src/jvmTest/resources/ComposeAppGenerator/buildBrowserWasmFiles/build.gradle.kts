@@ -4,7 +4,10 @@ plugins {
 }
 
 kotlin {
-    wasmJs { browser() }
+    wasmJs {
+        browser()
+        binaries.executable() // required for tests
+    }
 
     sourceSets {
         commonMain.dependencies {

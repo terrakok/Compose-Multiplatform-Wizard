@@ -61,10 +61,20 @@ class SharedBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("")
         }
         if (info.hasPlatform(ProjectPlatform.Js)) {
-            appendLine("    js { browser() }")
+            appendLine("    js {")
+            appendLine("        browser()")
+            if (info.addTests) {
+                appendLine("        binaries.executable() // required for tests")
+            }
+            appendLine("    }")
         }
         if (info.hasPlatform(ProjectPlatform.Wasm)) {
-            appendLine("    wasmJs { browser() }")
+            appendLine("    wasmJs {")
+            appendLine("        browser()")
+            if (info.addTests) {
+                appendLine("        binaries.executable() // required for tests")
+            }
+            appendLine("    }")
             appendLine("")
         }
         if (info.hasPlatform(ProjectPlatform.Ios)) {
