@@ -1,8 +1,8 @@
 plugins {
-    kotlin("multiplatform").version("2.4.10")
-    kotlin("plugin.serialization").version("2.4.10")
-    id("com.github.gmazzo.buildconfig").version("6.0.10")
-    id("io.github.ben-manes.versions").version("0.61.0")
+    kotlin("multiplatform").version("2.4.20")
+    kotlin("plugin.serialization").version("2.4.20")
+    id("com.github.gmazzo.buildconfig").version("6.1.0")
+    id("io.github.ben-manes.versions").version("0.64.0")
 }
 
 repositories {
