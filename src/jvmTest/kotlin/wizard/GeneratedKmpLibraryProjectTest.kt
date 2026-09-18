@@ -212,101 +212,101 @@ class GeneratedKmpLibraryProjectTest {
         assertEquals(
             """
                 {
-                  "schemaVersion": "1.1.0",
-                  "buildSystem": "Gradle",
-                  "buildSystemVersion": "${projectInfo.gradleVersion}",
-                  "buildPlugin": "org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper",
-                  "buildPluginVersion": "${KotlinMultiplatformPlugin.version}",
-                  "projectSettings": {
-                    "isHmppEnabled": true,
-                    "isCompatibilityMetadataVariantEnabled": false,
-                    "isKPMEnabled": false
-                  },
-                  "projectTargets": [
-                    {
-                      "target": "com.android.build.api.variant.impl.KotlinMultiplatformAndroidLibraryTargetImpl",
-                      "platformType": "androidJvm"
+                    "schemaVersion": "1.1.0",
+                    "buildSystem": "Gradle",
+                    "buildSystemVersion": "${projectInfo.gradleVersion}",
+                    "buildPlugin": "org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper",
+                    "buildPluginVersion": "${KotlinMultiplatformPlugin.version}",
+                    "projectSettings": {
+                        "isHmppEnabled": true,
+                        "isCompatibilityMetadataVariantEnabled": false,
+                        "isKPMEnabled": false
                     },
-                    {
-                      "target": "org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget",
-                      "platformType": "native",
-                      "extras": {
-                        "native": {
-                          "konanTarget": "ios_arm64",
-                          "konanVersion": "${KotlinMultiplatformPlugin.version}",
-                          "konanAbiVersion": "$konanAbiVersion"
+                    "projectTargets": [
+                        {
+                            "target": "com.android.build.api.variant.impl.KotlinMultiplatformAndroidLibraryTargetImpl",
+                            "platformType": "androidJvm"
+                        },
+                        {
+                            "target": "org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget",
+                            "platformType": "native",
+                            "extras": {
+                                "native": {
+                                    "konanTarget": "ios_arm64",
+                                    "konanVersion": "${KotlinMultiplatformPlugin.version}",
+                                    "konanAbiVersion": "$konanAbiVersion"
+                                }
+                            }
+                        },
+                        {
+                            "target": "org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithSimulatorTests",
+                            "platformType": "native",
+                            "extras": {
+                                "native": {
+                                    "konanTarget": "ios_simulator_arm64",
+                                    "konanVersion": "${KotlinMultiplatformPlugin.version}",
+                                    "konanAbiVersion": "$konanAbiVersion"
+                                }
+                            }
+                        },
+                        {
+                            "target": "org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrTarget",
+                            "platformType": "js",
+                            "extras": {
+                                "js": {
+                                    "isBrowserConfigured": true,
+                                    "isNodejsConfigured": false
+                                }
+                            }
+                        },
+                        {
+                            "target": "org.jetbrains.kotlin.gradle.targets.jvm.KotlinJvmTarget",
+                            "platformType": "jvm",
+                            "extras": {
+                                "jvm": {
+                                    "jvmTarget": "17",
+                                    "withJavaEnabled": false
+                                }
+                            }
+                        },
+                        {
+                            "target": "org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithHostTests",
+                            "platformType": "native",
+                            "extras": {
+                                "native": {
+                                    "konanTarget": "linux_x64",
+                                    "konanVersion": "${KotlinMultiplatformPlugin.version}",
+                                    "konanAbiVersion": "$konanAbiVersion"
+                                }
+                            }
+                        },
+                        {
+                            "target": "org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithHostTests",
+                            "platformType": "native",
+                            "extras": {
+                                "native": {
+                                    "konanTarget": "macos_arm64",
+                                    "konanVersion": "${KotlinMultiplatformPlugin.version}",
+                                    "konanAbiVersion": "$konanAbiVersion"
+                                }
+                            }
+                        },
+                        {
+                            "target": "org.jetbrains.kotlin.gradle.plugin.mpp.KotlinMetadataTarget",
+                            "platformType": "common"
+                        },
+                        {
+                            "target": "org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithHostTests",
+                            "platformType": "native",
+                            "extras": {
+                                "native": {
+                                    "konanTarget": "mingw_x64",
+                                    "konanVersion": "${KotlinMultiplatformPlugin.version}",
+                                    "konanAbiVersion": "$konanAbiVersion"
+                                }
+                            }
                         }
-                      }
-                    },
-                    {
-                      "target": "org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithSimulatorTests",
-                      "platformType": "native",
-                      "extras": {
-                        "native": {
-                          "konanTarget": "ios_simulator_arm64",
-                          "konanVersion": "${KotlinMultiplatformPlugin.version}",
-                          "konanAbiVersion": "$konanAbiVersion"
-                        }
-                      }
-                    },
-                    {
-                      "target": "org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrTarget",
-                      "platformType": "js",
-                      "extras": {
-                        "js": {
-                          "isBrowserConfigured": true,
-                          "isNodejsConfigured": false
-                        }
-                      }
-                    },
-                    {
-                      "target": "org.jetbrains.kotlin.gradle.targets.jvm.KotlinJvmTarget",
-                      "platformType": "jvm",
-                      "extras": {
-                        "jvm": {
-                          "jvmTarget": "17",
-                          "withJavaEnabled": false
-                        }
-                      }
-                    },
-                    {
-                      "target": "org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithHostTests",
-                      "platformType": "native",
-                      "extras": {
-                        "native": {
-                          "konanTarget": "linux_x64",
-                          "konanVersion": "${KotlinMultiplatformPlugin.version}",
-                          "konanAbiVersion": "$konanAbiVersion"
-                        }
-                      }
-                    },
-                    {
-                      "target": "org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithHostTests",
-                      "platformType": "native",
-                      "extras": {
-                        "native": {
-                          "konanTarget": "macos_arm64",
-                          "konanVersion": "${KotlinMultiplatformPlugin.version}",
-                          "konanAbiVersion": "$konanAbiVersion"
-                        }
-                      }
-                    },
-                    {
-                      "target": "org.jetbrains.kotlin.gradle.plugin.mpp.KotlinMetadataTarget",
-                      "platformType": "common"
-                    },
-                    {
-                      "target": "org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithHostTests",
-                      "platformType": "native",
-                      "extras": {
-                        "native": {
-                          "konanTarget": "mingw_x64",
-                          "konanVersion": "${KotlinMultiplatformPlugin.version}",
-                          "konanAbiVersion": "$konanAbiVersion"
-                        }
-                      }
-                    }
-                  ]
+                    ]
                 }
             """.trimIndent(),
             metadata
