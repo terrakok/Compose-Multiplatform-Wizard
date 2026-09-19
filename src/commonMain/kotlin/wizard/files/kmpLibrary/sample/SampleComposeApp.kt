@@ -37,10 +37,16 @@ class SampleSharedUIBuildGradleKts(info: ProjectInfo) : ProjectFile {
             appendLine("    }")
         }
         if (info.hasPlatform(ProjectPlatform.Js)) {
-            appendLine("    js { browser() }")
+            appendLine("    js {")
+            appendLine("        browser()")
+            appendLine("        binaries.executable()")
+            appendLine("    }")
         }
         if (info.hasPlatform(ProjectPlatform.Wasm)) {
-            appendLine("    wasmJs { browser() }")
+            appendLine("    wasmJs {")
+            appendLine("        browser()")
+            appendLine("        binaries.executable()")
+            appendLine("    }")
         }
         if (info.hasPlatform(ProjectPlatform.Ios)) {
             appendLine("    iosArm64()")
