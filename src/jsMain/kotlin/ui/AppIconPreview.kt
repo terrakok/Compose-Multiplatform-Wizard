@@ -408,7 +408,7 @@ private val ColorCircle = FC<ColorCircleProps> { props ->
             type = InputType.color
             value = props.color
             onChange = { event ->
-                props.onColorChange((event.target as HTMLInputElement).value)
+                props.onColorChange(event.target.value)
             }
             css {
                 flexShrink = number(0.0)
