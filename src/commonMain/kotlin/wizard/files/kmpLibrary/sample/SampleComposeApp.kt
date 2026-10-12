@@ -16,7 +16,9 @@ class SampleSharedUIBuildGradleKts(info: ProjectInfo) : ProjectFile {
         }
         appendLine("plugins {")
         appendLine("    alias(libs.plugins.kotlin.multiplatform)")
-        appendLine("    alias(libs.plugins.android.kmp.library)")
+        if (info.hasPlatform(ProjectPlatform.Android)) {
+            appendLine("    alias(libs.plugins.android.kmp.library)")
+        }
         appendLine("    alias(libs.plugins.compose.multiplatform)")
         appendLine("    alias(libs.plugins.compose.compiler)")
         appendLine("}")

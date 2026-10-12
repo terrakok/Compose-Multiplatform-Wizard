@@ -133,6 +133,33 @@ class GeneratorTest {
     }
 
     @Test
+    fun buildWebSampleWithoutAndroid() {
+        val info = DefaultKmpLibraryInfo().copy(
+            packageId = "org.web.library",
+            name = "Web library",
+            moduleName = "webLibrary",
+            platforms = setOf(Js, Wasm),
+            addSampleApp = true,
+            addTests = false,
+            dependencies = setOf(KotlinMultiplatformPlugin, MavenPublishPlugin)
+        )
+        val files = info.generateKmpLibraryFiles()
+
+        assertEquals(
+            readResourceFileText("buildWebSampleWithoutAndroid/files.txt"),
+            files.joinToString("\n") { it.path }
+        )
+        assertEquals(
+            readResourceFileText("buildWebSampleWithoutAndroid/build.gradle.kts"),
+            files.first { it is ModuleBuildGradleKts }.content
+        )
+        assertEquals(
+            readResourceFileText("buildWebSampleWithoutAndroid/sample.gradle.kts"),
+            files.first { it is SampleSharedUIBuildGradleKts }.content
+        )
+    }
+
+    @Test
     fun buildReadmeWithoutSampleApp() {
         val info = DefaultKmpLibraryInfo().copy(
             addSampleApp = false

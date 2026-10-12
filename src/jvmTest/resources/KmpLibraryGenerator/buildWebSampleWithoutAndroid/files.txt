@@ -1,0 +1,17 @@
+.gitignore
+README.MD
+gradlew.bat
+gradlew
+gradle/wrapper/gradle-wrapper.properties
+gradle/wrapper/gradle-wrapper.jar
+gradle/libs.versions.toml
+gradle.properties
+build.gradle.kts
+settings.gradle.kts
+webLibrary/build.gradle.kts
+webLibrary/src/commonMain/kotlin/org/web/library/Fibonacci.kt
+sample/sharedUI/build.gradle.kts
+sample/sharedUI/src/commonMain/kotlin/sample/app/App.kt
+sample/webApp/build.gradle.kts
+sample/webApp/src/commonMain/kotlin/main.kt
+sample/webApp/src/commonMain/resources/index.html
