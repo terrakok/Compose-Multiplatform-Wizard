@@ -297,7 +297,7 @@ class GeneratedComposeAppProjectTest {
                     "plugins {",
                     """
                         plugins {
-                            id("io.github.ben-manes.versions").version("0.64.0")
+                            id("io.github.ben-manes.versions").version("0.66.0")
                     """.trimIndent()
                 ) + """
                     |
