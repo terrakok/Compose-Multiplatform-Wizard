@@ -240,7 +240,7 @@ class GeneratedComposeAppProjectTest {
             .filter { it.getBoolean("isAvailable") }
             .filter {
                 if (System.getenv("CI").toBoolean()) {
-                    listOf("iphone 15", "iphone 14").any { device ->
+                    listOf("iphone 1").any { device ->
                         it.getString("name").contains(device, true)
                     }
                 } else {
